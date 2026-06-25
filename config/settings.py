@@ -104,8 +104,8 @@ ENABLE_FALSE_PREMISE_RETRY = get_env_bool("ENABLE_FALSE_PREMISE_RETRY", True)
 
 # Ollama settings
 LLM_MODEL_NAME = get_env_string("OLLAMA_MODEL", "qwen2.5:3b")
-LLM_TEMPERATURE = get_env_float("OLLAMA_TEMPERATURE", 0.1)
+LLM_TEMPERATURE = get_env_float("OLLAMA_TEMPERATURE", 0.2)
 LLM_NUM_CTX = get_env_int("OLLAMA_NUM_CTX", 4096)
 LLM_NUM_PREDICT = get_env_int("OLLAMA_NUM_PREDICT", 512)
-LLM_TOP_P = get_env_float("OLLAMA_TOP_P", 0.9)
+LLM_TOP_P = get_env_float("OLLAMA_TOP_P", 0.85)
 LLM_REPEAT_PENALTY = get_env_float("OLLAMA_REPEAT_PENALTY", 1.1)

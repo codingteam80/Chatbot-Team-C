@@ -22,7 +22,10 @@ from utils.chunk_cache import load_or_create_chunks
 from retrieval.context_filter import (
     expand_neighbor_chunks,
     filter_low_quality_docs,
+    has_document_evidence,
+    has_searchable_question_terms,
     limit_context_docs,
+    needs_strict_assumption_check,
 )
 from retrieval.hybrid_retriever import hybrid_search
 from retrieval.reranker import load_reranker, rerank_documents
@@ -37,18 +40,6 @@ from chains.rag_chain import (
 
 from memory.question_rewriter import rewrite_question
 from suggestions.suggestion_generator import generate_suggestions
-
-
-ASSUMPTION_CHECK_STARTERS = (
-    "why ",
-    "how ",
-    "why did ",
-    "how did ",
-    "why was ",
-    "why is ",
-    "bakit ",
-    "paano ",
-)
 
 
 def build_response(answer, sources=None, documents=None, suggestions=None):
@@ -67,12 +58,6 @@ def is_no_answer(answer):
         return False
 
     return NO_ANSWER_TEXT.lower() in str(answer).lower()
-
-
-def needs_strict_assumption_check(question):
-    # Mas strict sa why/how/bakit/paano dahil madalas may hidden false premise.
-    normalized = " ".join(str(question or "").lower().split())
-    return any(normalized.startswith(starter) for starter in ASSUMPTION_CHECK_STARTERS)
 
 
 def safe_generate_suggestions(question, answer, llm):
@@ -184,7 +169,7 @@ def retrieve_documents(
 
 
 def maybe_retry_false_premise(question, answer, final_docs, llm, chat_history="", debug=False):
-    # Second chance kapag why/how question pero nag-fallback kahit may docs.
+    # Second chance kapag strict question pero nag-fallback kahit may docs.
     if not ENABLE_FALSE_PREMISE_RETRY:
         return answer
 
@@ -226,6 +211,10 @@ def ask_rag(
     if not question:
         return build_response(answer="No question entered.")
 
+    # Fast guard bago retrieval para hindi gumastos kapag walang searchable term.
+    if not chat_history and not has_searchable_question_terms(question):
+        return build_response(answer=NO_ANSWER_TEXT)
+
     retrieval_query = safe_rewrite_question(
         question=question,
         chat_history=chat_history,
@@ -242,6 +231,16 @@ def ask_rag(
     )
 
     if not final_docs:
+        return build_response(answer=NO_ANSWER_TEXT)
+
+    # Evidence guard pagkatapos retrieval pero bago LLM.
+    # Dito binablock ang partial match gaya ng sahod + araw ng kalayaan.
+    if not has_document_evidence(
+        question=question,
+        retrieval_query=retrieval_query,
+        docs=final_docs,
+        debug=debug,
+    ):
         return build_response(answer=NO_ANSWER_TEXT)
 
     strict_check = needs_strict_assumption_check(question)
@@ -268,12 +267,13 @@ def ask_rag(
 
     if is_no_answer(answer):
         sources = []
-
-    suggestions = safe_generate_suggestions(
-        question=question,
-        answer=answer,
-        llm=llm,
-    )
+        suggestions = []
+    else:
+        suggestions = safe_generate_suggestions(
+            question=question,
+            answer=answer,
+            llm=llm,
+        )
 
     return build_response(
         answer=answer,
@@ -300,6 +300,11 @@ def ask_rag_stream(
         yield {"type": "done", **build_response(answer="No question entered.")}
         return
 
+    # Fast guard bago retrieval para hindi gumastos kapag walang searchable term.
+    if not chat_history and not has_searchable_question_terms(question):
+        yield {"type": "done", **build_response(answer=NO_ANSWER_TEXT)}
+        return
+
     retrieval_query = safe_rewrite_question(
         question=question,
         chat_history=chat_history,
@@ -316,6 +321,17 @@ def ask_rag_stream(
     )
 
     if not final_docs:
+        yield {"type": "done", **build_response(answer=NO_ANSWER_TEXT)}
+        return
+
+    # Evidence guard pagkatapos retrieval pero bago LLM.
+    # Kapag kulang ang support sa final docs, fallback agad at walang source.
+    if not has_document_evidence(
+        question=question,
+        retrieval_query=retrieval_query,
+        docs=final_docs,
+        debug=debug,
+    ):
         yield {"type": "done", **build_response(answer=NO_ANSWER_TEXT)}
         return
 
@@ -342,12 +358,13 @@ def ask_rag_stream(
 
     if is_no_answer(final_answer):
         sources = []
-
-    suggestions = safe_generate_suggestions(
-        question=question,
-        answer=final_answer,
-        llm=llm,
-    )
+        suggestions = []
+    else:
+        suggestions = safe_generate_suggestions(
+            question=question,
+            answer=final_answer,
+            llm=llm,
+        )
 
     yield {
         "type": "done",

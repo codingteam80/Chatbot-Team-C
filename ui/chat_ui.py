@@ -1,7 +1,6 @@
 #Main Streamlit chat UI for InknowVa.
 
 from pathlib import Path
-import re
 
 import streamlit as st
 
@@ -45,62 +44,6 @@ ACTIVE_CONVERSATION_KEY = "active_conversation_id"
 def is_no_answer(answer):
     # Check if the model returned the configured fallback answer.
     return str(answer or "").strip().lower() == str(NO_ANSWER_TEXT).strip().lower()
-
-
-def is_basic_math_question(question):
-    # Block short standalone arithmetic prompts from using document retrieval.
-    # This chatbot should answer only from internal documents.
-    text = str(question or "").strip().lower()
-
-    if not text or len(text) > 120:
-        return False
-
-    document_words = {
-        "document", "documents", "doc", "docs", "source", "sources",
-        "manual", "policy", "procedure", "sop", "rule", "rules",
-        "requirement", "requirements", "guideline", "guidelines",
-        "file", "files", "context", "kb", "knowledge", "internal",
-    }
-
-    if any(word in text for word in document_words):
-        return False
-
-    compact = re.sub(r"\s+", "", text)
-
-    if re.fullmatch(r"[0-9+\-*/().=]+", compact):
-        return any(operator in compact for operator in ["+", "-", "*", "/", "="])
-
-    number_words = {
-        "zero", "one", "two", "three", "four", "five",
-        "six", "seven", "eight", "nine", "ten",
-    }
-    math_words = {
-        "plus", "minus", "add", "adding", "sum", "total",
-        "subtract", "difference", "times", "multiply", "multiplied",
-        "divide", "divided", "equals", "equal", "result",
-        "calculate", "compute",
-    }
-    helper_words = {
-        "what", "is", "the", "of", "to", "a", "an", "and",
-        "?", "=", "+", "-", "*", "/",
-    }
-
-    tokens = re.findall(r"[a-z]+|[0-9]+|[+\-*/=]", text)
-
-    if not tokens:
-        return False
-
-    has_number = any(token.isdigit() or token in number_words for token in tokens)
-    has_operator = any(token in math_words or token in {"+", "-", "*", "/", "="} for token in tokens)
-    mostly_math = all(
-        token.isdigit()
-        or token in number_words
-        or token in math_words
-        or token in helper_words
-        for token in tokens
-    )
-
-    return has_number and has_operator and mostly_math
 
 
 def get_page_icon():
@@ -591,23 +534,16 @@ def handle_regenerate_answer(components, history_slot, browser_id):
         # The old assistant response was already removed, so only the answer area regenerates.
         display_chat_history_without_controls(st.session_state.messages)
 
-        if is_basic_math_question(question):
-            answer = NO_ANSWER_TEXT
+        answer, sources, suggestions, created_at = stream_assistant_answer(
+            question=question,
+            components=components,
+            conversation_history=get_current_history(),
+        )
+
+        if is_no_answer(answer):
             sources = []
             suggestions = []
-            created_at = get_now_text()
-            display_assistant_bubble(answer, timestamp=created_at)
-        else:
-            answer, sources, suggestions, created_at = stream_assistant_answer(
-                question=question,
-                components=components,
-                conversation_history=get_current_history(),
-            )
-
-            if is_no_answer(answer):
-                sources = []
-                suggestions = []
-                set_latest_sources([])
+            set_latest_sources([])
 
     st.session_state.messages.insert(index, {
         "role": "assistant",
@@ -685,23 +621,16 @@ def handle_new_query(query, components, browser_id):
     user_created_at = append_user_message(query)
     display_user_bubble(query, timestamp=user_created_at)
 
-    if is_basic_math_question(query):
-        answer = NO_ANSWER_TEXT
+    answer, sources, suggestions, assistant_created_at = stream_assistant_answer(
+        question=query,
+        components=components,
+        conversation_history=conversation_history,
+    )
+
+    if is_no_answer(answer):
         sources = []
         suggestions = []
-        assistant_created_at = get_now_text()
-        display_assistant_bubble(answer, timestamp=assistant_created_at)
-    else:
-        answer, sources, suggestions, assistant_created_at = stream_assistant_answer(
-            question=query,
-            components=components,
-            conversation_history=conversation_history,
-        )
-
-        if is_no_answer(answer):
-            sources = []
-            suggestions = []
-            set_latest_sources([])
+        set_latest_sources([])
 
     append_assistant_message(
         answer=answer,
