@@ -2,13 +2,10 @@ from config.settings import (
     BM25_K,
     DATA_PATH,
     ENABLE_FALSE_PREMISE_RETRY,
-    ENABLE_MULTI_QUERY_RETRIEVAL,
     ENABLE_NEIGHBOR_EXPANSION,
     ENABLE_QUESTION_REWRITE,
     HYBRID_FINAL_K,
-    MAX_CANDIDATES_BEFORE_RERANK,
     MAX_CONTEXT_CHARS,
-    MAX_RETRIEVAL_QUERIES,
     MIN_QUALITY_SCORE,
     NEIGHBOR_WINDOW,
     NO_ANSWER_TEXT,
@@ -16,18 +13,6 @@ from config.settings import (
     SEMANTIC_K,
     SOURCE_TOP_N,
 )
-
-# Optional balancer settings para hindi mag-error kung hindi pa updated ang settings.py.
-try:
-    from config.settings import (
-        BALANCED_RERANK_TOP_N,
-        CANDIDATE_MAX_PER_SOURCE,
-        ENABLE_CANDIDATE_BALANCING,
-    )
-except ImportError:
-    ENABLE_CANDIDATE_BALANCING = True
-    CANDIDATE_MAX_PER_SOURCE = 2
-    BALANCED_RERANK_TOP_N = 8
 from embeddings.embedding_model import get_embedding_model
 from vectorstore.chroma_store import load_chroma_vectorstore
 
@@ -43,14 +28,6 @@ from retrieval.context_filter import (
     needs_strict_assumption_check,
 )
 from retrieval.hybrid_retriever import hybrid_search
-from retrieval.candidate_balancer import (
-    balance_candidates,
-    balance_reranked_documents,
-)
-from retrieval.retrieval_query_builder import (
-    build_retrieval_queries,
-    combine_retrieval_queries,
-)
 from retrieval.reranker import load_reranker, rerank_documents
 
 from llm.ollama_llm import load_llm
@@ -146,76 +123,32 @@ def retrieve_documents(
     bm25_retriever,
     reranker,
     all_chunks=None,
-    answer_query=None,
     debug=False,
 ):
-    # Hybrid retrieval per query -> merge/deduplicate -> rerank once -> filter -> optional expand -> limit context.
-    # retrieval_query can be a string or a list of strings.
-    if isinstance(retrieval_query, str):
-        retrieval_queries = [retrieval_query]
-    else:
-        retrieval_queries = list(retrieval_query or [])
-
-    retrieval_queries = [str(query).strip() for query in retrieval_queries if str(query).strip()]
-
-    if not retrieval_queries:
-        return []
-
-    hybrid_doc_groups = []
-
-    for query in retrieval_queries:
-        # Run semantic + BM25 hybrid search for each retrieval query.
-        hybrid_docs = hybrid_search(
-            query=query,
-            vectorstore=vectorstore,
-            bm25_retriever=bm25_retriever,
-            semantic_k=SEMANTIC_K,
-            bm25_k=BM25_K,
-            final_k=HYBRID_FINAL_K,
-            use_rrf=True,
-        )
-
-        hybrid_doc_groups.append(hybrid_docs)
-
-        if debug:
-            print(f"Hybrid candidates for query [{query}]: {len(hybrid_docs)}")
-
-    # Balance candidates bago rerank para hindi ma-dominate ng isang source/file.
-    candidate_docs = balance_candidates(
-        document_groups=hybrid_doc_groups,
-        max_docs=MAX_CANDIDATES_BEFORE_RERANK,
-        max_per_source=CANDIDATE_MAX_PER_SOURCE,
-        enabled=ENABLE_CANDIDATE_BALANCING,
+    # Hybrid retrieval -> rerank -> filter -> optional expand -> limit context.
+    hybrid_docs = hybrid_search(
+        query=retrieval_query,
+        vectorstore=vectorstore,
+        bm25_retriever=bm25_retriever,
+        semantic_k=SEMANTIC_K,
+        bm25_k=BM25_K,
+        final_k=HYBRID_FINAL_K,
+        use_rrf=True,
     )
 
     if debug:
-        print(f"Balanced candidates before rerank: {len(candidate_docs)}")
-
-    # Rerank once only para hindi sobrang bumagal kahit multiple retrieval queries.
-    # Kapag balancer is enabled, rerank a slightly larger pool then balance down to final top N.
-    rerank_query = str(answer_query or retrieval_queries[0]).strip()
-    rerank_top_n = RERANK_TOP_N
-
-    if ENABLE_CANDIDATE_BALANCING:
-        rerank_top_n = max(RERANK_TOP_N, BALANCED_RERANK_TOP_N)
+        print(f"Hybrid candidates: {len(hybrid_docs)}")
 
     reranked_docs = rerank_documents(
-        query=rerank_query,
-        documents=candidate_docs,
+        query=retrieval_query,
+        documents=hybrid_docs,
         reranker=reranker,
-        top_n=rerank_top_n,
+        top_n=RERANK_TOP_N,
         show_scores=debug,
     )
 
-    balanced_reranked_docs = balance_reranked_documents(
-        docs=reranked_docs,
-        max_docs=RERANK_TOP_N,
-        max_per_source=CANDIDATE_MAX_PER_SOURCE,
-        enabled=ENABLE_CANDIDATE_BALANCING,
-    )
-
     clean_docs = filter_low_quality_docs(
-        balanced_reranked_docs,
+        reranked_docs,
         min_score=MIN_QUALITY_SCORE,
     )
 
@@ -282,28 +215,18 @@ def ask_rag(
     if not chat_history and not has_searchable_question_terms(question):
         return build_response(answer=NO_ANSWER_TEXT)
 
-    rewritten_question = safe_rewrite_question(
+    retrieval_query = safe_rewrite_question(
         question=question,
         chat_history=chat_history,
         llm=llm,
     )
 
-    retrieval_queries = build_retrieval_queries(
-        question=question,
-        rewritten_question=rewritten_question,
-        enabled=ENABLE_MULTI_QUERY_RETRIEVAL,
-        max_queries=MAX_RETRIEVAL_QUERIES,
-    )
-
-    retrieval_query_text = combine_retrieval_queries(retrieval_queries)
-
     final_docs = retrieve_documents(
-        retrieval_query=retrieval_queries,
+        retrieval_query=retrieval_query,
         vectorstore=vectorstore,
         bm25_retriever=bm25_retriever,
         reranker=reranker,
         all_chunks=all_chunks,
-        answer_query=question,
         debug=debug,
     )
 
@@ -314,7 +237,7 @@ def ask_rag(
     # Dito binablock ang partial match gaya ng sahod + araw ng kalayaan.
     if not has_document_evidence(
         question=question,
-        retrieval_query=retrieval_query_text,
+        retrieval_query=retrieval_query,
         docs=final_docs,
         debug=debug,
     ):
@@ -382,28 +305,18 @@ def ask_rag_stream(
         yield {"type": "done", **build_response(answer=NO_ANSWER_TEXT)}
         return
 
-    rewritten_question = safe_rewrite_question(
+    retrieval_query = safe_rewrite_question(
         question=question,
         chat_history=chat_history,
         llm=llm,
     )
 
-    retrieval_queries = build_retrieval_queries(
-        question=question,
-        rewritten_question=rewritten_question,
-        enabled=ENABLE_MULTI_QUERY_RETRIEVAL,
-        max_queries=MAX_RETRIEVAL_QUERIES,
-    )
-
-    retrieval_query_text = combine_retrieval_queries(retrieval_queries)
-
     final_docs = retrieve_documents(
-        retrieval_query=retrieval_queries,
+        retrieval_query=retrieval_query,
         vectorstore=vectorstore,
         bm25_retriever=bm25_retriever,
         reranker=reranker,
         all_chunks=all_chunks,
-        answer_query=question,
         debug=debug,
     )
 
@@ -415,7 +328,7 @@ def ask_rag_stream(
     # Kapag kulang ang support sa final docs, fallback agad at walang source.
     if not has_document_evidence(
         question=question,
-        retrieval_query=retrieval_query_text,
+        retrieval_query=retrieval_query,
         docs=final_docs,
         debug=debug,
     ):

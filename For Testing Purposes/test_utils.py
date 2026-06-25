@@ -156,7 +156,7 @@ def clean_preview(text, limit=500):
 
 
 def normalize_source_name(source):
-    # Normalize source/file name para mag-match kahit may path, accent, o file extension difference.
+    # Normalize source/file name para mag-match kahit may path o accent.
     text = str(source or "").replace("\\", "/").strip()
 
     if not text:

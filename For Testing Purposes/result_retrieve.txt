@@ -1,27 +1,11 @@
 ================================================================================
 FINAL RETRIEVAL TEST REPORT
 ================================================================================
-Total tests : 16
-Passed      : 15
-Failed      : 1
-Score       : 93.75%
-Total time  : 2 min 31.84 sec
-
-================================================================================
-SCORE BREAKDOWN
-================================================================================
-BASELINE                    : 10/10 passed | 0 failed | 100.00%
-STRESS                      : 5/6 passed | 1 failed | 83.33%
-
-TYPE SCORES:
-cross_doc                   : 1/2 passed | 1 failed | 50.00%
-direct                      : 2/2 passed | 0 failed | 100.00%
-false_premise               : 2/2 passed | 0 failed | 100.00%
-keyword_heavy               : 2/2 passed | 0 failed | 100.00%
-negative                    : 2/2 passed | 0 failed | 100.00%
-paraphrased                 : 2/2 passed | 0 failed | 100.00%
-similar_topic               : 2/2 passed | 0 failed | 100.00%
-tagalog_english_docs        : 2/2 passed | 0 failed | 100.00%
+Total tests : 8
+Passed      : 8
+Failed      : 0
+Score       : 100.00%
+Total time  : 55.15 sec
 
 ================================================================================
 DATA COUNTS
@@ -33,61 +17,43 @@ Chunks loaded     : 1228
 ================================================================================
 SETTINGS
 ================================================================================
-Semantic K       : 9
-BM25 K           : 9
-Hybrid final K   : 11
-Rerank top N     : 4
-Multi-query      : True
-Max queries      : 3
-Max pre-rerank   : 15
-Candidate balance: True
-Max per source   : 2
-Rerank pool top N: 8
+Semantic K       : 6
+BM25 K           : 6
+Hybrid final K   : 8
+Rerank top N     : 3
 Min quality score: 0.45
 Max context chars: 6000
 
 ================================================================================
 SETUP TIMINGS
 ================================================================================
-- Load embedding model       6.88 sec (71.0%)
-- Load Chroma vectorstore    0.45 sec (4.7%)
-- Load chunk cache           0.05 sec (0.5%)
-- Load BM25 cache            0.06 sec (0.7%)
-- Load reranker              2.24 sec (23.1%)
-Setup bottleneck: Load embedding model - 6.88 sec
+- Load embedding model       7.01 sec (70.5%)
+- Load Chroma vectorstore    0.50 sec (5.1%)
+- Load chunk cache           0.02 sec (0.2%)
+- Load BM25 cache            0.07 sec (0.7%)
+- Load reranker              2.33 sec (23.5%)
+Setup bottleneck: Load embedding model - 7.01 sec
 
 ================================================================================
-FAILED TESTS BY GROUP
-================================================================================
-
-STRESS FAILED TESTS:
-- X01 | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War? | source_ok=False | keyword_ok=True | top_rank=1
-
-================================================================================
-BASELINE DETAILED RESULTS
+DETAILED RESULTS
 ================================================================================
 
 --------------------------------------------------------------------------------
 D01 - PASS
 --------------------------------------------------------------------------------
-Group             : baseline
 Type              : direct
 Query             : Who was Apolinario Mabini and what role did he serve in the First Philippine Republic?
 Source OK         : True
 Keyword OK        : True
 Top source rank   : 1
-Matched sources   : ['Apolinario Mabini - Wikipedia.md', 'Apolinario Mabini - Wikipedia.pdf']
-Matched groups    : []
-Missing groups    : []
+Matched sources   : ['Apolinario Mabini - Wikipedia.md']
 Matched keywords  : ['Apolinario Mabini', 'legal and constitutional adviser', 'first Prime Minister', 'First Philippine Republic']
-Required keywords : 2
 Matched forbidden : []
-Retrieval queries : ['Who was Apolinario Mabini and what role did he serve in the First Philippine Republic?']
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 7.02 sec
-Bottleneck        : Rerank documents - 6.69 sec
+Hybrid candidates : 8
+Reranked docs     : 3
+Final context docs: 3
+Query time        : 5.50 sec
+Bottleneck        : Rerank documents - 5.19 sec
 Final context:
   Result 1
     Source       : data\Apolinario Mabini - Wikipedia.pdf
@@ -99,21 +65,13 @@ Final context:
     Preview      : Apolinario Mabini 1st Prime Minister of the Philippines In office January 23, 1899 – May 7, 1899 President Emilio Aguinaldo Preceded by Office established Succeeded by Pedro Paterno Secretary of Foreign Relations In office January 23, 1899 – May 7, 1899 President Emilio Aguinaldo Prime Minister Himself Preceded by Position established Succeeded by Felipe Buencamino Personal details Born Apolinario Mabini y Maranán July 23, 1864 Barrio Talaga, Tanauan, Batangas, Captaincy General of the Philippin...
   Result 2
     Source       : data\Apolinario Mabini - Wikipedia.pdf
-    Page         : 6
-    Chunk index  : 89
-    Hybrid score : 0.008695652173913044
-    Rerank score : 5.0801472663879395
-    Quality score: 0.9564102564102565
-    Preview      : Because of his role as advisor during the formation of the revolutionary government, and his contributions as statesman thereafter, Mabini is often referred to as the "Brains of the Revolution", a historical moniker he sometimes shares with Emilio Jacinto, who served in a similar capacity for the earlier revolutionary movement, the Katipunan. Mabini is also famous for having achieved all this despite having lost the use of his legs to polio just prior to the Philippine revolution. This has made...
+    Page         : 3
+    Chunk index  : 82
+    Hybrid score : 0.00923076923076923
+    Rerank score : 2.4947052001953125
+    Quality score: 0.9440104166666666
+    Preview      : "Ordenanzas de la Revolución". Aguinaldo was impressed by these works and by Mabini's role as a leading figure in La Liga Filipina, and made arrangements for Mabini to be brought from Los Baños to Kawit, Cavite. It took hundreds of men taking turns carrying his hammock to portage Mabini to Kawit. He continued to serve as the chief adviser for General Aguinaldo after the Philippine Declaration of Independence on June 12. He drafted decrees and edited the constitution for the First Philippine Repu...
   Result 3
-    Source       : data\Apolinario Mabini - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 75
-    Hybrid score : 0.008955223880597015
-    Rerank score : 4.479854106903076
-    Quality score: 0.9548387096774194
-    Preview      : considered as a national hero in the Philippines. Mabini's work and thoughts on the government shaped the Philippines' fight for independence over the next century. Two of his works, El Verdadero Decálogo (The True Decalogue, June 24, 1898) and Programa Constitucional de la República Filipina (The Constitutional Program of the Philippine Republic, 1898), became instrumental in the drafting of what would eventually be known as the Malolos Constitution. Mabini performed all his revolutionary and g...
-  Result 4
     Source       : data\Apolinario Mabini - Wikipedia.pdf
     Page         : 3
     Chunk index  : 8
@@ -125,24 +83,19 @@ Final context:
 --------------------------------------------------------------------------------
 D02 - PASS
 --------------------------------------------------------------------------------
-Group             : baseline
 Type              : direct
 Query             : Sino si Andres Bonifacio?
 Source OK         : True
 Keyword OK        : True
 Top source rank   : 1
-Matched sources   : ['Andrés Bonifacio - Wikipedia.md', 'Andrés Bonifacio - Wikipedia.pdf', 'Andres Bonifacio - Wikipedia.md', 'Andres Bonifacio - Wikipedia.pdf']
-Matched groups    : []
-Missing groups    : []
-Matched keywords  : ['Andrés Bonifacio', 'Andres Bonifacio', 'Filipino revolutionary leader', 'Father of the Philippine Revolution', 'Katipunan']
-Required keywords : 2
+Matched sources   : ['Andrés Bonifacio - Wikipedia.md', 'Andres Bonifacio - Wikipedia.md']
+Matched keywords  : ['Andrés Bonifacio', 'Andres Bonifacio', 'Filipino revolutionary leader', 'Father of the Philippine Revolution']
 Matched forbidden : []
-Retrieval queries : ['Sino si Andres Bonifacio?']
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 7.47 sec
-Bottleneck        : Rerank documents - 7.30 sec
+Hybrid candidates : 8
+Reranked docs     : 3
+Final context docs: 3
+Query time        : 5.85 sec
+Bottleneck        : Rerank documents - 5.69 sec
 Final context:
   Result 1
     Source       : data\Andrés Bonifacio - Wikipedia.pdf
@@ -153,22 +106,6 @@ Final context:
     Quality score: 0.9169117480200604
     Preview      : Andrés C. Bonifacio The only extant portrait photograph of Bonifacio, c. 1896. Unofficial President of the Sovereign Tagalog Nation President of the Philippines (unofficial) In office August 24, 1896 – March 22 or May 10, 1897 Preceded by Office established Succeeded by Office abolished Emilio Aguinaldo (as President of Tejeros Revolutionary Government) Supremo of Katipunan In office November 1895 – May 10, 1897 Preceded by Román Basa Succeeded by Organization defunct Personal details Born André...
   Result 2
-    Source       : data\Andrés Bonifacio - Wikipedia.pdf
-    Page         : 1
-    Chunk index  : 3
-    Hybrid score : 0.008823529411764706
-    Rerank score : -3.0969414710998535
-    Quality score: 0.9453125
-    Preview      : Died May 10, 1897 (aged 33) Maragondon, Cavite, Captaincy General of the Philippines Cause of death Execution Party La Liga Filipina Katipunan Spouses Mónica (died) Gregoria de Jesús (m. 1893) Children Andrés de Jesus Bonifacio, Jr. (1896) naming was not retroactively used during Spanish era Education Self-educated Signature Nickname(s) Maypagasa (The First President of the Republic of the Philippines ) Military service Allegiance Katipunan Tagalog Republic Katipunan (Magdiwang) Years of service...
-  Result 3
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 26
-    Chunk index  : 76
-    Hybrid score : 0.006557377049180328
-    Rerank score : -4.191121578216553
-    Quality score: 0.9162158596120861
-    Preview      : Sagmit, Rosario S.; Sagmit-Mendosa, Lourdes (2007). The Filipino Moving Onward 5 (2007 ed.). Santos, Epifanio de los (1918). "Andres Bonifacio". The Philippine Review. Rizal, J.; Retana, W.E. (1961). Horacio De la Costa (ed.). The Trial of Rizal: W.E. Retana's Transcription of the Official Spanish Documents ( Bernard, Miguel S. (1998). "The Trial of Rizal" ( 46 (1). Horacio de la Costa, S.J. Quezon City: Ateneo de Manila University Press: 46–72. requires |journal= (help); Unknown parameter |publ...
-  Result 4
     Source       : data\Katipunan - Wikipedia.pdf
     Page         : 26
     Chunk index  : 784
@@ -176,478 +113,37 @@ Final context:
     Rerank score : -4.191122055053711
     Quality score: 0.9162158596120861
     Preview      : Sagmit, Rosario S.; Sagmit-Mendosa, Lourdes (2007). The Filipino Moving Onward 5 (2007 ed.). Santos, Epifanio de los (1918). "Andres Bonifacio". The Philippine Review. Rizal, J.; Retana, W.E. (1961). Horacio De la Costa (ed.). The Trial of Rizal: W.E. Retana's Transcription of the Official Spanish Documents ( Bernard, Miguel S. (1998). "The Trial of Rizal" ( 46 (1). Horacio de la Costa, S.J. Quezon City: Ateneo de Manila University Press: 46–72. requires |journal= (help); Unknown parameter |publ...
-
---------------------------------------------------------------------------------
-K01 - PASS
---------------------------------------------------------------------------------
-Group             : baseline
-Type              : keyword_heavy
-Query             : Katipunan KKK July 7 1892 founders Deodato Arellano Andres Bonifacio Valentin Diaz Ladislao Diwa Jose Dizon Teodoro Plata purpose independence Spain
-Source OK         : True
-Keyword OK        : True
-Top source rank   : 1
-Matched sources   : ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']
-Matched groups    : []
-Missing groups    : []
-Matched keywords  : ['Katipunan', 'July 7, 1892', 'Deodato Arellano', 'Andrés Bonifacio', 'Valentin Diaz', 'Ladislao Diwa', 'Jose Dizon', 'Teodoro Plata']
-Required keywords : 3
-Matched forbidden : []
-Retrieval queries : ['Katipunan KKK July 7 1892 founders Deodato Arellano Andres Bonifacio Valentin Diaz Ladislao Diwa Jose Dizon Teodoro Plata purpose independence Spain']
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 6.18 sec
-Bottleneck        : Rerank documents - 5.92 sec
-Final context:
-  Result 1
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 708
-    Hybrid score : 0.009836065573770491
-    Rerank score : 6.459876537322998
-    Quality score: 0.9627329192546584
-    Preview      : Katipunan Supreme and Venerable Association of the Children of the Nation Kataastaasan Kagalanggalang Katipunan ng mga Anak ng Bayan Flag of the Katipunan Abbreviation KKK Nickname Katipunan Predecessor La Liga Filipina Successor Tejeros Government Formation July 7, 1892 Founders Deodato Arellano, Andrés Bonifacio, Valentín Díaz, Ladislao Diwa, José Dizon and Teodoro Plata. Founded at Calle Azcárraga, San Nicolas, Manila Dissolved March 22, 1897 Purpose Filipino independence Location Philippine...
-  Result 2
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 0
-    Hybrid score : 0.0064516129032258064
-    Rerank score : 6.459876537322998
-    Quality score: 0.9627329192546584
-    Preview      : Katipunan Supreme and Venerable Association of the Children of the Nation Kataastaasan Kagalanggalang Katipunan ng mga Anak ng Bayan Flag of the Katipunan Abbreviation KKK Nickname Katipunan Predecessor La Liga Filipina Successor Tejeros Government Formation July 7, 1892 Founders Deodato Arellano, Andrés Bonifacio, Valentín Díaz, Ladislao Diwa, José Dizon and Teodoro Plata. Founded at Calle Azcárraga, San Nicolas, Manila Dissolved March 22, 1897 Purpose Filipino independence Location Philippine...
   Result 3
-    Source       : data\Philippine Revolution - Wikipedia.pdf
-    Page         : 9
-    Chunk index  : 817
-    Hybrid score : 0.009523809523809523
-    Rerank score : 2.661118984222412
-    Quality score: 0.9597701149425287
-    Preview      : assembly, and freedom to petition for grievances. Andrés Bonifacio, Deodato Arellano, Ladislao Diwa, Teodoro Plata, and Valentín Díaz founded the Katipunan (in full, Kataas-taasang, Kagalang-galangang Katipunan ng mga Anak ng Bayan, "Supreme and Venerable Society of the Children of the Nation") in Manila on July 7, 1892. The organization, advocating independence through an armed revolt against Spain, was influenced by the rituals and organization of Freemasonry; Bonifacio and other leading membe...
-  Result 4
-    Source       : data\Andrés Bonifacio - Wikipedia.pdf
-    Page         : 3
-    Chunk index  : 8
-    Hybrid score : 0.00909090909090909
-    Rerank score : 1.892013669013977
-    Quality score: 0.9700598802395209
-    Preview      : Katipunan Monument along Recto Avenue (formerly Calle Azcarraga) in San Nicolas, Manila, where Katipunan was founded On the night of July 7, 1892, the day after Rizal's deportation was announced, Bonifacio and others officially "founded" the Katipunan, or in full, Kataas-taasan, Kagalang-galang na Katipunan ng mga Anak ng Bayan ("Highest and Most Respected Society of the Country's Children"; Bayan can also denote community, people, and nation). The secret society sought independence from Spain t...
-
---------------------------------------------------------------------------------
-K02 - PASS
---------------------------------------------------------------------------------
-Group             : baseline
-Type              : keyword_heavy
-Query             : Gomburza Cavite mutiny 1872 garrote Bagumbayan Mariano Gomes Jose Burgos Jacinto Zamora secularization friars Rizal El filibusterismo
-Source OK         : True
-Keyword OK        : True
-Top source rank   : 1
-Matched sources   : ['Gomburza - Wikipedia.md', 'Gomburza - Wikipedia.pdf']
-Matched groups    : []
-Missing groups    : []
-Matched keywords  : ['Gomburza', 'Mariano Gómes', 'Jose Burgos', 'Jacinto Zamora', 'February 17, 1872', 'Cavite mutiny', 'El filibusterismo', 'secularization']
-Required keywords : 3
-Matched forbidden : []
-Retrieval queries : ['Gomburza Cavite mutiny 1872 garrote Bagumbayan Mariano Gomes Jose Burgos Jacinto Zamora secularization friars Rizal El filibusterismo']
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 7.96 sec
-Bottleneck        : Rerank documents - 7.69 sec
-Final context:
-  Result 1
-    Source       : data\Gomburza - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 0
+    Source       : data\Katipunan - Wikipedia.pdf
+    Page         : 26
+    Chunk index  : 76
     Hybrid score : 0.006557377049180328
-    Rerank score : 5.752650737762451
-    Quality score: 0.9550561797752809
-    Preview      : Mariano Gómes, José Burgos, and Jacinto Zamora Gomburza Gomburza, alternatively stylized as GOMBURZA or GomBurZa ("Gom" for Gómes, "Bur" for Burgos, and "Za" for Zamora), refers to three Filipino Catholic priests, Mariano Gómes, José Burgos, and Jacinto Zamora, who were executed by a garrote on February 17, 1872, in Bagumbayan, Philippines by Spanish colonial authorities on charges of subversion arising from the 1872 Cavite mutiny. The name is a portmanteau of the priests' surnames. Gomburza inc...
-  Result 2
-    Source       : data\Gomburza - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 184
-    Hybrid score : 0.009836065573770491
-    Rerank score : 5.75264835357666
-    Quality score: 0.9550561797752809
-    Preview      : Mariano Gómes, José Burgos, and Jacinto Zamora Gomburza Gomburza, alternatively stylized as GOMBURZA or GomBurZa ("Gom" for Gómes, "Bur" for Burgos, and "Za" for Zamora), refers to three Filipino Catholic priests, Mariano Gómes, José Burgos, and Jacinto Zamora, who were executed by a garrote on February 17, 1872, in Bagumbayan, Philippines by Spanish colonial authorities on charges of subversion arising from the 1872 Cavite mutiny. The name is a portmanteau of the priests' surnames. Gomburza inc...
-  Result 3
-    Source       : data\History of the Philippines - Wikipedia.pdf
-    Page         : 36
-    Chunk index  : 379
-    Hybrid score : 0.00909090909090909
-    Rerank score : 2.4048094749450684
-    Quality score: 0.9550561797752809
-    Preview      : Andrés Bonifacio, father of the Philippine Revolution. Revolutionary sentiments arose in 1872 after three Filipino priests, Mariano Gomez, José Burgos, and Jacinto Zamora, known as Gomburza, were accused of sedition by colonial authorities and executed by garotte. This would inspire the Propaganda Movement in Spain, organized by Marcelo H. del Pilar, José Rizal, Graciano López Jaena, and Mariano Ponce, that clamored for adequate representation to the Spanish Cortes and later for independence. Jo...
-  Result 4
-    Source       : data\History of the Philippines (1565–1898) - Wikipedia.pdf
-    Page         : 8
-    Chunk index  : 24
-    Hybrid score : 0.0064516129032258064
-    Rerank score : 0.541516900062561
-    Quality score: 0.9629120879120879
-    Preview      : positions. In response, the Insulares came out with Indios agraviados, a manifesto defending the Filipino against discriminatory remarks. The tension between the Insulares and Peninsulares erupted into the failed revolts of Novales and the Cavite mutiny of 1872, which resulted in the deportation of prominent Filipino nationalists to the Marianas and Europe, who would continue the fight for liberty through the Propaganda Movement. The Cavite Mutiny implicated the priests Mariano Gomez, José Burgo...
+    Rerank score : -4.191122055053711
+    Quality score: 0.9162158596120861
+    Preview      : Sagmit, Rosario S.; Sagmit-Mendosa, Lourdes (2007). The Filipino Moving Onward 5 (2007 ed.). Santos, Epifanio de los (1918). "Andres Bonifacio". The Philippine Review. Rizal, J.; Retana, W.E. (1961). Horacio De la Costa (ed.). The Trial of Rizal: W.E. Retana's Transcription of the Official Spanish Documents ( Bernard, Miguel S. (1998). "The Trial of Rizal" ( 46 (1). Horacio de la Costa, S.J. Quezon City: Ateneo de Manila University Press: 46–72. requires |journal= (help); Unknown parameter |publ...
 
 --------------------------------------------------------------------------------
-P01 - PASS
+X01 - PASS
 --------------------------------------------------------------------------------
-Group             : baseline
-Type              : paraphrased
-Query             : Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?
-Source OK         : True
-Keyword OK        : True
-Top source rank   : 1
-Matched sources   : ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']
-Matched groups    : []
-Missing groups    : []
-Matched keywords  : ['Katipunan', 'secret society', 'armed revolution', 'Spanish Empire', 'discovery by Spanish authorities', 'August 1896']
-Required keywords : 2
-Matched forbidden : []
-Retrieval queries : ['Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?']
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 5.24 sec
-Bottleneck        : Rerank documents - 5.01 sec
-Final context:
-  Result 1
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 709
-    Hybrid score : 0.009836065573770491
-    Rerank score : 7.391968727111816
-    Quality score: 0.9546703296703297
-    Preview      : revolutionary organization founded in 1892 by a group of Filipino nationalists Deodato Arellano, Andrés Bonifacio, Valentin Diaz, Ladislao Diwa, José Dizon, and Teodoro Plata. Its primary objective was achieving independence from the Spanish Empire through an armed revolution. It was formed as a secret society before its eventual discovery by Spanish authorities in August 1896. This discovery led to the start of the Philippine Revolution. Historians generally place the date of its founding in Ju...
-  Result 2
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 1
-    Hybrid score : 0.006557377049180328
-    Rerank score : 7.391968727111816
-    Quality score: 0.9546703296703297
-    Preview      : revolutionary organization founded in 1892 by a group of Filipino nationalists Deodato Arellano, Andrés Bonifacio, Valentin Diaz, Ladislao Diwa, José Dizon, and Teodoro Plata. Its primary objective was achieving independence from the Spanish Empire through an armed revolution. It was formed as a secret society before its eventual discovery by Spanish authorities in August 1896. This discovery led to the start of the Philippine Revolution. Historians generally place the date of its founding in Ju...
-  Result 3
-    Source       : data\Philippine Revolution - Wikipedia.pdf
-    Page         : 3
-    Chunk index  : 797
-    Hybrid score : 0.00909090909090909
-    Rerank score : 2.9591963291168213
-    Quality score: 0.9423076923076923
-    Preview      : conservative members led by Domingo Franco and Numeriano Adriano would later establish the Cuerpo de Compromisarios. The Katipunan obtained an overwhelming number of members and attracted the lowly classes. In June 1896, Bonifacio sent an emissary to Dapitan to obtain Rizal's support, but Rizal refused to participate in an armed revolution. On August 19, 1896, Katipunan was discovered by a Spanish friar, which resulted in the start of the Philippine Revolution. The revolution initially flared up...
-  Result 4
-    Source       : data\Philippine Revolution - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 788
-    Hybrid score : 0.009523809523809523
-    Rerank score : 2.7389869689941406
-    Quality score: 0.9563253012048193
-    Preview      : of Paris. Led by Andrés Bonifacio, the Katipunan was formed in secrecy in 1892 in the wake of the nascent La Liga Filipina, an organization created by Filipino nationalist José Rizal and others in Spain with the goal of Philippine representation to the Spanish Parliament. Katipunan soon gained influence across the islands, and sought an armed revolution. However, that revolution started prematurely in August 1896 upon its discovery by Spanish authorities in Manila. The organization soon declared...
-
---------------------------------------------------------------------------------
-P02 - PASS
---------------------------------------------------------------------------------
-Group             : baseline
-Type              : paraphrased
-Query             : Sinong lider ang tinatawag na utak ng himagsikan dahil sa papel niya bilang tagapayo ng pamahalaang rebolusyonaryo?
-Source OK         : True
-Keyword OK        : True
-Top source rank   : 4
-Matched sources   : ['Apolinario Mabini - Wikipedia.md', 'Apolinario Mabini - Wikipedia.pdf']
-Matched groups    : []
-Missing groups    : []
-Matched keywords  : ['Apolinario Mabini', 'utak ng himagsikan', 'brain of the revolution', 'legal and constitutional adviser', 'Revolutionary Government']
-Required keywords : 2
-Matched forbidden : []
-Retrieval queries : ['Sinong lider ang tinatawag na utak ng himagsikan dahil sa papel niya bilang tagapayo ng pamahalaang rebolusyonaryo?']
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 7.00 sec
-Bottleneck        : Rerank documents - 6.75 sec
-Final context:
-  Result 1
-    Source       : data\Andrés Bonifacio - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 1
-    Hybrid score : 0.009836065573770491
-    Rerank score : -5.778997898101807
-    Quality score: 0.9358850129198966
-    Preview      : often shortened by contemporaries and historians to Supremo) of the Kataastaasan, Kagalanggalang Katipunan ng mga Anak ng Bayan more commonly known as the "Katipunan", a movement that sought the independence of the Philippines from Spanish colonial rule and started the Revolution. Bonifacio reorganized the Katipunan into a revolutionary government, with himself as Pangulo (President) of a nation-state called Haring Bayang Katagalugan (“Sovereign Nation of the Tagalog People” or “Sovereign Tagalo...
-  Result 2
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 10
-    Chunk index  : 738
-    Hybrid score : 0.008695652173913044
-    Rerank score : -7.758368015289307
-    Quality score: 0.9569444444444445
-    Preview      : Andres Bonifacio (1863–1897) – The leading founder and the third Supreme President (Kataas- taasang Pangulo, Presidente Supremo) of the Katipunan, later taking the title Pangulo ng Haring Bayang Katagalugan (President of the Sovereign Tagalog Nation; "Haring Bayan" was also translated as Republic, i.e. Republika ng Katagalugan) upon the start of the revolution. Emilio Aguinaldo (1869–1964) – First president of the First Philippine Republic, the Katipunan's successor. He was also a war general an...
-  Result 3
-    Source       : data\Andrés Bonifacio - Wikipedia.pdf
-    Page         : 6
-    Chunk index  : 18
-    Hybrid score : 0.008823529411764706
-    Rerank score : -8.694662094116211
-    Quality score: 0.9495459824728117
-    Preview      : The above was divulged to the Spanish the Katipunan member Pío Valenzuela while in captivity. Teodoro Agoncillo thus wrote: Immediately before the outbreak of the revolution, therefore, Bonifacio organized the Katipunan into a government revolving around a ‘cabinet’ composed of men of his confidence. Milagros C. Guerrero and others have described Bonifacio as "effectively" the commander-in-chief of the revolutionaries. They assert: As commander-in-chief, Bonifacio supervised the planning of mili...
-  Result 4
-    Source       : data\Apolinario Mabini - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 74
-    Hybrid score : 0.008955223880597015
-    Rerank score : -8.776161193847656
-    Quality score: 0.9371508379888268
-    Preview      : Apolinario Mabini 1st Prime Minister of the Philippines In office January 23, 1899 – May 7, 1899 President Emilio Aguinaldo Preceded by Office established Succeeded by Pedro Paterno Secretary of Foreign Relations In office January 23, 1899 – May 7, 1899 President Emilio Aguinaldo Prime Minister Himself Preceded by Position established Succeeded by Felipe Buencamino Personal details Born Apolinario Mabini y Maranán July 23, 1864 Barrio Talaga, Tanauan, Batangas, Captaincy General of the Philippin...
-
---------------------------------------------------------------------------------
-T01 - PASS
---------------------------------------------------------------------------------
-Group             : baseline
-Type              : tagalog_english_docs
-Query             : Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?
-Source OK         : True
-Keyword OK        : True
-Top source rank   : 1
-Matched sources   : ['Independence Day (Philippines) - Wikipedia.md', 'Independence Day (Philippines) - Wikipedia.pdf']
-Matched groups    : []
-Missing groups    : []
-Matched keywords  : ['June 12', 'Araw ng Kalayaan', 'Philippine independence from Spain', 'declaration of Philippine independence from Spain in 1898', 'national holiday']
-Required keywords : 2
-Matched forbidden : []
-Retrieval queries : ['Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?']
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 6.79 sec
-Bottleneck        : Rerank documents - 6.55 sec
-Final context:
-  Result 1
-    Source       : data\Independence Day (Philippines) - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 556
-    Hybrid score : 0.009836065573770491
-    Rerank score : -4.2762017250061035
-    Quality score: 0.9546783625730995
-    Preview      : Independence Day Araw ng Kalayaan Aguinaldo Shrine, where Emilio Aguinaldo declared the country's independence from Spain Official name Araw ng Kasarinlán Also called Araw ng Kalayaan Observed by Philippines Type National Day Significance Declaring Philippine independence from Spain Date June 12 Next time June 12, 2026 Frequency Annual Related to Republic Day Independence Day (Philippines) Independence Day of the Philippines (Filipino: Araw ng Kasarinlán; also known as Araw ng Kalayaan, "Day of...
-  Result 2
-    Source       : data\Independence Day (Philippines) - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 0
-    Hybrid score : 0.006557377049180328
-    Rerank score : -0.7550641298294067
-    Quality score: 0.9546783625730995
-    Preview      : Independence Day Araw ng Kalayaan Aguinaldo Shrine, where Emilio Aguinaldo declared the country's independence from Spain Official name Araw ng Kasarinlán Also called Araw ng Kalayaan Observed by Philippines Type National Day Significance Declaring Philippine independence from Spain Date June 12 Next time June 12, 2026 Frequency Annual Related to Republic Day Independence Day (Philippines) Independence Day of the Philippines (Filipino: Araw ng Kasarinlán; also known as Araw ng Kalayaan, "Day of...
-  Result 3
-    Source       : data\History of the Philippines (1565–1898) - Wikipedia.pdf
-    Page         : 9
-    Chunk index  : 230
-    Hybrid score : 0.009523809523809523
-    Rerank score : -10.073722839355469
-    Quality score: 0.9508196721311475
-    Preview      : expatriates supported the leadership of del Pilar. Rizal then returned to the Philippines to organize La Liga Filipina and bring the reform movement to Philippine soil. He was arrested just a few days after founding the league. Rizal was eventually executed on December 30, 1896, on charges of rebellion. This radicalized many who had previously been loyal to Spain. As attempts at reform met with resistance, in 1892, Radical members of the La Liga Filipina, which included Andrés Bonifacio and Deod...
-  Result 4
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 22
-    Chunk index  : 774
-    Hybrid score : 0.00923076923076923
-    Rerank score : -10.142127990722656
-    Quality score: 0.9189560439560439
-    Preview      : 8. Guerrero, Milagros C.; Encarnacion, Emmanuel N.; Villegas, Ramon N. (June 16, 2003) [1996 (published in Sulyap Kultura 1(2): 3–12))]. "In Focus: Andres Bonifacio and the 1896 Revolution" ( from the original ( subcat=1) on November 15, 2010. 9. Richardson, Jim (2013). The Light of Liberty. Ateneo de Manila University Press. 10. Woods 2006, p. 43 11. Hirama, Yoichi (1994). "The Philippine Independence War (1896–98) and Japan" ( ive.org/web/20211022121819/ February 28, 2020. 13. Rene Ciria Cruz;...
-
---------------------------------------------------------------------------------
-T02 - PASS
---------------------------------------------------------------------------------
-Group             : baseline
-Type              : tagalog_english_docs
-Query             : Ano ang nangyari sa Pilipinas noong World War II nang sakupin ito ng Japan?
-Source OK         : True
-Keyword OK        : True
-Top source rank   : 1
-Matched sources   : ['Japanese occupation of the Philippines - Wikipedia.md', 'Japanese occupation of the Philippines - Wikipedia.pdf']
-Matched groups    : []
-Missing groups    : []
-Matched keywords  : ['World War II', 'Bataan Death March', 'MacArthur']
-Required keywords : 2
-Matched forbidden : []
-Retrieval queries : ['Ano ang nangyari sa Pilipinas noong World War II nang sakupin ito ng Japan?']
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 6.58 sec
-Bottleneck        : Rerank documents - 6.36 sec
-Final context:
-  Result 1
-    Source       : data\Japanese occupation of the Philippines - Wikipedia.pdf
-    Page         : 1
-    Chunk index  : 571
-    Hybrid score : 0.009836065573770491
-    Rerank score : 6.976786136627197
-    Quality score: 0.9478609625668449
-    Preview      : Status Military occupation by the Empire of Japan Capital Manila Common languages Japanese, Filipino Emperor 1942–1945 Hirohito Military Governor 1942 Masaharu Homma (First) 1944–1945 Tomoyuki Yamashita (Last) Leader 1942–1943 Jorge B. Vargas[a] 1943–1945 Jose P. Laurel [b] Legislature Philippine Executive Commission (1942–1943) National Assembly (1943– 1945) Historical era World War II Start of Japanese Invasion December 8 1941 Formation of Hukbalahap March 29, 1942 Fall of Bataan April 9, 1942...
-  Result 2
-    Source       : data\Japanese occupation of the Philippines - Wikipedia.pdf
-    Page         : 1
-    Chunk index  : 572
-    Hybrid score : 0.009523809523809523
-    Rerank score : 0.5695617198944092
-    Quality score: 0.9598540145985401
-    Preview      : such as Manila were reduced to rubble. Around 500,000 Filipinos died during the occupation. Japan launched an attack on the Philippines on December 8, 1941, just ten hours after their attack on Pearl Harbor. Initial aerial bombardment was followed by landings of ground troops both north and south of Manila. The defending Philippine and United States troops were under the command of General Douglas MacArthur, who had been recalled to active duty in the United States Army earlier in the year and w...
-  Result 3
-    Source       : data\History of the Philippines - Wikipedia.pdf
-    Page         : 44
-    Chunk index  : 404
-    Hybrid score : 0.008955223880597015
-    Rerank score : -1.7979296445846558
-    Quality score: 0.9475806451612904
-    Preview      : Japanese bombers over Corregidor problems. The situation was further complicated by the presence of agrarian unrest, and of power struggles between Osmeña and Quezon, especially after Quezon was permitted to be re-elected after one six-year term. A proper evaluation of the policies' effectiveness or failure is difficult due to Japanese invasion and occupation during World War II. Japan launched a surprise attack on the Clark Air Base in Pampanga on the morning of December 8, 1941, just ten hours...
-  Result 4
-    Source       : data\History of the Philippines - Wikipedia.pdf
-    Page         : 44
-    Chunk index  : 406
-    Hybrid score : 0.00923076923076923
-    Rerank score : -4.350131511688232
-    Quality score: 0.9456521739130435
-    Preview      : independence of the Philippines in 1935. The Japanese-sponsored republic headed by President José P. Laurel proved to be unpopular. From mid-1942 through mid-1944, Japanese occupation of the Philippines was opposed by large-scale underground and guerrilla activity. The Philippine Army, as well as remnants of the U.S. Army Forces Far East, continued to fight the Japanese in a guerrilla war and was considered an auxiliary unit of the United States Army. Supplies and encouragement were provided by...
-
---------------------------------------------------------------------------------
-N01 - PASS
---------------------------------------------------------------------------------
-Group             : baseline
-Type              : negative
-Query             : What was Andres Bonifacio's official passport number during the Philippine Revolution?
-Source OK         : True
-Keyword OK        : True
-Top source rank   : None
-Matched sources   : []
-Matched groups    : []
-Missing groups    : []
-Matched keywords  : []
-Required keywords : 1
-Matched forbidden : []
-Retrieval queries : ["What was Andres Bonifacio's official passport number during the Philippine Revolution?"]
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 6.93 sec
-Bottleneck        : Rerank documents - 6.71 sec
-Final context:
-  Result 1
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 10
-    Chunk index  : 30
-    Hybrid score : 0.006557377049180328
-    Rerank score : -1.5840681791305542
-    Quality score: 0.9569444444444445
-    Preview      : Andres Bonifacio (1863–1897) – The leading founder and the third Supreme President (Kataas- taasang Pangulo, Presidente Supremo) of the Katipunan, later taking the title Pangulo ng Haring Bayang Katagalugan (President of the Sovereign Tagalog Nation; "Haring Bayan" was also translated as Republic, i.e. Republika ng Katagalugan) upon the start of the revolution. Emilio Aguinaldo (1869–1964) – First president of the First Philippine Republic, the Katipunan's successor. He was also a war general an...
-  Result 2
-    Source       : data\Andrés Bonifacio - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 0
-    Hybrid score : 0.009836065573770491
-    Rerank score : -2.740025520324707
-    Quality score: 0.9169117480200604
-    Preview      : Andrés C. Bonifacio The only extant portrait photograph of Bonifacio, c. 1896. Unofficial President of the Sovereign Tagalog Nation President of the Philippines (unofficial) In office August 24, 1896 – March 22 or May 10, 1897 Preceded by Office established Succeeded by Office abolished Emilio Aguinaldo (as President of Tejeros Revolutionary Government) Supremo of Katipunan In office November 1895 – May 10, 1897 Preceded by Román Basa Succeeded by Organization defunct Personal details Born André...
-  Result 3
-    Source       : data\Andrés Bonifacio - Wikipedia.pdf
-    Page         : 1
-    Chunk index  : 3
-    Hybrid score : 0.008823529411764706
-    Rerank score : -3.189000129699707
-    Quality score: 0.9453125
-    Preview      : Died May 10, 1897 (aged 33) Maragondon, Cavite, Captaincy General of the Philippines Cause of death Execution Party La Liga Filipina Katipunan Spouses Mónica (died) Gregoria de Jesús (m. 1893) Children Andrés de Jesus Bonifacio, Jr. (1896) naming was not retroactively used during Spanish era Education Self-educated Signature Nickname(s) Maypagasa (The First President of the Republic of the Philippines ) Military service Allegiance Katipunan Tagalog Republic Katipunan (Magdiwang) Years of service...
-  Result 4
-    Source       : data\History of the Philippines - Wikipedia.pdf
-    Page         : 36
-    Chunk index  : 379
-    Hybrid score : 0.009523809523809523
-    Rerank score : -4.434869289398193
-    Quality score: 0.9550561797752809
-    Preview      : Andrés Bonifacio, father of the Philippine Revolution. Revolutionary sentiments arose in 1872 after three Filipino priests, Mariano Gomez, José Burgos, and Jacinto Zamora, known as Gomburza, were accused of sedition by colonial authorities and executed by garotte. This would inspire the Propaganda Movement in Spain, organized by Marcelo H. del Pilar, José Rizal, Graciano López Jaena, and Mariano Ponce, that clamored for adequate representation to the Spanish Cortes and later for independence. Jo...
-
---------------------------------------------------------------------------------
-N02 - PASS
---------------------------------------------------------------------------------
-Group             : baseline
-Type              : negative
-Query             : Ano ang eksaktong Wi-Fi password na ginamit ng Katipunan sa kanilang mga pagpupulong?
-Source OK         : True
-Keyword OK        : True
-Top source rank   : None
-Matched sources   : []
-Matched groups    : []
-Missing groups    : []
-Matched keywords  : []
-Required keywords : 1
-Matched forbidden : []
-Retrieval queries : ['Ano ang eksaktong Wi-Fi password na ginamit ng Katipunan sa kanilang mga pagpupulong?']
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 10.50 sec
-Bottleneck        : Rerank documents - 10.25 sec
-Final context:
-  Result 1
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 6
-    Chunk index  : 726
-    Hybrid score : 0.00967741935483871
-    Rerank score : -2.3251383304595947
-    Quality score: 0.9387427083986702
-    Preview      : society, Katipon wore a black hood with a triangle of white ribbon having the letters "Z. Ll. B.", corresponding to the roman "A. N. B.", meaning Anak n g̃ Bayan (Son of the People, see below). Kawal wore a green hood with a triangle having white lines and the letters "Z. LL. B." at the three angles of the triangle, and also wore a green ribbon with a medal with the letter (ka) in Baybayin script above a depiction of a crossed sword and flag. The password was Gom-Bur-Za, taken from the names of...
-  Result 2
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 6
-    Chunk index  : 725
-    Hybrid score : 0.00923076923076923
-    Rerank score : -6.663821697235107
-    Quality score: 0.950507614213198
-    Preview      : Two infographs depicting the ranks within the Katipunan and the Triangle system of recruitment. Katipunero (plural, mga Katipunero) is the demonym of a male member of the Katipunan. Katipunera (plural, mga Katipunera) refers to female members. It was the original plan of Bonifacio to increase the membership of the Katipunan by means of sistemang patatsulok or the triangle system. He formed his first triangle with his two comrades, Teodoro Plata and Ladislao Diwa. Each of them re-instituted Katip...
-  Result 3
-    Source       : data\History of the Philippines - Wikipedia.pdf
-    Page         : 70
-    Chunk index  : 485
-    Hybrid score : 0.008955223880597015
-    Rerank score : -10.192564010620117
-    Quality score: 0.9587912087912088
-    Preview      : Press, 1994, page 194. 184. The Mediterranean Connection by William Henry Scott Page 138 (Published By: Ateneo de Manila University) Taken from "Translated in Teixera, The Portuguese Missions, p. 166." 185. Fernão Mendes Pinto, Peregrinação (C. R. Boxer, ed., The Travels of Mendes Pinto, vol. 1, Hakluyt Society, 1956) pp. 256–261 (Book II, ch. XLIX) Aceh (1539) 186. Skaff, Jonathan Karam, Sui-Tang China and Its Turko-Mongol Neighbors: Culture, Power, and Connections, 580-800 187. The Janissaries...
-  Result 4
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 7
-    Chunk index  : 728
-    Hybrid score : 0.00909090909090909
-    Rerank score : -7.043097972869873
-    Quality score: 0.9377538232795242
-    Preview      : Katipon could graduate to Kawal class by bringing several new members into the society. A Kawal could become a Bayani upon being elected an officer of the society. Any person who wished to join the Katipunan was subjected to certain initiation rites, resembling those of Masonic rites, to test his courage, patriotism and loyalty. New recruits underwent the initiation rite three at a time so that no member knew more than two other members of the society. The neophyte was first blindfolded and then...
-
-================================================================================
-STRESS DETAILED RESULTS
-================================================================================
-
---------------------------------------------------------------------------------
-X01 - FAIL
---------------------------------------------------------------------------------
-Group             : stress
 Type              : cross_doc
 Query             : How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
-Source OK         : False
+Source OK         : True
 Keyword OK        : True
 Top source rank   : 1
-Matched sources   : ['Treaty of Paris (1898) - Wikipedia.md', 'Treaty of Paris (1898) - Wikipedia.pdf', 'Spanish–American War - Wikipedia.md', 'Spanish–American War - Wikipedia.pdf', 'Spanish-American War - Wikipedia.md', 'Spanish-American War - Wikipedia.pdf']
-Matched groups    : [{'group': 1, 'matched_sources': ['Treaty of Paris (1898) - Wikipedia.md', 'Treaty of Paris (1898) - Wikipedia.pdf']}, {'group': 2, 'matched_sources': ['Spanish–American War - Wikipedia.md', 'Spanish–American War - Wikipedia.pdf', 'Spanish-American War - Wikipedia.md', 'Spanish-American War - Wikipedia.pdf']}]
-Missing groups    : [{'group': 3, 'expected_sources': ['Philippine–American War - Wikipedia.md', 'Philippine–American War - Wikipedia.pdf', 'Philippine-American War - Wikipedia.md', 'Philippine-American War - Wikipedia.pdf']}]
-Matched keywords  : ['Treaty of Paris', 'Spanish-American War', 'Spanish–American War', 'United States', 'Philippine-American War', 'Philippine–American War']
-Required keywords : 4
+Matched sources   : ['Treaty of Paris (1898) - Wikipedia.md', 'Spanish–American War - Wikipedia.md', 'Spanish-American War - Wikipedia.md']
+Matched keywords  : ['Treaty of Paris', 'Spanish-American War', 'Spanish–American War', 'United States']
 Matched forbidden : []
-Retrieval queries : ['How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?', 'Treaty of Paris Spanish-American War Philippine-American War relationship connection cause result', 'Philippine-American War']
-Hybrid candidates : 15
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 11.49 sec
-Bottleneck        : Rerank documents - 10.96 sec
+Hybrid candidates : 8
+Reranked docs     : 3
+Final context docs: 3
+Query time        : 5.08 sec
+Bottleneck        : Rerank documents - 4.84 sec
 Final context:
   Result 1
     Source       : data\Treaty of Paris (1898) - Wikipedia.pdf
     Page         : 0
     Chunk index  : 1180
-    Hybrid score : 0.009375
+    Hybrid score : 0.00909090909090909
     Rerank score : 5.901042938232422
     Quality score: 0.9399061524238143
     Preview      : islands of Cuba and Puerto Rico in the Caribbean, the Western Pacific island of Guam in the Marianas archipelago in Micronesia, and the Western Pacific archipelago of the Philippines in Southeast Asia to the United States. The cession of the Philippines involved a compensation of $20 million[b] from the United States to Spain. The treaty was preceded by the Spanish-American War armistice, a preliminary peace agreement signed on August 12, 1898, in Washington, DC. The armistice formally stopped t...
@@ -656,7 +152,7 @@ Final context:
     Page         : 1
     Chunk index  : 1182
     Hybrid score : 0.00923076923076923
-    Rerank score : 3.665142297744751
+    Rerank score : 3.665144681930542
     Quality score: 0.9448717948717948
     Preview      : The Spanish–American War began on April 25, 1898, due to a series of escalating disputes between the two nations, and ended on December 10, 1898, with the signing of the Treaty of Paris. It resulted in Spain's loss of its control over the remains of its overseas empire. After much of mainland in the Americas had achieved independence, Cubans tried their hand at revolution in 1868–1878, and again in the 1890s, led by José Martí. The Philippines at this time also became resistant to Spanish coloni...
   Result 3
@@ -667,43 +163,30 @@ Final context:
     Rerank score : 3.417710304260254
     Quality score: 0.946664705616147
     Preview      : Spanish–American War[a] Part of the decolonization of the Americas, the Cuban War of Independence, and the Philippine Revolution (clockwise from top left) Signal Corps extending telegraph lines · USS Iowa at the Victory Fleet Review in August 1898 in New York Harbor · Filipino soldiers wearing Spanish pith helmets outside Manila · The Spanish signing the Treaty of Paris · Theodore Roosevelt and his Rough Riders at San Juan Hill · Replacing of the Spanish flag at Fort San Antonio Abad (Fort Malat...
-  Result 4
-    Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 9
-    Chunk index  : 29
-    Hybrid score : 0.0064516129032258064
-    Rerank score : -0.3918043375015259
-    Quality score: 0.9725274725274725
-    Preview      : France against the Masonic associated Katipunan as the first President of the United States, George Washington was once a Mason, but the nascent First Philippine Republic which the Katipunan founded went to war against the same Masonic-led United States in the Philippine-American War, and furthermore, the treaty which sealed the American invasion of the Philippines was concluded in the 1898 Treaty of Paris. The Revolution and the Philippine–American War caused many deaths but eventually, America...
 
 --------------------------------------------------------------------------------
 X02 - PASS
 --------------------------------------------------------------------------------
-Group             : stress
 Type              : cross_doc
 Query             : Paano nauugnay ang La Liga Filipina ni Jose Rizal sa pagkakatatag ng Katipunan?
 Source OK         : True
 Keyword OK        : True
 Top source rank   : 1
-Matched sources   : ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf', 'José Rizal - Wikipedia.md', 'José Rizal - Wikipedia.pdf', 'Jose Rizal - Wikipedia.md', 'Jose Rizal - Wikipedia.pdf']
-Matched groups    : [{'group': 1, 'matched_sources': ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']}, {'group': 2, 'matched_sources': ['José Rizal - Wikipedia.md', 'José Rizal - Wikipedia.pdf', 'Jose Rizal - Wikipedia.md', 'Jose Rizal - Wikipedia.pdf']}]
-Missing groups    : []
-Matched keywords  : ['La Liga Filipina', 'Rizal', 'Katipunan', 'Bonifacio', 'arrest and deportation']
-Required keywords : 3
+Matched sources   : ['Katipunan - Wikipedia.md', 'José Rizal - Wikipedia.md', 'Jose Rizal - Wikipedia.md']
+Matched keywords  : ['La Liga Filipina', 'Rizal', 'Katipunan', 'Bonifacio']
 Matched forbidden : []
-Retrieval queries : ['Paano nauugnay ang La Liga Filipina ni Jose Rizal sa pagkakatatag ng Katipunan?', 'La Liga Filipina ni Jose Rizal Katipunan relationship connection cause result', 'Katipunan']
-Hybrid candidates : 15
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 10.96 sec
-Bottleneck        : Rerank documents - 10.53 sec
+Hybrid candidates : 8
+Reranked docs     : 3
+Final context docs: 3
+Query time        : 5.49 sec
+Bottleneck        : Rerank documents - 5.28 sec
 Final context:
   Result 1
     Source       : data\Katipunan - Wikipedia.pdf
     Page         : 1
     Chunk index  : 712
     Hybrid score : 0.00967741935483871
-    Rerank score : 0.7033766508102417
+    Rerank score : 0.7033776044845581
     Quality score: 0.9511173184357542
     Preview      : "katipunan" (literally, "association", "gathering", "assemblage", or "group") comes from the root word "tipon", a Tagalog word meaning "gathering" or "to gather". The Katipunan was formed in 1892 by Filipino nationalists Deodato Arrellano, Teodoro Plata, Valentin Diaz, Ladislao Diwa, Andres Bonifacio, and Jose Dizon. It was one of the two groups that was formed after the dissolution of the nascent La Liga Filipina, a nationalist organization formed by Filipino writer Jose Rizal and members of th...
   Result 2
@@ -719,39 +202,26 @@ Final context:
     Page         : 16
     Chunk index  : 671
     Hybrid score : 0.009836065573770491
-    Rerank score : -1.2932034730911255
+    Rerank score : -1.2932065725326538
     Quality score: 0.9519230769230769
     Preview      : memoirs or letters. But it was documented by Rizal's biographer, Austin Coates who interviewed Jawaharlal Nehru and Gandhi that Rizal was mentioned, specifically in Nehru's prison letters to his daughter Indira. As a political figure, José Rizal was the founder of La Liga Filipina, a civic organization that subsequently gave birth to the Katipunan led by Andrés Bonifacio,[note 19], a secret society which would start the Philippine Revolution against Spain that eventually laid the foundation of t...
-  Result 4
-    Source       : data\Philippine Revolution - Wikipedia.pdf
-    Page         : 3
-    Chunk index  : 796
-    Hybrid score : 0.00923076923076923
-    Rerank score : -1.3244227170944214
-    Quality score: 0.9590395480225988
-    Preview      : used their writings primarily to condemn Spanish abuses and seek reforms to the colonial government. José Rizal's novels, Noli Me Tángere (Touch Me Not, 1887) and El Filibusterismo (The Filibuster, 1891), exposed Spanish abuses in socio-political and religious aspects. The publication of his first novel brought the infamous agrarian conflict in his hometown of Calamba, La Laguna, in 1888, when Dominican haciendas fell into trouble of submitting government taxes. In 1892, after his return from th...
 
 --------------------------------------------------------------------------------
 F01 - PASS
 --------------------------------------------------------------------------------
-Group             : stress
 Type              : false_premise
 Query             : Why did Jose Rizal become the Supremo of the Katipunan?
 Source OK         : True
 Keyword OK        : True
 Top source rank   : 1
-Matched sources   : ['Andrés Bonifacio - Wikipedia.md', 'Andrés Bonifacio - Wikipedia.pdf', 'Andres Bonifacio - Wikipedia.md', 'Andres Bonifacio - Wikipedia.pdf', 'José Rizal - Wikipedia.md', 'José Rizal - Wikipedia.pdf', 'Jose Rizal - Wikipedia.md', 'Jose Rizal - Wikipedia.pdf']
-Matched groups    : []
-Missing groups    : []
-Matched keywords  : ['Andrés Bonifacio', 'Andres Bonifacio', 'Supreme President', 'Supremo', 'Katipunan', 'Rizal']
-Required keywords : 2
+Matched sources   : ['Andrés Bonifacio - Wikipedia.md', 'Andres Bonifacio - Wikipedia.md', 'José Rizal - Wikipedia.md', 'Jose Rizal - Wikipedia.md']
+Matched keywords  : ['Andrés Bonifacio', 'Andres Bonifacio', 'Katipunan']
 Matched forbidden : []
-Retrieval queries : ['Why did Jose Rizal become the Supremo of the Katipunan?']
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 7.67 sec
-Bottleneck        : Rerank documents - 7.39 sec
+Hybrid candidates : 8
+Reranked docs     : 3
+Final context docs: 3
+Query time        : 4.51 sec
+Bottleneck        : Rerank documents - 4.30 sec
 Final context:
   Result 1
     Source       : data\José Rizal - Wikipedia.pdf
@@ -777,36 +247,23 @@ Final context:
     Rerank score : -2.3278486728668213
     Quality score: 0.9508196721311475
     Preview      : expatriates supported the leadership of del Pilar. Rizal then returned to the Philippines to organize La Liga Filipina and bring the reform movement to Philippine soil. He was arrested just a few days after founding the league. Rizal was eventually executed on December 30, 1896, on charges of rebellion. This radicalized many who had previously been loyal to Spain. As attempts at reform met with resistance, in 1892, Radical members of the La Liga Filipina, which included Andrés Bonifacio and Deod...
-  Result 4
-    Source       : data\Andrés Bonifacio - Wikipedia.pdf
-    Page         : 8
-    Chunk index  : 27
-    Hybrid score : 0.0064516129032258064
-    Rerank score : -3.447158098220825
-    Quality score: 0.9576719576719577
-    Preview      : Bonifacio was also subject to rumors that he had stolen Katipunan funds, his sister was the mistress of a priest, and he was an agent provocateur paid by friars to foment unrest. Also circulated were anonymous letters which told the people of Cavite not to idolize Bonifacio because he was a Freemason, a mere Manila employee, allegedly an atheist, and uneducated. According to these letters, Bonifacio did not deserve the title of Supremo since God alone was supreme. This last allegation was made d...
 
 --------------------------------------------------------------------------------
 F02 - PASS
 --------------------------------------------------------------------------------
-Group             : stress
 Type              : false_premise
 Query             : Bakit si Apolinario Mabini ang nagdeklara ng kalayaan ng Pilipinas noong June 12, 1898?
 Source OK         : True
 Keyword OK        : True
 Top source rank   : 1
-Matched sources   : ['Apolinario Mabini - Wikipedia.md', 'Apolinario Mabini - Wikipedia.pdf', 'Philippine Revolution - Wikipedia.md', 'Philippine Revolution - Wikipedia.pdf', 'Independence Day (Philippines) - Wikipedia.md', 'Independence Day (Philippines) - Wikipedia.pdf']
-Matched groups    : []
-Missing groups    : []
+Matched sources   : ['Philippine Revolution - Wikipedia.md', 'Independence Day (Philippines) - Wikipedia.md']
 Matched keywords  : ['Emilio Aguinaldo', 'June 12', '1898', 'independence', 'Ambrosio Rianzares Bautista']
-Required keywords : 2
 Matched forbidden : []
-Retrieval queries : ['Bakit si Apolinario Mabini ang nagdeklara ng kalayaan ng Pilipinas noong June 12, 1898?']
-Hybrid candidates : 11
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 14.81 sec
-Bottleneck        : Rerank documents - 14.51 sec
+Hybrid candidates : 8
+Reranked docs     : 3
+Final context docs: 3
+Query time        : 6.28 sec
+Bottleneck        : Rerank documents - 6.08 sec
 Final context:
   Result 1
     Source       : data\Philippine Revolution - Wikipedia.pdf
@@ -832,121 +289,87 @@ Final context:
     Rerank score : -0.7550641298294067
     Quality score: 0.9546783625730995
     Preview      : Independence Day Araw ng Kalayaan Aguinaldo Shrine, where Emilio Aguinaldo declared the country's independence from Spain Official name Araw ng Kasarinlán Also called Araw ng Kalayaan Observed by Philippines Type National Day Significance Declaring Philippine independence from Spain Date June 12 Next time June 12, 2026 Frequency Annual Related to Republic Day Independence Day (Philippines) Independence Day of the Philippines (Filipino: Araw ng Kasarinlán; also known as Araw ng Kalayaan, "Day of...
-  Result 4
-    Source       : data\Apolinario Mabini - Wikipedia.pdf
-    Page         : 3
-    Chunk index  : 82
-    Hybrid score : 0.009836065573770491
-    Rerank score : -0.7921234369277954
-    Quality score: 0.9440104166666666
-    Preview      : "Ordenanzas de la Revolución". Aguinaldo was impressed by these works and by Mabini's role as a leading figure in La Liga Filipina, and made arrangements for Mabini to be brought from Los Baños to Kawit, Cavite. It took hundreds of men taking turns carrying his hammock to portage Mabini to Kawit. He continued to serve as the chief adviser for General Aguinaldo after the Philippine Declaration of Independence on June 12. He drafted decrees and edited the constitution for the First Philippine Repu...
 
 --------------------------------------------------------------------------------
-S01 - PASS
+N01 - PASS
 --------------------------------------------------------------------------------
-Group             : stress
-Type              : similar_topic
-Query             : Compare Spanish-American War vs Philippine-American War. Huwag pagpalitin ang cause at result ng dalawang war.
+Type              : negative
+Query             : What was Andres Bonifacio's official passport number during the Philippine Revolution?
 Source OK         : True
 Keyword OK        : True
-Top source rank   : 1
-Matched sources   : ['Spanish–American War - Wikipedia.md', 'Spanish–American War - Wikipedia.pdf', 'Spanish-American War - Wikipedia.md', 'Spanish-American War - Wikipedia.pdf', 'Philippine–American War - Wikipedia.md', 'Philippine–American War - Wikipedia.pdf', 'Philippine-American War - Wikipedia.md', 'Philippine-American War - Wikipedia.pdf']
-Matched groups    : [{'group': 1, 'matched_sources': ['Spanish–American War - Wikipedia.md', 'Spanish–American War - Wikipedia.pdf', 'Spanish-American War - Wikipedia.md', 'Spanish-American War - Wikipedia.pdf']}, {'group': 2, 'matched_sources': ['Philippine–American War - Wikipedia.md', 'Philippine–American War - Wikipedia.pdf', 'Philippine-American War - Wikipedia.md', 'Philippine-American War - Wikipedia.pdf']}]
-Missing groups    : []
-Matched keywords  : ['USS Maine', 'Spanish-American War', 'Spanish–American War', 'Philippine-American War', 'Philippine–American War', 'annexation', 'Treaty of Paris']
-Required keywords : 4
+Top source rank   : None
+Matched sources   : []
+Matched keywords  : []
 Matched forbidden : []
-Retrieval queries : ['Compare Spanish-American War vs Philippine-American War. Huwag pagpalitin ang cause at result ng dalawang war.', 'Spanish-American War', 'Philippine-American War']
-Hybrid candidates : 15
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 12.81 sec
-Bottleneck        : Rerank documents - 12.26 sec
+Hybrid candidates : 8
+Reranked docs     : 3
+Final context docs: 3
+Query time        : 6.16 sec
+Bottleneck        : Rerank documents - 5.94 sec
 Final context:
   Result 1
-    Source       : data\Spanish–American War - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 1014
-    Hybrid score : 0.009836065573770491
-    Rerank score : 1.4933393001556396
-    Quality score: 0.946664705616147
-    Preview      : Spanish–American War[a] Part of the decolonization of the Americas, the Cuban War of Independence, and the Philippine Revolution (clockwise from top left) Signal Corps extending telegraph lines · USS Iowa at the Victory Fleet Review in August 1898 in New York Harbor · Filipino soldiers wearing Spanish pith helmets outside Manila · The Spanish signing the Treaty of Paris · Theodore Roosevelt and his Rough Riders at San Juan Hill · Replacing of the Spanish flag at Fort San Antonio Abad (Fort Malat...
-  Result 2
-    Source       : data\History of the Philippines - Wikipedia.pdf
-    Page         : 38
-    Chunk index  : 387
-    Hybrid score : 0.009375
-    Rerank score : -0.2793385684490204
-    Quality score: 0.9480615957723295
-    Preview      : do but to take them all, and to educate the Filipinos, and uplift and civilize and Christianize them", even though the Philippines had already been Christianized by the Spanish over the course of several centuries. The First Philippine Republic resisted the U.S. occupation, resulting in the Philippine–American War (1899–1913). Filipinos initially saw their relationship with the United States as that of two nations joined in a common struggle against Spain. However, the United States later distan...
-  Result 3
-    Source       : data\Philippine–American War - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 888
-    Hybrid score : 0.00967741935483871
-    Rerank score : -0.9454444646835327
-    Quality score: 0.95
-    Preview      : Philippine–American War Clockwise from top left: U.S. troops in Manila, Gregorio del Pilar and his troops around 1898, Americans guarding the Pasig River bridge in 1898, the Battle of Santa Cruz, Filipino soldiers at Malolos, the Battle of Quingua Date First phase: February 4, 1899 – July 4, 1902 (3 years, 2 months, 1 week and 5 days)[i] Moro Rebellion: May 2, 1902 – June 15, 1913 (11 years, 1 month, 1 week and 6 days) Location Philippines Result American victory Territorial changes The Philippi...
-  Result 4
-    Source       : data\Spanish–American War - Wikipedia.pdf
-    Page         : 51
-    Chunk index  : 1165
-    Hybrid score : 0.009523809523809523
-    Rerank score : -1.3825531005859375
-    Quality score: 0.9536516853932584
-    Preview      : 98. doi:10.1111/j.1467-7709.1979.tb00302.x ( Funston, Frederick (1912). Memories of two wars: Cuban and Philippine experiences ( ve.org/details/cu31924023511375). London: Constable & Co. Ltd. Gissy, William G. "That "splendid little war": The costs of the Spanish-American war." in The Economics of Conflict and Peace (Routledge, 2017) pp. 258–278. online ( s.com/chapters/edit/10.4324/9781315240138-21/splendid-little-war-costs-spanish-american-war- william-gissy) Gould, Lewis L. (1982). The Spanis...
-
---------------------------------------------------------------------------------
-S02 - PASS
---------------------------------------------------------------------------------
-Group             : stress
-Type              : similar_topic
-Query             : Ano ang pinagkaiba ng Philippine Revolution at Katipunan? Organization ba yung isa o war/revolution yung isa?
-Source OK         : True
-Keyword OK        : True
-Top source rank   : 1
-Matched sources   : ['Philippine Revolution - Wikipedia.md', 'Philippine Revolution - Wikipedia.pdf', 'Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']
-Matched groups    : [{'group': 1, 'matched_sources': ['Philippine Revolution - Wikipedia.md', 'Philippine Revolution - Wikipedia.pdf']}, {'group': 2, 'matched_sources': ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']}]
-Missing groups    : []
-Matched keywords  : ['Philippine Revolution', 'war of independence', 'Katipunan', 'revolutionary organization', '1896 to 1898']
-Required keywords : 4
-Matched forbidden : []
-Retrieval queries : ['Ano ang pinagkaiba ng Philippine Revolution at Katipunan? Organization ba yung isa o war/revolution yung isa?', 'Philippine Revolution', 'Katipunan']
-Hybrid candidates : 15
-Reranked docs     : 8
-Final context docs: 4
-Query time        : 12.72 sec
-Bottleneck        : Rerank documents - 12.24 sec
-Final context:
-  Result 1
-    Source       : data\Philippine Revolution - Wikipedia.pdf
-    Page         : 0
-    Chunk index  : 787
-    Hybrid score : 0.009836065573770491
-    Rerank score : 1.4957698583602905
-    Quality score: 0.9489528795811518
-    Preview      : Philippine Revolution Part of decolonization of Asia and Spanish–American War Clockwise from top left: Surviving Spanish troops in Barcelona after the Siege of Baler, Filipino soldiers during the near end of the Revolution, Filipino negotiators for the Pact of Biak-na-Bato, Painting of the Battle of Zapote Bridge, and the Malolos Congress Philippine Revolution The Philippine Revolution[c] was a war of independence waged by the revolutionary organization Katipunan against the Spanish Empire from...
-  Result 2
     Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 1
-    Chunk index  : 711
-    Hybrid score : 0.009375
-    Rerank score : -3.5231106281280518
-    Quality score: 0.9508196721311475
-    Preview      : Prominent leaders of the Propaganda Movement in Spain: (from left to right) José Rizal, Marcelo H. del Pilar and Mariano Ponce. Existing documents suggest that the Katipunan had planned for an armed revolution since its founding, and initially sought support from Filipino intellectuals. In one such incident, Bonifacio planned a rescue for the deported José Rizal in Dapitan in exchange for his support to the revolution, to which Rizal refused. An attempt to secure firearms from a visiting Japanes...
+    Page         : 10
+    Chunk index  : 30
+    Hybrid score : 0.006557377049180328
+    Rerank score : -1.5840682983398438
+    Quality score: 0.9569444444444445
+    Preview      : Andres Bonifacio (1863–1897) – The leading founder and the third Supreme President (Kataas- taasang Pangulo, Presidente Supremo) of the Katipunan, later taking the title Pangulo ng Haring Bayang Katagalugan (President of the Sovereign Tagalog Nation; "Haring Bayan" was also translated as Republic, i.e. Republika ng Katagalugan) upon the start of the revolution. Emilio Aguinaldo (1869–1964) – First president of the First Philippine Republic, the Katipunan's successor. He was also a war general an...
+  Result 2
+    Source       : data\Andrés Bonifacio - Wikipedia.pdf
+    Page         : 0
+    Chunk index  : 0
+    Hybrid score : 0.009836065573770491
+    Rerank score : -2.740025520324707
+    Quality score: 0.9169117480200604
+    Preview      : Andrés C. Bonifacio The only extant portrait photograph of Bonifacio, c. 1896. Unofficial President of the Sovereign Tagalog Nation President of the Philippines (unofficial) In office August 24, 1896 – March 22 or May 10, 1897 Preceded by Office established Succeeded by Office abolished Emilio Aguinaldo (as President of Tejeros Revolutionary Government) Supremo of Katipunan In office November 1895 – May 10, 1897 Preceded by Román Basa Succeeded by Organization defunct Personal details Born André...
   Result 3
     Source       : data\Andrés Bonifacio - Wikipedia.pdf
-    Page         : 3
-    Chunk index  : 9
-    Hybrid score : 0.008955223880597015
-    Rerank score : -5.1175384521484375
-    Quality score: 0.9638728323699421
-    Preview      : Liga Filipina. La Liga eventually split because some members like Bonifacio lost hope for peaceful reform and stopped their monetary aid. The more conservative members, mostly wealthy members, who still believed in peaceful reforms set up the Cuerpo de Compromisarios, which pledged continued support to the reformists in Spain. The radicals were subsumed into the Katipunan. From Manila, the Katipunan expanded to several provinces, including Batangas, La Laguna (present-day Laguna), Cavite, Bulaca...
-  Result 4
+    Page         : 16
+    Chunk index  : 56
+    Hybrid score : 0.00923076923076923
+    Rerank score : -3.4632842540740967
+    Quality score: 0.935
+    Preview      : 15. Richardson, Jim (2023). The Fight for Liberty: Notes on Andres Bonifacio and the Beginning of the 538-368-4. 16. "8 things you might not know about Andres Bonifacio" ( e/artandculture/766227/8-things-you-might-not-know-about-andres-bonifacio/story/). GMA News. 17. Quodala, Schatzi (November 29, 2011). "Did you know" ( 18. Ocampo (July 15, 2015). "Ambeth R." ( 19. Artigas, Manuel (1911). Andres Bonifacio y El 'Katipunan'. Manila: La Vanguardia. 20. Nobles, Arsenio F. (1964). Philippine Journa...
+
+--------------------------------------------------------------------------------
+N02 - PASS
+--------------------------------------------------------------------------------
+Type              : negative
+Query             : Ano ang eksaktong Wi-Fi password na ginamit ng Katipunan sa kanilang mga pagpupulong?
+Source OK         : True
+Keyword OK        : True
+Top source rank   : None
+Matched sources   : []
+Matched keywords  : []
+Matched forbidden : []
+Hybrid candidates : 8
+Reranked docs     : 3
+Final context docs: 3
+Query time        : 6.34 sec
+Bottleneck        : Rerank documents - 6.12 sec
+Final context:
+  Result 1
     Source       : data\Katipunan - Wikipedia.pdf
-    Page         : 21
-    Chunk index  : 772
-    Hybrid score : 0.009836065573770491
-    Rerank score : -5.221233367919922
-    Quality score: 0.9310344827586207
-    Preview      : Luna Sharpshooters Malolos Congress Military history of the Philippines Philippine–American War Philippine Army Philippine Declaration of Independence Philippine Revolutionary Army Secret society Spanish–American War a. Also spelled as Kataastaasang, Kagalanggalang na Katipunan ng mga Anak ng Bayan. 1. "Andres Bonifacio and the Katipunan" ( ov.ph/andres-bonifacio-and-the-katipunan/). National Historical Commission of the Philippines. n) on April 17, 2014. 2. Ricardo Trota Jose (1992). The Philip...
+    Page         : 6
+    Chunk index  : 726
+    Hybrid score : 0.00967741935483871
+    Rerank score : -2.3251383304595947
+    Quality score: 0.9387427083986702
+    Preview      : society, Katipon wore a black hood with a triangle of white ribbon having the letters "Z. Ll. B.", corresponding to the roman "A. N. B.", meaning Anak n g̃ Bayan (Son of the People, see below). Kawal wore a green hood with a triangle having white lines and the letters "Z. LL. B." at the three angles of the triangle, and also wore a green ribbon with a medal with the letter (ka) in Baybayin script above a depiction of a crossed sword and flag. The password was Gom-Bur-Za, taken from the names of...
+  Result 2
+    Source       : data\Katipunan - Wikipedia.pdf
+    Page         : 6
+    Chunk index  : 725
+    Hybrid score : 0.00923076923076923
+    Rerank score : -6.663824081420898
+    Quality score: 0.950507614213198
+    Preview      : Two infographs depicting the ranks within the Katipunan and the Triangle system of recruitment. Katipunero (plural, mga Katipunero) is the demonym of a male member of the Katipunan. Katipunera (plural, mga Katipunera) refers to female members. It was the original plan of Bonifacio to increase the membership of the Katipunan by means of sistemang patatsulok or the triangle system. He formed his first triangle with his two comrades, Teodoro Plata and Ladislao Diwa. Each of them re-instituted Katip...
+  Result 3
+    Source       : data\Katipunan - Wikipedia.pdf
+    Page         : 7
+    Chunk index  : 728
+    Hybrid score : 0.00909090909090909
+    Rerank score : -7.043097972869873
+    Quality score: 0.9377538232795242
+    Preview      : Katipon could graduate to Kawal class by bringing several new members into the society. A Kawal could become a Bayani upon being elected an officer of the society. Any person who wished to join the Katipunan was subjected to certain initiation rites, resembling those of Masonic rites, to test his courage, patriotism and loyalty. New recruits underwent the initiation rite three at a time so that no member knew more than two other members of the society. The neophyte was first blindfolded and then...
