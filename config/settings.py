@@ -65,13 +65,23 @@ EMBEDDING_NORMALIZE = get_env_bool("EMBEDDING_NORMALIZE", True)
 EMBEDDING_BATCH_SIZE = get_env_int("EMBEDDING_BATCH_SIZE", 32)
 
 # Retrieval settings
-SEMANTIC_K = get_env_int("SEMANTIC_K", 6)
-BM25_K = get_env_int("BM25_K", 6)
-HYBRID_FINAL_K = get_env_int("HYBRID_FINAL_K", 8)
+SEMANTIC_K = get_env_int("SEMANTIC_K", 9)
+BM25_K = get_env_int("BM25_K", 9)
+HYBRID_FINAL_K = get_env_int("HYBRID_FINAL_K", 11)
 RRF_K = get_env_int("RRF_K", 60)
 SEMANTIC_WEIGHT = get_env_float("SEMANTIC_WEIGHT", 0.6)
 BM25_WEIGHT = get_env_float("BM25_WEIGHT", 0.4)
 USE_E5_PREFIX = get_env_bool("USE_E5_PREFIX", False)
+
+# Multi-query retrieval settings
+ENABLE_MULTI_QUERY_RETRIEVAL = get_env_bool("ENABLE_MULTI_QUERY_RETRIEVAL", True)
+MAX_RETRIEVAL_QUERIES = get_env_int("MAX_RETRIEVAL_QUERIES", 3)
+MAX_CANDIDATES_BEFORE_RERANK = get_env_int("MAX_CANDIDATES_BEFORE_RERANK", 15)
+
+# Candidate balancing settings
+ENABLE_CANDIDATE_BALANCING = get_env_bool("ENABLE_CANDIDATE_BALANCING", True)
+CANDIDATE_MAX_PER_SOURCE = get_env_int("CANDIDATE_MAX_PER_SOURCE", 2)
+BALANCED_RERANK_TOP_N = get_env_int("BALANCED_RERANK_TOP_N", 12)
 
 # MMR settings
 MMR_FETCH_K = get_env_int("MMR_FETCH_K", 18)
@@ -79,20 +89,28 @@ MMR_LAMBDA = get_env_float("MMR_LAMBDA", 0.5)
 
 # Reranker settings
 RERANKER_MODEL_NAME = get_env_string("RERANKER_MODEL_NAME", "BAAI/bge-reranker-base")
-RERANK_TOP_N = get_env_int("RERANK_TOP_N", 3)
+RERANK_TOP_N = get_env_int("RERANK_TOP_N", 4)
 RERANK_MAX_CHARS = get_env_int("RERANK_MAX_CHARS", 700)
 RERANK_MAX_LENGTH = get_env_int("RERANK_MAX_LENGTH", 320)
 RERANK_BATCH_SIZE = get_env_int("RERANK_BATCH_SIZE", 4)
 RERANK_USE_FP16 = get_env_bool("RERANK_USE_FP16", False)
+RERANK_POOL_TOP_N = get_env_int("RERANK_POOL_TOP_N", 12)
 
 # Context settings
 MIN_QUALITY_SCORE = get_env_float("MIN_QUALITY_SCORE", 0.45)
 MIN_CONTEXT_LENGTH = get_env_int("MIN_CONTEXT_LENGTH", 80)
-MAX_CONTEXT_CHARS = get_env_int("MAX_CONTEXT_CHARS", 6000)
+MAX_CONTEXT_CHARS = get_env_int("MAX_CONTEXT_CHARS", 5500)
+MAX_PER_SOURCE = get_env_int("MAX_PER_SOURCE", 2)
 MAX_DOC_CHARS = get_env_int("MAX_DOC_CHARS", 2600)
 MAX_PROMPT_CONTEXT_CHARS = get_env_int("MAX_PROMPT_CONTEXT_CHARS", 10000)
 PREVIEW_CHARS = get_env_int("PREVIEW_CHARS", 500)
-SOURCE_TOP_N = get_env_int("SOURCE_TOP_N", 3)
+SOURCE_TOP_N = get_env_int("SOURCE_TOP_N", 4)
+
+# Evidence guard settings
+MIN_EVIDENCE_TERM_MATCHES = get_env_int("MIN_EVIDENCE_TERM_MATCHES", 1)
+MIN_EVIDENCE_TERM_COVERAGE = get_env_float("MIN_EVIDENCE_TERM_COVERAGE", 0.45)
+MAX_UNMATCHED_EVIDENCE_TERMS = get_env_int("MAX_UNMATCHED_EVIDENCE_TERMS", 3)
+MAX_EVIDENCE_CONTEXT_CHARS = get_env_int("MAX_EVIDENCE_CONTEXT_CHARS", 5000)
 
 # Neighbor chunk expansion
 ENABLE_NEIGHBOR_EXPANSION = get_env_bool("ENABLE_NEIGHBOR_EXPANSION", False)
@@ -106,6 +124,6 @@ ENABLE_FALSE_PREMISE_RETRY = get_env_bool("ENABLE_FALSE_PREMISE_RETRY", True)
 LLM_MODEL_NAME = get_env_string("OLLAMA_MODEL", "qwen2.5:3b")
 LLM_TEMPERATURE = get_env_float("OLLAMA_TEMPERATURE", 0.2)
 LLM_NUM_CTX = get_env_int("OLLAMA_NUM_CTX", 4096)
-LLM_NUM_PREDICT = get_env_int("OLLAMA_NUM_PREDICT", 512)
+LLM_NUM_PREDICT = get_env_int("OLLAMA_NUM_PREDICT", 384)
 LLM_TOP_P = get_env_float("OLLAMA_TOP_P", 0.85)
 LLM_REPEAT_PENALTY = get_env_float("OLLAMA_REPEAT_PENALTY", 1.1)

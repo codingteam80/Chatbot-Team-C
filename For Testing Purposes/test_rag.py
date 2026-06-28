@@ -35,9 +35,33 @@ from config.settings import (
 from chains.rag_chain import clean_generated_answer, generate_answer, get_sources, stream_answer
 from embeddings.embedding_model import get_embedding_model
 from llm.ollama_llm import load_llm
+
+# Optional retrieval settings para compatible kahit hindi pa updated ang config/settings.py.
+try:
+    from config.settings import (
+        BALANCED_RERANK_TOP_N,
+        CANDIDATE_MAX_PER_SOURCE,
+        ENABLE_CANDIDATE_BALANCING,
+        ENABLE_MULTI_QUERY_RETRIEVAL,
+        MAX_CANDIDATES_BEFORE_RERANK,
+        MAX_RETRIEVAL_QUERIES,
+    )
+except ImportError:
+    ENABLE_MULTI_QUERY_RETRIEVAL = True
+    MAX_RETRIEVAL_QUERIES = 3
+    MAX_CANDIDATES_BEFORE_RERANK = 15
+    ENABLE_CANDIDATE_BALANCING = True
+    CANDIDATE_MAX_PER_SOURCE = 2
+    BALANCED_RERANK_TOP_N = 8
+
+from retrieval.candidate_balancer import (
+    balance_candidates,
+    balance_reranked_documents,
+)
 from retrieval.context_filter import filter_low_quality_docs, limit_context_docs
 from retrieval.hybrid_retriever import hybrid_search
 from retrieval.reranker import load_reranker, rerank_documents
+from retrieval.retrieval_query_builder import build_retrieval_queries
 from utils.bm25_cache import load_or_create_bm25
 from utils.chunk_cache import load_or_create_chunks
 from vectorstore.chroma_store import load_chroma_vectorstore
@@ -421,38 +445,78 @@ def setup_components():
 
 
 def retrieve_docs(question, components, show_scores=False):
-    # Kunin ang final context docs gamit hybrid search + reranker.
+    # Multi-query hybrid search -> candidate balance -> rerank pool -> balance final docs -> filter -> limit.
     timings = {}
 
-    hybrid_docs = timed_step(
-        "Hybrid retrieval",
-        lambda: hybrid_search(
-            query=question,
-            vectorstore=components["vectorstore"],
-            bm25_retriever=components["bm25_retriever"],
-            semantic_k=SEMANTIC_K,
-            bm25_k=BM25_K,
-            final_k=HYBRID_FINAL_K,
-            use_rrf=True,
+    retrieval_queries = timed_step(
+        "Build retrieval queries",
+        lambda: build_retrieval_queries(
+            question=question,
+            enabled=ENABLE_MULTI_QUERY_RETRIEVAL,
+            max_queries=MAX_RETRIEVAL_QUERIES,
         ),
         timings,
     )
+
+    hybrid_doc_groups = []
+
+    for retrieval_query in retrieval_queries:
+        hybrid_docs = timed_step(
+            f"Hybrid retrieval [{len(hybrid_doc_groups) + 1}]",
+            lambda query=retrieval_query: hybrid_search(
+                query=query,
+                vectorstore=components["vectorstore"],
+                bm25_retriever=components["bm25_retriever"],
+                semantic_k=SEMANTIC_K,
+                bm25_k=BM25_K,
+                final_k=HYBRID_FINAL_K,
+                use_rrf=True,
+            ),
+            timings,
+        )
+        hybrid_doc_groups.append(hybrid_docs)
+
+    candidate_docs = timed_step(
+        "Balance candidates",
+        lambda: balance_candidates(
+            document_groups=hybrid_doc_groups,
+            max_docs=MAX_CANDIDATES_BEFORE_RERANK,
+            max_per_source=CANDIDATE_MAX_PER_SOURCE,
+            enabled=ENABLE_CANDIDATE_BALANCING,
+        ),
+        timings,
+    )
+
+    rerank_top_n = RERANK_TOP_N
+    if ENABLE_CANDIDATE_BALANCING:
+        rerank_top_n = max(RERANK_TOP_N, BALANCED_RERANK_TOP_N)
 
     reranked_docs = timed_step(
         "Rerank documents",
         lambda: rerank_documents(
             query=question,
-            documents=hybrid_docs,
+            documents=candidate_docs,
             reranker=components["reranker"],
-            top_n=RERANK_TOP_N,
+            top_n=rerank_top_n,
             show_scores=show_scores,
+        ),
+        timings,
+    )
+
+    balanced_reranked_docs = timed_step(
+        "Balance reranked docs",
+        lambda: balance_reranked_documents(
+            docs=reranked_docs,
+            max_docs=RERANK_TOP_N,
+            max_per_source=CANDIDATE_MAX_PER_SOURCE,
+            enabled=ENABLE_CANDIDATE_BALANCING,
         ),
         timings,
     )
 
     clean_docs = timed_step(
         "Filter low-quality docs",
-        lambda: filter_low_quality_docs(reranked_docs, min_score=MIN_QUALITY_SCORE),
+        lambda: filter_low_quality_docs(balanced_reranked_docs, min_score=MIN_QUALITY_SCORE),
         timings,
     )
 
@@ -463,8 +527,11 @@ def retrieve_docs(question, components, show_scores=False):
     )
 
     counts = {
-        "hybrid_candidates": len(hybrid_docs),
+        "retrieval_queries": len(retrieval_queries),
+        "hybrid_candidates": sum(len(group) for group in hybrid_doc_groups),
+        "balanced_candidates": len(candidate_docs),
         "reranked_docs": len(reranked_docs),
+        "balanced_reranked_docs": len(balanced_reranked_docs),
         "final_context_docs": len(final_docs),
     }
 
@@ -821,10 +888,16 @@ def main():
 
     print_section("RAG BATCH TEST STARTED")
     print(f"Total selected tests: {len(selected_tests)}")
-    print(f"Semantic K     : {SEMANTIC_K}")
-    print(f"BM25 K         : {BM25_K}")
-    print(f"Hybrid final K : {HYBRID_FINAL_K}")
-    print(f"Rerank top N   : {RERANK_TOP_N}")
+    print(f"Semantic K          : {SEMANTIC_K}")
+    print(f"BM25 K              : {BM25_K}")
+    print(f"Hybrid final K      : {HYBRID_FINAL_K}")
+    print(f"Rerank top N        : {RERANK_TOP_N}")
+    print(f"Multi-query         : {ENABLE_MULTI_QUERY_RETRIEVAL}")
+    print(f"Max retrieval query : {MAX_RETRIEVAL_QUERIES}")
+    print(f"Max pre-rerank docs : {MAX_CANDIDATES_BEFORE_RERANK}")
+    print(f"Candidate balance   : {ENABLE_CANDIDATE_BALANCING}")
+    print(f"Max per source      : {CANDIDATE_MAX_PER_SOURCE}")
+    print(f"Rerank pool top N   : {BALANCED_RERANK_TOP_N}")
 
     components, setup_timings = setup_components()
 

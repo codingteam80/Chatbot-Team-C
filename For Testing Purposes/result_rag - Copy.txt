@@ -1,0 +1,1400 @@
+================================================================================
+FINAL RAG TEST REPORT
+================================================================================
+Total tests : 30
+Passed      : 24
+Failed      : 6
+Score       : 80.00%
+Total time  : 9 min 42.38 sec
+
+================================================================================
+CATEGORY SCORE BREAKDOWN
+================================================================================
+direct_answer               : 2/3 passed | 1 failed | 66.67%
+paraphrase                  : 2/3 passed | 1 failed | 66.67%
+tagalog_question            : 3/3 passed | 0 failed | 100.00%
+cross_document              : 2/3 passed | 1 failed | 66.67%
+no_answer                   : 3/3 passed | 0 failed | 100.00%
+false_premise               : 3/3 passed | 0 failed | 100.00%
+partial_evidence            : 1/3 passed | 2 failed | 33.33%
+similar_topic_confusion     : 2/3 passed | 1 failed | 66.67%
+follow_up_questions         : 3/3 passed | 0 failed | 100.00%
+japanese_english_mixed      : 3/3 passed | 0 failed | 100.00%
+
+FAILED TESTS:
+- DA02 | Who was Andres Bonifacio? | source_ok=True | answer_ok=False | no_answer_ok=False | forbidden_ok=True | missing_groups=[]
+- P01 | Which revolutionary figure was known as the brain of the revolution and later became the first prime minister? | source_ok=True | answer_ok=False | no_answer_ok=True | forbidden_ok=True | missing_groups=[]
+- X03 | How did the Katipunan lead into the Philippine Revolution? | source_ok=False | answer_ok=True | no_answer_ok=True | forbidden_ok=True | missing_groups=[{'group': 1, 'expected_sources': ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']}]
+- PE01 | What role did Apolinario Mabini serve, and what was his favorite food? | source_ok=True | answer_ok=False | no_answer_ok=False | forbidden_ok=True | missing_groups=[]
+- PE03 | When was the Treaty of Paris signed, and what secret password did the negotiators use? | source_ok=True | answer_ok=False | no_answer_ok=True | forbidden_ok=True | missing_groups=[]
+- S01 | Which event is observed every June 12: Philippine Independence Day or Republic Day? | source_ok=True | answer_ok=False | no_answer_ok=True | forbidden_ok=True | missing_groups=[]
+
+================================================================================
+RETRIEVAL SETTINGS
+================================================================================
+Semantic K       : 9
+BM25 K           : 9
+Hybrid final K   : 11
+Rerank top N     : 4
+Multi-query      : True
+Max queries      : 3
+Max pre-rerank   : 15
+Candidate balance: True
+Max per source   : 2
+Rerank pool top N: 12
+
+================================================================================
+SETUP TIMING SUMMARY
+================================================================================
+- Load embedding model       6.97 sec (65.8%)
+- Load Chroma vectorstore    0.91 sec (8.6%)
+- Load chunk cache           0.03 sec (0.3%)
+- Load BM25 cache            0.06 sec (0.6%)
+- Load reranker              2.05 sec (19.4%)
+- Load LLM                   0.58 sec (5.4%)
+
+Setup bottleneck: Load embedding model
+
+================================================================================
+DETAILED RESULTS
+================================================================================
+
+--------------------------------------------------------------------------------
+DA01 - PASS
+--------------------------------------------------------------------------------
+Category : direct_answer
+Behavior : answer
+Question : Who was Apolinario Mabini and what role did he serve in the First Philippine Republic?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Apolinario Mabini - Wikipedia.md', 'Apolinario Mabini - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Apolinario Mabini', 'Mabini', 'first Prime Minister', 'First Philippine Republic']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Who was Apolinario Mabini and what role did he serve in the First Philippine Republic?', 'Apolinario Mabini role serve First Philippine Republic']
+  hybrid_candidates   : 14
+  reranked_docs       : 12
+  final_context_docs  : 2
+
+Timings:
+  Hybrid retrieval        : 0.34 sec (1.2%)
+  Rerank documents        : 10.25 sec (37.0%)
+  Filter low-quality docs : 0.09 sec (0.3%)
+  Select final context    : 0.02 sec (0.1%)
+  Answer generation       : 17.01 sec (61.4%)
+  Total question time     : 27.75 sec
+  Question bottleneck     : Answer generation - 17.01 sec
+
+Sources:
+  1. Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf
+  2. Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf
+
+Answer:
+Apolinario Mabini served as the first Prime Minister of the Philippines from January 23, 1899 to May 7, 1899 during the establishment of the First Philippine Republic. He also held the position of Secretary of Foreign Relations concurrently.
+
+--------------------------------------------------------------------------------
+DA02 - FAIL
+--------------------------------------------------------------------------------
+Category : direct_answer
+Behavior : answer
+Question : Who was Andres Bonifacio?
+
+Checks:
+  source_ok    : True
+  answer_ok    : False
+  no_answer_ok : False
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Andrés Bonifacio - Wikipedia.md', 'Andrés Bonifacio - Wikipedia.pdf', 'Andres Bonifacio - Wikipedia.md', 'Andres Bonifacio - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : []
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Who was Andres Bonifacio?']
+  hybrid_candidates   : 11
+  reranked_docs       : 11
+  final_context_docs  : 2
+
+Timings:
+  Hybrid retrieval        : 0.14 sec (1.8%)
+  Rerank documents        : 7.51 sec (97.2%)
+  Filter low-quality docs : 0.08 sec (1.0%)
+  Select final context    : 0.00 sec (0.0%)
+  Evidence guard          : 0.00 sec (0.0%)
+  Answer generation       : 0.00 sec (0.0%)
+  Total question time     : 7.74 sec
+  Question bottleneck     : Rerank documents - 7.51 sec
+
+Sources:
+  1. Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf
+  2. Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf
+
+Answer:
+I cannot find the answer in the provided documents.
+
+--------------------------------------------------------------------------------
+DA03 - PASS
+--------------------------------------------------------------------------------
+Category : direct_answer
+Behavior : answer
+Question : When was the Katipunan formed and what was its main purpose?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Katipunan', 'July 7, 1892', '1892', 'independence']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['When was the Katipunan formed and what was its main purpose?', 'Katipunan formed main purpose']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.24 sec (1.5%)
+  Rerank documents        : 8.56 sec (53.4%)
+  Filter low-quality docs : 0.09 sec (0.6%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 7.13 sec (44.5%)
+  Total question time     : 16.03 sec
+  Question bottleneck     : Rerank documents - 8.56 sec
+
+Sources:
+  1. Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf
+  2. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+  3. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  4. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+
+Answer:
+The Katipunan was founded on July 7, 1892. Its main purpose was to seek independence from Spain through an armed revolt.
+
+--------------------------------------------------------------------------------
+P01 - FAIL
+--------------------------------------------------------------------------------
+Category : paraphrase
+Behavior : answer
+Question : Which revolutionary figure was known as the brain of the revolution and later became the first prime minister?
+
+Checks:
+  source_ok    : True
+  answer_ok    : False
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Apolinario Mabini - Wikipedia.md', 'Apolinario Mabini - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : []
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Which revolutionary figure was known as the brain of the revolution and later became the first prime minister?', 'brain of the revolution brain of the revolution and later became the first prime minister', 'revolutionary figure known brain revolution later became first prime minister']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 3
+
+Timings:
+  Hybrid retrieval        : 0.39 sec (2.7%)
+  Rerank documents        : 8.29 sec (56.7%)
+  Filter low-quality docs : 0.09 sec (0.6%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 5.87 sec (40.1%)
+  Total question time     : 14.65 sec
+  Question bottleneck     : Rerank documents - 8.29 sec
+
+Sources:
+  1. Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf
+  2. Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf
+  3. Emilio Aguinaldo - Wikipedia | Emilio Aguinaldo - Wikipedia | Emilio Aguinaldo - Wikipedia.pdf | data\Emilio Aguinaldo - Wikipedia.pdf | data\Emilio Aguinaldo - Wikipedia.pdf | data\Emilio Aguinaldo - Wikipedia.pdf
+
+Answer:
+Emilio Aguinaldo
+
+--------------------------------------------------------------------------------
+P02 - PASS
+--------------------------------------------------------------------------------
+Category : paraphrase
+Behavior : answer
+Question : What secret nationalist group pushed for independence from Spain through armed revolt after La Liga Filipina?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Katipunan', 'independence', 'La Liga Filipina']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['What secret nationalist group pushed for independence from Spain through armed revolt after La Liga Filipina?', 'secret nationalist group pushed independence Spain through armed revolt after Liga Filipina']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.34 sec (1.3%)
+  Rerank documents        : 11.91 sec (46.4%)
+  Filter low-quality docs : 0.10 sec (0.4%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 13.29 sec (51.8%)
+  Total question time     : 25.67 sec
+  Question bottleneck     : Answer generation - 13.29 sec
+
+Sources:
+  1. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+  2. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  3. Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf
+  4. Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf
+
+Answer:
+The Katipunan pushed for independence from Spain through armed revolt after La Liga Filipina.
+
+--------------------------------------------------------------------------------
+P03 - PASS
+--------------------------------------------------------------------------------
+Category : paraphrase
+Behavior : answer
+Question : Which 1898 peace agreement ended the war between Spain and the United States and transferred the Philippines?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Treaty of Paris (1898) - Wikipedia.md', 'Treaty of Paris (1898) - Wikipedia.pdf', 'Spanish–American War - Wikipedia.md', 'Spanish–American War - Wikipedia.pdf', 'Spanish-American War - Wikipedia.md', 'Spanish-American War - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Treaty of Paris', '1898', 'Spanish-American War', 'Spanish–American War', 'United States', 'Philippines']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Which 1898 peace agreement ended the war between Spain and the United States and transferred the Philippines?', '1898 peace agreement ended war between Spain United States transferred Philippines']
+  hybrid_candidates   : 14
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.25 sec (1.6%)
+  Rerank documents        : 8.04 sec (50.5%)
+  Filter low-quality docs : 0.08 sec (0.5%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 7.53 sec (47.3%)
+  Total question time     : 15.94 sec
+  Question bottleneck     : Rerank documents - 8.04 sec
+
+Sources:
+  1. History of the Philippines (1565–1898) - Wikipedia | History of the Philippines (1565–1898) - Wikipedia | History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf
+  2. Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf
+  3. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  4. Spanish–American War - Wikipedia | Spanish–American War - Wikipedia | Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf
+
+Answer:
+The Treaty of Paris signed on December 10, 1898, ended the Spanish–American War and transferred the Philippines to the United States for $20 million.
+
+--------------------------------------------------------------------------------
+T01 - PASS
+--------------------------------------------------------------------------------
+Category : tagalog_question
+Behavior : answer
+Question : Ano ang naging papel ni Apolinario Mabini sa Unang Republika ng Pilipinas?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Apolinario Mabini - Wikipedia.md', 'Apolinario Mabini - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Apolinario Mabini', 'Mabini', 'legal and constitutional adviser', 'first Prime Minister', 'Prime Minister', 'First Philippine Republic']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Ano ang naging papel ni Apolinario Mabini sa Unang Republika ng Pilipinas?', 'naging papel Apolinario Mabini Unang Republika Pilipinas']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 3
+
+Timings:
+  Hybrid retrieval        : 0.22 sec (1.4%)
+  Rerank documents        : 8.90 sec (55.0%)
+  Filter low-quality docs : 0.09 sec (0.6%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 6.97 sec (43.1%)
+  Total question time     : 16.20 sec
+  Question bottleneck     : Rerank documents - 8.90 sec
+
+Sources:
+  1. Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf
+  2. Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf
+  3. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+
+Answer:
+Apolinario Mabini y Maranán served as the first Prime Minister of the Philippines upon the establishment of the First Philippine Republic. He was also a legal and constitutional adviser to the Revolutionary Government before this role.
+
+--------------------------------------------------------------------------------
+T02 - PASS
+--------------------------------------------------------------------------------
+Category : tagalog_question
+Behavior : answer
+Question : Kailan itinatag ang Katipunan at ano ang layunin nito?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Katipunan', '1892', 'independence']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Kailan itinatag ang Katipunan at ano ang layunin nito?', 'itinatag Katipunan layunin nito']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 2
+
+Timings:
+  Hybrid retrieval        : 0.31 sec (1.5%)
+  Rerank documents        : 13.31 sec (64.7%)
+  Filter low-quality docs : 0.10 sec (0.5%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 6.83 sec (33.2%)
+  Total question time     : 20.59 sec
+  Question bottleneck     : Rerank documents - 13.31 sec
+
+Sources:
+  1. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+  2. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+
+Answer:
+Katipunan was formed in 1892 with the goal of achieving independence for the archipelago through an armed revolution. Its early members were also part of La Liga Filipina, a nationalist organization founded by Jose Rizal and members of the Propaganda Movement in Spain. The Katipunan's honorary president was Jose Rizal due to a dispute over initiation rites and handling of funds.
+
+--------------------------------------------------------------------------------
+T03 - PASS
+--------------------------------------------------------------------------------
+Category : tagalog_question
+Behavior : answer
+Question : Bakit mahalaga ang Gomburza sa buhay at mga akda ni Jose Rizal?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Gomburza - Wikipedia.md', 'Gomburza - Wikipedia.pdf', 'José Rizal - Wikipedia.md', 'José Rizal - Wikipedia.pdf', 'Jose Rizal - Wikipedia.md', 'Jose Rizal - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Gomburza', 'José Rizal', 'Jose Rizal', 'Rizal', 'executed']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Bakit mahalaga ang Gomburza sa buhay at mga akda ni Jose Rizal?', 'mahalaga Gomburza buhay mga akda Jose Rizal']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 3
+
+Timings:
+  Hybrid retrieval        : 0.27 sec (1.2%)
+  Rerank documents        : 12.68 sec (56.6%)
+  Filter low-quality docs : 0.08 sec (0.3%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 9.37 sec (41.8%)
+  Total question time     : 22.41 sec
+  Question bottleneck     : Rerank documents - 12.68 sec
+
+Sources:
+  1. José Rizal - Wikipedia | José Rizal - Wikipedia | José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf
+  2. José Rizal - Wikipedia | José Rizal - Wikipedia | José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf
+  3. Gomburza - Wikipedia | Gomburza - Wikipedia | Gomburza - Wikipedia.pdf | data\Gomburza - Wikipedia.pdf | data\Gomburza - Wikipedia.pdf | data\Gomburza - Wikipedia.pdf
+
+Answer:
+The Gomburza were executed on February 17, 1872 and their martyrdom is seen as a significant event in Philippine history. José Rizal was influenced by the Gomburza affair, which he wrote about in his works, contributing to the national character of the Philippine Revolution of 1896.
+
+--------------------------------------------------------------------------------
+X01 - PASS
+--------------------------------------------------------------------------------
+Category : cross_document
+Behavior : answer
+Question : How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Treaty of Paris (1898) - Wikipedia.md', 'Treaty of Paris (1898) - Wikipedia.pdf', 'Spanish–American War - Wikipedia.md', 'Spanish–American War - Wikipedia.pdf', 'Spanish-American War - Wikipedia.md', 'Spanish-American War - Wikipedia.pdf', 'Philippine–American War - Wikipedia.md', 'Philippine–American War - Wikipedia.pdf', 'Philippine-American War - Wikipedia.md', 'Philippine-American War - Wikipedia.pdf']
+  groups     : [{'group': 1, 'matched_sources': ['Treaty of Paris (1898) - Wikipedia.md', 'Treaty of Paris (1898) - Wikipedia.pdf']}, {'group': 2, 'matched_sources': ['Spanish–American War - Wikipedia.md', 'Spanish–American War - Wikipedia.pdf', 'Spanish-American War - Wikipedia.md', 'Spanish-American War - Wikipedia.pdf']}, {'group': 3, 'matched_sources': ['Philippine–American War - Wikipedia.md', 'Philippine–American War - Wikipedia.pdf', 'Philippine-American War - Wikipedia.md', 'Philippine-American War - Wikipedia.pdf']}]
+  missing    : []
+  keywords   : ['Treaty of Paris', 'Spanish-American War', 'Spanish–American War', 'Philippine-American War', 'Philippine–American War', 'Philippines']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?', 'Treaty of Paris Spanish-American War Philippine-American War relationship connection cause result', 'Philippine-American War']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.37 sec (1.3%)
+  Rerank documents        : 13.31 sec (47.7%)
+  Filter low-quality docs : 0.08 sec (0.3%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 14.13 sec (50.7%)
+  Total question time     : 27.94 sec
+  Question bottleneck     : Answer generation - 14.13 sec
+
+Sources:
+  1. Spanish–American War - Wikipedia | Spanish–American War - Wikipedia | Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf
+  2. Philippine–American War - Wikipedia | Philippine–American War - Wikipedia | Philippine–American War - Wikipedia.pdf | data\Philippine–American War - Wikipedia.pdf | data\Philippine–American War - Wikipedia.pdf | data\Philippine–American War - Wikipedia.pdf
+  3. Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf
+  4. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+
+Answer:
+The Treaty of Paris connected the Spanish-American War to the Philippine-American War by formally ending Spanish rule over the Philippines and thus marking the beginning of American involvement through the U.S. occupation of Manila, which later led to the Philippine–American War.
+
+--------------------------------------------------------------------------------
+X02 - PASS
+--------------------------------------------------------------------------------
+Category : cross_document
+Behavior : answer
+Question : Paano nauugnay ang La Liga Filipina ni Jose Rizal sa pagkakatatag ng Katipunan?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['José Rizal - Wikipedia.md', 'José Rizal - Wikipedia.pdf', 'Jose Rizal - Wikipedia.md', 'Jose Rizal - Wikipedia.pdf', 'Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']
+  groups     : [{'group': 1, 'matched_sources': ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']}, {'group': 2, 'matched_sources': ['José Rizal - Wikipedia.md', 'José Rizal - Wikipedia.pdf', 'Jose Rizal - Wikipedia.md', 'Jose Rizal - Wikipedia.pdf']}]
+  missing    : []
+  keywords   : ['La Liga Filipina', 'Jose Rizal', 'José Rizal', 'Rizal', 'Katipunan']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Paano nauugnay ang La Liga Filipina ni Jose Rizal sa pagkakatatag ng Katipunan?', 'La Liga Filipina ni Jose Rizal Katipunan relationship connection cause result', 'Katipunan']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.34 sec (1.2%)
+  Rerank documents        : 12.12 sec (42.3%)
+  Filter low-quality docs : 0.10 sec (0.3%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 16.06 sec (56.1%)
+  Total question time     : 28.67 sec
+  Question bottleneck     : Answer generation - 16.06 sec
+
+Sources:
+  1. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+  2. José Rizal - Wikipedia | José Rizal - Wikipedia | José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf
+  3. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  4. History of the Philippines (1565–1898) - Wikipedia | History of the Philippines (1565–1898) - Wikipedia | History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf
+
+Answer:
+La Liga Filipina, na pinangunahan ni José Rizal, ay nagpapahintulot sa pagkakaibaan sa lahat ng mga grupo na nasa loob ng katuparangan. Sa pamamagitan ng La Liga Filipina, itinatayag si Rizal ang kanyang pangangailangan para makuha isang karunungan para sa mga Pilipino at iba't ibang tao sa Pilipinas na magkaroon ng legal na pag-unlad. Kung saan naging Katipunan, itinatayag si Bonifacio ang kanyang pangangailangan upang makuha isang karunungan para sa mga Pilipino at iba't ibang tao sa Pilipinas na magkaroon ng karaniwang pag-unlad.
+
+--------------------------------------------------------------------------------
+X03 - FAIL
+--------------------------------------------------------------------------------
+Category : cross_document
+Behavior : answer
+Question : How did the Katipunan lead into the Philippine Revolution?
+
+Checks:
+  source_ok    : False
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Philippine Revolution - Wikipedia.md', 'Philippine Revolution - Wikipedia.pdf']
+  groups     : [{'group': 2, 'matched_sources': ['Philippine Revolution - Wikipedia.md', 'Philippine Revolution - Wikipedia.pdf']}]
+  missing    : [{'group': 1, 'expected_sources': ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']}]
+  keywords   : ['Katipunan', 'Philippine Revolution', '1896', 'discovery']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['How did the Katipunan lead into the Philippine Revolution?', 'Katipunan lead into Philippine Revolution']
+  hybrid_candidates   : 14
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.20 sec (0.9%)
+  Rerank documents        : 9.89 sec (46.6%)
+  Filter low-quality docs : 0.12 sec (0.6%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 11.01 sec (51.9%)
+  Total question time     : 21.26 sec
+  Question bottleneck     : Answer generation - 11.01 sec
+
+Sources:
+  1. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  2. History of the Philippines (1565–1898) - Wikipedia | History of the Philippines (1565–1898) - Wikipedia | History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf
+  3. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  4. José Rizal - Wikipedia | José Rizal - Wikipedia | José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf
+
+Answer:
+The Katipunan led into the Philippine Revolution through its formation in 1892 and subsequent expansion to thousands of members, which was discovered by colonial authorities in August 1896. This discovery sparked the start of the revolution, initially focusing on Central Luzon but eventually spreading throughout Southern Tagalog regions, including Cavite province where towns were gradually liberated during the uprising's early months.
+
+--------------------------------------------------------------------------------
+N01 - PASS
+--------------------------------------------------------------------------------
+Category : no_answer
+Behavior : no_answer
+Question : What was Andres Bonifacio's official passport number during the Philippine Revolution?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : []
+  groups     : []
+  missing    : []
+  keywords   : []
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ["What was Andres Bonifacio's official passport number during the Philippine Revolution?", 'Andres Bonifacio official passport number during Philippine Revolution']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 3
+
+Timings:
+  Hybrid retrieval        : 0.23 sec (2.2%)
+  Rerank documents        : 10.51 sec (97.0%)
+  Filter low-quality docs : 0.09 sec (0.8%)
+  Select final context    : 0.00 sec (0.0%)
+  Evidence guard          : 0.00 sec (0.0%)
+  Answer generation       : 0.00 sec (0.0%)
+  Total question time     : 10.84 sec
+  Question bottleneck     : Rerank documents - 10.51 sec
+
+Sources:
+  1. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+  2. Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf
+  3. Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf
+
+Answer:
+I cannot find the answer in the provided documents.
+
+--------------------------------------------------------------------------------
+N02 - PASS
+--------------------------------------------------------------------------------
+Category : no_answer
+Behavior : no_answer
+Question : Ano ang eksaktong Wi-Fi password na ginamit ng Katipunan sa kanilang mga pagpupulong?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : []
+  groups     : []
+  missing    : []
+  keywords   : []
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Ano ang eksaktong Wi-Fi password na ginamit ng Katipunan sa kanilang mga pagpupulong?', 'eksaktong Wi-Fi password ginamit Katipunan kanilang mga pagpupulong']
+  hybrid_candidates   : 14
+  reranked_docs       : 12
+  final_context_docs  : 2
+
+Timings:
+  Hybrid retrieval        : 0.25 sec (2.3%)
+  Rerank documents        : 10.75 sec (96.9%)
+  Filter low-quality docs : 0.09 sec (0.8%)
+  Select final context    : 0.00 sec (0.0%)
+  Evidence guard          : 0.00 sec (0.0%)
+  Answer generation       : 0.00 sec (0.0%)
+  Total question time     : 11.09 sec
+  Question bottleneck     : Rerank documents - 10.75 sec
+
+Sources:
+  1. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+  2. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+
+Answer:
+I cannot find the answer in the provided documents.
+
+--------------------------------------------------------------------------------
+N03 - PASS
+--------------------------------------------------------------------------------
+Category : no_answer
+Behavior : no_answer
+Question : What programming language did Gomburza use to build their official website?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : []
+  groups     : []
+  missing    : []
+  keywords   : []
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['What programming language did Gomburza use to build their official website?', 'programming language Gomburza use build their official website']
+  hybrid_candidates   : 14
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.60 sec (5.4%)
+  Rerank documents        : 10.29 sec (93.7%)
+  Filter low-quality docs : 0.09 sec (0.8%)
+  Select final context    : 0.00 sec (0.0%)
+  Evidence guard          : 0.00 sec (0.0%)
+  Answer generation       : 0.00 sec (0.0%)
+  Total question time     : 10.99 sec
+  Question bottleneck     : Rerank documents - 10.29 sec
+
+Sources:
+  1. Gomburza - Wikipedia | Gomburza - Wikipedia | Gomburza - Wikipedia.pdf | data\Gomburza - Wikipedia.pdf | data\Gomburza - Wikipedia.pdf | data\Gomburza - Wikipedia.pdf
+  2. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  3. Gomburza - Wikipedia | Gomburza - Wikipedia | Gomburza - Wikipedia.pdf | data\Gomburza - Wikipedia.pdf | data\Gomburza - Wikipedia.pdf | data\Gomburza - Wikipedia.pdf
+  4. History of the Philippines - Wikipedia | History of the Philippines - Wikipedia | History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf
+
+Answer:
+I cannot find the answer in the provided documents.
+
+--------------------------------------------------------------------------------
+F01 - PASS
+--------------------------------------------------------------------------------
+Category : false_premise
+Behavior : correction
+Question : Why did Jose Rizal become the Supremo of the Katipunan?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['José Rizal - Wikipedia.md', 'José Rizal - Wikipedia.pdf', 'Jose Rizal - Wikipedia.md', 'Jose Rizal - Wikipedia.pdf', 'Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf', 'Andrés Bonifacio - Wikipedia.md', 'Andrés Bonifacio - Wikipedia.pdf', 'Andres Bonifacio - Wikipedia.md', 'Andres Bonifacio - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Jose Rizal', 'José Rizal', 'Rizal', 'Supremo', 'Katipunan']
+  correction : ['No', 'does not support']
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Why did Jose Rizal become the Supremo of the Katipunan?', 'Jose Rizal become Supremo Katipunan']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.96 sec (4.7%)
+  Rerank documents        : 10.80 sec (52.7%)
+  Filter low-quality docs : 0.09 sec (0.4%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 8.64 sec (42.2%)
+  Total question time     : 20.51 sec
+  Question bottleneck     : Rerank documents - 10.80 sec
+
+Sources:
+  1. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+  2. José Rizal - Wikipedia | José Rizal - Wikipedia | José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf
+  3. Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf
+  4. History of the Philippines (1565–1898) - Wikipedia | History of the Philippines (1565–1898) - Wikipedia | History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf
+
+Answer:
+No. José Rizal became the honorary president of the Katipunan, not its Supremo. The context does not support this claim about him being the Supremo.
+
+--------------------------------------------------------------------------------
+F02 - PASS
+--------------------------------------------------------------------------------
+Category : false_premise
+Behavior : correction
+Question : Bakit si Apolinario Mabini ang nagdeklara ng kalayaan ng Pilipinas noong June 12, 1898?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Apolinario Mabini - Wikipedia.md', 'Apolinario Mabini - Wikipedia.pdf', 'Philippine Revolution - Wikipedia.md', 'Philippine Revolution - Wikipedia.pdf', 'Independence Day (Philippines) - Wikipedia.md', 'Independence Day (Philippines) - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Mabini', 'Emilio Aguinaldo', 'Aguinaldo', 'June 12', '1898', 'kalayaan']
+  correction : ['Hindi']
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Bakit si Apolinario Mabini ang nagdeklara ng kalayaan ng Pilipinas noong June 12, 1898?', 'Apolinario Mabini nagdeklara kalayaan Pilipinas noong June 12 1898']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.26 sec (1.0%)
+  Rerank documents        : 13.48 sec (52.5%)
+  Filter low-quality docs : 0.12 sec (0.5%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 11.83 sec (46.1%)
+  Total question time     : 25.73 sec
+  Question bottleneck     : Rerank documents - 13.48 sec
+
+Sources:
+  1. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  2. Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf
+  3. Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf
+  4. Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf
+
+Answer:
+Hindi. Si Emilio Aguinaldo ang nagdeklara ng kalayaan ng Pilipinas noong June 12, 1898, kapag siya ay naging presidente at direktor ng gobyerno ng rehiyon. Mabini ay nagsusulat ng dekret na nagbibigay ng pagpapatupad sa direktorial na gobyerno noong June 18, 1898.
+
+--------------------------------------------------------------------------------
+F03 - PASS
+--------------------------------------------------------------------------------
+Category : false_premise
+Behavior : correction
+Question : How did Gomburza found the Katipunan in 1892?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Gomburza', 'Katipunan', '1892', 'executed', '1872']
+  correction : ['was not']
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['How did Gomburza found the Katipunan in 1892?', 'Gomburza found Katipunan 1892']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.21 sec (0.8%)
+  Rerank documents        : 13.79 sec (49.8%)
+  Filter low-quality docs : 0.11 sec (0.4%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 13.60 sec (49.1%)
+  Total question time     : 27.75 sec
+  Question bottleneck     : Rerank documents - 13.79 sec
+
+Sources:
+  1. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  2. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+  3. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  4. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+
+Answer:
+Gomburza was not involved in founding the Katipunan in 1892. The Katipunan was formed on July 7, 1892, following Rizal's arrest. Gomburza refers to a trio of Filipino priests executed in Bagumbayan in 1872, unrelated to the formation of the Katipunan.
+
+--------------------------------------------------------------------------------
+PE01 - FAIL
+--------------------------------------------------------------------------------
+Category : partial_evidence
+Behavior : answer
+Question : What role did Apolinario Mabini serve, and what was his favorite food?
+
+Checks:
+  source_ok    : True
+  answer_ok    : False
+  no_answer_ok : False
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Apolinario Mabini - Wikipedia.md', 'Apolinario Mabini - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['cannot find']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['What role did Apolinario Mabini serve, and what was his favorite food?', 'role Apolinario Mabini serve his favorite food']
+  hybrid_candidates   : 13
+  reranked_docs       : 12
+  final_context_docs  : 2
+
+Timings:
+  Hybrid retrieval        : 0.32 sec (2.4%)
+  Rerank documents        : 9.04 sec (67.8%)
+  Filter low-quality docs : 0.08 sec (0.6%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 3.88 sec (29.1%)
+  Total question time     : 13.33 sec
+  Question bottleneck     : Rerank documents - 9.04 sec
+
+Sources:
+  1. Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf
+  2. Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf
+
+Answer:
+I cannot find the answer in the provided documents.
+
+--------------------------------------------------------------------------------
+PE02 - PASS
+--------------------------------------------------------------------------------
+Category : partial_evidence
+Behavior : answer
+Question : Sino ang mga founder ng Katipunan at ano ang exact home address ng bawat isa?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Katipunan', 'Andres Bonifacio', 'Andrés Bonifacio', 'Valentin Diaz', 'Valentín Díaz', 'Ladislao Diwa', 'Jose Dizon', 'José Dizon', 'not stated']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Sino ang mga founder ng Katipunan at ano ang exact home address ng bawat isa?', 'mga founder Katipunan exact home address bawat isa']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 3
+
+Timings:
+  Hybrid retrieval        : 0.33 sec (1.3%)
+  Rerank documents        : 17.16 sec (69.8%)
+  Filter low-quality docs : 0.09 sec (0.4%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 7.00 sec (28.5%)
+  Total question time     : 24.61 sec
+  Question bottleneck     : Rerank documents - 17.16 sec
+
+Sources:
+  1. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+  2. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  3. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+
+Answer:
+The founders of the Katipunan were Deodato Arrellano, Andrés Bonifacio, Valentin Diaz, Ladislao Diwa, and José Dizon. The exact home address for each founder is not stated in the provided documents.
+
+--------------------------------------------------------------------------------
+PE03 - FAIL
+--------------------------------------------------------------------------------
+Category : partial_evidence
+Behavior : answer
+Question : When was the Treaty of Paris signed, and what secret password did the negotiators use?
+
+Checks:
+  source_ok    : True
+  answer_ok    : False
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Treaty of Paris (1898) - Wikipedia.md', 'Treaty of Paris (1898) - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Treaty of Paris', 'December 10, 1898', '1898']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['When was the Treaty of Paris signed, and what secret password did the negotiators use?', 'Treaty Paris signed secret password negotiators use']
+  hybrid_candidates   : 14
+  reranked_docs       : 12
+  final_context_docs  : 3
+
+Timings:
+  Hybrid retrieval        : 0.24 sec (1.4%)
+  Rerank documents        : 9.31 sec (55.0%)
+  Filter low-quality docs : 0.09 sec (0.6%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 7.28 sec (43.0%)
+  Total question time     : 16.94 sec
+  Question bottleneck     : Rerank documents - 9.31 sec
+
+Sources:
+  1. Spanish–American War - Wikipedia | Spanish–American War - Wikipedia | Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf
+  2. Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf
+  3. Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf
+
+Answer:
+The Treaty of Paris was signed on December 10, 1898. The question about a secret password used by negotiators is not supported in the provided documents.
+
+--------------------------------------------------------------------------------
+S01 - FAIL
+--------------------------------------------------------------------------------
+Category : similar_topic_confusion
+Behavior : answer
+Question : Which event is observed every June 12: Philippine Independence Day or Republic Day?
+
+Checks:
+  source_ok    : True
+  answer_ok    : False
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Independence Day (Philippines) - Wikipedia.md', 'Independence Day (Philippines) - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Independence Day']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Which event is observed every June 12: Philippine Independence Day or Republic Day?', 'event observed every June 12 Philippine Independence Day Republic Day']
+  hybrid_candidates   : 12
+  reranked_docs       : 12
+  final_context_docs  : 3
+
+Timings:
+  Hybrid retrieval        : 0.24 sec (1.5%)
+  Rerank documents        : 8.82 sec (56.1%)
+  Filter low-quality docs : 0.09 sec (0.6%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 6.57 sec (41.8%)
+  Total question time     : 15.74 sec
+  Question bottleneck     : Rerank documents - 8.82 sec
+
+Sources:
+  1. Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf
+  2. Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf
+  3. フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+
+Answer:
+Philippine Independence Day
+
+--------------------------------------------------------------------------------
+S02 - PASS
+--------------------------------------------------------------------------------
+Category : similar_topic_confusion
+Behavior : answer
+Question : Which war began on February 4, 1899 after U.S. annexation, not the Spanish-American War?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Philippine–American War - Wikipedia.md', 'Philippine–American War - Wikipedia.pdf', 'Philippine-American War - Wikipedia.md', 'Philippine-American War - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Philippine-American War', 'Philippine–American War', 'February 4, 1899', 'United States', 'annexation', 'Treaty of Paris']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Which war began on February 4, 1899 after U.S. annexation, not the Spanish-American War?', 'war began February 4 1899 after annexation not Spanish-American War']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.65 sec (3.3%)
+  Rerank documents        : 11.27 sec (57.4%)
+  Filter low-quality docs : 0.09 sec (0.5%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 7.62 sec (38.8%)
+  Total question time     : 19.66 sec
+  Question bottleneck     : Rerank documents - 11.27 sec
+
+Sources:
+  1. History of the Philippines - Wikipedia | History of the Philippines - Wikipedia | History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf
+  2. History of the Philippines - Wikipedia | History of the Philippines - Wikipedia | History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf
+  3. Spanish–American War - Wikipedia | Spanish–American War - Wikipedia | Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf | data\Spanish–American War - Wikipedia.pdf
+  4. Philippine–American War - Wikipedia | Philippine–American War - Wikipedia | Philippine–American War - Wikipedia.pdf | data\Philippine–American War - Wikipedia.pdf | data\Philippine–American War - Wikipedia.pdf | data\Philippine–American War - Wikipedia.pdf
+
+Answer:
+The Philippine–American War began on February 4, 1899 after the United States' annexation of the Philippines under the terms of the December 1898 Treaty of Paris following the Spanish–American War.
+
+--------------------------------------------------------------------------------
+S03 - PASS
+--------------------------------------------------------------------------------
+Category : similar_topic_confusion
+Behavior : answer
+Question : Who was the Supremo of the Katipunan: Jose Rizal or Andres Bonifacio?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Andrés Bonifacio - Wikipedia.md', 'Andrés Bonifacio - Wikipedia.pdf', 'Andres Bonifacio - Wikipedia.md', 'Andres Bonifacio - Wikipedia.pdf', 'Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Andres Bonifacio', 'Andrés Bonifacio', 'Bonifacio', 'Supremo', 'Katipunan']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Who was the Supremo of the Katipunan: Jose Rizal or Andres Bonifacio?', 'Supremo Katipunan Jose Rizal Andres Bonifacio']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.29 sec (1.3%)
+  Rerank documents        : 14.85 sec (64.5%)
+  Filter low-quality docs : 0.15 sec (0.6%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 7.74 sec (33.6%)
+  Total question time     : 23.04 sec
+  Question bottleneck     : Rerank documents - 14.85 sec
+
+Sources:
+  1. Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia | Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf | data\Andrés Bonifacio - Wikipedia.pdf
+  2. José Rizal - Wikipedia | José Rizal - Wikipedia | José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf | data\José Rizal - Wikipedia.pdf
+  3. History of the Philippines - Wikipedia | History of the Philippines - Wikipedia | History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf
+  4. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+
+Answer:
+Andrés Bonifacio was the Supremo of the Katipunan.
+
+--------------------------------------------------------------------------------
+FU01 - PASS
+--------------------------------------------------------------------------------
+Category : follow_up_questions
+Behavior : answer
+Question : What role did he serve in the First Philippine Republic?
+Retrieval: What role did Apolinario Mabini serve in the First Philippine Republic?
+Chat history: User: Tell me about Apolinario Mabini. Assistant: Apolinario Mabini was a Filipino revolutionary leader and statesman.
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Apolinario Mabini - Wikipedia.md', 'Apolinario Mabini - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Apolinario Mabini', 'Mabini', 'First Philippine Republic']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['What role did Apolinario Mabini serve in the First Philippine Republic?', 'role Apolinario Mabini serve First Philippine Republic']
+  hybrid_candidates   : 14
+  reranked_docs       : 12
+  final_context_docs  : 2
+
+Timings:
+  Hybrid retrieval        : 0.26 sec (1.7%)
+  Rerank documents        : 10.03 sec (66.6%)
+  Filter low-quality docs : 0.09 sec (0.6%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 4.66 sec (31.0%)
+  Total question time     : 15.06 sec
+  Question bottleneck     : Rerank documents - 10.03 sec
+
+Sources:
+  1. Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf
+  2. Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia | Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf | data\Apolinario Mabini - Wikipedia.pdf
+
+Answer:
+Apolinario Mabini served as both Prime Minister of the Philippines and Secretary of Foreign Relations in the First Philippine Republic.
+
+--------------------------------------------------------------------------------
+FU02 - PASS
+--------------------------------------------------------------------------------
+Category : follow_up_questions
+Behavior : answer
+Question : Who were its founders?
+Retrieval: Who were the founders of the Katipunan?
+Chat history: User: What was the Katipunan? Assistant: The Katipunan was a revolutionary organization seeking Philippine independence from Spain.
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Katipunan - Wikipedia.md', 'Katipunan - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['founders', 'Andres Bonifacio', 'Andrés Bonifacio', 'Valentin Diaz', 'Valentín Díaz', 'Ladislao Diwa', 'Jose Dizon', 'José Dizon']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['Who were the founders of the Katipunan?']
+  hybrid_candidates   : 11
+  reranked_docs       : 11
+  final_context_docs  : 3
+
+Timings:
+  Hybrid retrieval        : 0.13 sec (1.1%)
+  Rerank documents        : 5.07 sec (44.0%)
+  Filter low-quality docs : 0.08 sec (0.7%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 6.25 sec (54.2%)
+  Total question time     : 11.54 sec
+  Question bottleneck     : Answer generation - 6.25 sec
+
+Sources:
+  1. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+  2. Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia | Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf | data\Philippine Revolution - Wikipedia.pdf
+  3. Katipunan - Wikipedia | Katipunan - Wikipedia | Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf | data\Katipunan - Wikipedia.pdf
+
+Answer:
+Its founders were Deodato Arrellano, Andrés Bonifacio, Valentín Díaz, Ladislao Diwa, and José Dizon.
+
+--------------------------------------------------------------------------------
+FU03 - PASS
+--------------------------------------------------------------------------------
+Category : follow_up_questions
+Behavior : answer
+Question : What did it do to the Philippines?
+Retrieval: What did the Treaty of Paris of 1898 do to the Philippines?
+Chat history: User: Explain the Treaty of Paris of 1898. Assistant: It was the peace treaty between Spain and the United States after the Spanish-American War.
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['Treaty of Paris (1898) - Wikipedia.md', 'Treaty of Paris (1898) - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Treaty of Paris', 'United States', 'Philippines', '$20 million']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['What did the Treaty of Paris of 1898 do to the Philippines?', 'Treaty Paris 1898 Philippines']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.21 sec (1.4%)
+  Rerank documents        : 7.51 sec (48.9%)
+  Filter low-quality docs : 0.09 sec (0.6%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 7.54 sec (49.1%)
+  Total question time     : 15.36 sec
+  Question bottleneck     : Answer generation - 7.54 sec
+
+Sources:
+  1. Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf
+  2. Philippine–American War - Wikipedia | Philippine–American War - Wikipedia | Philippine–American War - Wikipedia.pdf | data\Philippine–American War - Wikipedia.pdf | data\Philippine–American War - Wikipedia.pdf | data\Philippine–American War - Wikipedia.pdf
+  3. Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf
+  4. History of the Philippines (1565–1898) - Wikipedia | History of the Philippines (1565–1898) - Wikipedia | History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf | data\History of the Philippines (1565–1898) - Wikipedia.pdf
+
+Answer:
+The Treaty of Paris sold the Philippines to the United States for $20 million.
+
+--------------------------------------------------------------------------------
+JE01 - PASS
+--------------------------------------------------------------------------------
+Category : japanese_english_mixed
+Behavior : answer
+Question : Sa Japanese article, kailan recognized by the United States ang Philippine independence?
+Retrieval: フィリピンの歴史 (1946年-1965年) 1946年7月4日 Harry S. Truman Proclamation 2695 Philippine independence recognized United States
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['フィリピンの歴史 (1946年-1965年) - Wikipedia.md', 'フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['July 4, 1946', '1946', 'Philippine independence', 'independence', 'Harry S. Truman']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['フィリピンの歴史 (1946年-1965年) 1946年7月4日 Harry S. Truman Proclamation 2695 Philippine independence recognized United States', 'フィリピンの歴史 (1946年-1965年) 1946年7月4日 Harry S', '1946 1965 1946 7 4 Harry Truman Proclamation 2695 Philippine independence recognized United States']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 4
+
+Timings:
+  Hybrid retrieval        : 0.83 sec (3.1%)
+  Rerank documents        : 12.05 sec (45.1%)
+  Filter low-quality docs : 0.08 sec (0.3%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 13.72 sec (51.4%)
+  Total question time     : 26.71 sec
+  Question bottleneck     : Answer generation - 13.72 sec
+
+Sources:
+  1. Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf
+  2. フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+  3. フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+  4. Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia | Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf | data\Treaty of Paris (1898) - Wikipedia.pdf
+
+Answer:
+Hindi. Ang Philippine independence ay tumanggap ng recognition ng Estados Unidos noong July 4, 1946, bilang pangreklamo ng "Tydings–McDuffie Act" o "Philippine Independence Act", na naging Proclamation No. 2695 ng President Harry S. Truman.
+
+--------------------------------------------------------------------------------
+JE02 - PASS
+--------------------------------------------------------------------------------
+Category : japanese_english_mixed
+Behavior : answer
+Question : What period does フィリピンの歴史 (1946年-1965年) cover?
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['フィリピンの歴史 (1946年-1965年) - Wikipedia.md', 'フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['1946', '1965', 'Third Republic']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['What period does フィリピンの歴史 (1946年-1965年) cover?', 'フィリピンの歴史 (1946年-1965年) cover', 'period 1946 1965 cover']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 3
+
+Timings:
+  Hybrid retrieval        : 0.72 sec (3.6%)
+  Rerank documents        : 11.69 sec (57.8%)
+  Filter low-quality docs : 0.07 sec (0.4%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 7.73 sec (38.2%)
+  Total question time     : 20.23 sec
+  Question bottleneck     : Rerank documents - 11.69 sec
+
+Sources:
+  1. フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+  2. フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+  3. History of the Philippines - Wikipedia | History of the Philippines - Wikipedia | History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf | data\History of the Philippines - Wikipedia.pdf
+
+Answer:
+フィリピンの歴史 (1946年-1965年) covers the Third Republic period from 1946 to 1965.
+
+--------------------------------------------------------------------------------
+JE03 - PASS
+--------------------------------------------------------------------------------
+Category : japanese_english_mixed
+Behavior : answer
+Question : According to the Japanese doc, who issued Proclamation 2695 recognizing Philippine independence?
+Retrieval: フィリピンの歴史 (1946年-1965年) Proclamation 2695 Harry S. Truman Philippine independence United States 1946
+
+Checks:
+  source_ok    : True
+  answer_ok    : True
+  no_answer_ok : True
+  forbidden_ok : True
+
+Matched:
+  sources    : ['フィリピンの歴史 (1946年-1965年) - Wikipedia.md', 'フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf']
+  groups     : []
+  missing    : []
+  keywords   : ['Harry S. Truman', 'Truman', 'Proclamation 2695', '1946', 'independence', 'Philippines']
+  correction : []
+  forbidden  : []
+
+Counts:
+  retrieval_queries   : ['フィリピンの歴史 (1946年-1965年) Proclamation 2695 Harry S. Truman Philippine independence United States 1946', 'フィリピンの歴史 (1946年-1965年) Proclamation 2695 Harry S', '1946 1965 Proclamation 2695 Harry Truman Philippine independence United States 1946']
+  hybrid_candidates   : 15
+  reranked_docs       : 12
+  final_context_docs  : 3
+
+Timings:
+  Hybrid retrieval        : 0.38 sec (2.2%)
+  Rerank documents        : 13.79 sec (78.4%)
+  Filter low-quality docs : 0.09 sec (0.5%)
+  Select final context    : 0.00 sec (0.0%)
+  Answer generation       : 3.32 sec (18.9%)
+  Total question time     : 17.60 sec
+  Question bottleneck     : Rerank documents - 13.79 sec
+
+Sources:
+  1. Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia | Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf | data\Independence Day (Philippines) - Wikipedia.pdf
+  2. フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+  3. フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia | フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+
+Answer:
+Hindi. Proclamation 2695 was not issued by a person mentioned in the Japanese document. The CONTEXT states that President Harry S. Truman issued Proclamation 2695 of July 4, 1946, officially recognizing the independence of the Philippines.

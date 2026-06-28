@@ -1,0 +1,94 @@
+RAG TEST QUESTIONS LIST
+================================================================================
+Source file: result_rag(15).txt
+Total questions: 30
+
+01. DA01 | PASS | direct_answer
+    Who was Apolinario Mabini and what role did he serve in the First Philippine Republic?
+
+02. DA02 | PASS | direct_answer
+    Who was Andres Bonifacio?
+
+03. DA03 | PASS | direct_answer
+    When was the Katipunan formed and what was its main purpose?
+
+04. P01 | PASS | paraphrase
+    Which revolutionary figure was known as the brain of the revolution and later became the first prime minister?
+
+05. P02 | PASS | paraphrase
+    What secret nationalist group pushed for independence from Spain through armed revolt after La Liga Filipina?
+
+06. P03 | PASS | paraphrase
+    Which 1898 peace agreement ended the war between Spain and the United States and transferred the Philippines?
+
+07. T01 | PASS | tagalog_question
+    Ano ang naging papel ni Apolinario Mabini sa Unang Republika ng Pilipinas?
+
+08. T02 | PASS | tagalog_question
+    Kailan itinatag ang Katipunan at ano ang layunin nito?
+
+09. T03 | PASS | tagalog_question
+    Bakit mahalaga ang Gomburza sa buhay at mga akda ni Jose Rizal?
+
+10. X01 | PASS | cross_document
+    How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
+
+11. X02 | PASS | cross_document
+    Paano nauugnay ang La Liga Filipina ni Jose Rizal sa pagkakatatag ng Katipunan?
+
+12. X03 | PASS | cross_document
+    How did the Katipunan lead into the Philippine Revolution?
+
+13. N01 | PASS | no_answer
+    What was Andres Bonifacio's official passport number during the Philippine Revolution?
+
+14. N02 | PASS | no_answer
+    Ano ang eksaktong Wi-Fi password na ginamit ng Katipunan sa kanilang mga pagpupulong?
+
+15. N03 | PASS | no_answer
+    What programming language did Gomburza use to build their official website?
+
+16. F01 | PASS | false_premise
+    Why did Jose Rizal become the Supremo of the Katipunan?
+
+17. F02 | PASS | false_premise
+    Bakit si Apolinario Mabini ang nagdeklara ng kalayaan ng Pilipinas noong June 12, 1898?
+
+18. F03 | PASS | false_premise
+    How did Gomburza found the Katipunan in 1892?
+
+19. PE01 | FAIL | partial_evidence
+    What role did Apolinario Mabini serve, and what was his favorite food?
+
+20. PE02 | PASS | partial_evidence
+    Sino ang mga founder ng Katipunan at ano ang exact home address ng bawat isa?
+
+21. PE03 | PASS | partial_evidence
+    When was the Treaty of Paris signed, and what secret password did the negotiators use?
+
+22. S01 | FAIL | similar_topic_confusion
+    Which event is observed every June 12: Philippine Independence Day or Republic Day?
+
+23. S02 | PASS | similar_topic_confusion
+    Which war began on February 4, 1899 after U.S. annexation, not the Spanish-American War?
+
+24. S03 | PASS | similar_topic_confusion
+    Who was the Supremo of the Katipunan: Jose Rizal or Andres Bonifacio?
+
+25. FU01 | PASS | follow_up_questions
+    What role did he serve in the First Philippine Republic?
+
+26. FU02 | PASS | follow_up_questions
+    Who were its founders?
+
+27. FU03 | PASS | follow_up_questions
+    What did it do to the Philippines?
+
+28. JE01 | PASS | japanese_english_mixed
+    Sa Japanese article, kailan recognized by the United States ang Philippine independence?
+
+29. JE02 | PASS | japanese_english_mixed
+    What period does フィリピンの歴史 (1946年-1965年) cover?
+
+30. JE03 | FAIL | japanese_english_mixed
+    According to the Japanese doc, who issued Proclamation 2695 recognizing Philippine independence?

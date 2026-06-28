@@ -2,8 +2,9 @@ import html
 import re
 from pathlib import Path
 
-from config.settings import PREVIEW_CHARS
+from config.settings import MAX_CONTEXT_CHARS, MAX_PER_SOURCE, PREVIEW_CHARS, RERANK_TOP_N
 from llm.prompt_builder import build_rag_prompt
+from retrieval.context_filter import select_final_context_docs
 
 
 NO_SOURCE = "Unknown source"
@@ -73,6 +74,19 @@ def print_prompt_debug(prompt):
     print(prompt[:5000])
 
 
+
+def prepare_context_docs(question, docs):
+    # Piliin ang final context bago gumawa ng prompt.
+    # Para sa cross-doc questions, may source diversity bago pumasok sa LLM.
+    return select_final_context_docs(
+        reranked_docs=docs or [],
+        question=question,
+        top_n=RERANK_TOP_N,
+        max_chars=MAX_CONTEXT_CHARS,
+        max_per_source=MAX_PER_SOURCE,
+    )
+
+
 def build_prompt(
     question,
     docs,
@@ -81,9 +95,14 @@ def build_prompt(
     correction_retry=False,
 ):
     # Gumawa ng final RAG prompt.
-    return build_rag_prompt(
+    context_docs = prepare_context_docs(
         question=question,
         docs=docs,
+    )
+
+    return build_rag_prompt(
+        question=question,
+        docs=context_docs,
         chat_history=chat_history,
         strict_assumption_check=strict_assumption_check,
         correction_retry=correction_retry,

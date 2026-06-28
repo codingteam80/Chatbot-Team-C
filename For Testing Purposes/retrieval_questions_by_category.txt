@@ -1,0 +1,79 @@
+================================================================================
+RETRIEVAL TEST QUESTIONS BY CATEGORY
+================================================================================
+Source file: result_retrieve(1).txt
+Total questions: 16
+
+================================================================================
+DIRECT
+================================================================================
+1. [D01 | baseline | PASS] Who was Apolinario Mabini and what role did he serve in the First Philippine Republic?
+2. [D02 | baseline | PASS] Sino si Andres Bonifacio?
+
+================================================================================
+KEYWORD_HEAVY
+================================================================================
+1. [K01 | baseline | PASS] Katipunan KKK July 7 1892 founders Deodato Arellano Andres Bonifacio Valentin Diaz Ladislao Diwa Jose Dizon Teodoro Plata purpose independence Spain
+2. [K02 | baseline | PASS] Gomburza Cavite mutiny 1872 garrote Bagumbayan Mariano Gomes Jose Burgos Jacinto Zamora secularization friars Rizal El filibusterismo
+
+================================================================================
+PARAPHRASED
+================================================================================
+1. [P01 | baseline | PASS] Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?
+2. [P02 | baseline | FAIL] Sinong lider ang tinatawag na utak ng himagsikan dahil sa papel niya bilang tagapayo ng pamahalaang rebolusyonaryo?
+
+================================================================================
+TAGALOG_ENGLISH_DOCS
+================================================================================
+1. [T01 | baseline | PASS] Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?
+2. [T02 | baseline | PASS] Ano ang nangyari sa Pilipinas noong World War II nang sakupin ito ng Japan?
+
+================================================================================
+NEGATIVE
+================================================================================
+1. [N01 | baseline | PASS] What was Andres Bonifacio's official passport number during the Philippine Revolution?
+2. [N02 | baseline | PASS] Ano ang eksaktong Wi-Fi password na ginamit ng Katipunan sa kanilang mga pagpupulong?
+
+================================================================================
+CROSS_DOC
+================================================================================
+1. [X01 | stress | FAIL] How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
+2. [X02 | stress | PASS] Paano nauugnay ang La Liga Filipina ni Jose Rizal sa pagkakatatag ng Katipunan?
+
+================================================================================
+FALSE_PREMISE
+================================================================================
+1. [F01 | stress | PASS] Why did Jose Rizal become the Supremo of the Katipunan?
+2. [F02 | stress | PASS] Bakit si Apolinario Mabini ang nagdeklara ng kalayaan ng Pilipinas noong June 12, 1898?
+
+================================================================================
+SIMILAR_TOPIC
+================================================================================
+1. [S01 | stress | FAIL] Compare Spanish-American War vs Philippine-American War. Huwag pagpalitin ang cause at result ng dalawang war.
+2. [S02 | stress | PASS] Ano ang pinagkaiba ng Philippine Revolution at Katipunan? Organization ba yung isa o war/revolution yung isa?
+
+================================================================================
+QUESTIONS BY GROUP
+================================================================================
+
+BASELINE
+--------------------------------------------------------------------------------
+1. [D01 | direct | PASS] Who was Apolinario Mabini and what role did he serve in the First Philippine Republic?
+2. [D02 | direct | PASS] Sino si Andres Bonifacio?
+3. [K01 | keyword_heavy | PASS] Katipunan KKK July 7 1892 founders Deodato Arellano Andres Bonifacio Valentin Diaz Ladislao Diwa Jose Dizon Teodoro Plata purpose independence Spain
+4. [K02 | keyword_heavy | PASS] Gomburza Cavite mutiny 1872 garrote Bagumbayan Mariano Gomes Jose Burgos Jacinto Zamora secularization friars Rizal El filibusterismo
+5. [P01 | paraphrased | PASS] Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?
+6. [P02 | paraphrased | FAIL] Sinong lider ang tinatawag na utak ng himagsikan dahil sa papel niya bilang tagapayo ng pamahalaang rebolusyonaryo?
+7. [T01 | tagalog_english_docs | PASS] Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?
+8. [T02 | tagalog_english_docs | PASS] Ano ang nangyari sa Pilipinas noong World War II nang sakupin ito ng Japan?
+9. [N01 | negative | PASS] What was Andres Bonifacio's official passport number during the Philippine Revolution?
+10. [N02 | negative | PASS] Ano ang eksaktong Wi-Fi password na ginamit ng Katipunan sa kanilang mga pagpupulong?
+
+STRESS
+--------------------------------------------------------------------------------
+1. [X01 | cross_doc | FAIL] How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
+2. [X02 | cross_doc | PASS] Paano nauugnay ang La Liga Filipina ni Jose Rizal sa pagkakatatag ng Katipunan?
+3. [F01 | false_premise | PASS] Why did Jose Rizal become the Supremo of the Katipunan?
+4. [F02 | false_premise | PASS] Bakit si Apolinario Mabini ang nagdeklara ng kalayaan ng Pilipinas noong June 12, 1898?
+5. [S01 | similar_topic | FAIL] Compare Spanish-American War vs Philippine-American War. Huwag pagpalitin ang cause at result ng dalawang war.
+6. [S02 | similar_topic | PASS] Ano ang pinagkaiba ng Philippine Revolution at Katipunan? Organization ba yung isa o war/revolution yung isa?

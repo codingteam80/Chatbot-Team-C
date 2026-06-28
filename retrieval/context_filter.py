@@ -1,26 +1,22 @@
 import re
+import unicodedata
+from collections import defaultdict
+from pathlib import Path
 
 from config.settings import (
     MAX_CONTEXT_CHARS,
+    MAX_PER_SOURCE,
+    MAX_EVIDENCE_CONTEXT_CHARS,
+    MAX_UNMATCHED_EVIDENCE_TERMS,
     MIN_CONTEXT_LENGTH,
+    MIN_EVIDENCE_TERM_COVERAGE,
+    MIN_EVIDENCE_TERM_MATCHES,
     MIN_QUALITY_SCORE,
 )
 
 
 # Characters na normal makita sa clean documents.
 SAFE_PUNCTUATION = set(".,;:!?()[]{}'\"-/–—%#_+=<>@&*")
-
-# Minimum number ng matched terms bago pumasa sa evidence guard.
-MIN_EVIDENCE_TERM_MATCHES = 1
-
-# Percent ng meaningful question terms na dapat makita sa retrieved context.
-MIN_EVIDENCE_TERM_COVERAGE = 0.65
-
-# Ilang missing meaningful terms lang ang papayagan para iwas partial-topic answer.
-MAX_UNMATCHED_EVIDENCE_TERMS = 1
-
-# Limit ng text na iche-check ng evidence guard para mabilis pa rin.
-MAX_EVIDENCE_CONTEXT_CHARS = 5000
 
 # Common words na hindi useful pang-check ng document evidence.
 EVIDENCE_WEAK_TERMS = {
@@ -52,7 +48,47 @@ EVIDENCE_WEAK_TERMS = {
     "lang", "may", "meron", "mga", "mo", "na", "nang", "ng", "nga",
     "naman", "ni", "nila", "nito", "noong", "nung", "pa", "paano",
     "para", "po", "sa", "saan", "si", "sino", "sya", "siya", "to",
-    "yan", "yung",
+    "yan", "yung", "tinatawag", "papel", "bilang", "kaugnay", "nauugnay",
+    "pinagkaiba", "pagkakaiba", "compare", "comparison", "versus", "vs",
+    "bawat", "isa", "each", "every", "respectively", "exact", "eksaktong",
+}
+
+# Small bilingual aliases para hindi mablock ang Tagalog question kapag English ang documents.
+# Guard helper lang ito, hindi ito ginagamit bilang answer evidence.
+EVIDENCE_TERM_ALIASES = {
+    "apruba": ("approval", "approved", "approve"),
+    "araw": ("day", "date"),
+    "baguhin": ("change", "update", "modify"),
+    "gabay": ("guide", "guideline"),
+    "gumawa": ("create", "make", "prepare"),
+    "hakbang": ("step", "steps", "procedure"),
+    "himagsikan": ("revolution", "revolutionary"),
+    "kailangan": ("required", "requirement", "must"),
+    "layunin": ("purpose", "objective", "goal"),
+    "lider": ("leader", "head"),
+    "pamamahala": ("management", "governance"),
+    "pamahalaan": ("government", "administration"),
+    "pamahalaang": ("government", "administration"),
+    "panuntunan": ("rule", "rules", "guideline"),
+    "patakaran": ("policy", "rule"),
+    "rebolusyonaryo": ("revolutionary", "revolution"),
+    "responsable": ("responsible", "owner"),
+    "sagot": ("answer", "response"),
+    "tagapayo": ("adviser", "advisor", "consultant"),
+    "tungkulin": ("role", "responsibility", "duty"),
+    "utak": ("brain", "brains"),
+    "unang": ("first",),
+    "republika": ("republic", "republica"),
+    "pilipinas": ("philippines", "philippine"),
+    "kalayaan": ("independence", "liberty"),
+    "deklarasyon": ("declaration", "proclamation"),
+    "nagdeklara": ("declared", "proclaimed", "declaration", "proclamation"),
+    "nagproklama": ("declared", "proclaimed", "declaration", "proclamation"),
+    "tagapagtatag": ("founder", "founders", "founded"),
+    "founder": ("founders", "founded"),
+    "founders": ("founder", "founded"),
+    "role": ("role", "responsibility", "duty"),
+    "address": ("address", "location"),
 }
 
 # Starters na kailangan mas strict dahil madalas may false premise.
@@ -70,6 +106,18 @@ ASSUMPTION_CHECK_STARTERS = (
     "kelan ",
 )
 
+
+
+def strip_accents(text):
+    # Gawing accent-insensitive ang matching.
+    # Example: "Andrés" sa document dapat mag-match sa "Andres" sa question.
+    normalized = unicodedata.normalize("NFKD", str(text or ""))
+    return "".join(char for char in normalized if not unicodedata.combining(char))
+
+
+def normalize_match_text(text):
+    # Shared normalization para sa evidence/source matching.
+    return strip_accents(text).lower()
 
 def is_readable_char(char):
     # Unicode-friendly para hindi ma-penalize ang Japanese text.
@@ -116,12 +164,19 @@ def filter_low_quality_docs(docs, min_score=MIN_QUALITY_SCORE, min_length=MIN_CO
     return clean_docs
 
 
-def limit_context_docs(docs, max_chars=MAX_CONTEXT_CHARS):
+def limit_context_docs(docs, max_chars=MAX_CONTEXT_CHARS, max_per_source=None):
     # Limitahan ang final context size habang pinapanatili ang ranking order.
+    # Kapag may max_per_source, iiwasan na puro isang source lang ang pumasok.
     selected_docs = []
     total_chars = 0
+    source_counts = defaultdict(int)
 
     for doc in docs or []:
+        source_key = get_context_source_key(doc)
+
+        if max_per_source is not None and source_counts[source_key] >= max_per_source:
+            continue
+
         text_length = len(doc.page_content or "")
 
         if total_chars + text_length > max_chars:
@@ -131,8 +186,246 @@ def limit_context_docs(docs, max_chars=MAX_CONTEXT_CHARS):
 
         selected_docs.append(doc)
         total_chars += text_length
+        source_counts[source_key] += 1
 
     return selected_docs
+
+
+
+RELATIONSHIP_QUERY_TERMS = {
+    "connect",
+    "connected",
+    "connection",
+    "relationship",
+    "related",
+    "compare",
+    "comparison",
+    "difference",
+    "different",
+    "versus",
+    "vs",
+    "cause",
+    "result",
+    "effect",
+    "link",
+    "lead",
+    "leads",
+    "led",
+    "leading",
+    "into",
+    "spark",
+    "sparked",
+    "trigger",
+    "triggered",
+    "between",
+    "nauugnay",
+    "ugnay",
+    "kaugnayan",
+    "pinagkaiba",
+    "pagkakaiba",
+    "ikumpara",
+    "kumpara",
+}
+
+SOURCE_WEAK_TOKENS = {
+    "a",
+    "an",
+    "and",
+    "ang",
+    "article",
+    "data",
+    "file",
+    "md",
+    "of",
+    "pdf",
+    "the",
+    "wiki",
+    "wikipedia",
+}
+
+
+def normalize_source_text(text):
+    # Normalize source/question text para mag-match ang dash, case, accent, at punctuation.
+    normalized = normalize_match_text(text)
+    normalized = normalized.replace("–", "-").replace("—", "-")
+    normalized = re.sub(r"[^a-z0-9\u3040-\u30ff\u3400-\u9fff]+", " ", normalized)
+    normalized = re.sub(r"\s+", " ", normalized).strip()
+    return normalized
+
+
+def get_source_tokens(doc):
+    # Kunin meaningful tokens mula sa source filename.
+    metadata = doc.metadata or {}
+    raw_source = metadata.get("source") or metadata.get("file_name") or metadata.get("title") or ""
+    source_name = Path(str(raw_source)).stem
+    tokens = normalize_source_text(source_name).split()
+    return [token for token in tokens if token not in SOURCE_WEAK_TOKENS]
+
+
+def get_context_source_key(doc):
+    # Stable source key para sa source diversity checks.
+    tokens = get_source_tokens(doc)
+
+    if tokens:
+        return " ".join(tokens)
+
+    metadata = doc.metadata or {}
+    raw_source = metadata.get("source") or metadata.get("file_name") or metadata.get("title") or ""
+    return normalize_source_text(raw_source) or "unknown source"
+
+
+def get_context_rerank_score(doc):
+    # Kunin score kahit iba-iba ang metadata key na gamit ng retriever/reranker.
+    metadata = doc.metadata or {}
+
+    for key in ("rerank_score", "score", "hybrid_score", "semantic_score", "quality_score"):
+        value = metadata.get(key)
+
+        if value is None:
+            continue
+
+        try:
+            return float(value)
+        except (TypeError, ValueError):
+            continue
+
+    return 0.0
+
+
+def is_relationship_query(question):
+    # Detect kung compare/cross-doc/relationship type ang tanong.
+    normalized_question = f" {normalize_source_text(question)} "
+
+    for term in RELATIONSHIP_QUERY_TERMS:
+        pattern = rf"(?<![a-z0-9_]){re.escape(term)}(?![a-z0-9_])"
+
+        if re.search(pattern, normalized_question):
+            return True
+
+    return False
+
+
+def get_source_question_match_score(doc, question):
+    # Mas mataas kapag source filename mismo ay may words na nasa question.
+    source_tokens = set(get_source_tokens(doc))
+    question_tokens = set(normalize_source_text(question).split())
+
+    if not source_tokens or not question_tokens:
+        return 0
+
+    return len(source_tokens.intersection(question_tokens))
+
+
+def should_keep_source_head(doc, question):
+    # Iwasan ang generic source na one-word lang ang match, pero payagan ang single-topic files.
+    source_tokens = get_source_tokens(doc)
+    match_score = get_source_question_match_score(doc, question)
+
+    if match_score <= 0:
+        return False
+
+    if len(source_tokens) <= 2:
+        return True
+
+    return match_score >= 2
+
+
+def select_final_context_docs(
+    reranked_docs,
+    question,
+    top_n=4,
+    max_chars=MAX_CONTEXT_CHARS,
+    max_per_source=MAX_PER_SOURCE,
+):
+    # Normal questions: gamitin ang highest-ranked docs.
+    # Huwag pilitin ang source diversity dito para hindi mapasukan ng distractor source.
+    if not is_relationship_query(question):
+        return limit_context_docs(
+            docs=(reranked_docs or [])[:top_n],
+            max_chars=max_chars,
+            max_per_source=None,
+        )
+
+    # Cross-doc questions: unahin muna ang source coverage bago duplicate chunks.
+    # Example target: Treaty of Paris + Spanish-American War + Philippine-American War.
+    docs_by_source = defaultdict(list)
+
+    for doc in reranked_docs or []:
+        docs_by_source[get_context_source_key(doc)].append(doc)
+
+    for source_key in docs_by_source:
+        docs_by_source[source_key].sort(
+            key=get_context_rerank_score,
+            reverse=True,
+        )
+
+    source_heads = []
+
+    for source_key, docs in docs_by_source.items():
+        best_doc = docs[0]
+
+        if not should_keep_source_head(best_doc, question):
+            continue
+
+        source_heads.append((
+            get_source_question_match_score(best_doc, question),
+            get_context_rerank_score(best_doc),
+            source_key,
+            best_doc,
+        ))
+
+    source_heads.sort(key=lambda item: (item[0], item[1]), reverse=True)
+
+    selected_docs = []
+    selected_doc_keys = set()
+    selected_source_keys = set()
+
+    def add_doc_if_new(doc):
+        # Helper para hindi maulit ang parehong chunk.
+        doc_key = get_document_key(doc)
+
+        if doc_key in selected_doc_keys:
+            return False
+
+        selected_docs.append(doc)
+        selected_doc_keys.add(doc_key)
+        selected_source_keys.add(get_context_source_key(doc))
+        return True
+
+    # Pass 1: kunin ang best chunk ng sources na direktang tugma sa question.
+    for _, _, source_key, doc in source_heads:
+        if len(selected_docs) >= top_n:
+            break
+
+        if source_key in selected_source_keys:
+            continue
+
+        add_doc_if_new(doc)
+
+    # Pass 2: kung kulang pa, kumuha muna ng ibang source bago duplicate source.
+    for doc in reranked_docs or []:
+        if len(selected_docs) >= top_n:
+            break
+
+        source_key = get_context_source_key(doc)
+
+        if source_key in selected_source_keys:
+            continue
+
+        add_doc_if_new(doc)
+
+    # Pass 3: kung kulang pa rin, saka lang payagan ang duplicate source.
+    for doc in reranked_docs or []:
+        if len(selected_docs) >= top_n:
+            break
+
+        add_doc_if_new(doc)
+
+    return limit_context_docs(
+        docs=selected_docs,
+        max_chars=max_chars,
+        max_per_source=max_per_source,
+    )
 
 
 def count_keyword_matches(docs, keywords):
@@ -151,7 +444,7 @@ def has_min_keyword_matches(docs, keywords, min_matches=1):
 
 def normalize_evidence_term(term):
     # Linisin ang isang term bago gamitin pang-check sa final context.
-    term = str(term or "").strip().lower().strip("_")
+    term = normalize_match_text(term).strip().strip("_")
 
     if not term:
         return ""
@@ -173,7 +466,7 @@ def normalize_evidence_term(term):
 def extract_evidence_terms(text):
     # Kunin lang ang meaningful terms mula English, Filipino, numbers, at Japanese/CJK.
     raw_terms = re.findall(
-        r"[A-Za-z0-9_]+|[\u3040-\u30ff\u3400-\u9fff]+",
+        r"[A-Za-zÀ-ÖØ-öø-ÿ0-9_]+|[\u3040-\u30ff\u3400-\u9fff]+",
         str(text or ""),
     )
     terms = []
@@ -223,22 +516,156 @@ def build_evidence_context_text(docs, max_chars=MAX_EVIDENCE_CONTEXT_CHARS):
         parts.append(text_part)
         total_chars += len(text_part)
 
-    return "\n".join(parts).lower()
+    return normalize_match_text("\n".join(parts))
+
+
+
+
+ATTRIBUTE_HEAD_WORDS = {
+    "address",
+    "credential",
+    "credentials",
+    "id",
+    "key",
+    "number",
+    "passcode",
+    "password",
+    "secret",
+    "token",
+    "url",
+}
+
+ATTRIBUTE_WEAK_MODIFIERS = {
+    "a", "an", "ang", "ano", "exact", "eksaktong", "official", "private",
+    "specific", "the", "what", "which",
+}
+
+MULTI_PART_MARKERS = (
+    " and ",
+    " at ",
+    " saka ",
+    " pati ",
+    " also ",
+    ",",
+    ";",
+)
+
+
+def normalize_attribute_text(text):
+    # Normalize para pareho ang "Wi-Fi password", "wifi password", at "wi fi password".
+    normalized = normalize_match_text(text)
+    normalized = normalized.replace("wi-fi", "wifi")
+    normalized = normalized.replace("wi fi", "wifi")
+    normalized = re.sub(r"[^a-z0-9_\u3040-\u30ff\u3400-\u9fff]+", " ", normalized)
+    normalized = re.sub(r"\s+", " ", normalized).strip()
+    return normalized
+
+
+def contains_phrase(text, phrase):
+    # Exact phrase check na may word boundary para hindi mag-match sa maling substring.
+    normalized_text = normalize_attribute_text(text)
+    normalized_phrase = normalize_attribute_text(phrase)
+
+    if not normalized_phrase:
+        return False
+
+    pattern = rf"(?<![a-z0-9_]){re.escape(normalized_phrase)}(?![a-z0-9_])"
+    return re.search(pattern, normalized_text) is not None
+
+
+def is_multi_part_question(question):
+    # Kapag may supported part at unsupported part, prompt ang bahalang mag-partial answer.
+    normalized_question = f" {normalize_attribute_text(question)} "
+    return any(marker in normalized_question for marker in MULTI_PART_MARKERS)
+
+
+def extract_exact_attribute_phrases(question):
+    # Kunin ang compound attribute na hinihingi ng user.
+    # Hindi ito naka-base sa topic/document; naka-base ito sa requested field shape.
+    # Example: "wifi password", "passport number", "employee id", "api key".
+    normalized_question = normalize_attribute_text(question)
+    tokens = normalized_question.split()
+    phrases = []
+    seen = set()
+
+    for index, token in enumerate(tokens):
+        if token not in ATTRIBUTE_HEAD_WORDS:
+            continue
+
+        start = max(0, index - 3)
+        phrase_tokens = tokens[start:index + 1]
+
+        while phrase_tokens and phrase_tokens[0] in ATTRIBUTE_WEAK_MODIFIERS:
+            phrase_tokens = phrase_tokens[1:]
+
+        if len(phrase_tokens) < 2:
+            continue
+
+        phrase = " ".join(phrase_tokens)
+
+        if phrase in seen:
+            continue
+
+        seen.add(phrase)
+        phrases.append(phrase)
+
+    return phrases
+
+
+def get_missing_exact_attribute_phrases(question, context_text):
+    # Ibalik ang requested compound attributes na wala mismo sa context.
+    missing_phrases = []
+
+    for phrase in extract_exact_attribute_phrases(question):
+        if not contains_phrase(context_text, phrase):
+            missing_phrases.append(phrase)
+
+    return missing_phrases
+
+
+def should_block_exact_attribute_gap(question, context_text):
+    # Block lang kapag ang tanong ay mainly humihingi ng isang exact attribute.
+    # Kapag multi-part ang tanong, hayaan ang prompt na sumagot ng supported part.
+    missing_phrases = get_missing_exact_attribute_phrases(
+        question=question,
+        context_text=context_text,
+    )
+
+    if not missing_phrases:
+        return False
+
+    if is_multi_part_question(question):
+        return False
+
+    return True
+
+
+def get_evidence_term_variants(term):
+    # Isama ang konting English/Tagalog equivalent para sa term coverage check.
+    term = normalize_match_text(term)
+
+    variants = [term]
+    variants.extend(EVIDENCE_TERM_ALIASES.get(term, ()))
+
+    return [variant for variant in variants if variant]
 
 
 def evidence_term_exists(term, context_text):
     # Normal words use word-boundary match para iwas false substring hits.
     # Japanese/CJK text uses substring match dahil walang spaces ang ibang text.
-    term = str(term or "").lower()
+    for variant in get_evidence_term_variants(term):
+        if re.search(r"[\u3040-\u30ff\u3400-\u9fff]", variant):
+            if variant in context_text:
+                return True
 
-    if not term:
-        return False
+            continue
 
-    if re.search(r"[\u3040-\u30ff\u3400-\u9fff]", term):
-        return term in context_text
+        pattern = rf"(?<![a-z0-9_]){re.escape(variant)}(?![a-z0-9_])"
 
-    pattern = rf"(?<![a-z0-9_]){re.escape(term)}(?![a-z0-9_])"
-    return re.search(pattern, context_text) is not None
+        if re.search(pattern, context_text) is not None:
+            return True
+
+    return False
 
 
 def get_evidence_term_matches(terms, context_text):
@@ -256,8 +683,7 @@ def get_evidence_term_matches(terms, context_text):
 
 
 def has_enough_term_coverage(terms, context_text):
-    # Pigilan ang partial-topic answer.
-    # Example: salary + Independence Day should not pass dahil may Independence Day lang.
+    # Pigilan ang totally unrelated context, pero huwag masyadong strict sa paraphrase/translation.
     if not terms:
         return False
 
@@ -272,13 +698,19 @@ def has_enough_term_coverage(terms, context_text):
 
     coverage = len(matched_terms) / len(terms)
 
-    if coverage < MIN_EVIDENCE_TERM_COVERAGE:
-        return False
+    if coverage >= MIN_EVIDENCE_TERM_COVERAGE and len(missing_terms) <= MAX_UNMATCHED_EVIDENCE_TERMS:
+        return True
 
-    if len(missing_terms) > MAX_UNMATCHED_EVIDENCE_TERMS:
-        return False
+    # Backup rule para sa multilingual/paraphrased questions na may sapat na strong matches.
+    if len(matched_terms) >= 3 and coverage >= 0.30:
+        return True
 
-    return True
+    # Entity/source fallback para sa translated questions.
+    # Example: Tagalog question + English document can still be valid when named entities match.
+    if len(matched_terms) >= 2 and len(missing_terms) <= max(MAX_UNMATCHED_EVIDENCE_TERMS + 2, 4):
+        return True
+
+    return False
 
 
 def has_document_evidence(question, retrieval_query, docs, debug=False):
@@ -299,6 +731,13 @@ def has_document_evidence(question, retrieval_query, docs, debug=False):
             print("Evidence guard: blocked because final docs have no text.")
         return False
 
+    if should_block_exact_attribute_gap(question, context_text):
+        if debug:
+            missing_phrases = get_missing_exact_attribute_phrases(question, context_text)
+            print(f"Evidence guard exact attribute missing: {missing_phrases}")
+            print("Evidence guard: blocked because requested exact attribute is not in context.")
+        return False
+
     question_matched, question_missing = get_evidence_term_matches(
         terms=question_terms,
         context_text=context_text,
@@ -309,8 +748,16 @@ def has_document_evidence(question, retrieval_query, docs, debug=False):
     )
 
     # Original question coverage ang pinaka-important check.
-    # Dito mabablock ang tanong na may halong unsupported term gaya ng sahod.
-    if not has_enough_term_coverage(question_terms, context_text):
+    # Kapag multi-part ang question, huwag i-block agad dahil puwedeng partial answer.
+    if is_multi_part_question(question):
+        if len(question_matched) < MIN_EVIDENCE_TERM_MATCHES:
+            if debug:
+                print(f"Evidence guard question terms: {question_terms}")
+                print(f"Evidence guard question matched: {question_matched}")
+                print(f"Evidence guard question missing: {question_missing}")
+                print("Evidence guard: blocked because multi-part question has no supported part.")
+            return False
+    elif not has_enough_term_coverage(question_terms, context_text):
         if debug:
             print(f"Evidence guard question terms: {question_terms}")
             print(f"Evidence guard question matched: {question_matched}")
@@ -323,6 +770,16 @@ def has_document_evidence(question, retrieval_query, docs, debug=False):
 
     if len(query_terms) >= 3:
         required_matches = 2
+
+    # Kapag multi-part ang question, sapat na may supported part.
+    # Ang missing detail ay dapat sagutin ng prompt as "not stated", hindi i-block buong answer.
+    if is_multi_part_question(question):
+        required_matches = MIN_EVIDENCE_TERM_MATCHES
+
+    # Kapag may strong original question match, huwag i-block dahil lang mahaba ang rewritten query.
+    # Useful ito sa Tagalog/English mixed retrieval.
+    if len(question_matched) >= 2:
+        required_matches = min(required_matches, len(query_matched))
 
     if debug:
         print(f"Evidence guard query terms: {query_terms}")
