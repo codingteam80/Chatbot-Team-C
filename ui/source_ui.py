@@ -327,9 +327,12 @@ def create_text_viewer_file(source_file, destination):
 
 
 def ensure_static_css():
-    # Copy main CSS for standalone source viewers when available.
+    # Copy main CSS for standalone source viewers only once per app run/folder.
     STATIC_DOC_DIR.mkdir(parents=True, exist_ok=True)
     destination = STATIC_DOC_DIR / "source_viewer.css"
+
+    if destination.exists():
+        return
 
     for source_css in [Path("ui/styles/main.css"), Path("main.css")]:
         if source_css.exists():
@@ -355,7 +358,10 @@ def make_static_file_link(source_path, page="N/A"):
         ensure_static_css()
         static_name = f"{file_hash}_{safe_name}.html"
         destination = STATIC_DOC_DIR / static_name
-        create_text_viewer_file(source_file, destination)
+
+        if not destination.exists():
+            create_text_viewer_file(source_file, destination)
+
         return f"{STATIC_URL_PREFIX}/{quote(static_name)}"
 
     static_name = f"{file_hash}_{safe_name}"
@@ -420,3 +426,70 @@ def display_sources(sources, preview_limit=DEFAULT_PREVIEW_LIMIT, use_popover=Tr
 
     for index, source in enumerate(sources, start=1):
         render_source_card(index, source, preview_limit=preview_limit)
+
+
+
+def get_inline_source_tooltip(source):
+    # Compact hover text for browser-native preview.
+    title = source.get("source") or source.get("title") or NO_SOURCE_TEXT
+    page = normalize_page(source.get("page"))
+    preview = clean_preview_text(source.get("preview"), limit=220)
+    parts = [str(title)]
+
+    if page != "N/A":
+        parts.append(f"Page: {page}")
+
+    if preview and preview != NO_PREVIEW_TEXT:
+        parts.append(preview)
+
+    return "\n".join(parts)
+
+
+def get_inline_source_label(source, limit=34):
+    # Show the source filename instead of a numeric marker.
+    item = normalize_source_item(source)
+
+    if not item:
+        return NO_SOURCE_TEXT
+
+    label = clean_source_name(item.get("source") or item.get("title"), fallback=NO_SOURCE_TEXT)
+    label = Path(label).stem if Path(label).suffix else label
+    label = normalize_whitespace(label) or NO_SOURCE_TEXT
+
+    if len(label) > limit:
+        return label[:limit].rstrip() + "..."
+
+    return label
+
+
+def build_inline_source_chips(sources, max_sources=5):
+    # Small numbered source chips for the end of each assistant answer.
+    # deduplicate_sources() prevents repeated file/source chips.
+    all_sources = deduplicate_sources(sources or [], max_sources=None)
+    visible_sources = all_sources[:max_sources]
+
+    if not visible_sources:
+        return ""
+
+    chips = []
+
+    for index, source in enumerate(visible_sources, start=1):
+        title = html.escape(get_inline_source_tooltip(source), quote=True)
+        label = html.escape(get_inline_source_label(source), quote=True)
+        link = make_static_file_link(source.get("source_path"), page=source.get("page"))
+
+        if link:
+            safe_link = html.escape(link, quote=True)
+            chips.append(
+                f'<a class="citation-chip" href="{safe_link}" title="{title}" '
+                f'target="_blank" rel="noopener noreferrer">{label}</a>'
+            )
+        else:
+            chips.append(f'<span class="citation-chip" title="{title}">{label}</span>')
+
+    remaining = len(all_sources) - len(visible_sources)
+
+    if remaining > 0:
+        chips.append(f'<span class="citation-chip citation-more" title="Additional sources">+{remaining}</span>')
+
+    return '<span class="citation-chip-row">' + "".join(chips) + '</span>'

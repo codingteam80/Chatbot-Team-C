@@ -1,0 +1,546 @@
+================================================================================
+CLEANER TEST REPORT
+================================================================================
+Data folder       : D:\Python\InknowVa\data
+Raw documents     : 442
+Cleaned documents : 441
+Raw characters    : 1410301
+Cleaned characters: 1127244
+
+================================================================================
+LOADER SUMMARY
+================================================================================
+Loaded files : 15
+Loaded docs  : 442
+Skipped files: 0
+Failed files : 0
+
+================================================================================
+CLEANED FILES
+================================================================================
+
+--------------------------------------------------------------------------------
+1. D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 25
+Cleaned docs   : 25
+Raw chars      : 82511
+Cleaned chars  : 66214
+
+CLEANED PREVIEW:
+Andrés C. Bonifacio
+The only extant portrait photograph of
+Bonifacio, c. 1896.
+Unofficial President of the Sovereign
+Tagalog Nation
+President of the Philippines (unofficial)
+In office
+August 24, 1896 – March 22 or May 10, 1897
+Preceded by Office established
+Succeeded by Office abolished
+Emilio Aguinaldo (as
+President of Tejeros
+Revolutionary Government)
+Supremo of Katipunan
+In office
+November 1895 – May 10, 1897
+Preceded by Román Basa
+Succeeded by Organization defunct
+Personal details
+Born Andrés Castro Bonifacio
+November 30, 1863
+Tondo, Manila, Captaincy
+General of the Philippines
+Andrés Bonifacio
+Andrés Bonifacio (Tagalog: [an ˈ d ɾ es (an ˈ d ɾ ez-)
+bon ɪˈ fa ʃ o], Spanish: [an ˈ d ɾ es βoni ˈ faθjo]; November
+30, 1863 – May 10, 1897) was a Filipino revolutionary
+leader. He is often cal
+
+--------------------------------------------------------------------------------
+2. D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 15
+Cleaned docs   : 15
+Raw chars      : 39082
+Cleaned chars  : 30567
+
+CLEANED PREVIEW:
+Apolinario Mabini
+1st Prime Minister of the Philippines
+In office
+January 23, 1899 – May 7, 1899
+President Emilio Aguinaldo
+Preceded by Office established
+Succeeded by Pedro Paterno
+Secretary of Foreign Relations
+In office
+January 23, 1899 – May 7, 1899
+President Emilio Aguinaldo
+Prime Minister Himself
+Preceded by Position established
+Succeeded by Felipe Buencamino
+Personal details
+Born Apolinario Mabini y Maranán
+July 23, 1864
+Barrio Talaga, Tanauan,
+Batangas, Captaincy General
+of the Philippines, Spanish
+Empire
+Apolinario Mabini
+Apolinario Mabini y Maranán[a] (Tagalog:
+[apol ɪˈ na ɾ .jo ma ˈ bin ɪ ]; July 23, 1864 – May 13, 1903)
+was a Filipino revolutionary leader, educator, lawyer,
+and statesman who served first as a legal and
+constitutional adviser to the Revolutionary
+Government, and
+
+--------------------------------------------------------------------------------
+3. D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 27
+Cleaned docs   : 27
+Raw chars      : 82418
+Cleaned chars  : 67872
+
+CLEANED PREVIEW:
+Emilio Aguinaldo
+Portrait by Harris & Ewing, c. 1919
+Philippine revolutionary leader
+President of the First Philippine Republic[b]
+In office
+January 23, 1899[a] – April 19, 1901[c]
+Prime Minister Apolinario Mabini
+(January 23 – May 7, 1899)
+Pedro Paterno
+(May 7 – November 13,
+1899)
+Preceded by Position established
+Diego de los Ríos (as
+Governor-General of the
+Philippines)
+Succeeded by Position abolished[d]
+Manuel L. Quezon[e]
+President of the Revolutionary
+Government of the Philippines
+In office
+June 23, 1898 – January 23, 1899
+Emilio Aguinaldo
+Emilio Aguinaldo y Famy[f] (Spanish: [e ˈ miljo
+a ɣ i ˈ naldo j ˈ fami]: March 22, 1869 – February 6, 1964)
+was a Filipino revolutionary, statesman, and military
+leader who was the first president of the Philippines
+from 1899 to 1901, and the first
+
+--------------------------------------------------------------------------------
+4. D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 7
+Cleaned docs   : 7
+Raw chars      : 20721
+Cleaned chars  : 17183
+
+CLEANED PREVIEW:
+Mariano Gómes, José Burgos, and
+Jacinto Zamora
+Gomburza
+Gomburza, alternatively stylized as GOMBURZA or
+GomBurZa ("Gom" for Gómes, "Bur" for Burgos, and "Za"
+for Zamora), refers to three Filipino Catholic priests,
+Mariano Gómes, José Burgos, and Jacinto Zamora, who were
+executed by a garrote on February 17, 1872, in Bagumbayan,
+Philippines by Spanish colonial authorities on charges of
+subversion arising from the 1872 Cavite mutiny. The name is a
+portmanteau of the priests' surnames.
+Gomburza incurred the hatred of Spanish authorities for
+fighting for equal rights among priests and leading the
+campaign against the Spanish friars. They fought on the issues
+of secularization in the Philippines that led to the conflict of
+religious and church seculars.
+Their execution had a profound effect on
+
+--------------------------------------------------------------------------------
+5. D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 21
+Cleaned docs   : 21
+Raw chars      : 68437
+Cleaned chars  : 56043
+
+CLEANED PREVIEW:
+History of the Philippines (1565–1898)
+The history of the Philippines from 1565 to 1898 is known as the Spanish colonial period. During
+which the Philippine Islands were ruled as the Captaincy General of the Philippines within the
+Spanish East Indies, initially under the Viceroyalty of New Spain, based in Mexico City, until the
+independence of the Mexican Empire from Spain in 1821. This resulted in direct Spanish control
+during a period of governmental instability there.
+The first documented European contact with the Philippines was made in 1521 by Ferdinand Magellan
+in his circumnavigation expedition, during which he was killed in the Battle of Mactan. 44 years
+later, a Spanish expedition led by Miguel López de Legazpi left modern Mexico and began the Spanish
+conquest of the Philippines i
+
+--------------------------------------------------------------------------------
+6. D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 100
+Cleaned docs   : 100
+Raw chars      : 328494
+Cleaned chars  : 260761
+
+CLEANED PREVIEW:
+History of the Philippines
+The history of the Philippines dates from the earliest hominin activity in the archipelago at least
+by 709,000 years ago. Homo luzonensis, a species of archaic humans, was present on the island of
+Luzon at least by 134,000 years ago. The earliest known anatomically modern human was from
+Tabon Caves in Palawan dating about 47,000 years. Negrito groups were the first inhabitants to
+settle in the prehistoric Philippines. These were followed by Austroasiatics, Papuans, and
+Austronesians. By around 3000 BCE, seafaring Austronesians, who form the majority of the current
+population, migrated southward from Taiwan.
+Scholars generally believe that these ethnic and social groups eventually developed into various
+settlements or polities with varying degrees of economic spec
+
+--------------------------------------------------------------------------------
+7. D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 6
+Cleaned docs   : 6
+Raw chars      : 15859
+Cleaned chars  : 11630
+
+CLEANED PREVIEW:
+Independence Day
+Araw ng Kalayaan
+Aguinaldo Shrine, where Emilio Aguinaldo
+declared the country's independence from
+Spain
+Official name Araw ng Kasarinlán
+Also called Araw ng Kalayaan
+Observed by Philippines
+Type National Day
+Significance Declaring Philippine
+independence from Spain
+Date June 12
+Next time June 12, 2026
+Frequency Annual
+Related to Republic Day
+Independence Day (Philippines)
+Independence Day of the Philippines (Filipino:
+Araw ng Kasarinlán; also known as Araw ng
+Kalayaan, "Day of Freedom") is a national holiday in
+the Philippines observed annually on June 12,
+commemorating the declaration of Philippine
+independence from Spain in 1898. Since 1978, it has
+been the country's National Day.
+The earliest recorded event related to the holiday was
+when Andres Bonifacio, along with E
+
+--------------------------------------------------------------------------------
+8. D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 18
+Cleaned docs   : 18
+Raw chars      : 57620
+Cleaned chars  : 36547
+
+CLEANED PREVIEW:
+Philippines
+フィリピン (Japanese)
+Pilipinas (Filipino)
+1941–1945
+Flag of the Empire of Japan
+and Flag of the Philippines
+Coat of arms
+Motto:
+⼋紘⼀宇 ("Hakkō ichiu")
+'Eight Crown Cords, One Roof'
+Anthem:
+君が代 ("Kimigayo")
+'His Majesty's Reign'
+Lupang Hinirang (unofficial)
+"Chosen Land"
+Japanese occupation of the Philippines
+The Japanese Empire occupied the Commonwealth of
+the Philippines between 1942 and 1945 during World
+War II.
+Japan invaded the Philippines on December 8, 1941, ten
+hours after the attack on Pearl Harbor. As at Pearl
+Harbor, American aircraft were severely damaged in the
+initial Japanese attack. Lacking air cover, the American
+Asiatic Fleet in the Philippines withdrew to Java on 12
+December 1941. General Douglas MacArthur was
+ordered out, leaving his men at Corregidor on the night
+
+--------------------------------------------------------------------------------
+9. D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 36
+Cleaned docs   : 36
+Raw chars      : 132935
+Cleaned chars  : 101889
+
+CLEANED PREVIEW:
+José Protasio Rizal
+Rizal c. 1890s
+Born José Protasio Rizal Mercado y
+Alonso Realonda
+June 19, 1861
+Calamba, La Laguna,
+Captaincy General of the
+Philippines, Spanish Empire
+Died December 30, 1896
+(aged 35)
+Bagumbayan, Manila,
+Captaincy General of the
+Philippines, Spanish Empire
+Cause ofdeath Execution by firing squad
+Resting place Original internment: Paco Park
+Reinterred: Rizal Monument,
+Manila
+Monuments Daet, Camarines Norte ·
+Manila · Calamba, Laguna ·
+Madrid, Spain
+Other names Pepe, Tío Pepe
+Alma mater Ateneo Municipal de Manila
+(AB)
+University of Santo Tomas
+Universidad Central de Madrid
+(MD)
+José Rizal
+José Protasio Rizal Mercado y Alonso Realonda (Spanish:
+[xo ˈ se ri ˈ sal, - ˈ θal], Tagalog: [ho ˈ se ɾ i ˈ sal]; June 19, 1861 – December 30,
+1896) was a Filipino nationalist, writer
+
+--------------------------------------------------------------------------------
+10. D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 28
+Cleaned docs   : 28
+Raw chars      : 83478
+Cleaned chars  : 72951
+
+CLEANED PREVIEW:
+Katipunan
+Supreme and Venerable Association of the
+Children of the Nation
+Kataastaasan Kagalanggalang Katipunan ng
+mga Anak ng Bayan
+Flag of the Katipunan
+Abbreviation KKK
+Nickname Katipunan
+Predecessor La Liga Filipina
+Successor Tejeros Government
+Formation July 7, 1892
+Founders Deodato Arellano, Andrés
+Bonifacio, Valentín Díaz,
+Ladislao Diwa, José Dizon
+and Teodoro Plata.
+Founded at Calle Azcárraga, San Nicolas,
+Manila
+Dissolved March 22, 1897
+Purpose Filipino independence
+Location Philippine Islands
+Members 30,000
+Official
+language
+Tagalog, Spanish
+Supreme
+President
+Deodato Arellano (1892–
+1893)
+Román Basa (1893–1895)
+Andrés Bonifacio (1895–
+1897)
+Main organ Kalayaan (1896)
+Katipunan
+The Katipunan (lit. 'Association'), officially known as
+the Kataastaasan Kagalanggalang Katipunan
+ng mga
+
+--------------------------------------------------------------------------------
+11. D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 36
+Cleaned docs   : 35
+Raw chars      : 110656
+Cleaned chars  : 94372
+
+CLEANED PREVIEW:
+Philippine Revolution
+Part of decolonization of Asia and Spanish–American
+War
+Clockwise from top left: Surviving Spanish troops in
+Barcelona after the Siege of Baler, Filipino soldiers
+during the near end of the Revolution, Filipino
+negotiators for the Pact of Biak-na-Bato, Painting of the
+Battle of Zapote Bridge, and the Malolos Congress
+Philippine Revolution
+The Philippine Revolution[c] was a war of
+independence waged by the revolutionary
+organization Katipunan against the Spanish
+Empire from 1896 to 1898. It was the
+culmination of the 333-year colonial rule of
+Spain in the archipelago. The Philippines was
+one of the last major colonies of the Spanish
+Empire, which had already suffered a massive
+decline in the 1820s. Cuba rebelled in 1895, and
+in 1898, the United States intervened and th
+
+--------------------------------------------------------------------------------
+12. D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 44
+Cleaned docs   : 44
+Raw chars      : 143101
+Cleaned chars  : 117333
+
+CLEANED PREVIEW:
+Philippine–American War
+Clockwise from top left: U.S. troops in Manila,
+Gregorio del Pilar and his troops around 1898,
+Americans guarding the Pasig River bridge in 1898, the
+Battle of Santa Cruz, Filipino soldiers at Malolos, the
+Battle of Quingua
+Date First phase:
+February 4, 1899 – July 4, 1902
+(3 years, 2 months, 1 week and 5 days)[i]
+Moro Rebellion:
+May 2, 1902 – June 15, 1913
+(11 years, 1 month, 1 week and 6 days)
+Location Philippines
+Result American victory
+Territorial
+changes
+The Philippines becomes an
+unincorporated territory of the United
+States and later, a U.S. Commonwealth
+(until 1946).
+Belligerents
+1899–1902:
+United States
+Military
+Government of the
+1899–1902:[a]
+Philippines
+Negros Republic
+Philippine–American War
+The Philippine–American War, known
+alternatively as the Filipin
+
+--------------------------------------------------------------------------------
+13. D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 57
+Cleaned docs   : 57
+Raw chars      : 194541
+Cleaned chars  : 150208
+
+CLEANED PREVIEW:
+Spanish–American War[a]
+Part of the decolonization of the Americas,
+the Cuban War of Independence,
+and the Philippine Revolution
+(clockwise from top left)
+Signal Corps extending telegraph lines · USS Iowa at the
+Victory Fleet Review in August 1898 in New York Harbor ·
+Filipino soldiers wearing Spanish pith helmets outside
+Manila · The Spanish signing the Treaty of Paris ·
+Theodore Roosevelt and his Rough Riders at San Juan
+Hill · Replacing of the Spanish flag at Fort San Antonio
+Abad (Fort Malate) in Manila
+Spanish–American War
+The Spanish–American War[a] (April 21 –
+August 13, 1898) was fought between Spain
+and the United States in 1898. It began with
+the sinking of the USS Maine in Havana
+Harbor in Cuba, and resulted in the U.S.
+acquiring sovereignty over Puerto Rico, Guam,
+and the Phili
+
+--------------------------------------------------------------------------------
+14. D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 13
+Cleaned docs   : 13
+Raw chars      : 35484
+Cleaned chars  : 31253
+
+CLEANED PREVIEW:
+Treaty of Paris
+Treaty of Peace between the United States
+of America and the Kingdom of Spain
+Type Peace treaty
+Signed December 10, 1898
+Location Paris, France
+Effective April 11, 1899
+Condition Exchange of ratifications
+Parties
+Spain
+United States
+Citations 30 Stat. 1754 (
+us/stat-30-1754); TS 343; 11
+Bevans 615 (
+com/books?id=MUU6AQAAIAAJ&
+pg=PA615)
+LanguagesSpanish · English
+Full text
+Treaty of Paris (1898) at Wikisource
+Article IX amended by protocol of March 29,
+1900 (TS 344; 11 Bevans 622 (
+ogle.com/books?id=MUU6AQAAIAAJ&pg=PA6
+22)). Article III supplemented by convention
+of November 7, 1900 (TS 345; 11 Bevans 623
+(
+AAIAAJ&pg=PA623)).
+Treaty of Paris (1898)
+The Treaty of Peace between the United States of
+America and the Kingdom of Spain, commonly
+known as the Treaty of Paris of 1898
+
+--------------------------------------------------------------------------------
+15. D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 9
+Cleaned docs   : 9
+Raw chars      : 14964
+Cleaned chars  : 12421
+
+CLEANED PREVIEW:
+フィリピン共和国
+Republika ng Pilipinas(フィリピノ語)
+Republic of the Philippines(英語)
+República de Filipinas(スペイン語)
+1946年-1965年
+国旗
+国章
+東南アジアにおけるフィリピンの位置
+国歌：Lupang Hinirang（タガログ語）
+最愛の地
+公⽤語 フィリピン語
+スペイン語
+英語
+⾔語 フィリピンの⾔語参照
+宗教 カトリック
+プロテスタント
+イスラム教
+フィリピンの歴史 (1946 年 -1965 年 )
+出典 : フリー百科事典『ウィキペディア（ Wikipedia ）』
+フィリピンの歴史 (1946 年 -1965 年 )は、フィリピン共
+和国 1973 年憲法の批准と共に 1973 年 1 ⽉ 17 ⽇に終わるフ
+ィリピン第三共和国の多くを対象とする 1946 年の独⽴
+承認からディオスダド・マカパガル政権の終焉までの
+フィリピンの歴史を扱っている。
+→ 「マニラ条約 (1946 年 )」および「共和国の⽇ ( フィリ
+ピン )」も参照
+アメリカ合衆国は 1946 年 7 ⽉ 4 ⽇にフィリピンの独⽴を
+承認した。（「タイディングズ＝マクダフィー法」とし
+て広く知られる）フィリピン独⽴法と併せてハリー・
+S ・トルーマン⼤統領は正式にフィリピンの独⽴を承認
+する 1946 年 7 ⽉ 4 ⽇の布告 2695 号を発した 。
+同じ⽇、アメリカ合衆国とフィリピンの代表は、両国
+間の「⼀般関係の条約」に調印した。この条約は 1946
+年 7 ⽉ 4 ⽇時点でのフィリピン共和国の独⽴承認とフィ
+リピン群島に関するアメリカの主権の排除を規定し
+た 。
+アメリカ合衆国は⼀部の主要基地を含む数⼗の軍事基
+地を残していた。加えて独⽴はアメリカ合衆国議会が可
+決した法律により制限された。例え

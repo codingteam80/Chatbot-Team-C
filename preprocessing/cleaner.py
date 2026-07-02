@@ -1,25 +1,14 @@
 import re
-
 from langchain_core.documents import Document
+try:
+    from config.settings import MIN_CLEAN_TEXT_LENGTH
+except ImportError:
+    MIN_CLEAN_TEXT_LENGTH = 100
 
-from config.settings import MIN_CLEAN_TEXT_LENGTH
 
-
-REFERENCE_HEADINGS = (
-    "references",
-    "notes",
-    "external links",
-    "see also",
-    "bibliography",
-    "further reading",
-)
-
-NOISE_KEYWORDS = (
-    "http://",
-    "https://",
+WEB_NOISE_KEYWORDS = (
     "retrieved",
     "archived",
-    "isbn",
     "web.archive.org",
     "books.google.com",
     "internet archive",
@@ -27,91 +16,199 @@ NOISE_KEYWORDS = (
     "jstor",
 )
 
-MONTH_PATTERN = (
-    "January|February|March|April|May|June|July|August|"
-    "September|October|November|December"
+
+NOISE_SECTION_TITLES = (
+    "references",
+    "reference",
+    "further reading",
+    "external links",
+    "bibliography",
+    "notes",
+    "citations",
+    "sources",
+    "see also",
 )
 
 
+DOMAIN_EXTENSIONS = (
+    "com",
+    "org",
+    "net",
+    "gov",
+    "edu",
+    "jp",
+    "ph",
+    "io",
+    "co",
+)
+
+
+def is_url_like_text(text):
+    # Check kung URL/domain-like ang text kahit naputol ng PDF extraction.
+    text = str(text or "").strip()
+
+    if not text:
+        return False
+
+    domain_ext = "|".join(DOMAIN_EXTENSIONS)
+
+    patterns = (
+        r"https?\s*:\s*/\s*/\s*\S+",
+        r"www\.\S+",
+        rf"\b[a-zA-Z0-9.-]+\.({domain_ext})\b/\S*",
+        r"web\.archive\.org",
+        r"books\.google\.com",
+        r"google\.com/books",
+    )
+
+    return any(re.search(pattern, text, flags=re.IGNORECASE) for pattern in patterns)
+
+
+def normalize_section_heading(line):
+    # Gawing comparable ang possible section heading.
+    # Example: "== References ==" -> "references".
+    line = str(line or "").strip().lower()
+
+    # Tanggalin common heading symbols from markdown/wiki/pdf extraction.
+    line = re.sub(r"^[=#*_\-\s]+", "", line)
+    line = re.sub(r"[=#*_\-\s]+$", "", line)
+
+    # Tanggalin numbering sa heading.
+    # Example: "12 References" -> "references".
+    line = re.sub(r"^\d+(\.\d+)*\s+", "", line)
+
+    # Keep letters/numbers only for stable matching.
+    line = re.sub(r"[^a-z0-9\s]+", " ", line)
+    line = re.sub(r"\s+", " ", line).strip()
+    return line
+
+
+def is_noise_section_heading(line):
+    # Detect common ending sections that usually create bad retrieval chunks.
+    # Generic ito sa web/PDF docs, hindi specific sa History or company topic.
+    heading = normalize_section_heading(line)
+
+    if not heading:
+        return False
+
+    return heading in NOISE_SECTION_TITLES
+
+
+def remove_noise_sections(text):
+    # Tanggalin ang buong ending/reference section bago pa mag-chunk.
+    # Line-level cleaning alone is not enough kapag maraming citation/link lines.
+    kept_lines = []
+
+    for line in str(text or "").splitlines():
+        if is_noise_section_heading(line):
+            break
+
+        kept_lines.append(line)
+
+    return "\n".join(kept_lines)
+
+
 def is_noise_line(line):
-    # Tanggalin ang obvious scraped/footer noise, pero huwag maging harsh sa SOP/Japanese text.
+    # Alisin lang ang obvious noise lines para hindi matanggal ang useful SOP/manual content.
     line = str(line or "").strip()
     lower = line.lower()
 
     if not line:
         return True
 
-    if lower.endswith("- wikipedia") and len(line) < 100:
-        return True
-
+    # Example: 1 / 10
     if re.fullmatch(r"\d+\s*/\s*\d+", line):
         return True
 
-    if re.search(r"\d{1,2}/\d{1,2}/\d{2,4},\s*\d{1,2}:\d{2}\s*(am|pm)?", lower):
+    # Example: Page 1 or Page 1 of 10
+    if re.fullmatch(r"page\s+\d+(\s+of\s+\d+)?", lower):
         return True
 
-    if any(keyword in lower for keyword in NOISE_KEYWORDS):
+    # Example: 6/25/2026, 10:30 AM
+    if re.fullmatch(r"\d{1,2}/\d{1,2}/\d{2,4},\s*\d{1,2}:\d{2}\s*(am|pm)?", lower):
+        return True
+
+    # Example: a line na URL/domain lang ang laman.
+    if is_url_like_text(line) and len(line) < 220:
+        return True
+
+    # Example: [1] [2] [3]
+    if re.fullmatch(r"(\[\d+\]\s*)+", line):
+        return True
+
+    # Scraped reference/footer lines. Nililimit sa maikling line para hindi maging aggressive.
+    if len(line) < 180 and any(keyword in lower for keyword in WEB_NOISE_KEYWORDS):
+        return True
+
+    # Simple Wikipedia title/footer noise.
+    if lower.endswith("- wikipedia") and len(line) < 120:
         return True
 
     return False
 
 
-def remove_reference_sections(text):
-    # Tanggalin ang references section kapag nasa dulo na ng document.
-    headings = "|".join(re.escape(heading) for heading in REFERENCE_HEADINGS)
-    pattern = re.compile(
-        rf"(^|\n)\s*#{{0,6}}\s*\*{{0,2}}\s*({headings})\s*\*{{0,2}}\s*(\n|$)",
-        flags=re.IGNORECASE,
-    )
-    match = pattern.search(text)
-
-    if match and match.start() > 300:
-        return text[:match.start()]
-
-    return text
-
-
 def remove_markdown_and_links(text):
-    # Gawing plain text ang markdown links at citations.
+    # Gawing plain text ang common markdown syntax nang hindi binubura ang main content.
+    domain_ext = "|".join(DOMAIN_EXTENSIONS)
+
+    # Markdown link: [label](url) -> label
     text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
-    text = re.sub(r"https?://\S+", " ", text)
-    text = re.sub(r"\[\d+\]", " ", text)
-    text = re.sub(r"[-_=*#~—]{3,}", " ", text)
-    text = re.sub(r"[_`~]+", " ", text)
-    return text
 
+    # Normal URLs and PDF-broken URLs like "http s://example.com".
+    text = re.sub(r"https?\s*:\s*/\s*/\s*\S+", " ", text, flags=re.IGNORECASE)
+    text = re.sub(r"h\s*t\s*t\s*p\s*s?\s*:\s*/\s*/\s*\S+", " ", text, flags=re.IGNORECASE)
 
-def normalize_symbols(text):
-    # Tanggalin control chars at symbols na karaniwang extraction noise.
-    text = text.replace("�", " ")
-    text = re.sub(r"[\x00-\x09\x0B-\x1F\x7F-\x9F]", " ", text)
-    text = re.sub(r"[«»§¤©®™†‡•]", " ", text)
-    text = re.sub(r"\|{2,}", " ", text)
-    return text
+    # Raw www links.
+    text = re.sub(r"www\.\S+", " ", text, flags=re.IGNORECASE)
 
-
-def fix_common_ocr_errors(text):
-    # Maliit na OCR fixes; hindi domain-specific sa final company docs.
-    text = re.sub(r"~*—+\s*ccx«\s*a~*", " ", text, flags=re.IGNORECASE)
+    # Domain with path/query like google.com/books?id=...
     text = re.sub(
-        rf"\b({MONTH_PATTERN})\s+a\s+(\d{{1,2}})",
-        r"\1 \2",
+        rf"\b[a-zA-Z0-9.-]+\.({domain_ext})\b/\S*",
+        " ",
         text,
         flags=re.IGNORECASE,
     )
 
-    replacements = {
-        r"\bdisbande d\b": "disbanded",
-        r"\blepros\s+y\b": "leprosy",
-        r"Generalof": "General of",
-    }
+    # Common broken URL fragments from PDF extraction.
+    # Examples: oogle.com/books, oks.google.com/books, le.com/books, chive.org/web.
+    text = re.sub(
+        r"\b(?:oogle|google|books\.google|oks\.google|s\.google|le|e|chive|rchive|hive|archive)\.(?:com|org)\S*",
+        " ",
+        text,
+        flags=re.IGNORECASE,
+    )
 
-    for wrong_text, correct_text in replacements.items():
-        text = re.sub(wrong_text, correct_text, text, flags=re.IGNORECASE)
+    # Domain-only leftovers. Keep this after path cleanup.
+    text = re.sub(
+        rf"\b[a-zA-Z0-9.-]+\.({domain_ext})\b",
+        " ",
+        text,
+        flags=re.IGNORECASE,
+    )
 
-    text = re.sub(r"Jesú\s+s", "Jesús", text)
-    text = re.sub(r"\bccx\b", " ", text, flags=re.IGNORECASE)
-    return text.replace("<<", "")
+    # Percent-encoded URL/query leftovers.
+    text = re.sub(r"%[0-9A-Fa-f]{2}", " ", text)
+    text = re.sub(r"\b(id|qid|pg|dq|q|page|epage|artifactID)=\S+", " ", text, flags=re.IGNORECASE)
+
+    # Citation markers.
+    text = re.sub(r"\[\d+\]", " ", text)
+
+    # Markdown / separator symbols.
+    text = re.sub(r"^\s{0,3}#{1,6}\s*", "", text, flags=re.MULTILINE)
+    text = re.sub(r"[-_=*#~—]{4,}", " ", text)
+    text = re.sub(r"[_`~]+", " ", text)
+
+    return text
+
+
+def normalize_symbols(text):
+    # Alisin ang control characters at common extraction artifacts.
+    text = text.replace("�", " ")
+    text = re.sub(r"[\x00-\x09\x0B-\x1F\x7F-\x9F]", " ", text)
+    text = re.sub(r"[«»¤©®™†‡•]", " ", text)
+    text = re.sub(r"\|{2,}", " ", text)
+    text = text.replace("<<", " ")
+    return text
 
 
 def normalize_spacing(text):
@@ -122,15 +219,15 @@ def normalize_spacing(text):
 
 
 def clean_text(text):
-    # Main cleaning flow bago chunking at embedding.
+    # General cleaning flow bago chunking at embedding.
+    # Safe ito para sa company docs, SOP, manuals, policies, at mixed-language text.
     if not text:
         return ""
 
     text = str(text)
-    text = remove_reference_sections(text)
     text = remove_markdown_and_links(text)
     text = normalize_symbols(text)
-    text = fix_common_ocr_errors(text)
+    text = remove_noise_sections(text)
 
     clean_lines = []
     for line in text.splitlines():

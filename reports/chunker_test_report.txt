@@ -1,0 +1,1590 @@
+================================================================================
+CHUNKER TEST REPORT
+================================================================================
+Data folder       : D:\Python\InknowVa\data
+Raw documents     : 442
+Cleaned documents : 441
+Chunks created    : 1498
+
+CHUNK SIZE SUMMARY
+--------------------------------------------------------------------------------
+Min chunk chars   : 420
+Avg chunk chars   : 1168.77
+Max chunk chars   : 1397
+Very short chunks : 0
+Missing source    : 0
+
+METADATA SUMMARY
+--------------------------------------------------------------------------------
+Required keys            : source
+Optional useful keys     : file_name, file_path, file_type, title, section, page, chunk_index, language
+Chunks with metadata     : 1498/1498
+Empty metadata chunks    : 0
+Missing source chunks    : 0
+Missing required chunks  : 0
+Metadata key coverage    :
+  category: 1498/1498
+  chunk_id: 1498/1498
+  chunk_index: 1498/1498
+  chunk_overlap: 1498/1498
+  chunk_size: 1498/1498
+  creationdate: 1498/1498
+  creator: 1498/1498
+  doc_type: 1498/1498
+  document_index: 1498/1498
+  file_ext: 1498/1498
+  file_name: 1498/1498
+  file_stem: 1498/1498
+  file_type: 1498/1498
+  global_chunk_index: 1498/1498
+  language: 1498/1498
+  moddate: 1498/1498
+  page: 1498/1498
+  page_label: 1498/1498
+  producer: 1498/1498
+  retrieval_context: 1498/1498
+  section: 1498/1498
+  source: 1498/1498
+  title: 1498/1498
+  total_pages: 1498/1498
+
+LOADER SUMMARY
+--------------------------------------------------------------------------------
+Loaded files : 15
+Loaded docs  : 442
+Skipped files: 0
+Failed files : 0
+
+================================================================================
+CHUNKS PER FILE
+================================================================================
+
+--------------------------------------------------------------------------------
+1. D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 25
+Cleaned docs   : 25
+Chunks         : 86
+Min chars      : 518
+Avg chars      : 1177.53
+Max chars      : 1335
+
+SAMPLE CHUNK 1
+Chars    : 1251
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:30:39+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Andrés Bonifacio - Wikipedia.pdf
+  file_stem: Andrés Bonifacio - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 0
+  language: en
+  moddate: 2026-06-09T02:30:39+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Andrés Bonifacio - Wikipedia | section: Andrés C. Bonifacio | category: history | doc_type: article | source: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en
+  section: Andrés C. Bonifacio
+  source: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf
+  title: Andrés Bonifacio - Wikipedia
+  total_pages: 25
+Preview  :
+Retrieval context: title: Andrés Bonifacio - Wikipedia | section: Andrés C. Bonifacio | category: history | doc_type: article | source: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en Andrés C. Bonifacio The only extant portrait photograph of Bonifacio, c. 1896. Unofficial President of the Sovereign Tagalog Nation President of the Philippines (unofficial) In office August 24, 1896 – March 22 or May 10, 1897 Preceded by Office established Succeeded by Office abolished Emilio Aguinaldo (as President of Tejeros Revolutionary Government) Supremo of Katipunan In office November 1895 – May 10, 1897 Preceded by Román Basa Succeed
+
+SAMPLE CHUNK 2
+Chars    : 1235
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:30:39+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Andrés Bonifacio - Wikipedia.pdf
+  file_stem: Andrés Bonifacio - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1
+  language: en
+  moddate: 2026-06-09T02:30:39+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Andrés Bonifacio - Wikipedia | section: Revolution", considered a national hero of the | category: history | doc_type: article | source: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en
+  section: Revolution", considered a national hero of the
+  source: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf
+  title: Andrés Bonifacio - Wikipedia
+  total_pages: 25
+Preview  :
+Retrieval context: title: Andrés Bonifacio - Wikipedia | section: Revolution", considered a national hero of the | category: history | doc_type: article | source: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en Revolution", considered a national hero of the Philippines. He was a co-founder and later Kataastaasang Pangulo (Spanish: Presidente Supremo, “Supreme President”, often shortened by contemporaries and historians to Supremo) of the Kataastaasan, Kagalanggalang Katipunan ng mga Anak ng Bayan more commonly known as the "Katipunan", a movement that sought the independence of the Philippines from Spanish colonial rule an
+
+SAMPLE CHUNK 3
+Chars    : 939
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:30:39+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Andrés Bonifacio - Wikipedia.pdf
+  file_stem: Andrés Bonifacio - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 2
+  language: en
+  moddate: 2026-06-09T02:30:39+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Andrés Bonifacio - Wikipedia | section: in the Philippine Islands and not merely in Tagalog | category: history | doc_type: article | source: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en
+  section: in the Philippine Islands and not merely in Tagalog
+  source: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf
+  title: Andrés Bonifacio - Wikipedia
+  total_pages: 25
+Preview  :
+Retrieval context: title: Andrés Bonifacio - Wikipedia | section: in the Philippine Islands and not merely in Tagalog | category: history | doc_type: article | source: D:\Python\InknowVa\data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en in the Philippine Islands and not merely in Tagalog- speaking regions Hence, some historians have argued that he should be considered the First President of the Tagalogs instead of the Philippines; that is why he is not included in the official list of Presidents. Bonifacio was executed in Maragondon by Major Lázaro Macapagal under orders of the Consejo de la Guerra (Council of War) led by General Mariano Norie
+
+... 83 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+2. D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 15
+Cleaned docs   : 15
+Chunks         : 41
+Min chars      : 529
+Avg chars      : 1127.1
+Max chars      : 1330
+
+SAMPLE CHUNK 1
+Chars    : 1249
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:30:55+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Apolinario Mabini - Wikipedia.pdf
+  file_stem: Apolinario Mabini - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 86
+  language: en
+  moddate: 2026-06-09T02:30:55+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Apolinario Mabini - Wikipedia | section: Apolinario Mabini | category: history | doc_type: article | source: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf | file_name: Apolinario Mabini - Wikipedia.pdf | language: en
+  section: Apolinario Mabini
+  source: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf
+  title: Apolinario Mabini - Wikipedia
+  total_pages: 15
+Preview  :
+Retrieval context: title: Apolinario Mabini - Wikipedia | section: Apolinario Mabini | category: history | doc_type: article | source: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf | file_name: Apolinario Mabini - Wikipedia.pdf | language: en Apolinario Mabini 1st Prime Minister of the Philippines In office January 23, 1899 – May 7, 1899 President Emilio Aguinaldo Preceded by Office established Succeeded by Pedro Paterno Secretary of Foreign Relations In office January 23, 1899 – May 7, 1899 President Emilio Aguinaldo Prime Minister Himself Preceded by Position established Succeeded by Felipe Buencamino Personal details Born Apolinario Mabini y Maranán July 23, 1864 Barrio Talaga
+
+SAMPLE CHUNK 2
+Chars    : 1231
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:30:55+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Apolinario Mabini - Wikipedia.pdf
+  file_stem: Apolinario Mabini - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 87
+  language: en
+  moddate: 2026-06-09T02:30:55+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Apolinario Mabini - Wikipedia | section: Philippines upon the establishment of the First | category: history | doc_type: article | source: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf | file_name: Apolinario Mabini - Wikipedia.pdf | language: en
+  section: Philippines upon the establishment of the First
+  source: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf
+  title: Apolinario Mabini - Wikipedia
+  total_pages: 15
+Preview  :
+Retrieval context: title: Apolinario Mabini - Wikipedia | section: Philippines upon the establishment of the First | category: history | doc_type: article | source: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf | file_name: Apolinario Mabini - Wikipedia.pdf | language: en Philippines upon the establishment of the First Philippine Republic. He is regarded as the "utak ng himagsikan" or "brain of the revolution" and is also considered as a national hero in the Philippines. Mabini's work and thoughts on the government shaped the Philippines' fight for independence over the next century. Two of his works, El Verdadero Decálogo (The True Decalogue, June 24, 1898) and Programa Constitu
+
+SAMPLE CHUNK 3
+Chars    : 680
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:30:55+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Apolinario Mabini - Wikipedia.pdf
+  file_stem: Apolinario Mabini - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 88
+  language: en
+  moddate: 2026-06-09T02:30:55+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Apolinario Mabini - Wikipedia | section: Mabini's role in Philippine history saw him confronting | category: history | doc_type: article | source: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf | file_name: Apolinario Mabini - Wikipedia.pdf | language: en
+  section: Mabini's role in Philippine history saw him confronting
+  source: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf
+  title: Apolinario Mabini - Wikipedia
+  total_pages: 15
+Preview  :
+Retrieval context: title: Apolinario Mabini - Wikipedia | section: Mabini's role in Philippine history saw him confronting | category: history | doc_type: article | source: D:\Python\InknowVa\data\Apolinario Mabini - Wikipedia.pdf | file_name: Apolinario Mabini - Wikipedia.pdf | language: en Revolution of 1896. Mabini's role in Philippine history saw him confronting first Spanish colonial rule in the opening days of the Philippine Revolution, and then American colonial rule in the days of the Philippine–American War. The latter saw Mabini captured and exiled to Guam by American colonial authorities, allowed to return only two months before his eventual death in May 1903.
+
+... 38 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+3. D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 27
+Cleaned docs   : 27
+Chunks         : 91
+Min chars      : 480
+Avg chars      : 1152.12
+Max chars      : 1322
+
+SAMPLE CHUNK 1
+Chars    : 1235
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:31:11+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Emilio Aguinaldo - Wikipedia.pdf
+  file_stem: Emilio Aguinaldo - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 127
+  language: en
+  moddate: 2026-06-09T02:31:11+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Emilio Aguinaldo - Wikipedia | section: Emilio Aguinaldo | category: history | doc_type: article | source: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en
+  section: Emilio Aguinaldo
+  source: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf
+  title: Emilio Aguinaldo - Wikipedia
+  total_pages: 27
+Preview  :
+Retrieval context: title: Emilio Aguinaldo - Wikipedia | section: Emilio Aguinaldo | category: history | doc_type: article | source: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en Emilio Aguinaldo Portrait by Harris & Ewing, c. 1919 Philippine revolutionary leader President of the First Philippine Republic[b] In office January 23, 1899[a] – April 19, 1901[c] Prime Minister Apolinario Mabini (January 23 – May 7, 1899) Pedro Paterno (May 7 – November 13, 1899) Preceded by Position established Diego de los Ríos (as Governor-General of the Philippines) Succeeded by Position abolished[d] Manuel L. Quezon[e] President of the Re
+
+SAMPLE CHUNK 2
+Chars    : 1254
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:31:11+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Emilio Aguinaldo - Wikipedia.pdf
+  file_stem: Emilio Aguinaldo - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 128
+  language: en
+  moddate: 2026-06-09T02:31:11+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Emilio Aguinaldo - Wikipedia | section: constitutional republic. He led the Philippine forces first | category: history | doc_type: article | source: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en
+  section: constitutional republic. He led the Philippine forces first
+  source: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf
+  title: Emilio Aguinaldo - Wikipedia
+  total_pages: 27
+Preview  :
+Retrieval context: title: Emilio Aguinaldo - Wikipedia | section: constitutional republic. He led the Philippine forces first | category: history | doc_type: article | source: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en constitutional republic. He led the Philippine forces first against Spain in the Philippine Revolution (1896– 1898), then in the Spanish–American War (1898), and finally against the United States during the Philippine– American War (1899–1901). He is regarded in the Philippines as having been the country's first president during the period of the First Philippine Republic, though he was not recognized a
+
+SAMPLE CHUNK 3
+Chars    : 948
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:31:11+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Emilio Aguinaldo - Wikipedia.pdf
+  file_stem: Emilio Aguinaldo - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 129
+  language: en
+  moddate: 2026-06-09T02:31:11+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Emilio Aguinaldo - Wikipedia | section: Cavite el Viejo (present-day Kawit) in the province of | category: history | doc_type: article | source: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en
+  section: Cavite el Viejo (present-day Kawit) in the province of
+  source: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf
+  title: Emilio Aguinaldo - Wikipedia
+  total_pages: 27
+Preview  :
+Retrieval context: title: Emilio Aguinaldo - Wikipedia | section: Cavite el Viejo (present-day Kawit) in the province of | category: history | doc_type: article | source: D:\Python\InknowVa\data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en Cavite el Viejo (present-day Kawit) in the province of Cavite to Carlos Aguinaldo y Jamir and Trinidad Famy y Villanueva,[f] a couple that had eight children, the seventh of whom was Emilio. He was baptized and raised in Roman Catholicism. The Aguinaldo family was quite well-to-do as his father, Carlos Aguinaldo, was the community's appointed Gobernadorcillo (municipal governor) in the Spanish Viceregal admi
+
+... 88 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+4. D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 7
+Cleaned docs   : 7
+Chunks         : 23
+Min chars      : 558
+Avg chars      : 1142.35
+Max chars      : 1305
+
+SAMPLE CHUNK 1
+Chars    : 1237
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:38:06+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Gomburza - Wikipedia.pdf
+  file_stem: Gomburza - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 218
+  language: en
+  moddate: 2026-06-09T02:38:06+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Gomburza - Wikipedia | section: Mariano Gómes, José Burgos, and | category: history | doc_type: article | source: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf | file_name: Gomburza - Wikipedia.pdf | language: en
+  section: Mariano Gómes, José Burgos, and
+  source: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf
+  title: Gomburza - Wikipedia
+  total_pages: 7
+Preview  :
+Retrieval context: title: Gomburza - Wikipedia | section: Mariano Gómes, José Burgos, and | category: history | doc_type: article | source: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf | file_name: Gomburza - Wikipedia.pdf | language: en Mariano Gómes, José Burgos, and Jacinto Zamora Gomburza Gomburza, alternatively stylized as GOMBURZA or GomBurZa ("Gom" for Gómes, "Bur" for Burgos, and "Za" for Zamora), refers to three Filipino Catholic priests, Mariano Gómes, José Burgos, and Jacinto Zamora, who were executed by a garrote on February 17, 1872, in Bagumbayan, Philippines by Spanish colonial authorities on charges of subversion arising from the 1872 Cavite mutiny. The name is a portmant
+
+SAMPLE CHUNK 2
+Chars    : 1210
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:38:06+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Gomburza - Wikipedia.pdf
+  file_stem: Gomburza - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 219
+  language: en
+  moddate: 2026-06-09T02:38:06+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Gomburza - Wikipedia | section: century Filipinos; José Rizal, later to become the country's | category: history | doc_type: article | source: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf | file_name: Gomburza - Wikipedia.pdf | language: en
+  section: century Filipinos; José Rizal, later to become the country's
+  source: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf
+  title: Gomburza - Wikipedia
+  total_pages: 7
+Preview  :
+Retrieval context: title: Gomburza - Wikipedia | section: century Filipinos; José Rizal, later to become the country's | category: history | doc_type: article | source: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf | file_name: Gomburza - Wikipedia.pdf | language: en century Filipinos; José Rizal, later to become the country's national hero, would dedicate his novel El filibusterismo to their memory. Mutiny by workers in the Cavite Naval Yard was the pretext needed by the authorities to redress a perceived humiliation from the principal objective, José Burgos, who threatened the established order. Burgos was a Doctor of Philosophy and Arts whose prominence extended even to Spain, such tha
+
+SAMPLE CHUNK 3
+Chars    : 1093
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:38:06+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Gomburza - Wikipedia.pdf
+  file_stem: Gomburza - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 220
+  language: en
+  moddate: 2026-06-09T02:38:06+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Gomburza - Wikipedia | section: the secular priests, most of whom were mestizos assigned to parishes and far-flung communities, who | category: history | doc_type: article | source: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf | file_name: Gomburza - Wikipedia.pdf | language: en
+  section: the secular priests, most of whom were mestizos assigned to parishes and far-flung communities, who
+  source: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf
+  title: Gomburza - Wikipedia
+  total_pages: 7
+Preview  :
+Retrieval context: title: Gomburza - Wikipedia | section: the secular priests, most of whom were mestizos assigned to parishes and far-flung communities, who | category: history | doc_type: article | source: D:\Python\InknowVa\data\Gomburza - Wikipedia.pdf | file_name: Gomburza - Wikipedia.pdf | language: en (Dominicans, Augustinians, Franciscans, etc.) and their allies in civil government. It was supported by the secular priests, most of whom were mestizos assigned to parishes and far-flung communities, who believed that the reforms and the equality that they wanted with peninsular Spaniards were finally coming. Not all Religious Orders were against Nativization like the Jesuits and Recolle
+
+... 20 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+5. D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 21
+Cleaned docs   : 21
+Chunks         : 75
+Min chars      : 597
+Avg chars      : 1219.91
+Max chars      : 1397
+
+SAMPLE CHUNK 1
+Chars    : 1320
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:32:10+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: History of the Philippines (1565–1898) - Wikipedia.pdf
+  file_stem: History of the Philippines (1565–1898) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 241
+  language: en
+  moddate: 2026-06-09T02:32:10+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: History of the Philippines (1565–1898) - Wikipedia | section: History of the Philippines (1565–1898) | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf | file_name: History of the Philippines (1565–1898) - Wikipedia.pdf | language: en
+  section: History of the Philippines (1565–1898)
+  source: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf
+  title: History of the Philippines (1565–1898) - Wikipedia
+  total_pages: 21
+Preview  :
+Retrieval context: title: History of the Philippines (1565–1898) - Wikipedia | section: History of the Philippines (1565–1898) | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf | file_name: History of the Philippines (1565–1898) - Wikipedia.pdf | language: en History of the Philippines (1565–1898) The history of the Philippines from 1565 to 1898 is known as the Spanish colonial period. During which the Philippine Islands were ruled as the Captaincy General of the Philippines within the Spanish East Indies, initially under the Viceroyalty of New Spain, based in Mexico City, until the independence of the Mexican Emp
+
+SAMPLE CHUNK 2
+Chars    : 1334
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:32:10+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: History of the Philippines (1565–1898) - Wikipedia.pdf
+  file_stem: History of the Philippines (1565–1898) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 242
+  language: en
+  moddate: 2026-06-09T02:32:10+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: History of the Philippines (1565–1898) - Wikipedia | section: Spain, whose name has since become the eponym of the entire archipelago and the modern state of | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf | file_name: History of the Philippines (1565–1898) - Wikipedia.pdf | language: en
+  section: Spain, whose name has since become the eponym of the entire archipelago and the modern state of
+  source: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf
+  title: History of the Philippines (1565–1898) - Wikipedia
+  total_pages: 21
+Preview  :
+Retrieval context: title: History of the Philippines (1565–1898) - Wikipedia | section: Spain, whose name has since become the eponym of the entire archipelago and the modern state of | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf | file_name: History of the Philippines (1565–1898) - Wikipedia.pdf | language: en 1565, a year after an earnest intent to colonize the country, which was during the reign of Philip II of Spain, whose name has since become the eponym of the entire archipelago and the modern state of the Philippines. The Spanish colonial period ended with the Philippine Revolution and the defeat of Spa
+
+SAMPLE CHUNK 3
+Chars    : 1334
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:32:10+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: History of the Philippines (1565–1898) - Wikipedia.pdf
+  file_stem: History of the Philippines (1565–1898) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 243
+  language: en
+  moddate: 2026-06-09T02:32:10+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: History of the Philippines (1565–1898) - Wikipedia | section: warriors of datu Lapulapu at the Battle of Mactan. In 1543, Ruy López de Villalobos arrived at the | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf | file_name: History of the Philippines (1565–1898) - Wikipedia.pdf | language: en
+  section: warriors of datu Lapulapu at the Battle of Mactan. In 1543, Ruy López de Villalobos arrived at the
+  source: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf
+  title: History of the Philippines (1565–1898) - Wikipedia
+  total_pages: 21
+Preview  :
+Retrieval context: title: History of the Philippines (1565–1898) - Wikipedia | section: warriors of datu Lapulapu at the Battle of Mactan. In 1543, Ruy López de Villalobos arrived at the | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines (1565–1898) - Wikipedia.pdf | file_name: History of the Philippines (1565–1898) - Wikipedia.pdf | language: en warriors of datu Lapulapu at the Battle of Mactan. In 1543, Ruy López de Villalobos arrived at the islands of Leyte and Samar and named them Las Islas Filipinas in honor of Philip II of Spain, at the time Prince of Asturias. Philip became King of Spain on January 16, 1556, when his father, Charles I 
+
+... 72 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+6. D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 100
+Cleaned docs   : 100
+Chunks         : 351
+Min chars      : 450
+Avg chars      : 1176.41
+Max chars      : 1359
+
+SAMPLE CHUNK 1
+Chars    : 1225
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-03T02:40:38+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: History of the Philippines - Wikipedia.pdf
+  file_stem: History of the Philippines - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 316
+  language: en
+  moddate: 2026-06-03T02:40:38+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: History of the Philippines - Wikipedia | section: History of the Philippines | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en
+  section: History of the Philippines
+  source: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf
+  title: History of the Philippines - Wikipedia
+  total_pages: 100
+Preview  :
+Retrieval context: title: History of the Philippines - Wikipedia | section: History of the Philippines | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en History of the Philippines The history of the Philippines dates from the earliest hominin activity in the archipelago at least by 709,000 years ago. Homo luzonensis, a species of archaic humans, was present on the island of Luzon at least by 134,000 years ago. The earliest known anatomically modern human was from Tabon Caves in Palawan dating about 47,000 years. Negrito groups were the first inhabitants to
+
+SAMPLE CHUNK 2
+Chars    : 1323
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-03T02:40:38+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: History of the Philippines - Wikipedia.pdf
+  file_stem: History of the Philippines - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 317
+  language: en
+  moddate: 2026-06-03T02:40:38+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: History of the Philippines - Wikipedia | section: settlements or polities with varying degrees of economic specialization, social stratification, and | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en
+  section: settlements or polities with varying degrees of economic specialization, social stratification, and
+  source: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf
+  title: History of the Philippines - Wikipedia
+  total_pages: 100
+Preview  :
+Retrieval context: title: History of the Philippines - Wikipedia | section: settlements or polities with varying degrees of economic specialization, social stratification, and | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en settlements or polities with varying degrees of economic specialization, social stratification, and political organization. Some of these settlements (mostly those located on major river deltas) achieved such a scale of social complexity that some scholars believe they should be considered early states. This includes the predecessors 
+
+SAMPLE CHUNK 3
+Chars    : 1269
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-03T02:40:38+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: History of the Philippines - Wikipedia.pdf
+  file_stem: History of the Philippines - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 318
+  language: en
+  moddate: 2026-06-03T02:40:38+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: History of the Philippines - Wikipedia | section: subcontinent . Some polities were Sinified tributary states allied to China. These small maritime | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en
+  section: subcontinent . Some polities were Sinified tributary states allied to China. These small maritime
+  source: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf
+  title: History of the Philippines - Wikipedia
+  total_pages: 100
+Preview  :
+Retrieval context: title: History of the Philippines - Wikipedia | section: subcontinent . Some polities were Sinified tributary states allied to China. These small maritime | category: history | doc_type: article | source: D:\Python\InknowVa\data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en subcontinent . Some polities were Sinified tributary states allied to China. These small maritime states flourished from the 1st millennium. These kingdoms traded with what are now called China, India, Japan, Thailand, Vietnam, and Indonesia. The remainder of the settlements were independent barangays allied with one of the larger state
+
+... 348 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+7. D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 6
+Cleaned docs   : 6
+Chunks         : 17
+Min chars      : 701
+Avg chars      : 1122.65
+Max chars      : 1344
+
+SAMPLE CHUNK 1
+Chars    : 1250
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:38:45+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Independence Day (Philippines) - Wikipedia.pdf
+  file_stem: Independence Day (Philippines) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 667
+  language: en
+  moddate: 2026-06-09T02:38:45+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Independence Day (Philippines) - Wikipedia | section: Independence Day | category: history | doc_type: article | source: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf | file_name: Independence Day (Philippines) - Wikipedia.pdf | language: en
+  section: Independence Day
+  source: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf
+  title: Independence Day (Philippines) - Wikipedia
+  total_pages: 6
+Preview  :
+Retrieval context: title: Independence Day (Philippines) - Wikipedia | section: Independence Day | category: history | doc_type: article | source: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf | file_name: Independence Day (Philippines) - Wikipedia.pdf | language: en Independence Day Araw ng Kalayaan Aguinaldo Shrine, where Emilio Aguinaldo declared the country's independence from Spain Official name Araw ng Kasarinlán Also called Araw ng Kalayaan Observed by Philippines Type National Day Significance Declaring Philippine independence from Spain Date June 12 Next time June 12, 2026 Frequency Annual Related to Republic Day Independence Day (Philippines) Independence D
+
+SAMPLE CHUNK 2
+Chars    : 1324
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:38:45+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Independence Day (Philippines) - Wikipedia.pdf
+  file_stem: Independence Day (Philippines) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 668
+  language: en
+  moddate: 2026-06-09T02:38:45+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Independence Day (Philippines) - Wikipedia | section: when Andres Bonifacio, along with Emilio Jacinto, | category: history | doc_type: article | source: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf | file_name: Independence Day (Philippines) - Wikipedia.pdf | language: en
+  section: when Andres Bonifacio, along with Emilio Jacinto,
+  source: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf
+  title: Independence Day (Philippines) - Wikipedia
+  total_pages: 6
+Preview  :
+Retrieval context: title: Independence Day (Philippines) - Wikipedia | section: when Andres Bonifacio, along with Emilio Jacinto, | category: history | doc_type: article | source: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf | file_name: Independence Day (Philippines) - Wikipedia.pdf | language: en when Andres Bonifacio, along with Emilio Jacinto, Restituto Javier, Guillermo Masangkay, Aurelio Tolentino, Faustino Manalak, Pedro Zabala, and few other Katipuneros went to Pamitinan Cave in Montalban (now Rodriguez, Rizal) to initiate new members of the Katipunan. Bonifacio wrote Viva la independencia Filipina! or Long Live Philippine independence on walls of the cave a
+
+SAMPLE CHUNK 3
+Chars    : 967
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:38:45+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Independence Day (Philippines) - Wikipedia.pdf
+  file_stem: Independence Day (Philippines) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 669
+  language: en
+  moddate: 2026-06-09T02:38:45+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Independence Day (Philippines) - Wikipedia | section: government and the Filipino revolutionaries. Under its terms, Emilio Aguinaldo and other | category: history | doc_type: article | source: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf | file_name: Independence Day (Philippines) - Wikipedia.pdf | language: en
+  section: government and the Filipino revolutionaries. Under its terms, Emilio Aguinaldo and other
+  source: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf
+  title: Independence Day (Philippines) - Wikipedia
+  total_pages: 6
+Preview  :
+Retrieval context: title: Independence Day (Philippines) - Wikipedia | section: government and the Filipino revolutionaries. Under its terms, Emilio Aguinaldo and other | category: history | doc_type: article | source: D:\Python\InknowVa\data\Independence Day (Philippines) - Wikipedia.pdf | file_name: Independence Day (Philippines) - Wikipedia.pdf | language: en government and the Filipino revolutionaries. Under its terms, Emilio Aguinaldo and other revolutionary leaders went into exile in Hong Kong after receiving $MXN400,000[a] from the Spanish Government. At the outbreak of the Spanish–American War, Commodore George Dewey sailed from Hong Kong to Manila Bay leading the US Navy Asiatic Squ
+
+... 14 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+8. D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 18
+Cleaned docs   : 18
+Chunks         : 47
+Min chars      : 600
+Avg chars      : 1201.62
+Max chars      : 1391
+
+SAMPLE CHUNK 1
+Chars    : 1311
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:39:21+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Japanese occupation of the Philippines - Wikipedia.pdf
+  file_stem: Japanese occupation of the Philippines - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 684
+  language: ja
+  moddate: 2026-06-09T02:39:21+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Japanese occupation of the Philippines - Wikipedia | section: Philippines | category: history | doc_type: article | source: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf | file_name: Japanese occupation of the Philippines - Wikipedia.pdf | language: ja
+  section: Philippines
+  source: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf
+  title: Japanese occupation of the Philippines - Wikipedia
+  total_pages: 18
+Preview  :
+Retrieval context: title: Japanese occupation of the Philippines - Wikipedia | section: Philippines | category: history | doc_type: article | source: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf | file_name: Japanese occupation of the Philippines - Wikipedia.pdf | language: ja Philippines フィリピン (Japanese) Pilipinas (Filipino) 1941–1945 Flag of the Empire of Japan and Flag of the Philippines Coat of arms Motto: ⼋紘⼀宇 ("Hakkō ichiu") 'Eight Crown Cords, One Roof' Anthem: 君が代 ("Kimigayo") 'His Majesty's Reign' Lupang Hinirang (unofficial) "Chosen Land" Japanese occupation of the Philippines The Japanese Empire occupied the Commonwealth of the Philippines between
+
+SAMPLE CHUNK 2
+Chars    : 1306
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:39:21+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Japanese occupation of the Philippines - Wikipedia.pdf
+  file_stem: Japanese occupation of the Philippines - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 685
+  language: en
+  moddate: 2026-06-09T02:39:21+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Japanese occupation of the Philippines - Wikipedia | section: of 11 March 1942 for Australia, 4,000 km away. The | category: history | doc_type: article | source: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf | file_name: Japanese occupation of the Philippines - Wikipedia.pdf | language: en
+  section: of 11 March 1942 for Australia, 4,000 km away. The
+  source: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf
+  title: Japanese occupation of the Philippines - Wikipedia
+  total_pages: 18
+Preview  :
+Retrieval context: title: Japanese occupation of the Philippines - Wikipedia | section: of 11 March 1942 for Australia, 4,000 km away. The | category: history | doc_type: article | source: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf | file_name: Japanese occupation of the Philippines - Wikipedia.pdf | language: en of 11 March 1942 for Australia, 4,000 km away. The 76,000 starving and sick American and Filipino defenders in Bataan surrendered on 9 April 1942, and were forced to endure the infamous Bataan Death March on which 7,000–10,000 died or were murdered. The 13,000 survivors on Corregidor surrendered on 6 May. Japan occupied the Philippines for over th
+
+SAMPLE CHUNK 3
+Chars    : 848
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:39:21+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Japanese occupation of the Philippines - Wikipedia.pdf
+  file_stem: Japanese occupation of the Philippines - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 686
+  language: en
+  moddate: 2026-06-09T02:39:21+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Japanese occupation of the Philippines - Wikipedia | section: mistreatment of Filipinos after the surrender, and | category: history | doc_type: article | source: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf | file_name: Japanese occupation of the Philippines - Wikipedia.pdf | language: en
+  section: mistreatment of Filipinos after the surrender, and
+  source: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf
+  title: Japanese occupation of the Philippines - Wikipedia
+  total_pages: 18
+Preview  :
+Retrieval context: title: Japanese occupation of the Philippines - Wikipedia | section: mistreatment of Filipinos after the surrender, and | category: history | doc_type: article | source: D:\Python\InknowVa\data\Japanese occupation of the Philippines - Wikipedia.pdf | file_name: Japanese occupation of the Philippines - Wikipedia.pdf | language: en mistreatment of Filipinos after the surrender, and partly because the Japanese had pressed large numbers of Filipinos into work details and put young Filipino women into brothels. General MacArthur kept his promise to return to the Philippines on 20 October 1944. The landings on the island of Leyte were accompanied by a force of 700 vessels and 17
+
+... 44 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+9. D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 36
+Cleaned docs   : 36
+Chunks         : 134
+Min chars      : 420
+Avg chars      : 1107.83
+Max chars      : 1304
+
+SAMPLE CHUNK 1
+Chars    : 1204
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:27:59+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: José Rizal - Wikipedia.pdf
+  file_stem: José Rizal - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 731
+  language: en
+  moddate: 2026-06-09T02:27:59+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: José Rizal - Wikipedia | section: José Protasio Rizal | category: history | doc_type: article | source: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en
+  section: José Protasio Rizal
+  source: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf
+  title: José Rizal - Wikipedia
+  total_pages: 36
+Preview  :
+Retrieval context: title: José Rizal - Wikipedia | section: José Protasio Rizal | category: history | doc_type: article | source: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en José Protasio Rizal Rizal c. 1890s Born José Protasio Rizal Mercado y Alonso Realonda June 19, 1861 Calamba, La Laguna, Captaincy General of the Philippines, Spanish Empire Died December 30, 1896 (aged 35) Bagumbayan, Manila, Captaincy General of the Philippines, Spanish Empire Cause ofdeath Execution by firing squad Resting place Original internment: Paco Park Reinterred: Rizal Monument, Manila Monuments Daet, Camarines Norte · Manila · Calamba, Laguna · Madr
+
+SAMPLE CHUNK 2
+Chars    : 1222
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:27:59+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: José Rizal - Wikipedia.pdf
+  file_stem: José Rizal - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 732
+  language: en
+  moddate: 2026-06-09T02:27:59+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: José Rizal - Wikipedia | section: of the Spanish colonial period of the Philippines. He is popularly | category: history | doc_type: article | source: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en
+  section: of the Spanish colonial period of the Philippines. He is popularly
+  source: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf
+  title: José Rizal - Wikipedia
+  total_pages: 36
+Preview  :
+Retrieval context: title: José Rizal - Wikipedia | section: of the Spanish colonial period of the Philippines. He is popularly | category: history | doc_type: article | source: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en of the Spanish colonial period of the Philippines. He is popularly considered a national hero of the Philippines, although no official proclamation formally declares him as such. An ophthalmologist by profession, Rizal became a writer and a key member of the Filipino Propaganda Movement in the 1880s, which advocated political reforms for the colony under Spain. By the early 1890s, amidst the Calamba land dispute, 
+
+SAMPLE CHUNK 3
+Chars    : 1215
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:27:59+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: José Rizal - Wikipedia.pdf
+  file_stem: José Rizal - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 733
+  language: en
+  moddate: 2026-06-09T02:27:59+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: José Rizal - Wikipedia | section: Rizal met Josephine Bracken, an Irish woman who later became his | category: history | doc_type: article | source: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en
+  section: Rizal met Josephine Bracken, an Irish woman who later became his
+  source: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf
+  title: José Rizal - Wikipedia
+  total_pages: 36
+Preview  :
+Retrieval context: title: José Rizal - Wikipedia | section: Rizal met Josephine Bracken, an Irish woman who later became his | category: history | doc_type: article | source: D:\Python\InknowVa\data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en Rizal met Josephine Bracken, an Irish woman who later became his common-law wife. After four years in exile, Rizal left Dapitan for Cuba in August 1896 with the permission of Governor General Ramón Blanco, intending to serve as a doctor in the Spanish territory. At a stopover in Barcelona, he was arrested on October 6, 1896 after the Philippine Revolution broke out; the revolution was inspired by his writings. In De
+
+... 131 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+10. D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 28
+Cleaned docs   : 28
+Chunks         : 97
+Min chars      : 596
+Avg chars      : 1144.56
+Max chars      : 1305
+
+SAMPLE CHUNK 1
+Chars    : 1214
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:32:29+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Katipunan - Wikipedia.pdf
+  file_stem: Katipunan - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 865
+  language: en
+  moddate: 2026-06-09T02:32:29+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Katipunan - Wikipedia | section: Katipunan | category: history | doc_type: article | source: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en
+  section: Katipunan
+  source: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf
+  title: Katipunan - Wikipedia
+  total_pages: 28
+Preview  :
+Retrieval context: title: Katipunan - Wikipedia | section: Katipunan | category: history | doc_type: article | source: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en Katipunan Supreme and Venerable Association of the Children of the Nation Kataastaasan Kagalanggalang Katipunan ng mga Anak ng Bayan Flag of the Katipunan Abbreviation KKK Nickname Katipunan Predecessor La Liga Filipina Successor Tejeros Government Formation July 7, 1892 Founders Deodato Arellano, Andrés Bonifacio, Valentín Díaz, Ladislao Diwa, José Dizon and Teodoro Plata. Founded at Calle Azcárraga, San Nicolas, Manila Dissolved March 22, 1897 Purpose Filipino independen
+
+SAMPLE CHUNK 2
+Chars    : 1210
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:32:29+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Katipunan - Wikipedia.pdf
+  file_stem: Katipunan - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 866
+  language: en
+  moddate: 2026-06-09T02:32:29+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Katipunan - Wikipedia | section: ng mga Anak ng Bayan [a] (lit. 'Supreme and | category: history | doc_type: article | source: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en
+  section: ng mga Anak ng Bayan [a] (lit. 'Supreme and
+  source: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf
+  title: Katipunan - Wikipedia
+  total_pages: 28
+Preview  :
+Retrieval context: title: Katipunan - Wikipedia | section: ng mga Anak ng Bayan [a] (lit. 'Supreme and | category: history | doc_type: article | source: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en ng mga Anak ng Bayan [a] (lit. 'Supreme and Venerable Association of the Children of the Nation'; Spanish: Suprema y Venerable Asociación de los Hijos del Pueblo) and abbreviated as the KKK, was a revolutionary organization founded in 1892 by a group of Filipino nationalists Deodato Arellano, Andrés Bonifacio, Valentin Diaz, Ladislao Diwa, José Dizon, and Teodoro Plata. Its primary objective was achieving independence from the Spanish Empi
+
+SAMPLE CHUNK 3
+Chars    : 1138
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:32:29+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Katipunan - Wikipedia.pdf
+  file_stem: Katipunan - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 867
+  language: en
+  moddate: 2026-06-09T02:32:29+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Katipunan - Wikipedia | section: Mindanao. Rizal was one of the founders of the nascent | category: history | doc_type: article | source: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en
+  section: Mindanao. Rizal was one of the founders of the nascent
+  source: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf
+  title: Katipunan - Wikipedia
+  total_pages: 28
+Preview  :
+Retrieval context: title: Katipunan - Wikipedia | section: Mindanao. Rizal was one of the founders of the nascent | category: history | doc_type: article | source: D:\Python\InknowVa\data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en Mindanao. Rizal was one of the founders of the nascent La Liga Filipina, which aimed for a Filipino representation to the Spanish Parliament. Many members of the Katipunan, including Bonifacio himself, were members of that organization. However, recent discovery of documents of the organization suggest that the Katipunan may have been around by January 1892 but became active by July. Being originally formed as a secret society, 
+
+... 94 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+11. D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 36
+Cleaned docs   : 35
+Chunks         : 125
+Min chars      : 447
+Avg chars      : 1185.8
+Max chars      : 1346
+
+SAMPLE CHUNK 1
+Chars    : 1267
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:31:40+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Philippine Revolution - Wikipedia.pdf
+  file_stem: Philippine Revolution - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 962
+  language: en
+  moddate: 2026-06-09T02:31:40+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Philippine Revolution - Wikipedia | section: Philippine Revolution | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf | file_name: Philippine Revolution - Wikipedia.pdf | language: en
+  section: Philippine Revolution
+  source: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf
+  title: Philippine Revolution - Wikipedia
+  total_pages: 36
+Preview  :
+Retrieval context: title: Philippine Revolution - Wikipedia | section: Philippine Revolution | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf | file_name: Philippine Revolution - Wikipedia.pdf | language: en Philippine Revolution Part of decolonization of Asia and Spanish–American War Clockwise from top left: Surviving Spanish troops in Barcelona after the Siege of Baler, Filipino soldiers during the near end of the Revolution, Filipino negotiators for the Pact of Biak-na-Bato, Painting of the Battle of Zapote Bridge, and the Malolos Congress Philippine Revolution The Philippine Revolution[c] was a war of independence waged by th
+
+SAMPLE CHUNK 2
+Chars    : 1287
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:31:40+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Philippine Revolution - Wikipedia.pdf
+  file_stem: Philippine Revolution - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 963
+  language: en
+  moddate: 2026-06-09T02:31:40+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Philippine Revolution - Wikipedia | section: Spanish soon capitulated. In June, Philippine | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf | file_name: Philippine Revolution - Wikipedia.pdf | language: en
+  section: Spanish soon capitulated. In June, Philippine
+  source: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf
+  title: Philippine Revolution - Wikipedia
+  total_pages: 36
+Preview  :
+Retrieval context: title: Philippine Revolution - Wikipedia | section: Spanish soon capitulated. In June, Philippine | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf | file_name: Philippine Revolution - Wikipedia.pdf | language: en Spanish soon capitulated. In June, Philippine revolutionaries declared independence. However, it was not recognized by Spain, which sold the islands to the United States in the Treaty of Paris. Led by Andrés Bonifacio, the Katipunan was formed in secrecy in 1892 in the wake of the nascent La Liga Filipina, an organization created by Filipino nationalist José Rizal and others in Spain with the goal of P
+
+SAMPLE CHUNK 3
+Chars    : 795
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:31:40+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Philippine Revolution - Wikipedia.pdf
+  file_stem: Philippine Revolution - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 964
+  language: en
+  moddate: 2026-06-09T02:31:40+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Philippine Revolution - Wikipedia | section: However, revolutionaries in the neighboring | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf | file_name: Philippine Revolution - Wikipedia.pdf | language: en
+  section: However, revolutionaries in the neighboring
+  source: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf
+  title: Philippine Revolution - Wikipedia
+  total_pages: 36
+Preview  :
+Retrieval context: title: Philippine Revolution - Wikipedia | section: However, revolutionaries in the neighboring | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine Revolution - Wikipedia.pdf | file_name: Philippine Revolution - Wikipedia.pdf | language: en led by Bonifacio himself, which ultimately failed. However, revolutionaries in the neighboring provinces fared better, particularly in Cavite, where rebels led by Mariano Álvarez and cousins Baldomero and Emilio Aguinaldo won early major victories. This disparity in success, along with multiple factors, contributed to the eventual power struggle from within Katipunan's leadership. Two factions formed: Bo
+
+... 122 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+12. D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 44
+Cleaned docs   : 44
+Chunks         : 155
+Min chars      : 431
+Avg chars      : 1189.9
+Max chars      : 1351
+
+SAMPLE CHUNK 1
+Chars    : 1244
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:39:01+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Philippine–American War - Wikipedia.pdf
+  file_stem: Philippine–American War - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1087
+  language: en
+  moddate: 2026-06-09T02:39:01+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Philippine–American War - Wikipedia | section: Philippine–American War | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf | file_name: Philippine–American War - Wikipedia.pdf | language: en
+  section: Philippine–American War
+  source: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf
+  title: Philippine–American War - Wikipedia
+  total_pages: 44
+Preview  :
+Retrieval context: title: Philippine–American War - Wikipedia | section: Philippine–American War | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf | file_name: Philippine–American War - Wikipedia.pdf | language: en Philippine–American War Clockwise from top left: U.S. troops in Manila, Gregorio del Pilar and his troops around 1898, Americans guarding the Pasig River bridge in 1898, the Battle of Santa Cruz, Filipino soldiers at Malolos, the Battle of Quingua Date First phase: February 4, 1899 – July 4, 1902 (3 years, 2 months, 1 week and 5 days)[i] Moro Rebellion: May 2, 1902 – June 15, 1913 (11 years, 1 month, 1 week and 6 days
+
+SAMPLE CHUNK 2
+Chars    : 1257
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:39:01+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Philippine–American War - Wikipedia.pdf
+  file_stem: Philippine–American War - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1088
+  language: en
+  moddate: 2026-06-09T02:39:01+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Philippine–American War - Wikipedia | section: alternatively as the Filipino–American | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf | file_name: Philippine–American War - Wikipedia.pdf | language: en
+  section: alternatively as the Filipino–American
+  source: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf
+  title: Philippine–American War - Wikipedia
+  total_pages: 44
+Preview  :
+Retrieval context: title: Philippine–American War - Wikipedia | section: alternatively as the Filipino–American | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf | file_name: Philippine–American War - Wikipedia.pdf | language: en alternatively as the Filipino–American War,[b] Philippine Insurrection, or Tagalog Insurgency, emerged in early 1899 following the United States' annexation of the former Spanish colony of the Philippine Islands under the terms of the December 1898 Treaty of Paris following the Spanish–American War. Philippine nationalists had proclaimed independence in June 1898 and constituted the First Philippine Rep
+
+SAMPLE CHUNK 3
+Chars    : 1128
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:39:01+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Philippine–American War - Wikipedia.pdf
+  file_stem: Philippine–American War - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1089
+  language: en
+  moddate: 2026-06-09T02:39:01+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Philippine–American War - Wikipedia | section: attempted to engage U.S. forces conventionally | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf | file_name: Philippine–American War - Wikipedia.pdf | language: en
+  section: attempted to engage U.S. forces conventionally
+  source: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf
+  title: Philippine–American War - Wikipedia
+  total_pages: 44
+Preview  :
+Retrieval context: title: Philippine–American War - Wikipedia | section: attempted to engage U.S. forces conventionally | category: history | doc_type: article | source: D:\Python\InknowVa\data\Philippine–American War - Wikipedia.pdf | file_name: Philippine–American War - Wikipedia.pdf | language: en attempted to engage U.S. forces conventionally but transitioned to guerrilla tactics by November 1899. Philippine President Emilio Aguinaldo was captured on March 23, 1901, and the war was officially declared over by the US on July 4, 1902. However, some Philippine groups continued to fight for several more years. Other groups, such as the Muslim Moro peoples of the southern Philippines and quas
+
+... 152 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+13. D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 57
+Cleaned docs   : 57
+Chunks         : 197
+Min chars      : 552
+Avg chars      : 1181.67
+Max chars      : 1341
+
+SAMPLE CHUNK 1
+Chars    : 1263
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:36:00+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Spanish–American War - Wikipedia.pdf
+  file_stem: Spanish–American War - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1242
+  language: en
+  moddate: 2026-06-09T02:36:00+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Spanish–American War - Wikipedia | section: Spanish–American War[a] | category: history | doc_type: article | source: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en
+  section: Spanish–American War[a]
+  source: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf
+  title: Spanish–American War - Wikipedia
+  total_pages: 57
+Preview  :
+Retrieval context: title: Spanish–American War - Wikipedia | section: Spanish–American War[a] | category: history | doc_type: article | source: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en Spanish–American War[a] Part of the decolonization of the Americas, the Cuban War of Independence, and the Philippine Revolution (clockwise from top left) Signal Corps extending telegraph lines · USS Iowa at the Victory Fleet Review in August 1898 in New York Harbor · Filipino soldiers wearing Spanish pith helmets outside Manila · The Spanish signing the Treaty of Paris · Theodore Roosevelt and his Rough Riders at San Juan Hil
+
+SAMPLE CHUNK 2
+Chars    : 1249
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:36:00+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Spanish–American War - Wikipedia.pdf
+  file_stem: Spanish–American War - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1243
+  language: en
+  moddate: 2026-06-09T02:36:00+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Spanish–American War - Wikipedia | section: intervention in the Cuban War of | category: history | doc_type: article | source: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en
+  section: intervention in the Cuban War of
+  source: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf
+  title: Spanish–American War - Wikipedia
+  total_pages: 57
+Preview  :
+Retrieval context: title: Spanish–American War - Wikipedia | section: intervention in the Cuban War of | category: history | doc_type: article | source: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en protectorate over Cuba. It represented U.S. intervention in the Cuban War of Independence and Philippine Revolution, with the latter later leading to the Philippine– American War. The Spanish–American War brought an end to almost four centuries of Spanish presence in the Americas, Asia, and the Pacific; the United States meanwhile not only became a major world power, but also gained several island possessions spanning
+
+SAMPLE CHUNK 3
+Chars    : 846
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:36:00+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Spanish–American War - Wikipedia.pdf
+  file_stem: Spanish–American War - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1244
+  language: en
+  moddate: 2026-06-09T02:36:00+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Spanish–American War - Wikipedia | section: that yellow journalism in the U.S. exaggerated | category: history | doc_type: article | source: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en
+  section: that yellow journalism in the U.S. exaggerated
+  source: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf
+  title: Spanish–American War - Wikipedia
+  total_pages: 57
+Preview  :
+Retrieval context: title: Spanish–American War - Wikipedia | section: that yellow journalism in the U.S. exaggerated | category: history | doc_type: article | source: D:\Python\InknowVa\data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en that yellow journalism in the U.S. exaggerated the atrocities in Cuba to sell more newspapers and magazines, which swayed American public opinion in support of the rebels. But historian Andrea Pitzer also points to the actual shift toward savagery of the Spanish military leadership, who adopted the brutal reconcentration policy after replacing the relatively conservative Governor-General of Cuba Arsenio 
+
+... 194 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+14. D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 13
+Cleaned docs   : 13
+Chunks         : 42
+Min chars      : 607
+Avg chars      : 1175.64
+Max chars      : 1343
+
+SAMPLE CHUNK 1
+Chars    : 1265
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:31:51+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Treaty of Paris (1898) - Wikipedia.pdf
+  file_stem: Treaty of Paris (1898) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1439
+  language: en
+  moddate: 2026-06-09T02:31:51+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Treaty of Paris (1898) - Wikipedia | section: Treaty of Paris | category: history | doc_type: article | source: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf | file_name: Treaty of Paris (1898) - Wikipedia.pdf | language: en
+  section: Treaty of Paris
+  source: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf
+  title: Treaty of Paris (1898) - Wikipedia
+  total_pages: 13
+Preview  :
+Retrieval context: title: Treaty of Paris (1898) - Wikipedia | section: Treaty of Paris | category: history | doc_type: article | source: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf | file_name: Treaty of Paris (1898) - Wikipedia.pdf | language: en Treaty of Paris Treaty of Peace between the United States of America and the Kingdom of Spain Type Peace treaty Signed December 10, 1898 Location Paris, France Effective April 11, 1899 Condition Exchange of ratifications Parties Spain United States Citations 30 Stat. 1754 ( us/stat-30-1754); TS 343; 11 Bevans 615 ( com/books? LanguagesSpanish · English Full text Treaty of Paris (1898) at Wikisource Article IX amended by protocol
+
+SAMPLE CHUNK 2
+Chars    : 1294
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:31:51+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Treaty of Paris (1898) - Wikipedia.pdf
+  file_stem: Treaty of Paris (1898) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1440
+  language: en
+  moddate: 2026-06-09T02:31:51+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Treaty of Paris (1898) - Wikipedia | section: War. Under it, Spain relinquished all claim of | category: history | doc_type: article | source: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf | file_name: Treaty of Paris (1898) - Wikipedia.pdf | language: en
+  section: War. Under it, Spain relinquished all claim of
+  source: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf
+  title: Treaty of Paris (1898) - Wikipedia
+  total_pages: 13
+Preview  :
+Retrieval context: title: Treaty of Paris (1898) - Wikipedia | section: War. Under it, Spain relinquished all claim of | category: history | doc_type: article | source: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf | file_name: Treaty of Paris (1898) - Wikipedia.pdf | language: en War. Under it, Spain relinquished all claim of sovereignty over the West Indies archipelagos and islands of Cuba and Puerto Rico in the Caribbean, the Western Pacific island of Guam in the Marianas archipelago in Micronesia, and the Western Pacific archipelago of the Philippines in Southeast Asia to the United States. The cession of the Philippines involved a compensation of $20 million[b] from the
+
+SAMPLE CHUNK 3
+Chars    : 959
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-09T02:31:51+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: Treaty of Paris (1898) - Wikipedia.pdf
+  file_stem: Treaty of Paris (1898) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1441
+  language: en
+  moddate: 2026-06-09T02:31:51+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m148
+  retrieval_context: title: Treaty of Paris (1898) - Wikipedia | section: 1899, when the documents of ratification were | category: history | doc_type: article | source: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf | file_name: Treaty of Paris (1898) - Wikipedia.pdf | language: en
+  section: 1899, when the documents of ratification were
+  source: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf
+  title: Treaty of Paris (1898) - Wikipedia
+  total_pages: 13
+Preview  :
+Retrieval context: title: Treaty of Paris (1898) - Wikipedia | section: 1899, when the documents of ratification were | category: history | doc_type: article | source: D:\Python\InknowVa\data\Treaty of Paris (1898) - Wikipedia.pdf | file_name: Treaty of Paris (1898) - Wikipedia.pdf | language: en 1899, when the documents of ratification were exchanged. It was the first treaty negotiated between the two governments since the 1819 Adams–Onís Treaty. The Treaty of Paris marked the end of the Spanish Empire, apart from some small holdings. It had a major cultural impact in Spain known as the "Generation of '98". It marked the beginning of the United States as a world power. In the U.S., many sup
+
+... 39 more chunks hidden for this file.
+
+--------------------------------------------------------------------------------
+15. D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+--------------------------------------------------------------------------------
+Raw docs       : 9
+Cleaned docs   : 9
+Chunks         : 17
+Min chars      : 516
+Avg chars      : 1055.65
+Max chars      : 1283
+
+SAMPLE CHUNK 1
+Chars    : 1244
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf::chunk_0
+  chunk_index: 0
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-22T05:24:41+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+  file_stem: フィリピンの歴史 (1946年-1965年) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1481
+  language: ja
+  moddate: 2026-06-22T05:24:41+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m149
+  retrieval_context: title: フィリピンの歴史 (1946年-1965年) - Wikipedia | section: フィリピン共和国 | category: history | doc_type: article | source: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | file_name: フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | language: ja
+  section: フィリピン共和国
+  source: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+  title: フィリピンの歴史 (1946年-1965年) - Wikipedia
+  total_pages: 9
+Preview  :
+Retrieval context: title: フィリピンの歴史 (1946年-1965年) - Wikipedia | section: フィリピン共和国 | category: history | doc_type: article | source: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | file_name: フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | language: ja フィリピン共和国 Republika ng Pilipinas(フィリピノ語) Republic of the Philippines(英語) República de Filipinas(スペイン語) 1946年-1965年 国旗 国章 東南アジアにおけるフィリピンの位置 国歌：Lupang Hinirang（タガログ語） 最愛の地 公⽤語 フィリピン語 スペイン語 英語 ⾔語 フィリピンの⾔語参照 宗教 カトリック プロテスタント イスラム教 フィリピンの歴史 (1946 年 -1965 年 ) 出典 : フリー百科事典『ウィキペディア（ Wikipedia ）』 フィリピンの歴史 (1946 年 -1965 年 )は、フィリピン共 和国 1973 年憲法の批准と共に 1973 年 1 ⽉ 17 ⽇に終わるフ ィリピン第三共和国の多くを対象とする 1946 年の独⽴ 承認からディオスダド・マカパガル政権の終焉までの フィリピンの歴史を扱っている。 → 「マニラ条
+
+SAMPLE CHUNK 2
+Chars    : 600
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf::chunk_1
+  chunk_index: 1
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-22T05:24:41+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 0
+  file_ext: .pdf
+  file_name: フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+  file_stem: フィリピンの歴史 (1946年-1965年) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1482
+  language: ja
+  moddate: 2026-06-22T05:24:41+00:00
+  page: 0
+  page_label: 1
+  producer: Skia/PDF m149
+  retrieval_context: title: フィリピンの歴史 (1946年-1965年) - Wikipedia | section: 決した法律により制限された。例えばベル通商法は | category: history | doc_type: article | source: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | file_name: フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | language: ja
+  section: 決した法律により制限された。例えばベル通商法は
+  source: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+  title: フィリピンの歴史 (1946年-1965年) - Wikipedia
+  total_pages: 9
+Preview  :
+Retrieval context: title: フィリピンの歴史 (1946年-1965年) - Wikipedia | section: 決した法律により制限された。例えばベル通商法は | category: history | doc_type: article | source: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | file_name: フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | language: ja 決した法律により制限された。例えばベル通商法は 「この条項に⽰すようにアメリカ合衆国製品と実質的 な競争を⾏おうとしたり⾏いそうな」アメリカ合衆国 の輸⼊制限がフィリピン条項に盛り込まれる可能性の ある機能を規定した。更にアメリカ合衆国市⺠や企業 が対等にフィリピンの鉱物や森林などの天然資源を採 掘できることを保証するよう要求した 。元⽼院⾦融 委員会の公聴会でウィリアム・ロックハート・クレイ トン経済担当副国務⻑官はこの法律を「明らかにこの 国の基本的な対外経済政策と⽭盾し」「明らかに真のフ ィリピン独⽴を保証する我が国の約束と⽭盾する」と 述べた 。 1:02 独⽴の承認 フィリピンの 歴史 (1946 年 -1965 年 ) 1/9
+
+SAMPLE CHUNK 3
+Chars    : 1257
+Metadata :
+  category: history
+  chunk_id: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf::chunk_2
+  chunk_index: 2
+  chunk_overlap: 200
+  chunk_size: 1000
+  creationdate: 2026-06-22T05:24:41+00:00
+  creator: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36
+  doc_type: article
+  document_index: 1
+  file_ext: .pdf
+  file_name: フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+  file_stem: フィリピンの歴史 (1946年-1965年) - Wikipedia
+  file_type: .pdf
+  global_chunk_index: 1483
+  language: ja
+  moddate: 2026-06-22T05:24:41+00:00
+  page: 1
+  page_label: 2
+  producer: Skia/PDF m149
+  retrieval_context: title: フィリピンの歴史 (1946年-1965年) - Wikipedia | section: ⾸都 マニラ（1948年以前） | category: history | doc_type: article | source: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | file_name: フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | language: ja
+  section: ⾸都 マニラ（1948年以前）
+  source: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+  title: フィリピンの歴史 (1946年-1965年) - Wikipedia
+  total_pages: 9
+Preview  :
+Retrieval context: title: フィリピンの歴史 (1946年-1965年) - Wikipedia | section: ⾸都 マニラ（1948年以前） | category: history | doc_type: article | source: D:\Python\InknowVa\data\フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | file_name: フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf | language: ja ⾸都 マニラ（1948年以前） ケソン市（1948年以後） ⼤統領 1946年-1948年 マニュエル‧ロハス 1948年-1953年 エルピディオ‧キリノ 1953年-1957年 ラモン‧マグサイサイ 1957年-1961年 カルロス‧ガルシア 1961年-1965年 ディオスダド‧マカパ ガル 副⼤統領 1946年-1948年 エルピディオ‧キリノ 1949年-1953年 フェルナンド‧ロペス 1953年-1957年 カルロス‧ガルシア 1957年-1961年 ディオスダド‧マカパ ガル 1961年-1965年 エマヌエル‧パラエス 変遷 マニラ条約 1946年7⽉4⽇ マニュエル‧ロハ スの就任 1946年7⽉4⽇ エルピディオ‧キ リノの就任 1948年4⽉17⽇ ラモン‧マグサイ サイの就任 1953年12⽉30⽇ 1957年のセブ島ダ グラスC-47墜落事 故 1957年3⽉17⽇ カルロス‧P‧ガル シアの就任 1957年3⽉18⽇ ディ
+
+... 14 more chunks hidden for this file.

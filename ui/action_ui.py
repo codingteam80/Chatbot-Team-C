@@ -4,8 +4,10 @@ import csv
 import html
 import json
 import re
+import time
 from datetime import datetime
 from io import BytesIO, StringIO
+from pathlib import Path
 
 import streamlit as st
 import streamlit.components.v1 as components
@@ -65,6 +67,38 @@ from ui.source_ui import (
 SIDEBAR_SOURCES_KEY = "sidebar_sources"
 SOURCE_PREVIEW_LIMIT = 360
 EXPORT_TIMESTAMP_FORMAT = "%Y%m%d_%H%M%S"
+PENDING_EXPORT_REQUEST_KEY = "pending_export_request"
+READY_EXPORT_FILE_KEY = "ready_export_file"
+EXPORT_FRONTEND_FLUSH_SECONDS = 0.12
+ACTION_DEBUG_FILE = Path(__file__).resolve().parents[1] / "reports" / "ui_rag_debug.txt"
+
+
+def append_action_debug(title, lines=None):
+    # Confirms whether action_ui.py receives the button click.
+    try:
+        ACTION_DEBUG_FILE.parent.mkdir(parents=True, exist_ok=True)
+        log_lines = [
+            "",
+            "=" * 80,
+            str(title or "ACTION DEBUG"),
+            "=" * 80,
+            f"Time: {time.strftime('%Y-%m-%d %H:%M:%S')}",
+        ]
+
+        for line in lines or []:
+            log_lines.append(str(line))
+
+        with ACTION_DEBUG_FILE.open("a", encoding="utf-8") as file:
+            file.write("\n".join(log_lines))
+            file.write("\n")
+
+        print(f"ACTION DEBUG: {title} -> {ACTION_DEBUG_FILE.resolve()}", flush=True)
+    except Exception as error:
+        print(f"ACTION DEBUG WRITE FAILED: {error}", flush=True)
+
+
+print(f"ACTIVE ACTION_UI FILE: {Path(__file__).resolve()}", flush=True)
+print(f"ACTION DEBUG FILE TARGET: {ACTION_DEBUG_FILE.resolve()}", flush=True)
 
 EXPORT_TYPES = {
     "PDF": ("pdf", "application/pdf"),
@@ -641,11 +675,12 @@ def get_export_file(answer, sources, export_type, title=None):
 
 
 def set_regenerate_index(index):
-    # Mark assistant message for regeneration.
+    # Mark assistant message for full RAG regeneration in chat_ui.py.
     # Hide answer-only UI immediately on the click rerun.
+    append_action_debug("ACTION UI REGENERATE CLICKED", [f"index: {index}"])
     st.session_state.regenerate_index = index
+    st.session_state.regenerate_requested_at = time.time()
     st.session_state.hide_actions = True
-    st.session_state.hide_suggestions = True
     st.session_state.is_generating = True
     st.session_state.pop("open_export_panel_key", None)
 
@@ -656,42 +691,123 @@ def toggle_export_panel(unique_key):
 
     if str(current_key) == str(unique_key):
         st.session_state.pop("open_export_panel_key", None)
+        clear_export_runtime_state()
         return
 
+    clear_export_runtime_state()
     st.session_state.open_export_panel_key = str(unique_key)
 
 
-def render_download_button(answer, sources, export_type, label, unique_key, title=None):
-    # Render one export button.
-    data, filename, mime = get_export_file(answer, sources, export_type, title=title)
+def clear_export_runtime_state():
+    # Clear export request/result state when switching panels.
+    st.session_state.pop(PENDING_EXPORT_REQUEST_KEY, None)
+    st.session_state.pop(READY_EXPORT_FILE_KEY, None)
 
-    if data is None:
-        st.caption(f"{label} unavailable")
+
+def queue_export_request(unique_key, export_type, title=None):
+    # Store which export the user wants. Generation happens after a loading state renders.
+    st.session_state[PENDING_EXPORT_REQUEST_KEY] = {
+        "unique_key": str(unique_key),
+        "export_type": str(export_type),
+        "title": title,
+    }
+    st.session_state.pop(READY_EXPORT_FILE_KEY, None)
+
+
+def get_pending_export_request(unique_key):
+    # Return pending export request for this answer only.
+    request = st.session_state.get(PENDING_EXPORT_REQUEST_KEY)
+
+    if not isinstance(request, dict):
+        return None
+
+    if str(request.get("unique_key")) != str(unique_key):
+        return None
+
+    return request
+
+
+def get_ready_export_file(unique_key):
+    # Return prepared export bytes for this answer only.
+    prepared = st.session_state.get(READY_EXPORT_FILE_KEY)
+
+    if not isinstance(prepared, dict):
+        return None
+
+    if str(prepared.get("unique_key")) != str(unique_key):
+        return None
+
+    return prepared
+
+
+def display_export_loading(export_type):
+    # Show loading before generating files like PDF/DOCX/XLSX/PPTX.
+    st.markdown(
+        f"""
+<div class="export-loading-row">
+    <div class="thinking-dots"><span></span><span></span><span></span></div>
+    <span>Preparing {safe_html(export_type)}...</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    if EXPORT_FRONTEND_FLUSH_SECONDS > 0:
+        time.sleep(EXPORT_FRONTEND_FLUSH_SECONDS)
+
+
+def prepare_pending_export(answer, sources, unique_key, title=None):
+    # Generate only the requested export type, not every format at once.
+    request = get_pending_export_request(unique_key)
+
+    if not request:
         return
 
+    export_type = request.get("export_type")
+    display_export_loading(export_type)
+
+    data, filename, mime = get_export_file(
+        answer=answer,
+        sources=sources,
+        export_type=export_type,
+        title=request.get("title") or title,
+    )
+
+    if data is not None:
+        st.session_state[READY_EXPORT_FILE_KEY] = {
+            "unique_key": str(unique_key),
+            "export_type": export_type,
+            "data": data,
+            "filename": filename,
+            "mime": mime,
+        }
+
+    st.session_state.pop(PENDING_EXPORT_REQUEST_KEY, None)
+    st.rerun()
+
+
+def display_ready_export(unique_key):
+    # Show the final download button after the file is prepared.
+    prepared = get_ready_export_file(unique_key)
+
+    if not prepared:
+        return
+
+    export_type = prepared.get("export_type") or "file"
+
     st.download_button(
-        label=label,
-        data=data,
-        file_name=filename,
-        mime=mime,
-        key=f"download_{label.lower()}_{unique_key}",
+        label=f"Download {export_type}",
+        data=prepared.get("data"),
+        file_name=prepared.get("filename"),
+        mime=prepared.get("mime"),
+        key=f"download_ready_{str(export_type).lower()}_{unique_key}",
         use_container_width=True,
     )
 
 
-def display_export_row(answer, sources, unique_key, options, title=None):
-    # Render one compact row of export buttons.
-    columns = st.columns(len(options))
-
-    for column, option in zip(columns, options):
-        export_type, label = option
-
-        with column:
-            render_download_button(answer, sources, export_type, label, unique_key, title=title)
-
-
 def display_export_buttons(answer, sources, unique_key, title=None):
-    # One compact horizontal export row.
+    # Export panel is fast: it renders format buttons first.
+    # The actual file is generated only after a specific format is clicked.
     options = [
         ("PDF", "PDF"),
         ("DOCX", "DOCX"),
@@ -704,7 +820,22 @@ def display_export_buttons(answer, sources, unique_key, title=None):
         ("PPT", "PPT"),
     ]
 
-    display_export_row(answer, sources, unique_key, options, title=title)
+    columns = st.columns(len(options))
+
+    for column, option in zip(columns, options):
+        export_type, label = option
+
+        with column:
+            st.button(
+                label,
+                key=f"prepare_export_{label.lower()}_{unique_key}",
+                use_container_width=True,
+                on_click=queue_export_request,
+                args=(unique_key, export_type, title),
+            )
+
+    prepare_pending_export(answer, sources, unique_key, title=title)
+    display_ready_export(unique_key)
 
 
 def prepare_sources_for_drawer(sources):
@@ -806,8 +937,8 @@ def display_actions(answer, sources, message_index=None):
     unique_key = str(0 if message_index is None else message_index)
     export_title = make_response_title(get_question_for_message(message_index))
 
-    # Keep the sidebar Sources block updated without requiring a separate button click.
-    show_sources_in_sidebar(sources)
+    # Do not update session_state while rendering action rows.
+    # chat_ui.py already stores latest sources after generation/history load.
 
     with st.container(key=f"action_area_{unique_key}"):
         col1, col2, col3, col4 = st.columns([1, 1, 1, 12], gap="small")

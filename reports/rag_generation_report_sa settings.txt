@@ -1,0 +1,602 @@
+
+================================================================================
+QUESTION-ONLY RAG GENERATION TEST STARTED
+================================================================================
+Data path       : data
+Report file     : reports\rag_generation_report.txt
+Cases           : 15
+Use reranker    : True
+Metadata boost  : False
+No LLM mode     : False
+
+Evaluation mode : manual review
+Expected fields : disabled
+
+================================================================================
+CASE R01 - RETRIEVAL_BASIC
+================================================================================
+Question       : Who are the ladies that had relationship with Jose Rizal?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 3
+Retrieval queries: 1
+Case time      : 1 min 15.19 sec
+Bottleneck     : Generate answer - 57.46 sec (76.4%)
+
+ANSWER:
+Gertrude Beckett, Nelly Boustead, Seiko Usui, Segunda Katigbak, Leonor Valenzuela, and Leonor Rivera.
+
+================================================================================
+SOURCES
+================================================================================
+- José Rizal - Wikipedia.pdf | page=5 | data\José Rizal - Wikipedia.pdf::chunk_20
+- José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_25
+- José Rizal - Wikipedia.pdf | page=0 | data\José Rizal - Wikipedia.pdf::chunk_1
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 1 min 15.19 sec
+Measured steps  : 1 min 15.19 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 57.46 sec (76.4%)
+
+- Generate answer                 57.46 sec ( 76.4%)
+- Load embedding model             7.03 sec (  9.4%)
+- Hybrid retrieval                 3.76 sec (  5.0%)
+- Rerank documents                 3.46 sec (  4.6%)
+- Load reranker                    1.99 sec (  2.6%)
+- Load LLM                         0.56 sec (  0.7%)
+- Load Chroma vectorstore          0.42 sec (  0.6%)
+- Create BM25 retriever            0.40 sec (  0.5%)
+- Final context filter             0.08 sec (  0.1%)
+- Load chunks for BM25             0.02 sec (  0.0%)
+
+================================================================================
+CASE R02 - RETRIEVAL_BASIC
+================================================================================
+Question       : Who killed Ferdinand Magellan?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 3
+Retrieval queries: 1
+Case time      : 15.82 sec
+Bottleneck     : Generate answer - 12.80 sec (80.9%)
+
+ANSWER:
+Ferdinand Magellan was killed in the Battle of Rise and Fall of Bo-ol Inter-kingdom rivalries during the conflict with the army of Lapulapu, chief of Mactan, on March 17, 1521.
+
+================================================================================
+SOURCES
+================================================================================
+- History of the Philippines - Wikipedia.pdf | page=0 | data\History of the Philippines - Wikipedia.pdf::chunk_2
+- History of the Philippines - Wikipedia.pdf | page=19 | data\History of the Philippines - Wikipedia.pdf::chunk_62
+- History of the Philippines - Wikipedia.pdf | page=19 | data\History of the Philippines - Wikipedia.pdf::chunk_61
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 15.82 sec
+Measured steps  : 15.81 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 12.80 sec (80.9%)
+
+- Generate answer                 12.80 sec ( 80.9%)
+- Rerank documents                 2.83 sec ( 17.9%)
+- Hybrid retrieval                 0.10 sec (  0.6%)
+- Final context filter             0.09 sec (  0.6%)
+
+================================================================================
+CASE R03 - RETRIEVAL_BASIC
+================================================================================
+Question       : Did Lapu-Lapu kill Magellan?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 2
+Retrieval queries: 1
+Case time      : 15.54 sec
+Bottleneck     : Generate answer - 12.58 sec (81.0%)
+
+ANSWER:
+Lapus-Lapu, the chief of Mactan, led the resistance against Magellan's expedition and was directly involved in the battle that resulted in Magellan's death.
+
+================================================================================
+SOURCES
+================================================================================
+- History of the Philippines - Wikipedia.pdf | page=19 | data\History of the Philippines - Wikipedia.pdf::chunk_62
+- History of the Philippines - Wikipedia.pdf | page=0 | data\History of the Philippines - Wikipedia.pdf::chunk_2
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 15.54 sec
+Measured steps  : 15.53 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 12.58 sec (81.0%)
+
+- Generate answer                 12.58 sec ( 81.0%)
+- Rerank documents                 2.80 sec ( 18.0%)
+- Final context filter             0.09 sec (  0.6%)
+- Hybrid retrieval                 0.06 sec (  0.4%)
+
+================================================================================
+CASE R04 - RETRIEVAL_BASIC
+================================================================================
+Question       : Who is the first Philippine president?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 1
+Retrieval queries: 1
+Case time      : 12.77 sec
+Bottleneck     : Generate answer - 9.72 sec (76.1%)
+
+ANSWER:
+Emilio Aguinaldo
+
+================================================================================
+SOURCES
+================================================================================
+- Emilio Aguinaldo - Wikipedia.pdf | page=0 | data\Emilio Aguinaldo - Wikipedia.pdf::chunk_0
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 12.77 sec
+Measured steps  : 12.77 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 9.72 sec (76.1%)
+
+- Generate answer                  9.72 sec ( 76.1%)
+- Rerank documents                 2.90 sec ( 22.7%)
+- Final context filter             0.10 sec (  0.8%)
+- Hybrid retrieval                 0.06 sec (  0.5%)
+
+================================================================================
+CASE R05 - RETRIEVAL_BASIC
+================================================================================
+Question       : What did the Treaty of Paris of 1898 say about the Philippines?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 3
+Retrieval queries: 1
+Case time      : 23.40 sec
+Bottleneck     : Generate answer - 19.70 sec (84.2%)
+
+ANSWER:
+The Treaty of Paris (1898) ceded the Philippines from Spain to the United States, involving a compensation of $20 million from the U.S. to Spain. It came into effect on April 11, 1899, after ratifications were exchanged, and marked the end of Spain's colonial rule in the region. The treaty also required Spain to agree to American occupation of Manila in the Philippines, though it acknowledged that the Philippines stood on a different basis from Cuba and Puerto Rico. The U.S. retained control over the City, Bay, and harbour of Manila until a subsequent treaty determined the governance of the Philippines. This led to the Philippine-American War later in 1899.
+
+================================================================================
+SOURCES
+================================================================================
+- Treaty of Paris (1898) - Wikipedia.pdf | page=0 | data\Treaty of Paris (1898) - Wikipedia.pdf::chunk_1
+- Treaty of Paris (1898) - Wikipedia.pdf | page=2 | data\Treaty of Paris (1898) - Wikipedia.pdf::chunk_8
+- Treaty of Paris (1898) - Wikipedia.pdf | page=8 | data\Treaty of Paris (1898) - Wikipedia.pdf::chunk_25
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 23.40 sec
+Measured steps  : 23.40 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 19.70 sec (84.2%)
+
+- Generate answer                 19.70 sec ( 84.2%)
+- Rerank documents                 3.54 sec ( 15.1%)
+- Hybrid retrieval                 0.08 sec (  0.4%)
+- Final context filter             0.07 sec (  0.3%)
+
+================================================================================
+CASE R06 - RETRIEVAL_BASIC
+================================================================================
+Question       : What hardships did Filipinos experience during the Japanese occupation?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 3
+Retrieval queries: 1
+Case time      : 24.59 sec
+Bottleneck     : Generate answer - 21.63 sec (88.0%)
+
+ANSWER:
+- Forced labor: Filipinos were compelled to dig their own graves before experimental procedures.  
+- Human experimentation: Japanese doctors and surgeons performed amputations, dissections, and vivisections on Filipinos, often under horrific conditions.  
+- Imprisonment as comfort women: Over a thousand Filipinos, including mothers, girls, and gay men, were imprisoned and forced into sexual slavery.  
+- Sexual slavery: Women were held in "comfort stations" and subjected to forced sexual servitude by Japanese military personnel.
+
+================================================================================
+SOURCES
+================================================================================
+- Japanese occupation of the Philippines - Wikipedia.pdf | page=3 | data\Japanese occupation of the Philippines - Wikipedia.pdf::chunk_8
+- Japanese occupation of the Philippines - Wikipedia.pdf | page=1 | data\Japanese occupation of the Philippines - Wikipedia.pdf::chunk_3
+- Japanese occupation of the Philippines - Wikipedia.pdf | page=2 | data\Japanese occupation of the Philippines - Wikipedia.pdf::chunk_6
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 24.59 sec
+Measured steps  : 24.59 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 21.63 sec (88.0%)
+
+- Generate answer                 21.63 sec ( 88.0%)
+- Rerank documents                 2.79 sec ( 11.3%)
+- Final context filter             0.09 sec (  0.4%)
+- Hybrid retrieval                 0.08 sec (  0.3%)
+
+================================================================================
+CASE D01 - DIRECT
+================================================================================
+Question       : Who was Apolinario Mabini and what role did he serve in the First Philippine Republic?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 3
+Retrieval queries: 1
+Case time      : 23.35 sec
+Bottleneck     : Generate answer - 19.93 sec (85.4%)
+
+ANSWER:
+Apolinario Mabini (1864–1903) was a Filipino revolutionary leader, educator, lawyer, and statesman who served as the first Prime Minister of the Philippines upon the establishment of the First Philippine Republic (1899). He drafted decrees and edited the constitution for the republic, including the framework of the revolutionary government implemented in Malolos. Mabini's work shaped the Philippines' fight for independence, and he authored key documents like the June 18, 1898 decree establishing the Dictatorial Government of the Philippines. Despite losing his legs to polio before the revolution, he continued his revolutionary and governmental activities, contributing to the country's legal and political foundations.
+
+================================================================================
+SOURCES
+================================================================================
+- Apolinario Mabini - Wikipedia.pdf | page=0 | data\Apolinario Mabini - Wikipedia.pdf::chunk_0
+- Apolinario Mabini - Wikipedia.pdf | page=3 | data\Apolinario Mabini - Wikipedia.pdf::chunk_8
+- Apolinario Mabini - Wikipedia.pdf | page=0 | data\Apolinario Mabini - Wikipedia.pdf::chunk_1
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 23.35 sec
+Measured steps  : 23.35 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 19.93 sec (85.4%)
+
+- Generate answer                 19.93 sec ( 85.4%)
+- Rerank documents                 3.25 sec ( 13.9%)
+- Final context filter             0.09 sec (  0.4%)
+- Hybrid retrieval                 0.08 sec (  0.4%)
+
+================================================================================
+CASE K01 - KEYWORD_HEAVY
+================================================================================
+Question       : Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 3
+Retrieval queries: 1
+Case time      : 17.60 sec
+Bottleneck     : Generate answer - 14.20 sec (80.7%)
+
+ANSWER:
+The Katipunan was founded on July 7, 1892, by Deodato Arellano, Andrés Bonifacio, Valentin Diaz, Ladislao Diwa, José Dizon, and Teodoro Plata. Its purpose was to achieve Filipino independence from the Spanish Empire through an armed revolution, promoting anti-imperialism, Filipino nationalism, and anti-Spanish sentiment.
+
+================================================================================
+SOURCES
+================================================================================
+- Katipunan - Wikipedia.pdf | page=0 | data\Katipunan - Wikipedia.pdf::chunk_0
+- Katipunan - Wikipedia.pdf | page=2 | data\Katipunan - Wikipedia.pdf::chunk_6
+- Katipunan - Wikipedia.pdf | page=0 | data\Katipunan - Wikipedia.pdf::chunk_1
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 17.60 sec
+Measured steps  : 17.60 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 14.20 sec (80.7%)
+
+- Generate answer                 14.20 sec ( 80.7%)
+- Rerank documents                 3.24 sec ( 18.4%)
+- Hybrid retrieval                 0.10 sec (  0.6%)
+- Final context filter             0.05 sec (  0.3%)
+
+================================================================================
+CASE P01 - PARAPHRASED
+================================================================================
+Question       : Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 2
+Retrieval queries: 1
+Case time      : 14.33 sec
+Bottleneck     : Generate answer - 10.70 sec (74.7%)
+
+ANSWER:
+The secret group that tried to free Filipinos from Spanish rule through an armed revolution before its discovery in 1896 was the Katipunan.
+
+================================================================================
+SOURCES
+================================================================================
+- Katipunan - Wikipedia.pdf | page=0 | data\Katipunan - Wikipedia.pdf::chunk_1
+- Katipunan - Wikipedia.pdf | page=1 | data\Katipunan - Wikipedia.pdf::chunk_3
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 14.33 sec
+Measured steps  : 14.33 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 10.70 sec (74.7%)
+
+- Generate answer                 10.70 sec ( 74.7%)
+- Rerank documents                 3.46 sec ( 24.2%)
+- Hybrid retrieval                 0.09 sec (  0.6%)
+- Final context filter             0.07 sec (  0.5%)
+
+================================================================================
+CASE T01 - TAGALOG_ENGLISH_DOCS
+================================================================================
+Question       : Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 1
+Retrieval queries: 1
+Case time      : 13.99 sec
+Bottleneck     : Generate answer - 10.58 sec (75.7%)
+
+ANSWER:
+Araw ng Kalayaan ng Pilipinas ipinagdiriwang noong 1898 sa Pamitinan Cave na nagsisimula ang Katipunan, naglalayong pagkakaiba-iba mula sa Spain.
+
+================================================================================
+SOURCES
+================================================================================
+- Independence Day (Philippines) - Wikipedia.pdf | page=0 | data\Independence Day (Philippines) - Wikipedia.pdf::chunk_0
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 13.99 sec
+Measured steps  : 13.99 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 10.58 sec (75.7%)
+
+- Generate answer                 10.58 sec ( 75.7%)
+- Rerank documents                 3.23 sec ( 23.1%)
+- Final context filter             0.10 sec (  0.7%)
+- Hybrid retrieval                 0.07 sec (  0.5%)
+
+================================================================================
+CASE N01 - NEGATIVE_UNANSWERABLE
+================================================================================
+Question       : What was Andres Bonifacio's official passport number during the Philippine Revolution?
+Context status : HAS_CONTEXT
+Answer status  : FALLBACK
+Sources        : 1
+Retrieval queries: 1
+Case time      : 14.41 sec
+Bottleneck     : Generate answer - 11.15 sec (77.4%)
+
+ANSWER:
+I cannot find the answer in the provided documents.
+
+================================================================================
+SOURCES
+================================================================================
+- Philippine Revolution - Wikipedia.pdf | page=25 | data\Philippine Revolution - Wikipedia.pdf::chunk_80
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 14.41 sec
+Measured steps  : 14.41 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 11.15 sec (77.4%)
+
+- Generate answer                 11.15 sec ( 77.4%)
+- Rerank documents                 3.15 sec ( 21.9%)
+- Hybrid retrieval                 0.08 sec (  0.5%)
+- Final context filter             0.03 sec (  0.2%)
+
+================================================================================
+CASE X01 - CROSS_DOC
+================================================================================
+Question       : How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 4
+Retrieval queries: 1
+Case time      : 19.05 sec
+Bottleneck     : Generate answer - 15.87 sec (83.3%)
+
+ANSWER:
+The Treaty of Paris (1898) concluded the Spanish–American War, transferring control of the Philippines to the United States. This transition triggered the Philippine-American War, as U.S. troops occupied the Philippines following the war's end, leading to armed conflict between Filipino forces and U.S. military authorities.
+
+================================================================================
+SOURCES
+================================================================================
+- Philippine–American War - Wikipedia.pdf | page=0 | data\Philippine–American War - Wikipedia.pdf::chunk_1
+- Spanish–American War - Wikipedia.pdf | page=12 | data\Spanish–American War - Wikipedia.pdf::chunk_42
+- Treaty of Paris (1898) - Wikipedia.pdf | page=8 | data\Treaty of Paris (1898) - Wikipedia.pdf::chunk_23
+- Treaty of Paris (1898) - Wikipedia.pdf | page=12 | data\Treaty of Paris (1898) - Wikipedia.pdf::chunk_33
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 19.05 sec
+Measured steps  : 19.05 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 15.87 sec (83.3%)
+
+- Generate answer                 15.87 sec ( 83.3%)
+- Rerank documents                 3.03 sec ( 15.9%)
+- Final context filter             0.08 sec (  0.4%)
+- Hybrid retrieval                 0.07 sec (  0.4%)
+
+================================================================================
+CASE F01 - FALSE_PREMISE
+================================================================================
+Question       : Why did Jose Rizal become the Supremo of the Katipunan?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 3
+Retrieval queries: 1
+Case time      : 23.76 sec
+Bottleneck     : Generate answer - 20.38 sec (85.8%)
+
+ANSWER:
+The documents do not provide explicit information about why Jose Rizal became the Supremo of the Katipunan. While he was involved in founding La Liga Filipina and the Katipunan, there is no direct mention of his role as Supremo or the reasons for his leadership position. The excerpts focus on his advocacy for peaceful reform and his stance on violent means as a last resort, but do not detail his specific involvement in the Katipunan's hierarchy.
+
+================================================================================
+SOURCES
+================================================================================
+- José Rizal - Wikipedia.pdf | page=9 | data\José Rizal - Wikipedia.pdf::chunk_35
+- José Rizal - Wikipedia.pdf | page=16 | data\José Rizal - Wikipedia.pdf::chunk_62
+- José Rizal - Wikipedia.pdf | page=29 | data\José Rizal - Wikipedia.pdf::chunk_95
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 23.76 sec
+Measured steps  : 23.76 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 20.38 sec (85.8%)
+
+- Generate answer                 20.38 sec ( 85.8%)
+- Rerank documents                 3.26 sec ( 13.7%)
+- Hybrid retrieval                 0.08 sec (  0.3%)
+- Final context filter             0.04 sec (  0.2%)
+
+================================================================================
+CASE S01 - SIMILAR_TOPIC
+================================================================================
+Question       : Compare the Spanish-American War vs. the Philippine-American War. Do not interchange the cause and result of the two wars.
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 4
+Retrieval queries: 1
+Case time      : 27.20 sec
+Bottleneck     : Generate answer - 23.12 sec (85.0%)
+
+ANSWER:
+The Spanish-American War (1898) was driven by the Cuban Revolution and Spain's defeat, while the Philippine-American War (1899–1902) arose from U.S. annexation of the Philippines after Spain's collapse. The former resulted in the Treaty of Paris, establishing U.S. control over the Philippines, whereas the latter saw prolonged resistance against Filipino independence, culminating in the eventual U.S. victory and the Philippines' loss. Both conflicts involved imperialism but differed in their causes (colonial rebellion vs. annexation) and outcomes (U.S. dominance vs. continued resistance).
+
+================================================================================
+SOURCES
+================================================================================
+- Philippine–American War - Wikipedia.pdf | page=17 | data\Philippine–American War - Wikipedia.pdf::chunk_55
+- Spanish–American War - Wikipedia.pdf | page=49 | data\Spanish–American War - Wikipedia.pdf::chunk_144
+- Philippine–American War - Wikipedia.pdf | page=15 | data\Philippine–American War - Wikipedia.pdf::chunk_48
+- Spanish–American War - Wikipedia.pdf | page=39 | data\Spanish–American War - Wikipedia.pdf::chunk_122
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 27.20 sec
+Measured steps  : 27.20 sec
+Untimed overhead: 0.00 sec
+Bottleneck      : Generate answer - 23.12 sec (85.0%)
+
+- Generate answer                 23.12 sec ( 85.0%)
+- Rerank documents                 3.87 sec ( 14.2%)
+- Final context filter             0.12 sec (  0.4%)
+- Hybrid retrieval                 0.09 sec (  0.3%)
+
+================================================================================
+CASE S02 - SIMILAR_TOPIC
+================================================================================
+Question       : What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?
+Context status : HAS_CONTEXT
+Answer status  : ANSWERED
+Sources        : 4
+Retrieval queries: 1
+Case time      : 22.27 sec
+Bottleneck     : Generate answer - 18.57 sec (83.4%)
+
+ANSWER:
+The Philippine Revolution refers to the broader historical event encompassing the armed struggle against Spanish colonial rule, initiated by the Katipunan, an organization formed in 1892. The Katipunan was a secret society that sought independence through armed rebellion, which culminated in the 1897 declaration of war against Spain. While the Philippine Revolution is the overarching movement, the Katipunan was its central organizational force. The revolution itself was a war/revolution, and the Katipunan was the organization that orchestrated it.
+
+================================================================================
+SOURCES
+================================================================================
+- Philippine Revolution - Wikipedia.pdf | page=0 | data\Philippine Revolution - Wikipedia.pdf::chunk_1
+- Katipunan - Wikipedia.pdf | page=1 | data\Katipunan - Wikipedia.pdf::chunk_3
+- Philippine Revolution - Wikipedia.pdf | page=6 | data\Philippine Revolution - Wikipedia.pdf::chunk_20
+- Katipunan - Wikipedia.pdf | page=1 | data\Katipunan - Wikipedia.pdf::chunk_4
+
+================================================================================
+CASE TIMING BREAKDOWN
+================================================================================
+End-to-end time : 22.27 sec
+Measured steps  : 22.26 sec
+Untimed overhead: 0.01 sec
+Bottleneck      : Generate answer - 18.57 sec (83.4%)
+
+- Generate answer                 18.57 sec ( 83.4%)
+- Rerank documents                 3.50 sec ( 15.7%)
+- Hybrid retrieval                 0.11 sec (  0.5%)
+- Final context filter             0.09 sec (  0.4%)
+
+================================================================================
+RAG TEST SUMMARY
+================================================================================
+Total cases       : 15
+Cases with context: 15
+Answered cases    : 14
+Fallback cases    : 1
+Possibly truncated: 0
+End-to-end total  : 5 min 43.26 sec
+Measured total    : 5 min 43.23 sec
+Overall bottleneck: Generate answer - 4 min 38.39 sec (81.1%)
+
+Note:
+- This is a question-only RAG test.
+- No expected_sources, answer_keywords, or min_keyword_matches are used.
+- Load steps appear only when the model/vectorstore/retriever is first loaded in that run.
+- Review the final context and answer manually before tuning retrieval/prompt.
+
+================================================================================
+CASE STATUS SUMMARY
+================================================================================
+HAS_CONTEXT | ANSWERED           | 1 min 15.19 sec | Generate answer 57.46 sec | R01 | Who are the ladies that had relationship with Jose Rizal?
+HAS_CONTEXT | ANSWERED           |      15.82 sec | Generate answer 12.80 sec | R02 | Who killed Ferdinand Magellan?
+HAS_CONTEXT | ANSWERED           |      15.54 sec | Generate answer 12.58 sec | R03 | Did Lapu-Lapu kill Magellan?
+HAS_CONTEXT | ANSWERED           |      12.77 sec | Generate answer 9.72 sec | R04 | Who is the first Philippine president?
+HAS_CONTEXT | ANSWERED           |      23.40 sec | Generate answer 19.70 sec | R05 | What did the Treaty of Paris of 1898 say about the Philippines?
+HAS_CONTEXT | ANSWERED           |      24.59 sec | Generate answer 21.63 sec | R06 | What hardships did Filipinos experience during the Japanese occupation?
+HAS_CONTEXT | ANSWERED           |      23.35 sec | Generate answer 19.93 sec | D01 | Who was Apolinario Mabini and what role did he serve in the First Philippine Republic?
+HAS_CONTEXT | ANSWERED           |      17.60 sec | Generate answer 14.20 sec | K01 | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?
+HAS_CONTEXT | ANSWERED           |      14.33 sec | Generate answer 10.70 sec | P01 | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?
+HAS_CONTEXT | ANSWERED           |      13.99 sec | Generate answer 10.58 sec | T01 | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?
+HAS_CONTEXT | FALLBACK           |      14.41 sec | Generate answer 11.15 sec | N01 | What was Andres Bonifacio's official passport number during the Philippine Revolution?
+HAS_CONTEXT | ANSWERED           |      19.05 sec | Generate answer 15.87 sec | X01 | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
+HAS_CONTEXT | ANSWERED           |      23.76 sec | Generate answer 20.38 sec | F01 | Why did Jose Rizal become the Supremo of the Katipunan?
+HAS_CONTEXT | ANSWERED           |      27.20 sec | Generate answer 23.12 sec | S01 | Compare the Spanish-American War vs. the Philippine-American War. Do not interchange the cause and result of the two wars.
+HAS_CONTEXT | ANSWERED           |      22.27 sec | Generate answer 18.57 sec | S02 | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?
+
+================================================================================
+OVERALL TIMING SUMMARY
+================================================================================
+End-to-end time : 5 min 43.26 sec
+Measured steps  : 5 min 43.23 sec
+Untimed overhead: 0.03 sec
+Bottleneck      : Generate answer - 4 min 38.39 sec (81.1%)
+
+- Generate answer            4 min 38.39 sec ( 81.1%)
+- Rerank documents                48.31 sec ( 14.1%)
+- Load embedding model             7.03 sec (  2.0%)
+- Hybrid retrieval                 4.91 sec (  1.4%)
+- Load reranker                    1.99 sec (  0.6%)
+- Final context filter             1.19 sec (  0.3%)
+- Load LLM                         0.56 sec (  0.2%)
+- Load Chroma vectorstore          0.42 sec (  0.1%)
+- Create BM25 retriever            0.40 sec (  0.1%)
+- Load chunks for BM25             0.02 sec (  0.0%)
+
+================================================================================
+BOTTLENECK SUMMARY BY CASE
+================================================================================
+R01    | Generate answer            |      57.46 sec |  76.4% | 1 min 15.19 sec
+R02    | Generate answer            |      12.80 sec |  80.9% | 15.82 sec
+R03    | Generate answer            |      12.58 sec |  81.0% | 15.54 sec
+R04    | Generate answer            |       9.72 sec |  76.1% | 12.77 sec
+R05    | Generate answer            |      19.70 sec |  84.2% | 23.40 sec
+R06    | Generate answer            |      21.63 sec |  88.0% | 24.59 sec
+D01    | Generate answer            |      19.93 sec |  85.4% | 23.35 sec
+K01    | Generate answer            |      14.20 sec |  80.7% | 17.60 sec
+P01    | Generate answer            |      10.70 sec |  74.7% | 14.33 sec
+T01    | Generate answer            |      10.58 sec |  75.7% | 13.99 sec
+N01    | Generate answer            |      11.15 sec |  77.4% | 14.41 sec
+X01    | Generate answer            |      15.87 sec |  83.3% | 19.05 sec
+F01    | Generate answer            |      20.38 sec |  85.8% | 23.76 sec
+S01    | Generate answer            |      23.12 sec |  85.0% | 27.20 sec
+S02    | Generate answer            |      18.57 sec |  83.4% | 22.27 sec

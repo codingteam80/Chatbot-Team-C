@@ -21,6 +21,7 @@ DB_PATH = DB_DIR / "chat_history.sqlite3"
 DEFAULT_HISTORY_LIMIT = 30
 GLOBAL_BROWSER_ID = "global"
 TITLE_CHAR_LIMIT = 60
+_DB_INITIALIZED = False
 
 
 def get_now_text():
@@ -34,9 +35,11 @@ def get_now_text():
 def get_connection():
     # Short-lived SQLite connection.
     DB_DIR.mkdir(parents=True, exist_ok=True)
-    connection = sqlite3.connect(DB_PATH)
+    connection = sqlite3.connect(DB_PATH, timeout=10)
     connection.row_factory = sqlite3.Row
     connection.execute("PRAGMA foreign_keys = ON")
+    connection.execute("PRAGMA journal_mode = WAL")
+    connection.execute("PRAGMA synchronous = NORMAL")
     return connection
 
 
@@ -72,7 +75,12 @@ def migrate_database(connection):
 
 
 def init_history_db():
-    # Gumawa o i-migrate ang chat history DB.
+    # Gumawa o i-migrate ang chat history DB once per Python process.
+    global _DB_INITIALIZED
+
+    if _DB_INITIALIZED and DB_PATH.exists():
+        return
+
     with get_connection() as connection:
         connection.execute(
             """
@@ -116,6 +124,8 @@ def init_history_db():
             ON messages(conversation_id, sort_order, id)
             """
         )
+
+    _DB_INITIALIZED = True
 
 
 def clean_browser_id(browser_id):
@@ -333,17 +343,30 @@ def replace_conversation_messages(browser_id, conversation_id, messages, title=N
 
 
 def delete_conversation(browser_id, conversation_id):
-    # Delete one conversation for current browser.
+    # Delete only one saved conversation for the current browser.
+    # This is used by Clear Chat so it does not wipe the full sidebar history.
     if not conversation_id:
-        return
+        return False
 
     init_history_db()
+    browser_id = clean_browser_id(browser_id)
 
     with get_connection() as connection:
+        if not conversation_belongs_to_browser(connection, conversation_id, browser_id):
+            return False
+
+        # Explicitly delete messages first for older DB files, then delete the conversation row.
+        # The FK cascade still protects the normal path, but this keeps the cleanup predictable.
         connection.execute(
-            "DELETE FROM conversations WHERE id = ? AND browser_id = ?",
-            (conversation_id, clean_browser_id(browser_id)),
+            "DELETE FROM messages WHERE conversation_id = ?",
+            (conversation_id,),
         )
+        cursor = connection.execute(
+            "DELETE FROM conversations WHERE id = ? AND browser_id = ?",
+            (conversation_id, browser_id),
+        )
+
+    return cursor.rowcount > 0
 
 
 def delete_all_conversations(browser_id):

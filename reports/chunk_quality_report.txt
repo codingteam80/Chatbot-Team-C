@@ -1,0 +1,412 @@
+================================================================================
+CHUNK QUALITY REPORT
+================================================================================
+Total chunks   : 1603
+Kept chunks    : 1554
+Skipped chunks : 49
+
+CONFIG
+--------------------------------------------------------------------------------
+Enabled         : True
+Min chunk chars : 120
+Min chunk words : 25
+
+SKIPPED REASONS
+--------------------------------------------------------------------------------
+metadata_only                  16
+reference_like_text            31
+too_many_weak_markers          2
+
+SKIPPED SAMPLES
+--------------------------------------------------------------------------------
+Reason : metadata_only
+Source : Andrés Bonifacio - Wikipedia.pdf
+Page   : 7
+Chunk  : data\Andrés Bonifacio - Wikipedia.pdf::chunk_30
+Words  : 21
+Chars  : 140
+Preview: to Cavite accompanied by his wife, his brothers Procopio and Ciriaco, and some troops, including Campaigns around Manila Bonifacio in Cavite
+
+Reason : metadata_only
+Source : Andrés Bonifacio - Wikipedia.pdf
+Page   : 15
+Chunk  : data\Andrés Bonifacio - Wikipedia.pdf::chunk_69
+Words  : 23
+Chars  : 136
+Preview: 0301 1.pdf) (PDF). Reference and Research Bureau Legislative Research Service, House of 1.pdf) (PDF) on June 4, 2011.. Bonifacio's bones
+
+Reason : metadata_only
+Source : Apolinario Mabini - Wikipedia.pdf
+Page   : 13
+Chunk  : data\Apolinario Mabini - Wikipedia.pdf::chunk_42
+Words  : 24
+Chars  : 169
+Preview: name is Maranan. The Philippine Revolution, by Apolinario Mabini at the Austrian-Philippine Page at Institute of Social Anthropology, University of Vienna ( mabini2.htm)
+
+Reason : metadata_only
+Source : Emilio Aguinaldo - Wikipedia.pdf
+Page   : 5
+Chunk  : data\Emilio Aguinaldo - Wikipedia.pdf::chunk_22
+Words  : 20
+Chars  : 132
+Preview: conducted shuttle diplomacy, acting as an intermediary between de Rivera and Aguinaldo. On Tejeros Convention Biak-na-Bato and exile
+
+Reason : reference_like_text
+Source : History of the Philippines (1565–1898) - Wikipedia.pdf
+Page   : 14
+Chunk  : data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_53
+Words  : 143
+Chars  : 887
+Preview: Spanish Pacific World From Mexico to the Philippines, 1765–1811 ( e/books/forced-migration-in-the-spanish-pacific-world/unruly-mexicans-in-manila/EF2599210A071 5A5A91B23BB9D84B96C). Cambridge University Press. doi:10.1017/CBO9781316480120.007 ( ISBN 9781316480
+
+Reason : reference_like_text
+Source : History of the Philippines (1565–1898) - Wikipedia.pdf
+Page   : 14
+Chunk  : data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_54
+Words  : 140
+Chars  : 881
+Preview: 2020. 48. Mehl, Eva Maria (2016). "Chapter 1 – Intertwined Histories in the Pacific" ( m/books? Forced Migration in the Spanish Pacific World From Mexico to the Philippines, 1765–1811. Cambridge University Press. p. 246. doi:10.1017/CBO9781316480120.007 ( 7813
+
+Reason : reference_like_text
+Source : History of the Philippines (1565–1898) - Wikipedia.pdf
+Page   : 16
+Chunk  : data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_61
+Words  : 124
+Chars  : 836
+Preview: 56. Maximilian Larena; Federico Sanchez-Quinto; Per Sjödin; Mattias Jakobsson (March 22, 2021). "Multiple migrations to the Philippines during the last 50,000 years" ( pmc/articles/PMC8020671). Proceedings of the National Academy of Sciences. 118 (13) e2026132
+
+Reason : metadata_only
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 16
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_65
+Words  : 24
+Chars  : 145
+Preview: same time, Lusung warriors fought alongside the Siamese king and faced the same Burmese The Bruneian Empire and the expansion of Islam The Lucoes
+
+Reason : metadata_only
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 57
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_234
+Words  : 22
+Chars  : 137
+Preview: February, and entered into force in June 2023. Marcos also went on many foreign trips in Administration of Bongbong Marcos (2022–present)
+
+Reason : reference_like_text
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 60
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_243
+Words  : 122
+Chars  : 870
+Preview: Lawrence; Malmström, Helena; Schlebusch, Carina; Lambeck, Kurt; Endicott, Phillip; Jakobsson, Mattias (March 30, 2021). "Multiple migrations to the Philippines during the last 50,000 years" ( Proceedings of the National Academy of Sciences. 118 (13) e202613211
+
+Reason : reference_like_text
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 61
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_247
+Words  : 137
+Chars  : 825
+Preview: Pre-Columbian Americas ( University of Alabama Press. pp. 168–171. ISBN 978-0-8173-1939-7. 25. Détroit, Florent; Corny, Julien; Dizon, Eusebio Z.; Mijares, Armand S. (2013). ""Small Size" in the Philippine Human Fossil Record: Is It Meaningful for a Better Und
+
+Reason : reference_like_text
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 62
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_252
+Words  : 138
+Chars  : 869
+Preview: Cambridge University Press. p. 204. doi:10.1017/CBO9781139015301.007 ( 7 CBO9781139015301.007). ISBN 978-0-521-64432-7. 40. Blench, Roger (2004). "Fruits and arboriculture in the Indo-Pacific region" ( Bulletin of the Indo-Pacific Prehistory 10308161216/ 41. L
+
+Reason : reference_like_text
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 63
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_257
+Words  : 145
+Chars  : 863
+Preview: Bulbeck, David (eds.). New Perspectives in Southeast Asian and Pacific Prehistory. Vol. 45. ANU e/j.ctt1pwtd26.26). 61. Singapore and the Silk Road of the Sea, 1300–1800 By John N. Miksic ( books? Chapter 4 Page 179. 62. Nicholl 1983, p. 38 63. Santarita, Joef
+
+Reason : metadata_only
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 64
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_262
+Words  : 17
+Chars  : 108
+Preview: January 2, 2010. 78. "Katutubo, Muslim, Kristyano" ( Salazar at Mendoza-Urban. 1985. 79. Munoz 2006, p. 171.
+
+Reason : reference_like_text
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 70
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_280
+Words  : 136
+Chars  : 891
+Preview: 169. Pires, Tomé; Rodrigues, Francisco; Cortesão, Armando (1978). A suma oriental de Tomé Pires e o livro de Francisco Rodrigues: Leitura e notas de Armando Cortesão. Coimbra: Universidade de Coimbra. 170. Reid, Anthony (1995). "Continuity and Change in the Au
+
+Reason : reference_like_text
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 70
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_281
+Words  : 147
+Chars  : 845
+Preview: doi:10.5790/hongkong/9789888028115.001.0001 ( 888028115.001.0001). ISBN 978-988-8028-11-5. 173. Pinto, Fernao Mendes (1989) . The Travels of Mendes Pinto. Translated by Rebecca Catz. Chicago: University of Chicago Press. 174. Ocampo -, Ambeth R. (October 18, 2
+
+Reason : reference_like_text
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 78
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_313
+Words  : 137
+Chars  : 826
+Preview: 298. Raitisoja, Geni " Chinatown Manila: Oldest in the world" ( p:// April 2, 2011, at the Wayback Machine, , July 8, 2006, accessed March 19, 2011. 299. Fish 2003, p. 158 300. Mehl, Eva Maria (2016). Forced Migration in the Spanish Pacific World. Cambridge Un
+
+Reason : reference_like_text
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 96
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_363
+Words  : 107
+Chars  : 700
+Preview: Southeast Asia. Eerdmans. ISBN 978-0-8028-4945-8. Munoz, Paul Michel (2006). Early Kingdoms of the Indonesian Archipelago and the Malay Peninsula ( Editions Didier Millet. ISBN 978-981-4155-67-0. Nicholl, Robert (1983). "Brunei Rediscovered: A Survey of Early 
+
+Reason : reference_like_text
+Source : History of the Philippines - Wikipedia.pdf
+Page   : 97
+Chunk  : data\History of the Philippines - Wikipedia.pdf::chunk_364
+Words  : 135
+Chars  : 877
+Preview: Rausa-Gomez, Lourdes (1967). "Sri Yijava and Madjapahit" ( 3090855/ (PDF). Philippine Studies. 15 (1): 63–107. doi:10.13185/2244-1638.2335 ( Riggs, Fred W. (1994). "Bureaucracy: A Profound Puzzle for Presidentialism" ( In Farazmand, Ali (ed.). Handbook of Bure
+
+Reason : metadata_only
+Source : José Rizal - Wikipedia.pdf
+Page   : 4
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_27
+Words  : 20
+Chars  : 120
+Preview: Lipa, Batangas. It was the first time Rizal had met her, whom he described as Personal life, relationships, and ventures
+
+Reason : metadata_only
+Source : José Rizal - Wikipedia.pdf
+Page   : 6
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_38
+Words  : 20
+Chars  : 137
+Preview: discussed the significance of Palm Sunday in socio-political terms: Relationship with Josephine Bracken In Brussels and Spain (1890–1892)
+
+Reason : metadata_only
+Source : José Rizal - Wikipedia.pdf
+Page   : 12
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_66
+Words  : 8
+Chars  : 62
+Preview: Plays Other works Reactions after death Retraction controversy
+
+Reason : metadata_only
+Source : José Rizal - Wikipedia.pdf
+Page   : 24
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_117
+Words  : 8
+Chars  : 71
+Preview: . (Read English translationby Charles Derbyshire at Project Gutenberg (
+
+Reason : reference_like_text
+Source : José Rizal - Wikipedia.pdf
+Page   : 24
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_118
+Words  : 128
+Chars  : 823
+Preview: 21. According to Anderson, Rizal is one of the best exemplars of nationalist thinking. (See also Nitroglycerine inthe Pomegranate ( Benedict Anderson, New Left Review 27, May–June 2004(subscription required)) 22. Rizal himself translated Schiller's William Tel
+
+Reason : reference_like_text
+Source : José Rizal - Wikipedia.pdf
+Page   : 25
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_119
+Words  : 158
+Chars  : 899
+Preview: 11. Quibuyen, Floro (1998). "Towards a Radical Rizal". Philippine Studies. 46 (2). Ateneo de Manila University Press:151–183. ISSN 0031-7837 ( "Unlike [Marcelo H.] del Pilar (for whomthe root problem was not Spain[...]), [José] Rizal, during his second sojourn
+
+Reason : reference_like_text
+Source : José Rizal - Wikipedia.pdf
+Page   : 26
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_122
+Words  : 134
+Chars  : 878
+Preview: 68. Kalaw, Teodoro."Epistolario Rizalino: 4 volumes, 1400 letters to and from Rizal". Bureau of Printing, Manila. 69. Antonio T. Tiongson; Edgardo V. Gutierrez; Ricardo Valencia Gutierrez; Ricardo V. Gutierrez (2006). Positively NoFilipinos Allowed: Building C
+
+Reason : reference_like_text
+Source : José Rizal - Wikipedia.pdf
+Page   : 26
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_123
+Words  : 73
+Chars  : 434
+Preview: 76. Fadul 2008, p. 17. 77. Craig 1914, p. 215. 78. Fadul 2008, p. 38. 79. Cuizon, Ahmed (June 21, 2008). "Rizal's affair with 'la petite Suzanne'" ( Archived ( February 26, 2014, at the Wayback Machine, Inquirer/Cebu Daily, Retrieved on September 20, 2012. 80.
+
+Reason : reference_like_text
+Source : José Rizal - Wikipedia.pdf
+Page   : 28
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_127
+Words  : 133
+Chars  : 871
+Preview: 105. Almario, Virgilio (2011). "6. Mahal Mo Ba ang Bayan Mo?". Rizal: Makata ( (in Filipino). Mandaluyong: Anvil Publishing. ISBN 978-9712729515. Retrieved March 23, 2020."Ang nararamdaman at hindi maipahayag na pag-ibig sa Bayan ang naging "El amor patrio" no
+
+Reason : too_many_weak_markers
+Source : José Rizal - Wikipedia.pdf
+Page   : 28
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_129
+Words  : 136
+Chars  : 875
+Preview: 121. Ildefonso T. Runes and Mameto R. Buenafe, The Forgery of the Rizal "Retraction" and Josephine's"Autobiography" (Manila: BR Book Col, 1962). 122. "Rizal's Retraction: A Note on the Debate, Silliman Journal (Vol. 12, No. 2, April, May, June 1965), pages 168
+
+Reason : reference_like_text
+Source : José Rizal - Wikipedia.pdf
+Page   : 29
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_132
+Words  : 88
+Chars  : 619
+Preview: 150. Constantino, Renato (1980) , "Veneration without Understanding, Dissent and Counter-consciousness", pp.125–145. Malaya Books, Quezon City. 153. Ocampo, Ambeth. "Was Jose Rizal an American-sponsored Hero?" ( Reflections of Jose Rizal. NHCP – NationalHistor
+
+Reason : reference_like_text
+Source : José Rizal - Wikipedia.pdf
+Page   : 30
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_134
+Words  : 134
+Chars  : 853
+Preview: 164. Look, Wing-Kam (1997). Jose Rizal and Mahatma Gandhi: nationalism and non- violence ( (PDF). Hongkong: The University of Hongkong. 165. Trillana III, Pablo S. "2 historical events led to birth of modern RP" ( PhilippineDaily Inquirer. Archived from the or
+
+Reason : reference_like_text
+Source : José Rizal - Wikipedia.pdf
+Page   : 32
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_139
+Words  : 70
+Chars  : 492
+Preview: 201. "Toronto Arts Online - Neighbourhood Arts Network" ( . 205. "Feature: Rizal returns to Singapore" ( (Press release). Philippine Information Agency (PIA). June 20, 2008.Archived from the original ( on March 24, 2010.Retrieved June 24, 2008. 214. Dr. Jose R
+
+Reason : too_many_weak_markers
+Source : José Rizal - Wikipedia.pdf
+Page   : 34
+Chunk  : data\José Rizal - Wikipedia.pdf::chunk_144
+Words  : 136
+Chars  : 864
+Preview: Venzon, Jahleel Areli A. (1994). The Doorway to hell, Rizal's Biography Zaide, Gregorio F. (2003). José Rizal: Life, Works and Writings of a Genius, Writer, Scientist and National Hero.Manila: National Bookstore. ISBN 971-08-0520-7 Digital collections Works by
+
+Reason : metadata_only
+Source : Philippine Revolution - Wikipedia.pdf
+Page   : 19
+Chunk  : data\Philippine Revolution - Wikipedia.pdf::chunk_81
+Words  : 17
+Chars  : 117
+Preview: cooperation. General Anderson did not renew the request. Preparation for land-based operations and Aguinaldo's return
+
+Reason : metadata_only
+Source : Philippine Revolution - Wikipedia.pdf
+Page   : 23
+Chunk  : data\Philippine Revolution - Wikipedia.pdf::chunk_99
+Words  : 23
+Chars  : 146
+Preview: Ellwell Otis, the U.S. military commander, with the message that the firing had been against his First Philippine Republic Philippine–American War
+
+Reason : metadata_only
+Source : Philippine–American War - Wikipedia.pdf
+Page   : 4
+Chunk  : data\Philippine–American War - Wikipedia.pdf::chunk_20
+Words  : 22
+Chars  : 125
+Preview: would have provided a limited U.S. empire. In Paris, the commission was besieged with advice, End of the Spanish–American War
+
+Reason : reference_like_text
+Source : Philippine–American War - Wikipedia.pdf
+Page   : 26
+Chunk  : data\Philippine–American War - Wikipedia.pdf::chunk_111
+Words  : 137
+Chars  : 833
+Preview: Aguinaldo's forces in Bataan." 2. "Historian Paul Kramer revisits the Philippine–American War" ( 0apr06/10paul.html). The JHU Gazette. 35 (29). Baltimore, Maryland: Johns Hopkins University 3. Deady 2005, p. 62 (p. 10 of the pdf) 4. Deady 2005, p. 55 (p. 3 of 
+
+Reason : reference_like_text
+Source : Philippine–American War - Wikipedia.pdf
+Page   : 34
+Chunk  : data\Philippine–American War - Wikipedia.pdf::chunk_134
+Words  : 140
+Chars  : 896
+Preview: 163. United States. Bureau of the Census; Joseph Prentiss Sanger; Henry Gannett; Victor Hugo Olmsted (1905). Census of the Philippine Islands: Taken Under the Direction of the Philippine Commission in the Year 1903, in Four Volumes ... ( from the original on F
+
+Reason : reference_like_text
+Source : Philippine–American War - Wikipedia.pdf
+Page   : 37
+Chunk  : data\Philippine–American War - Wikipedia.pdf::chunk_146
+Words  : 124
+Chars  : 769
+Preview: m/books? united+states +provoked+moro+rebellion& ISBN 978-616-222-163-7. 233. Choy, Catherine Ceniza; Wu, Judy Tzu-Chun (March 13, 2017). Gendering the Trans-Pacific World ( BRILL. p. 184. ISBN 978-90-04-33610-0. 234. Lumbera, Bienvenido (2008). "Splintering I
+
+Reason : reference_like_text
+Source : Spanish–American War - Wikipedia.pdf
+Page   : 32
+Chunk  : data\Spanish–American War - Wikipedia.pdf::chunk_134
+Words  : 132
+Chars  : 844
+Preview: 1. Moreno Luzón, Javier (2013). "Alfonso el Regenerador. Monarquía escénica e imaginario nacionalista español, en perspectiva comparada (1902–1913)" ( dex.php/hispania/article/view/398/400) [Alfonso el Regenerador. Performing Monarchy and Spanish Nationalist I
+
+Reason : metadata_only
+Source : Spanish–American War - Wikipedia.pdf
+Page   : 44
+Chunk  : data\Spanish–American War - Wikipedia.pdf::chunk_172
+Words  : 17
+Chars  : 110
+Preview: War, Philippine Insurrection, and China Relief Expedition by Micah J. Jenkins ( 210. Gatewood 1975, pp. 23–29.
+
+Reason : reference_like_text
+Source : Spanish–American War - Wikipedia.pdf
+Page   : 48
+Chunk  : data\Spanish–American War - Wikipedia.pdf::chunk_183
+Words  : 141
+Chars  : 852
+Preview: Nofi, Albert A. The Spanish–American War, 1898. Conshohocken, Pennsylvania: Combined Books, Inc., 1996. ISBN 0938289578 Offner, John L. (1992), An Unwanted War: the Diplomacy of the United States and Spain over Cuba, 1895–1898 Offner, John L. (2004), "McKinley
+
+Reason : reference_like_text
+Source : Spanish–American War - Wikipedia.pdf
+Page   : 50
+Chunk  : data\Spanish–American War - Wikipedia.pdf::chunk_189
+Words  : 133
+Chars  : 826
+Preview: Annapolis, Md: Naval Institute Press. ISBN 978-1-55750-079-3. Castonguay, James. "The Spanish-American War in United States Media culture." in Hollywood and War, The Film Reader (Routledge, 2023) pp. 97–108. online ( apters/edit/10.4324/9781003416661-11/spanis
+
+Reason : reference_like_text
+Source : Spanish–American War - Wikipedia.pdf
+Page   : 50
+Chunk  : data\Spanish–American War - Wikipedia.pdf::chunk_190
+Words  : 141
+Chars  : 886
+Preview: American War ( Texas A&M University Press. ISBN 978-0-89096-816-1. Crapol, Edward P. (October 1992). "Coming to Terms with Empire: The Historiography of Late- Nineteenth-Century American Foreign Relations". Diplomatic History. 16 (4): 573–598. doi:10.1111/j.14
+
+Reason : reference_like_text
+Source : Spanish–American War - Wikipedia.pdf
+Page   : 51
+Chunk  : data\Spanish–American War - Wikipedia.pdf::chunk_192
+Words  : 137
+Chars  : 885
+Preview: Field, James A. (June 1978). "American Imperialism: The Worst Chapter in Almost Any Book". The American Historical Review. 83 (3): 644–668. doi:10.2307/1861842 ( Flack, Horace Edgar (1906). Spanish-American diplomatic relations preceding the war of 1898 ( Balt
+
+Reason : reference_like_text
+Source : Spanish–American War - Wikipedia.pdf
+Page   : 51
+Chunk  : data\Spanish–American War - Wikipedia.pdf::chunk_193
+Words  : 129
+Chars  : 815
+Preview: Nineteenth Century American Foreign Relations". Pacific Historical Review. 65 (2): 277–303. doi:10.2307/3639986 ( ISSN 0030-8684 ( Fry, Joseph A. (January 1979). "William McKinley and the Coming of the Spanish-American War: A Study of the Besmirching and Redem
+
+Reason : reference_like_text
+Source : Spanish–American War - Wikipedia.pdf
+Page   : 52
+Chunk  : data\Spanish–American War - Wikipedia.pdf::chunk_196
+Words  : 131
+Chars  : 857
+Preview: Hoganson, Kristin L. (1998). Fighting for American manhood: how gender politics provoked the Spanish-American and Philippine-American Wars. Yale University Press. ISBN 978-0-300-07181- 8. Holbo, Paul S. (July 1967). "Presidential Leadership in Foreign Affairs:
+
+Reason : reference_like_text
+Source : Spanish–American War - Wikipedia.pdf
+Page   : 53
+Chunk  : data\Spanish–American War - Wikipedia.pdf::chunk_201
+Words  : 134
+Chars  : 837
+Preview: anishwarameric0000otoo). New York: Norton Publishing. ISBN 978-0-393-30304-9. OL 16789340M ( Paterson, Thomas G. (May 1996). "United States Intervention in Cuba, 1898: Interpretations of the Spanish-American-Cuban-Filipino War". The History Teacher. 29 (3): 34
+
+Reason : metadata_only
+Source : Spanish–American War - Wikipedia.pdf
+Page   : 56
+Chunk  : data\Spanish–American War - Wikipedia.pdf::chunk_212
+Words  : 16
+Chars  : 100
+Preview: Right" ( eclares-that-she-is.html#article) (Headline, The New York Times, April 24, 1898) Newspapers

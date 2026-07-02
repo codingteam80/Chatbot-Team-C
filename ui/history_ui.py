@@ -6,7 +6,7 @@ from datetime import datetime
 import streamlit as st
 
 from ui.action_ui import display_actions
-from ui.suggestion_ui import display_suggestions
+from ui.source_ui import build_inline_source_chips
 
 
 def safe_html_text(text):
@@ -58,27 +58,19 @@ def display_user_bubble(message, timestamp=None):
     )
 
 
-def display_assistant_bubble(message, timestamp=None):
-    # Assistant bubble.
+def display_assistant_bubble(message, timestamp=None, sources=None):
+    # Assistant bubble with compact source chips at the end.
+    source_chips = build_inline_source_chips(sources or [])
+
     st.markdown(
         "\n".join([
             '<div class="assistant-message-wrapper">',
-            f'<div class="assistant-message-bubble">{safe_html_text(message)}</div>',
+            f'<div class="assistant-message-bubble">{safe_html_text(message)} {source_chips}</div>',
             render_timestamp(timestamp, "assistant-message-timestamp"),
             '</div>',
         ]),
         unsafe_allow_html=True,
     )
-
-
-def handle_suggestion_click(suggestions, message_index):
-    # Save clicked suggestion for chat_ui to submit next rerun.
-    clicked = display_suggestions(suggestions, message_index=message_index)
-
-    if clicked:
-        st.session_state.suggested_query = clicked
-        st.rerun()
-
 
 def display_chat_history(messages):
     # Render all visible messages and assistant action rows.
@@ -96,7 +88,7 @@ def display_chat_history(messages):
         if role != "assistant":
             continue
 
-        display_assistant_bubble(content, timestamp=timestamp)
+        display_assistant_bubble(content, timestamp=timestamp, sources=message.get("sources", []))
 
         if not hide_actions:
             display_actions(
@@ -104,4 +96,3 @@ def display_chat_history(messages):
                 sources=message.get("sources", []),
                 message_index=index,
             )
-            handle_suggestion_click(message.get("suggestions", []), message_index=index)

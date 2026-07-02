@@ -1,3 +1,34 @@
+
+
+/* =========================
+   Anti-flash prepaint
+   Keep Streamlit shell dark before full rerender finishes.
+========================= */
+
+html,
+body,
+#root,
+.stApp,
+[data-testid="stAppViewContainer"],
+[data-testid="stAppViewContainer"] > .main,
+section.main,
+.main {
+    background: #0f1117 !important;
+    color: #ffffff !important;
+}
+
+[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stDecoration"] {
+    background: transparent !important;
+}
+
+/* Avoid visible rectangle from Streamlit bottom chat shell. */
+div[data-testid="stBottom"],
+div[data-testid="stBottom"] > div {
+    background: transparent !important;
+}
+
 /* =========================================================
    InknowVa Streamlit UI
    Clean CSS replacement.
@@ -45,7 +76,15 @@ body,
 .block-container {
     max-width: 1120px;
     padding-top: 2rem;
-    padding-bottom: 9rem !important;
+    padding-bottom: 16rem !important;
+}
+
+/* Extra scroll clearance so the last answer stays above the fixed chat input. */
+.block-container::after {
+    content: "";
+    display: block;
+    height: 40px;
+    min-height: 40px;
 }
 
 .main-title {
@@ -729,6 +768,81 @@ section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"]::-webkit-s
     line-height: 1.7;
 }
 
+
+/* Compact inline source chips. */
+.citation-chip-row {
+    display: inline-flex !important;
+    flex-wrap: wrap !important;
+    gap: 5px !important;
+    margin-left: 7px !important;
+    vertical-align: middle !important;
+    max-width: 100% !important;
+}
+
+.citation-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: auto !important;
+    max-width: 170px !important;
+    min-width: 0 !important;
+    min-height: 20px !important;
+    height: 20px !important;
+    padding: 2px 9px !important;
+
+    border-radius: 999px !important;
+    border: 1px solid rgba(148,163,184,.30) !important;
+    border-bottom: 1px solid rgba(148,163,184,.30) !important;
+    background: rgba(30,41,59,.82) !important;
+    color: #dbeafe !important;
+
+    font-size: 10px !important;
+    font-weight: 650 !important;
+    line-height: 1.2 !important;
+
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    vertical-align: middle !important;
+    box-shadow: none !important;
+}
+
+.citation-chip *,
+.citation-chip span,
+.citation-chip p,
+.citation-chip div {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+}
+
+
+.citation-chip:hover {
+    background: rgba(51,65,85,.96) !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    border-bottom-color: rgba(148,163,184,.28) !important;
+    box-shadow: none !important;
+}
+
+.citation-chip:focus,
+.citation-chip:active,
+.citation-chip:visited {
+    color: #dbeafe !important;
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.citation-more {
+    max-width: none !important;
+    cursor: default !important;
+    color: #cbd5e1 !important;
+}
+
 .message-timestamp {
     margin-top: 4px;
     color: rgba(255,255,255,.42);
@@ -827,7 +941,7 @@ div[data-testid="stChatInput"] button::after {
 }
 
 /* =========================
-   Actions / Suggestions
+   Actions
 ========================= */
 
 [class*="st-key-action_area_"] {
@@ -1026,78 +1140,6 @@ div[data-testid="stChatInput"] button::after {
 }
 
 
-[class*="st-key-suggestion_area_"] {
-    max-width: var(--content-width) !important;
-    margin: 0 auto 4px auto !important;
-    padding-left: 12px !important;
-    min-height: 0 !important;
-    height: auto !important;
-    gap: 2px !important;
-}
-
-/* suggestion_ui.py no longer renders this title. Keep this for old cached sessions. */
-.suggestion-title {
-    display: none !important;
-    height: 0 !important;
-    min-height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-}
-
-/* The suggestion_area container itself is a Streamlit vertical block.
-   Override Streamlit's default 1rem gap that makes the group look too tall. */
-div[data-testid="stVerticalBlock"][class*="st-key-suggestion_area_"],
-[class*="st-key-suggestion_area_"] [data-testid="stVerticalBlock"] {
-    gap: 2px !important;
-    row-gap: 2px !important;
-}
-
-[class*="st-key-suggestion_area_"] [data-testid="stLayoutWrapper"],
-[class*="st-key-suggestion_area_"] [data-testid="stElementContainer"],
-[class*="st-key-suggestion_area_"] .stButton {
-    width: fit-content !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: visible !important;
-}
-
-[class*="st-key-suggestion_area_"] button {
-    width: auto !important;
-    max-width: 320px !important;
-    min-height: 23px !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 3px 8px !important;
-    border: 1px solid var(--border-soft) !important;
-    border-radius: 999px !important;
-    background: var(--bg-soft) !important;
-    color: var(--text-soft) !important;
-    font-size: 11.5px !important;
-    line-height: 1.15 !important;
-    text-align: left !important;
-    box-shadow: none !important;
-}
-
-[class*="st-key-suggestion_area_"] button [data-testid="stMarkdownContainer"],
-[class*="st-key-suggestion_area_"] button p,
-[class*="st-key-suggestion_area_"] button span,
-[class*="st-key-suggestion_area_"] button div {
-    margin: 0 !important;
-    padding: 0 !important;
-    font-size: 11.5px !important;
-    line-height: 1.15 !important;
-}
-
-[class*="st-key-suggestion_area_"] button:hover {
-    background: var(--bg-hover) !important;
-    color: var(--text-main) !important;
-}
 
 /* =========================
    Right Source Drawer
@@ -1695,44 +1737,78 @@ section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button:hover {
     color: var(--text-main) !important;
 }
 
-/* Recent chats and Sources start below the action buttons with a visible gap. */
+/* Recent chats area: keep the title small, let only the history list grow. */
 section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_scroll_area),
 section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_scroll_area),
 section[data-testid="stSidebar"] .st-key-sidebar_scroll_area {
     flex: 1 1 auto !important;
+    width: 100% !important;
     min-height: 0 !important;
     height: auto !important;
-    width: 100% !important;
-
     margin: 0 !important;
+    padding: 10px 0 0 0 !important;
     overflow: hidden !important;
     z-index: 1 !important;
 }
 
-section[data-testid="stSidebar"] .st-key-sidebar_scroll_area {
-    padding: 10px 0 0 0 !important;
-}
-
-/* Bottom session block stays visible. */
-section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_bottom_area),
-section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_bottom_area),
-section[data-testid="stSidebar"] .st-key-sidebar_bottom_area {
-    flex: 0 0 62px !important;
-    height: 62px !important;
-    min-height: 62px !important;
-    max-height: 62px !important;
-    margin: 0 !important;
-    padding: 0 !important;
+section[data-testid="stSidebar"] .st-key-sidebar_scroll_area > div,
+section[data-testid="stSidebar"] .st-key-sidebar_scroll_area [data-testid="stVerticalBlock"] {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    row-gap: 0 !important;
     overflow: hidden !important;
 }
 
-/* These match sidebar.py's native st.container(height=...) values. */
-section[data-testid="stSidebar"] .st-key-sidebar_history_list {
-    max-height: 125px !important;
+/* Fixed small Recent chats title row. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.sidebar-fixed-title),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.sidebar-fixed-title),
+section[data-testid="stSidebar"] .sidebar-fixed-title {
+    flex: 0 0 28px !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    max-height: 28px !important;
+    margin: 0 !important;
+    overflow: hidden !important;
 }
 
+/* The history list gets the remaining space above the browser-session block. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_history_list),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_history_list) {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_history_list {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Sources are inline in answers now, so hide any old sidebar source container. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_sources_list),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_sources_list),
 section[data-testid="stSidebar"] .st-key-sidebar_sources_list {
-    max-height: 205px !important;
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
 }
 
 /* =========================
@@ -1780,9 +1856,8 @@ div[data-testid="stChatInput"] [data-baseweb="textarea"] > div {
    All visual styling belongs here.
 ========================= */
 
-/* Hide stale action buttons, export panel, and suggestion chips while answering/regenerating. */
+/* Hide stale action buttons and export panel while answering/regenerating. */
 .stApp:has(.hide-answer-controls-active) [class*="st-key-action_area_"],
-.stApp:has(.hide-answer-controls-active) [class*="st-key-suggestion_area_"],
 .stApp:has(.hide-answer-controls-active) [class*="st-key-export_inline_panel_"] {
     display: none !important;
     visibility: hidden !important;
@@ -1796,6 +1871,17 @@ div[data-testid="stChatInput"] [data-baseweb="textarea"] > div {
 }
 
 /* Landing-page input position: directly below the title. */
+/* Do not add bottom chat clearance on the empty landing screen. */
+.stApp:has(.landing-chat-input-active) .block-container {
+    padding-bottom: 2rem !important;
+}
+
+.stApp:has(.landing-chat-input-active) .block-container::after {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+}
+
 .stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] {
     position: fixed !important;
     left: var(--sidebar-width) !important;
@@ -1817,7 +1903,7 @@ div[data-testid="stChatInput"] [data-baseweb="textarea"] > div {
     max-width: 900px !important;
     margin: 0 auto !important;
     pointer-events: auto !important;
-    transform: translateX(-120px) !important;
+    transform: none !important;
 }
 
 @media (max-width: 900px) {
@@ -1833,3 +1919,206 @@ div[data-testid="stChatInput"] [data-baseweb="textarea"] > div {
         transform: none !important;
     }
 }
+
+/* =========================
+   Export loading row
+========================= */
+
+.export-loading-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    color: rgba(255,255,255,.82);
+    font-size: 13px;
+}
+
+/* =========================================================
+   FINAL FIX: keep chat input fixed outside the scroll area
+   Problem solved:
+   - stBottom no longer scrolls with chat messages.
+   - Chat messages get enough bottom space so the last answer
+     is not hidden behind the fixed input.
+   - Python only renders marker divs; all layout styling remains here.
+========================================================= */
+
+/* The main chat area is the only scrollable area. */
+section[data-testid="stMain"] {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-bottom: 0 !important;
+}
+
+/* Reserve real scroll space below the last message for the fixed input. */
+section[data-testid="stMain"] .block-container,
+section[data-testid="stMain"] [data-testid="stMainBlockContainer"] {
+    padding-bottom: 190px !important;
+}
+
+/* Bigger final spacer for old browsers/Streamlit builds. */
+section[data-testid="stMain"] .block-container::after {
+    content: "" !important;
+    display: block !important;
+    height: 96px !important;
+    min-height: 96px !important;
+}
+
+/* Keep the native Streamlit bottom chat shell fixed to the viewport. */
+div[data-testid="stBottom"] {
+    position: fixed !important;
+    left: var(--sidebar-width) !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    z-index: 1000 !important;
+
+    width: auto !important;
+    min-height: 118px !important;
+    height: auto !important;
+
+    padding: 14px 24px 30px 24px !important;
+    margin: 0 !important;
+
+    background: linear-gradient(
+        180deg,
+        rgba(15,17,23,0) 0%,
+        var(--bg-main) 34%,
+        var(--bg-main) 100%
+    ) !important;
+
+    pointer-events: none !important;
+    transform: none !important;
+}
+
+/* Remove Streamlit bottom shell visual box while keeping layout. */
+div[data-testid="stBottom"] > div {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    pointer-events: none !important;
+}
+
+/* Only the real input is clickable. */
+div[data-testid="stBottom"] div[data-testid="stChatInput"] {
+    width: min(900px, calc(100vw - var(--sidebar-width) - 96px)) !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    pointer-events: auto !important;
+}
+
+/* Keep footer note aligned below the fixed input. */
+.chat-footer-note {
+    position: fixed !important;
+    left: calc(var(--sidebar-width) + 24px) !important;
+    right: 24px !important;
+    bottom: 6px !important;
+    z-index: 1001 !important;
+    pointer-events: none !important;
+}
+
+/* Landing page keeps the input near the title instead of bottom fixed. */
+.stApp:has(.landing-chat-input-active) section[data-testid="stMain"] .block-container,
+.stApp:has(.landing-chat-input-active) section[data-testid="stMain"] [data-testid="stMainBlockContainer"] {
+    padding-bottom: 2rem !important;
+}
+
+.stApp:has(.landing-chat-input-active) section[data-testid="stMain"] .block-container::after {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+}
+
+.stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] {
+    position: fixed !important;
+    left: var(--sidebar-width) !important;
+    right: 0 !important;
+    top: 42vh !important;
+    bottom: auto !important;
+    z-index: 1000 !important;
+
+    min-height: 0 !important;
+    padding: 0 24px !important;
+    background: transparent !important;
+    pointer-events: none !important;
+}
+
+.stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] div[data-testid="stChatInput"] {
+    width: min(900px, calc(100vw - var(--sidebar-width) - 96px)) !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    pointer-events: auto !important;
+    transform: none !important;
+}
+
+@media (max-width: 900px) {
+    section[data-testid="stMain"] .block-container,
+    section[data-testid="stMain"] [data-testid="stMainBlockContainer"] {
+        padding-bottom: 178px !important;
+    }
+
+    div[data-testid="stBottom"] {
+        left: 0 !important;
+        right: 0 !important;
+        padding: 14px 20px 30px 20px !important;
+    }
+
+    div[data-testid="stBottom"] div[data-testid="stChatInput"] {
+        width: calc(100vw - 40px) !important;
+        max-width: calc(100vw - 40px) !important;
+        transform: none !important;
+    }
+
+    .chat-footer-note {
+        left: 16px !important;
+        right: 16px !important;
+    }
+
+    .stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] {
+        left: 0 !important;
+        right: 0 !important;
+        padding: 0 20px !important;
+    }
+
+    .stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] div[data-testid="stChatInput"] {
+        width: calc(100vw - 40px) !important;
+        max-width: calc(100vw - 40px) !important;
+        transform: none !important;
+    }
+}
+
+/* =========================================================
+   FINAL SIDEBAR ACTION WIDTH TUNE
+   Make New chat / Clear chat hover shorter, not full sidebar width.
+========================================================= */
+
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area {
+    width: calc(100% - 28px) !important;
+    max-width: 208px !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat_row,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat_row,
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_new_chat_row),
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_clear_chat_row),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_new_chat_row),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_clear_chat_row) {
+    width: 100% !important;
+    max-width: 208px !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat .stButton,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat .stButton,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button {
+    width: 100% !important;
+    max-width: 208px !important;
+}
+

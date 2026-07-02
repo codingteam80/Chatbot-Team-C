@@ -1,0 +1,67 @@
+
+======================================================================
+RAG INGESTION STARTED
+======================================================================
+
+======================================================================
+INGEST CONFIG
+======================================================================
+Data path             : data
+Chroma path           : chroma_db
+Chroma collection     : rag_documents
+Embedding model       : intfloat/multilingual-e5-small
+Embedding revision    : main
+Embedding device      : cpu
+Normalize embeddings  : True
+Embedding batch size  : 32
+Use E5 prefix         : True
+Chunk size            : 1200
+Chunk overlap         : 200
+Load recursive        : True
+Force re-ingest       : False
+[START] Load documents
+[DONE]  Load documents - 1 min 41.17 sec
+
+======================================================================
+DOCUMENT LOADER SUMMARY
+======================================================================
+Loaded files      : 15
+Loaded documents  : 442
+Skipped files     : 0
+Failed files      : 0
+[START] Clean documents
+[DONE]  Clean documents - 3.85 sec
+[START] Chunk documents
+[DONE]  Chunk documents - 0.49 sec
+[START] Save chunk cache
+[DONE]  Save chunk cache - 0.02 sec
+[START] Load embedding model
+[DONE]  Load embedding model - 6.73 sec
+[START] Embed and save vectors
+[DONE]  Embed and save vectors - 9 min 15.62 sec
+
+======================================================================
+INGESTION SUMMARY
+======================================================================
+Documents loaded  : 442
+Cleaned documents : 441
+Chunks created    : 1237
+Vectors saved     : 1237
+Vector DB folder  : chroma_db
+Metadata file     : chroma_db\ingest_meta.json
+Report file       : reports\ingest_report.txt
+
+Timing:
+- Load documents           1 min 41.17 sec ( 15.1%)
+- Clean documents                3.85 sec (  0.6%)
+- Chunk documents                0.49 sec (  0.1%)
+- Save chunk cache               0.02 sec (  0.0%)
+- Load embedding model           6.73 sec (  1.0%)
+- Embed and save vectors   9 min 15.62 sec ( 83.2%)
+
+Total time        : 11 min 7.88 sec
+Main bottleneck   : Embed and save vectors
+
+======================================================================
+INGESTION SUCCESS
+======================================================================

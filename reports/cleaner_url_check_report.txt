@@ -1,0 +1,19 @@
+================================================================================
+CLEANER URL CHECK REPORT
+================================================================================
+Data folder    : D:\Python\InknowVa\data
+Loaded files   : 15
+Loaded docs    : 442
+Cleaned docs   : 441
+
+Note:
+This test checks cleaned doc.page_content only.
+metadata['source'] is not checked because it is just the file reference for the Source UI.
+
+================================================================================
+SUMMARY
+================================================================================
+Docs with URL-like text : 0
+Total URL-like matches  : 0
+
+OK: No URL-like text found in cleaned page_content.

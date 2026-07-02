@@ -1,0 +1,14 @@
+{
+  "data_path": "data",
+  "data_signature": "24c81fa7448cff52184498a80147910490dfcebf648722b3baf1f0a15255fcc2",
+  "chroma_collection_name": "rag_documents",
+  "embedding_model_name": "intfloat/multilingual-e5-small",
+  "embedding_model_revision": "main",
+  "embedding_device": "cpu",
+  "embedding_normalize": true,
+  "embedding_batch_size": 32,
+  "use_e5_prefix": true,
+  "chunk_size": 1200,
+  "chunk_overlap": 200,
+  "load_recursive": true
+}

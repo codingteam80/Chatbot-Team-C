@@ -17,18 +17,29 @@ from ui.source_ui import (
 MAX_HISTORY_ITEMS = 25
 MAX_SIDEBAR_SOURCES = 5
 SIDEBAR_SOURCE_PREVIEW_LIMIT = 100
+PENDING_SIDEBAR_ACTION_KEY = "pending_sidebar_action"
 
 # Native Streamlit scroll containers.
 # These are safer than CSS-only scroll hacks because Streamlit controls the height.
 # Balanced heights: bigger Sources area while keeping the bottom session block visible.
-HISTORY_LIST_HEIGHT = 125
-SOURCES_LIST_HEIGHT = 205
+HISTORY_LIST_HEIGHT = 360
+SOURCES_LIST_HEIGHT = 0
 
 LOGO_PATHS = [
     Path("assets/iknowva_icon.png"),
     Path("assets/iknowva_icon(1).png"),
     Path("iknowva_icon.png"),
 ]
+
+
+def queue_sidebar_action(action_type, conversation_id=None):
+    # Store the sidebar click before the next script body runs.
+    action = {"type": action_type}
+
+    if conversation_id is not None:
+        action["conversation_id"] = conversation_id
+
+    st.session_state[PENDING_SIDEBAR_ACTION_KEY] = action
 
 
 def make_scroll_container(key, height):
@@ -106,13 +117,24 @@ def display_sidebar_banner():
 
 def display_sidebar_actions():
     # Keep the buttons in separate rows so CSS can lock their order.
+    # on_click makes the action visible at the very start of the next rerun.
     with st.container(key="sidebar_new_chat_row"):
-        new_clicked = st.button("＋ New chat", key="sidebar_new_chat")
+        st.button(
+            "＋ New chat",
+            key="sidebar_new_chat",
+            on_click=queue_sidebar_action,
+            args=("new_chat",),
+        )
 
     with st.container(key="sidebar_clear_chat_row"):
-        clear_clicked = st.button("⌫ Clear chat", key="sidebar_clear_chat")
+        st.button(
+            "⌫ Clear chat",
+            key="sidebar_clear_chat",
+            on_click=queue_sidebar_action,
+            args=("clear_chat",),
+        )
 
-    return new_clicked, clear_clicked
+    return False, False
 
 
 def display_fixed_title(title):
@@ -136,8 +158,13 @@ def display_chat_history_items(browser_id, active_conversation_id=None):
         is_active = str(conversation_id) == str(active_conversation_id)
         key = f"sidebar_history_chat{'_active' if is_active else ''}_{conversation_id}"
 
-        if st.button(title, key=key, use_container_width=True):
-            selected_id = conversation_id
+        st.button(
+            title,
+            key=key,
+            use_container_width=True,
+            on_click=queue_sidebar_action,
+            args=("open_chat", conversation_id),
+        )
 
     return selected_id
 
@@ -249,7 +276,7 @@ def display_sidebar_bottom_status(browser_id=None):
 
 
 def display_sidebar(browser_id, active_conversation_id=None, sources=None):
-    # Render full sidebar and return clicked actions.
+    # Render full sidebar and return clicked actions. Sources are shown inline per answer.
     result = {
         "new_chat_clicked": False,
         "clear_chat_clicked": False,
@@ -271,13 +298,6 @@ def display_sidebar(browser_id, active_conversation_id=None, sources=None):
                     browser_id=browser_id,
                     active_conversation_id=active_conversation_id,
                 )
-
-            st.markdown('<div class="sidebar-section-gap"></div>', unsafe_allow_html=True)
-
-            display_fixed_title("Sources")
-
-            with make_scroll_container("sidebar_sources_list", SOURCES_LIST_HEIGHT):
-                display_source_items(get_sidebar_sources(sources))
 
         with st.container(key="sidebar_bottom_area"):
             display_sidebar_bottom_status(browser_id=browser_id)

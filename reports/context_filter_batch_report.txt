@@ -1,0 +1,1174 @@
+
+================================================================================
+CONTEXT FILTER BATCH DEBUG TEST
+================================================================================
+Data path   : data
+Report file : reports\context_filter_batch_report.txt
+
+Test questions:
+1. Why did Jose Rizal become the Supremo of the Katipunan?
+2. Did Lapu-Lapu kill Magellan?
+3. Who are the ladies that had relationship with Jose Rizal?
+
+Flow per question:
+1. Query analyzer
+2. Semantic search
+3. BM25 search
+4. RRF combine
+5. Metadata boost
+6. Rerank
+7. Final context filter
+
+================================================================================
+SETTINGS SYNC CHECK
+================================================================================
+Python executable : d:\Python\InknowVa\Environment\Scripts\python.exe
+Current cwd       : D:\Python\InknowVa
+Script file       : D:\Python\InknowVa\tests\test_context_filter_batch.py
+Project root      : D:\Python\InknowVa
+config.settings   : LOADED
+settings file     : D:\Python\InknowVa\config\settings.py
+
+Name                          | config.settings value | env value | status
+----------------------------------------------------------------------------------------------------
+SEMANTIC_K                    | 9                     | <not set> | env not set; using config/default
+BM25_K                        | 9                     | <not set> | env not set; using config/default
+HYBRID_FINAL_K                | 12                    | <not set> | env not set; using config/default
+RERANK_TOP_N                  | 5                     | <not set> | env not set; using config/default
+SINGLE_FACT_TOP_N             | 5                     | <not set> | env not set; using config/default
+CROSS_DOC_TOP_N               | 6                     | <not set> | env not set; using config/default
+COMPARISON_TOP_N              | 6                     | <not set> | env not set; using config/default
+NEGATIVE_TOP_N                | 2                     | <not set> | env not set; using config/default
+FALSE_PREMISE_TOP_N           | 2                     | <not set> | env not set; using config/default
+MIN_QUALITY_SCORE             | 0.45                  | <not set> | env not set; using config/default
+MAX_DOC_CHARS                 | 1500                  | <not set> | env not set; using config/default
+MAX_CONTEXT_CHARS             | 8000                  | <not set> | env not set; using config/default
+MAX_PROMPT_CONTEXT_CHARS      | 8500                  | <not set> | env not set; using config/default
+NEIGHBOR_WINDOW               | 2                     | <not set> | env not set; using config/default
+ENABLE_NEIGHBOR_EXPANSION     | True                  | <not set> | env not set; using config/default
+DATA_PATH                     | data                  | <not set> | env not set; using config/default
+
+================================================================================
+FUNCTION SIGNATURE CHECK
+================================================================================
+hybrid_search source    : D:\Python\InknowVa\retrieval\hybrid_retriever.py
+hybrid_search signature : (query, vectorstore, bm25_retriever, semantic_k=9, bm25_k=9, final_k=12, use_rrf=True, use_metadata_boost=False, use_e5_prefix=True, semantic_weight=0.6, bm25_weight=0.4, debug=False, return_details=False)
+
+rerank_documents source    : D:\Python\InknowVa\retrieval\reranker.py
+rerank_documents signature : (query, documents, reranker, top_n=5, min_score=None, show_scores=False, return_scores=False, max_chars=500, batch_size=4, max_length=256, debug=False, use_evidence_check=True, evidence_min_matches=None, require_proximity=True, filter_by_evidence=False, use_confident_top_score_filter=False, use_original_rank_tie_breaker=True, rerank_tie_margin=0.15, high_confidence_score=3.0, max_score_drop=3.0, fallback_if_empty=True, deduplicate=True)
+
+select_final_context_docs source    : D:\Python\InknowVa\retrieval\context_filter.py
+select_final_context_docs signature : (reranked_docs, question, semantic_docs=None, bm25_docs=None, all_chunks=None, enable_neighbor_expansion=True, neighbor_window=2, top_n=None, max_chars=8000, max_per_source=2, debug=True)
+
+create_bm25_retriever source    : D:\Python\InknowVa\retrieval\bm25_retriever.py
+create_bm25_retriever signature : (chunks, k=9, use_preprocessing=True, debug=False)
+
+[START] Setup: Load embedding model
+[DONE]  Setup: Load embedding model - 7.59 sec
+[START] Setup: Load Chroma vectorstore
+[DONE]  Setup: Load Chroma vectorstore - 0.62 sec
+[START] Setup: Load chunks for BM25
+[DONE]  Setup: Load chunks for BM25 - 0.02 sec
+[START] Setup: Create BM25 retriever
+[DONE]  Setup: Create BM25 retriever - 0.46 sec
+[START] Setup: Load reranker
+[DONE]  Setup: Load reranker - 2.43 sec
+
+================================================================================
+QUESTION: Why did Jose Rizal become the Supremo of the Katipunan?
+================================================================================
+Question mode from analyzer : false_premise
+Important terms             : ['did', 'jose', 'rizal', 'become', 'supremo', 'of', 'katipunan']
+Source keywords             : ['did', 'jose', 'rizal', 'become', 'supremo', 'of']
+
+create_bm25_retriever k              : 9
+hybrid_search semantic_k             : 9
+hybrid_search bm25_k                 : 9
+hybrid_search final_k                : 12
+rerank_documents top_n               : len(hybrid_docs) after hybrid search
+select_final_context_docs top_n      : None / auto by context_filter mode
+select_final_context_docs all_chunks : NOT PASSED in this batch test
+[START] Hybrid search | Why did Jose Rizal become the Supremo of the Katipunan?
+[DONE]  Hybrid search | Why did Jose Rizal become the Supremo of the Katipunan? - 4.20 sec
+create_bm25_retriever k              : 9
+hybrid_search semantic_k             : 9
+hybrid_search bm25_k                 : 9
+hybrid_search final_k                : 12
+rerank_documents top_n               : 12 (len(hybrid_docs))
+select_final_context_docs top_n      : None / auto by context_filter mode
+select_final_context_docs all_chunks : NOT PASSED in this batch test
+[START] Rerank hybrid results | Why did Jose Rizal become the Supremo of the Katipunan?
+[DONE]  Rerank hybrid results | Why did Jose Rizal become the Supremo of the Katipunan? - 5.95 sec
+[START] Final context filter | Why did Jose Rizal become the Supremo of the Katipunan?
+[DONE]  Final context filter | Why did Jose Rizal become the Supremo of the Katipunan? - 1.08 sec
+
+--------------------------------------------------------------------------------
+TOP SEMANTIC RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Katipunan - Wikipedia.pdf | page=1 | data\Katipunan - Wikipedia.pdf::chunk_5
+Title   : Katipunan - Wikipedia
+Section : Cuerpo de Compromisarios, argued for a peaceful reformation
+semantic_distance: 0.22892670333385468
+semantic_rank: 1
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: Cuerpo de Compromisarios, argued for a peaceful reformation | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en Cuerpo de Compromisarios, argued for a peaceful reformation instead. While fundamentally differe...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Katipunan - Wikipedia.pdf | page=11 | data\Katipunan - Wikipedia.pdf::chunk_35
+Title   : Katipunan - Wikipedia
+Section : available texts accessible reprinted through books are the one published by Jose P. Santos in
+semantic_distance: 0.24550428986549377
+semantic_rank: 2
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: available texts accessible reprinted through books are the one published by Jose P. Santos in | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en available texts accessible reprinted through books are the one...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : Katipunan - Wikipedia.pdf | page=1 | data\Katipunan - Wikipedia.pdf::chunk_4
+Title   : Katipunan - Wikipedia
+Section : "katipunan" (literally, "association", "gathering", "assemblage", or "group") comes from the
+semantic_distance: 0.2486189603805542
+semantic_rank: 3
+context_mode   : false_premise
+context_reason : strict_safety_primary_evidence
+keep_reason    : useful_direct_support
+filter_scope   : negative_false_premise_safety
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: "katipunan" (literally, "association", "gathering", "assemblage", or "group") comes from the | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en "katipunan" (literally, "association", "gathering", "assemblage...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : José Rizal - Wikipedia.pdf | page=9 | data\José Rizal - Wikipedia.pdf::chunk_35
+Title   : José Rizal - Wikipedia
+Section : incoming revolution, believing that a peaceful stand is the best way to avoid further
+semantic_distance: 0.249222069978714
+semantic_rank: 4
+context_mode   : false_premise
+context_reason : strict_safety_primary_evidence
+keep_reason    : best_primary_evidence
+filter_scope   : negative_false_premise_safety
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: incoming revolution, believing that a peaceful stand is the best way to avoid further | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en incoming revolution, believing that a peaceful stand is the best wa...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : History of the Philippines (1565–1898) - Wikipedia.pdf | page=9 | data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_27
+Title   : History of the Philippines (1565–1898) - Wikipedia
+Section : Rizal then returned to the Philippines to organize La Liga Filipina and bring the reform movement to
+semantic_distance: 0.2613706588745117
+semantic_rank: 5
+Preview : Retrieval context: title: History of the Philippines (1565–1898) - Wikipedia | section: Rizal then returned to the Philippines to organize La Liga Filipina and bring the reform movement to | category: history | doc_type: article | source: data\History of the Philippines (1565–1898) - Wikipedia.pdf | file_name: History of the Philippines (1565–1898)...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP BM25 RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=3 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_9
+Title   : Andrés Bonifacio - Wikipedia
+Section : Liga Filipina. La Liga eventually split because some members
+bm25_rank: 1
+bm25_rank_score: 1.0
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: Liga Filipina. La Liga eventually split because some members | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en Liga Filipina. La Liga eventually split because some members like Bonifaci...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=8 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_27
+Title   : Andrés Bonifacio - Wikipedia
+Section : Bonifacio was also subject to rumors that he had stolen Katipunan funds, his sister was the mistress
+bm25_rank: 2
+bm25_rank_score: 0.5
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: Bonifacio was also subject to rumors that he had stolen Katipunan funds, his sister was the mistress | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en Bonifacio was also subject to rumo...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : José Rizal - Wikipedia.pdf | page=29 | data\José Rizal - Wikipedia.pdf::chunk_95
+Title   : José Rizal - Wikipedia
+Section : 130. "Uncovering Controversial Facts about José Rizal" ( ( )
+bm25_rank: 3
+bm25_rank_score: 0.3333333333333333
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: 130. "Uncovering Controversial Facts about José Rizal" ( ( ) | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en 135. (1950-01-06). "Joint Statement of the Catholic Hierarchy of the Philippines on the Book...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=0 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_1
+Title   : Andrés Bonifacio - Wikipedia
+Section : often shortened by contemporaries and historians to
+bm25_rank: 4
+bm25_rank_score: 0.25
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: often shortened by contemporaries and historians to | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en often shortened by contemporaries and historians to Supremo) of the Kataastaasan, K...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : José Rizal - Wikipedia.pdf | page=16 | data\José Rizal - Wikipedia.pdf::chunk_62
+Title   : José Rizal - Wikipedia
+Section : "Why independence, if the slaves of today will be the tyrants of tomorrow?" However, through careful
+bm25_rank: 5
+bm25_rank_score: 0.2
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: "Why independence, if the slaves of today will be the tyrants of tomorrow?" However, through careful | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en memoirs or letters. But it was documented by Rizal's...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP RRF + METADATA BOOST RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Katipunan - Wikipedia.pdf | page=1 | data\Katipunan - Wikipedia.pdf::chunk_4
+Title   : Katipunan - Wikipedia
+Section : "katipunan" (literally, "association", "gathering", "assemblage", or "group") comes from the
+hybrid_score: 0.015320910973084885
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.017820910973084886
+context_mode   : false_premise
+context_reason : strict_safety_primary_evidence
+keep_reason    : useful_direct_support
+filter_scope   : negative_false_premise_safety
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: "katipunan" (literally, "association", "gathering", "assemblage", or "group") comes from the | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en "katipunan" (literally, "association", "gathering", "assemblage...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Katipunan - Wikipedia.pdf | page=11 | data\Katipunan - Wikipedia.pdf::chunk_35
+Title   : Katipunan - Wikipedia
+Section : available texts accessible reprinted through books are the one published by Jose P. Santos in
+hybrid_score: 0.00967741935483871
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.01217741935483871
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: available texts accessible reprinted through books are the one published by Jose P. Santos in | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en available texts accessible reprinted through books are the one...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : History of the Philippines (1565–1898) - Wikipedia.pdf | page=9 | data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_27
+Title   : History of the Philippines (1565–1898) - Wikipedia
+Section : Rizal then returned to the Philippines to organize La Liga Filipina and bring the reform movement to
+hybrid_score: 0.00923076923076923
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.01173076923076923
+Preview : Retrieval context: title: History of the Philippines (1565–1898) - Wikipedia | section: Rizal then returned to the Philippines to organize La Liga Filipina and bring the reform movement to | category: history | doc_type: article | source: data\History of the Philippines (1565–1898) - Wikipedia.pdf | file_name: History of the Philippines (1565–1898)...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Katipunan - Wikipedia.pdf | page=26 | data\Katipunan - Wikipedia.pdf::chunk_76
+Title   : Katipunan - Wikipedia
+Section : Rizal, J.; Retana, W.E. (1961). Horacio De la Costa (ed.). The Trial of Rizal: W.E. Retana's
+hybrid_score: 0.00909090909090909
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.011590909090909091
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: Rizal, J.; Retana, W.E. (1961). Horacio De la Costa (ed.). The Trial of Rizal: W.E. Retana's | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en Santos, Epifanio de los (1918). "Andres Bonifacio". The Philipp...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Katipunan - Wikipedia.pdf | page=1 | data\Katipunan - Wikipedia.pdf::chunk_3
+Title   : Katipunan - Wikipedia
+Section : Prominent leaders of the
+hybrid_score: 0.008955223880597015
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.011455223880597016
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: Prominent leaders of the | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en Prominent leaders of the Propaganda Movement in Spain: (from left to right) José Rizal, Marcelo H. del Pilar and Mariano Ponce. Exi...
+--------------------------------------------------------------------------------
+Rank    : 6
+Source  : Katipunan - Wikipedia.pdf | page=1 | data\Katipunan - Wikipedia.pdf::chunk_5
+Title   : Katipunan - Wikipedia
+Section : Cuerpo de Compromisarios, argued for a peaceful reformation
+hybrid_score: 0.009836065573770491
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.01133606557377049
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: Cuerpo de Compromisarios, argued for a peaceful reformation | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en Cuerpo de Compromisarios, argued for a peaceful reformation instead. While fundamentally differe...
+--------------------------------------------------------------------------------
+Rank    : 7
+Source  : Katipunan - Wikipedia.pdf | page=15 | data\Katipunan - Wikipedia.pdf::chunk_45
+Title   : Katipunan - Wikipedia
+Section : Flags of the Katipunan
+hybrid_score: 0.008823529411764706
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.011323529411764706
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: Flags of the Katipunan | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en Flags of the Katipunan (Casa Real Shrine) The night when Governor-General Eulogio Despujol exiled Dr. José Rizal to Dapitan, Katipuna...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP RERANKED RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Katipunan - Wikipedia.pdf | page=1 | data\Katipunan - Wikipedia.pdf::chunk_5
+Title   : Katipunan - Wikipedia
+Section : Cuerpo de Compromisarios, argued for a peaceful reformation
+rerank_score: 1.5107399225234985
+rerank_rank: 1
+rerank_original_rank: 6
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: Cuerpo de Compromisarios, argued for a peaceful reformation | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en Cuerpo de Compromisarios, argued for a peaceful reformation instead. While fundamentally differe...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Katipunan - Wikipedia.pdf | page=1 | data\Katipunan - Wikipedia.pdf::chunk_3
+Title   : Katipunan - Wikipedia
+Section : Prominent leaders of the
+rerank_score: -1.248480200767517
+rerank_rank: 2
+rerank_original_rank: 5
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: Prominent leaders of the | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en Prominent leaders of the Propaganda Movement in Spain: (from left to right) José Rizal, Marcelo H. del Pilar and Mariano Ponce. Exi...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : Katipunan - Wikipedia.pdf | page=15 | data\Katipunan - Wikipedia.pdf::chunk_45
+Title   : Katipunan - Wikipedia
+Section : Flags of the Katipunan
+rerank_score: -2.628364086151123
+rerank_rank: 3
+rerank_original_rank: 7
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: Flags of the Katipunan | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en Flags of the Katipunan (Casa Real Shrine) The night when Governor-General Eulogio Despujol exiled Dr. José Rizal to Dapitan, Katipuna...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : History of the Philippines (1565–1898) - Wikipedia.pdf | page=9 | data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_27
+Title   : History of the Philippines (1565–1898) - Wikipedia
+Section : Rizal then returned to the Philippines to organize La Liga Filipina and bring the reform movement to
+rerank_score: -2.835592746734619
+rerank_rank: 4
+rerank_original_rank: 3
+Preview : Retrieval context: title: History of the Philippines (1565–1898) - Wikipedia | section: Rizal then returned to the Philippines to organize La Liga Filipina and bring the reform movement to | category: history | doc_type: article | source: data\History of the Philippines (1565–1898) - Wikipedia.pdf | file_name: History of the Philippines (1565–1898)...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : José Rizal - Wikipedia.pdf | page=9 | data\José Rizal - Wikipedia.pdf::chunk_35
+Title   : José Rizal - Wikipedia
+Section : incoming revolution, believing that a peaceful stand is the best way to avoid further
+rerank_score: -4.580759525299072
+rerank_rank: 5
+rerank_original_rank: 8
+context_mode   : false_premise
+context_reason : strict_safety_primary_evidence
+keep_reason    : best_primary_evidence
+filter_scope   : negative_false_premise_safety
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: incoming revolution, believing that a peaceful stand is the best way to avoid further | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en incoming revolution, believing that a peaceful stand is the best wa...
+--------------------------------------------------------------------------------
+Rank    : 6
+Source  : Katipunan - Wikipedia.pdf | page=0 | data\Katipunan - Wikipedia.pdf::chunk_1
+Title   : Katipunan - Wikipedia
+Section : revolutionary organization founded in 1892 by a group
+rerank_score: -5.692885875701904
+rerank_rank: 6
+rerank_original_rank: 9
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: revolutionary organization founded in 1892 by a group | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en revolutionary organization founded in 1892 by a group of Filipino nationalists Deodato Arellano, André...
+--------------------------------------------------------------------------------
+Rank    : 7
+Source  : Katipunan - Wikipedia.pdf | page=11 | data\Katipunan - Wikipedia.pdf::chunk_35
+Title   : Katipunan - Wikipedia
+Section : available texts accessible reprinted through books are the one published by Jose P. Santos in
+rerank_score: -6.027091026306152
+rerank_rank: 7
+rerank_original_rank: 2
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: available texts accessible reprinted through books are the one published by Jose P. Santos in | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en available texts accessible reprinted through books are the one...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+FINAL RETRIEVED CHUNKS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : José Rizal - Wikipedia.pdf | page=9 | data\José Rizal - Wikipedia.pdf::chunk_35
+Title   : José Rizal - Wikipedia
+Section : incoming revolution, believing that a peaceful stand is the best way to avoid further
+rerank_score: -4.580759525299072
+metadata_boosted_score: 0.010875
+hybrid_score: 0.009375
+context_mode   : false_premise
+context_reason : strict_safety_primary_evidence
+keep_reason    : best_primary_evidence
+filter_scope   : negative_false_premise_safety
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: incoming revolution, believing that a peaceful stand is the best way to avoid further | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en incoming revolution, believing that a peaceful stand is the best wa...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Katipunan - Wikipedia.pdf | page=1 | data\Katipunan - Wikipedia.pdf::chunk_4
+Title   : Katipunan - Wikipedia
+Section : "katipunan" (literally, "association", "gathering", "assemblage", or "group") comes from the
+rerank_score: -9.122298240661621
+metadata_boosted_score: 0.017820910973084886
+hybrid_score: 0.015320910973084885
+context_mode   : false_premise
+context_reason : strict_safety_primary_evidence
+keep_reason    : useful_direct_support
+filter_scope   : negative_false_premise_safety
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: "katipunan" (literally, "association", "gathering", "assemblage", or "group") comes from the | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en "katipunan" (literally, "association", "gathering", "assemblage...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+CHUNK FLOW CHECK
+--------------------------------------------------------------------------------
+Chunk ID | semantic | bm25 | hybrid | rerank | final | label
+------------------------------------------------------------------------------------------------------------------------
+data\Katipunan - Wikipedia.pdf::chunk_4 | S=3   | B=9   | H=1   | R=9   | F=2   | Katipunan - Wikipedia.pdf | page=1 | section="katipunan" (literally, "association", "gathering", "assemblage", or "
+data\Katipunan - Wikipedia.pdf::chunk_35 | S=2   | B=-   | H=2   | R=7   | F=-   | Katipunan - Wikipedia.pdf | page=11 | section=available texts accessible reprinted through books are the one publish
+data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_27 | S=5   | B=-   | H=3   | R=4   | F=-   | History of the Philippines (1565–1898) - Wikipedia.pdf | page=9 | section=Rizal then returned to the Philippines to organize La Liga Filipina an
+data\Katipunan - Wikipedia.pdf::chunk_76 | S=6   | B=-   | H=4   | R=11  | F=-   | Katipunan - Wikipedia.pdf | page=26 | section=Rizal, J.; Retana, W.E. (1961). Horacio De la Costa (ed.). The Trial o
+data\Katipunan - Wikipedia.pdf::chunk_3 | S=7   | B=-   | H=5   | R=2   | F=-   | Katipunan - Wikipedia.pdf | page=1 | section=Prominent leaders of the
+data\Katipunan - Wikipedia.pdf::chunk_5 | S=1   | B=-   | H=6   | R=1   | F=-   | Katipunan - Wikipedia.pdf | page=1 | section=Cuerpo de Compromisarios, argued for a peaceful reformation
+data\Katipunan - Wikipedia.pdf::chunk_45 | S=8   | B=-   | H=7   | R=3   | F=-   | Katipunan - Wikipedia.pdf | page=15 | section=Flags of the Katipunan
+data\José Rizal - Wikipedia.pdf::chunk_35 | S=4   | B=-   | H=8   | R=5   | F=1   | José Rizal - Wikipedia.pdf | page=9 | section=incoming revolution, believing that a peaceful stand is the best way t
+data\Katipunan - Wikipedia.pdf::chunk_1 | S=9   | B=-   | H=9   | R=6   | F=-   | Katipunan - Wikipedia.pdf | page=0 | section=revolutionary organization founded in 1892 by a group
+data\José Rizal - Wikipedia.pdf::chunk_95 | S=-   | B=3   | H=10  | R=10  | F=-   | José Rizal - Wikipedia.pdf | page=29 | section=130. "Uncovering Controversial Facts about José Rizal" ( ( )
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_27 | S=-   | B=2   | H=11  | R=8   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=8 | section=Bonifacio was also subject to rumors that he had stolen Katipunan fund
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_9 | S=-   | B=1   | H=12  | R=12  | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=3 | section=Liga Filipina. La Liga eventually split because some members
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_1 | S=-   | B=4   | H=-   | R=-   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=0 | section=often shortened by contemporaries and historians to
+data\José Rizal - Wikipedia.pdf::chunk_62 | S=-   | B=5   | H=-   | R=-   | F=-   | José Rizal - Wikipedia.pdf | page=16 | section="Why independence, if the slaves of today will be the tyrants of tomor
+data\Katipunan - Wikipedia.pdf::chunk_27 | S=-   | B=6   | H=-   | R=-   | F=-   | Katipunan - Wikipedia.pdf | page=9 | section=Dizon and concluded that Josefa Rizal was the only president of the sa
+
+WARNING: These top 5 reranked chunks were not included in FINAL RETRIEVED CHUNKS:
+- data\Katipunan - Wikipedia.pdf::chunk_5 | Katipunan - Wikipedia.pdf | page=1 | section=Cuerpo de Compromisarios, argued for a peaceful reformation
+- data\Katipunan - Wikipedia.pdf::chunk_3 | Katipunan - Wikipedia.pdf | page=1 | section=Prominent leaders of the
+- data\Katipunan - Wikipedia.pdf::chunk_45 | Katipunan - Wikipedia.pdf | page=15 | section=Flags of the Katipunan
+- data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_27 | History of the Philippines (1565–1898) - Wikipedia.pdf | page=9 | section=Rizal then returned to the Philippines to organize La Liga Filipina an
+
+--------------------------------------------------------------------------------
+QUESTION FINAL CHECK
+--------------------------------------------------------------------------------
+Semantic results : 9
+BM25 results     : 9
+Hybrid candidates: 12
+Reranked results : 12
+Final chunks     : 2
+Analyzer mode    : false_premise
+
+================================================================================
+TIMING SUMMARY
+================================================================================
+Total measured time : 11.22 sec
+
+- Hybrid search | Why did Jose Rizal become the Supremo of the Katipunan?       4.20 sec ( 37.4%)
+- Rerank hybrid results | Why did Jose Rizal become the Supremo of the Katipunan?       5.95 sec ( 53.0%)
+- Final context filter | Why did Jose Rizal become the Supremo of the Katipunan?       1.08 sec (  9.6%)
+
+Main bottleneck     : Rerank hybrid results | Why did Jose Rizal become the Supremo of the Katipunan?
+Bottleneck time     : 5.95 sec
+
+================================================================================
+QUESTION: Did Lapu-Lapu kill Magellan?
+================================================================================
+Question mode from analyzer : single_fact
+Important terms             : ['did', 'lapu', 'kill', 'magellan']
+Source keywords             : ['did', 'lapu', 'kill', 'magellan']
+
+create_bm25_retriever k              : 9
+hybrid_search semantic_k             : 9
+hybrid_search bm25_k                 : 9
+hybrid_search final_k                : 12
+rerank_documents top_n               : len(hybrid_docs) after hybrid search
+select_final_context_docs top_n      : None / auto by context_filter mode
+select_final_context_docs all_chunks : NOT PASSED in this batch test
+[START] Hybrid search | Did Lapu-Lapu kill Magellan?
+[DONE]  Hybrid search | Did Lapu-Lapu kill Magellan? - 0.07 sec
+create_bm25_retriever k              : 9
+hybrid_search semantic_k             : 9
+hybrid_search bm25_k                 : 9
+hybrid_search final_k                : 12
+rerank_documents top_n               : 12 (len(hybrid_docs))
+select_final_context_docs top_n      : None / auto by context_filter mode
+select_final_context_docs all_chunks : NOT PASSED in this batch test
+[START] Rerank hybrid results | Did Lapu-Lapu kill Magellan?
+[DONE]  Rerank hybrid results | Did Lapu-Lapu kill Magellan? - 4.70 sec
+[START] Final context filter | Did Lapu-Lapu kill Magellan?
+[DONE]  Final context filter | Did Lapu-Lapu kill Magellan? - 0.08 sec
+
+--------------------------------------------------------------------------------
+TOP SEMANTIC RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : History of the Philippines - Wikipedia.pdf | page=19 | data\History of the Philippines - Wikipedia.pdf::chunk_62
+Title   : History of the Philippines - Wikipedia
+Section : A Spanish expedition around the world led by Portuguese explorer Ferdinand Magellan sighted Samar
+semantic_distance: 0.34359827637672424
+semantic_rank: 1
+context_mode   : single_fact
+context_reason : dynamic_top_rerank_source
+keep_reason    : top_source_retrieval_priority
+filter_scope   : single_fact_dynamic_top_rerank_source
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: A Spanish expedition around the world led by Portuguese explorer Ferdinand Magellan sighted Samar | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en strateg...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Katipunan - Wikipedia.pdf | page=10 | data\Katipunan - Wikipedia.pdf::chunk_31
+Title   : Katipunan - Wikipedia
+Section : Baldomero Aguinaldo (1818–1924) – the President of the Magdalo chapter and a war general he
+semantic_distance: 0.3695603311061859
+semantic_rank: 2
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: Baldomero Aguinaldo (1818–1924) – the President of the Magdalo chapter and a war general he | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en was also Oriang's uncle. Baldomero Aguinaldo (1818–1924) – the P...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : History of the Philippines - Wikipedia.pdf | page=19 | data\History of the Philippines - Wikipedia.pdf::chunk_61
+Title   : History of the Philippines - Wikipedia
+Section : vengeance against the Muslims and Portuguese allied to the
+semantic_distance: 0.38053831458091736
+semantic_rank: 3
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: vengeance against the Muslims and Portuguese allied to the | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en vengeance against the Muslims and Portuguese a...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Philippine–American War - Wikipedia.pdf | page=18 | data\Philippine–American War - Wikipedia.pdf::chunk_60
+Title   : Philippine–American War - Wikipedia
+Section : described deliberate attacks by Filipino sharpshooters upon American surgeons, chaplains,
+semantic_distance: 0.38054999709129333
+semantic_rank: 4
+Preview : Retrieval context: title: Philippine–American War - Wikipedia | section: described deliberate attacks by Filipino sharpshooters upon American surgeons, chaplains, | category: history | doc_type: article | source: data\Philippine–American War - Wikipedia.pdf | file_name: Philippine–American War - Wikipedia.pdf | language: en described deliberate att...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : History of the Philippines - Wikipedia.pdf | page=39 | data\History of the Philippines - Wikipedia.pdf::chunk_125
+Title   : History of the Philippines - Wikipedia
+Section : Aguinaldo's most capable military commander, was killed by
+semantic_distance: 0.3822314441204071
+semantic_rank: 5
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: Aguinaldo's most capable military commander, was killed by | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en Aguinaldo's most capable military commander, w...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP BM25 RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : History of the Philippines - Wikipedia.pdf | page=19 | data\History of the Philippines - Wikipedia.pdf::chunk_62
+Title   : History of the Philippines - Wikipedia
+Section : A Spanish expedition around the world led by Portuguese explorer Ferdinand Magellan sighted Samar
+bm25_rank: 1
+bm25_rank_score: 1.0
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: A Spanish expedition around the world led by Portuguese explorer Ferdinand Magellan sighted Samar | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en strateg...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : History of the Philippines - Wikipedia.pdf | page=12 | data\History of the Philippines - Wikipedia.pdf::chunk_40
+Title   : History of the Philippines - Wikipedia
+Section : diplomatic recognition of Thailand as observed by Ferdinand Magellan's expedition which noted an
+bm25_rank: 2
+bm25_rank_score: 0.5
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: diplomatic recognition of Thailand as observed by Ferdinand Magellan's expedition which noted an | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en diplomat...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : History of the Philippines - Wikipedia.pdf | page=61 | data\History of the Philippines - Wikipedia.pdf::chunk_192
+Title   : History of the Philippines - Wikipedia
+Section : 18. Bergreen, Laurence (October 14, 2003). Over the Edge of the World: Magellan's Terrifying
+bm25_rank: 3
+bm25_rank_score: 0.3333333333333333
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: 18. Bergreen, Laurence (October 14, 2003). Over the Edge of the World: Magellan's Terrifying | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en 18. Bergreen...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : History of the Philippines - Wikipedia.pdf | page=0 | data\History of the Philippines - Wikipedia.pdf::chunk_2
+Title   : History of the Philippines - Wikipedia
+Section : The first recorded visit by Europeans is Ferdinand Magellan's expedition, which landed in Homonhon
+bm25_rank: 4
+bm25_rank_score: 0.25
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: The first recorded visit by Europeans is Ferdinand Magellan's expedition, which landed in Homonhon | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en or reb...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Philippine–American War - Wikipedia.pdf | page=17 | data\Philippine–American War - Wikipedia.pdf::chunk_54
+Title   : Philippine–American War - Wikipedia
+Section : open. Immediately orders were received from General Wheaton to burn the town and kill every
+bm25_rank: 5
+bm25_rank_score: 0.2
+Preview : Retrieval context: title: Philippine–American War - Wikipedia | section: open. Immediately orders were received from General Wheaton to burn the town and kill every | category: history | doc_type: article | source: data\Philippine–American War - Wikipedia.pdf | file_name: Philippine–American War - Wikipedia.pdf | language: en open. Immediately orde...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP RRF + METADATA BOOST RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : History of the Philippines - Wikipedia.pdf | page=19 | data\History of the Philippines - Wikipedia.pdf::chunk_62
+Title   : History of the Philippines - Wikipedia
+Section : A Spanish expedition around the world led by Portuguese explorer Ferdinand Magellan sighted Samar
+hybrid_score: 0.016393442622950817
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.01789344262295082
+context_mode   : single_fact
+context_reason : dynamic_top_rerank_source
+keep_reason    : top_source_retrieval_priority
+filter_scope   : single_fact_dynamic_top_rerank_source
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: A Spanish expedition around the world led by Portuguese explorer Ferdinand Magellan sighted Samar | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en strateg...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : History of the Philippines - Wikipedia.pdf | page=0 | data\History of the Philippines - Wikipedia.pdf::chunk_2
+Title   : History of the Philippines - Wikipedia
+Section : The first recorded visit by Europeans is Ferdinand Magellan's expedition, which landed in Homonhon
+hybrid_score: 0.015073529411764706
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.016573529411764706
+context_mode   : single_fact
+context_reason : dynamic_top_rerank_source
+keep_reason    : top_source_retrieval_priority
+filter_scope   : single_fact_dynamic_top_rerank_source
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: The first recorded visit by Europeans is Ferdinand Magellan's expedition, which landed in Homonhon | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en or reb...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : History of the Philippines - Wikipedia.pdf | page=39 | data\History of the Philippines - Wikipedia.pdf::chunk_125
+Title   : History of the Philippines - Wikipedia
+Section : Aguinaldo's most capable military commander, was killed by
+hybrid_score: 0.00923076923076923
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.01073076923076923
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: Aguinaldo's most capable military commander, was killed by | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en Aguinaldo's most capable military commander, w...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : History of the Philippines (1565–1898) - Wikipedia.pdf | page=10 | data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_29
+Title   : History of the Philippines (1565–1898) - Wikipedia
+Section : Many of the educated ilustrado class such as Antonio Luna and Apolinario Mabini did not initially
+hybrid_score: 0.008695652173913044
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.010195652173913043
+Preview : Retrieval context: title: History of the Philippines (1565–1898) - Wikipedia | section: Many of the educated ilustrado class such as Antonio Luna and Apolinario Mabini did not initially | category: history | doc_type: article | source: data\History of the Philippines (1565–1898) - Wikipedia.pdf | file_name: History of the Philippines (1565–1898) -...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Katipunan - Wikipedia.pdf | page=10 | data\Katipunan - Wikipedia.pdf::chunk_31
+Title   : Katipunan - Wikipedia
+Section : Baldomero Aguinaldo (1818–1924) – the President of the Magdalo chapter and a war general he
+hybrid_score: 0.00967741935483871
+metadata_boost_score: 0.0
+metadata_boosted_score: 0.00967741935483871
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: Baldomero Aguinaldo (1818–1924) – the President of the Magdalo chapter and a war general he | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en was also Oriang's uncle. Baldomero Aguinaldo (1818–1924) – the P...
+--------------------------------------------------------------------------------
+Rank    : 6
+Source  : History of the Philippines - Wikipedia.pdf | page=19 | data\History of the Philippines - Wikipedia.pdf::chunk_61
+Title   : History of the Philippines - Wikipedia
+Section : vengeance against the Muslims and Portuguese allied to the
+hybrid_score: 0.009523809523809523
+metadata_boost_score: 0.0
+metadata_boosted_score: 0.009523809523809523
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: vengeance against the Muslims and Portuguese allied to the | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en vengeance against the Muslims and Portuguese a...
+--------------------------------------------------------------------------------
+Rank    : 7
+Source  : Philippine–American War - Wikipedia.pdf | page=18 | data\Philippine–American War - Wikipedia.pdf::chunk_60
+Title   : Philippine–American War - Wikipedia
+Section : described deliberate attacks by Filipino sharpshooters upon American surgeons, chaplains,
+hybrid_score: 0.009375
+metadata_boost_score: 0.0
+metadata_boosted_score: 0.009375
+Preview : Retrieval context: title: Philippine–American War - Wikipedia | section: described deliberate attacks by Filipino sharpshooters upon American surgeons, chaplains, | category: history | doc_type: article | source: data\Philippine–American War - Wikipedia.pdf | file_name: Philippine–American War - Wikipedia.pdf | language: en described deliberate att...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP RERANKED RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : History of the Philippines - Wikipedia.pdf | page=51 | data\History of the Philippines - Wikipedia.pdf::chunk_162
+Title   : History of the Philippines - Wikipedia
+Section : Manila circa 1980s
+rerank_score: -7.003703594207764
+rerank_rank: 1
+rerank_original_rank: 8
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: Manila circa 1980s | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en Manila circa 1980s Some 2,520 of the 3,257 murder victims were tortured and mutilated...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : History of the Philippines - Wikipedia.pdf | page=19 | data\History of the Philippines - Wikipedia.pdf::chunk_62
+Title   : History of the Philippines - Wikipedia
+Section : A Spanish expedition around the world led by Portuguese explorer Ferdinand Magellan sighted Samar
+rerank_score: -8.113626480102539
+rerank_rank: 2
+rerank_original_rank: 1
+context_mode   : single_fact
+context_reason : dynamic_top_rerank_source
+keep_reason    : top_source_retrieval_priority
+filter_scope   : single_fact_dynamic_top_rerank_source
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: A Spanish expedition around the world led by Portuguese explorer Ferdinand Magellan sighted Samar | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en strateg...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : History of the Philippines - Wikipedia.pdf | page=0 | data\History of the Philippines - Wikipedia.pdf::chunk_2
+Title   : History of the Philippines - Wikipedia
+Section : The first recorded visit by Europeans is Ferdinand Magellan's expedition, which landed in Homonhon
+rerank_score: -8.502195358276367
+rerank_rank: 3
+rerank_original_rank: 2
+context_mode   : single_fact
+context_reason : dynamic_top_rerank_source
+keep_reason    : top_source_retrieval_priority
+filter_scope   : single_fact_dynamic_top_rerank_source
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: The first recorded visit by Europeans is Ferdinand Magellan's expedition, which landed in Homonhon | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en or reb...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : History of the Philippines - Wikipedia.pdf | page=61 | data\History of the Philippines - Wikipedia.pdf::chunk_192
+Title   : History of the Philippines - Wikipedia
+Section : 18. Bergreen, Laurence (October 14, 2003). Over the Edge of the World: Magellan's Terrifying
+rerank_score: -8.972179412841797
+rerank_rank: 4
+rerank_original_rank: 11
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: 18. Bergreen, Laurence (October 14, 2003). Over the Edge of the World: Magellan's Terrifying | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en 18. Bergreen...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Philippine–American War - Wikipedia.pdf | page=18 | data\Philippine–American War - Wikipedia.pdf::chunk_60
+Title   : Philippine–American War - Wikipedia
+Section : described deliberate attacks by Filipino sharpshooters upon American surgeons, chaplains,
+rerank_score: -9.16287612915039
+rerank_rank: 5
+rerank_original_rank: 7
+Preview : Retrieval context: title: Philippine–American War - Wikipedia | section: described deliberate attacks by Filipino sharpshooters upon American surgeons, chaplains, | category: history | doc_type: article | source: data\Philippine–American War - Wikipedia.pdf | file_name: Philippine–American War - Wikipedia.pdf | language: en described deliberate att...
+--------------------------------------------------------------------------------
+Rank    : 6
+Source  : History of the Philippines - Wikipedia.pdf | page=19 | data\History of the Philippines - Wikipedia.pdf::chunk_61
+Title   : History of the Philippines - Wikipedia
+Section : vengeance against the Muslims and Portuguese allied to the
+rerank_score: -9.62839126586914
+rerank_rank: 6
+rerank_original_rank: 6
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: vengeance against the Muslims and Portuguese allied to the | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en vengeance against the Muslims and Portuguese a...
+--------------------------------------------------------------------------------
+Rank    : 7
+Source  : History of the Philippines - Wikipedia.pdf | page=12 | data\History of the Philippines - Wikipedia.pdf::chunk_40
+Title   : History of the Philippines - Wikipedia
+Section : diplomatic recognition of Thailand as observed by Ferdinand Magellan's expedition which noted an
+rerank_score: -9.616582870483398
+rerank_rank: 7
+rerank_original_rank: 10
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: diplomatic recognition of Thailand as observed by Ferdinand Magellan's expedition which noted an | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en diplomat...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+FINAL RETRIEVED CHUNKS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : History of the Philippines - Wikipedia.pdf | page=19 | data\History of the Philippines - Wikipedia.pdf::chunk_62
+Title   : History of the Philippines - Wikipedia
+Section : A Spanish expedition around the world led by Portuguese explorer Ferdinand Magellan sighted Samar
+rerank_score: -8.113626480102539
+metadata_boosted_score: 0.01789344262295082
+hybrid_score: 0.016393442622950817
+context_mode   : single_fact
+context_reason : dynamic_top_rerank_source
+keep_reason    : top_source_retrieval_priority
+filter_scope   : single_fact_dynamic_top_rerank_source
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: A Spanish expedition around the world led by Portuguese explorer Ferdinand Magellan sighted Samar | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en strateg...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : History of the Philippines - Wikipedia.pdf | page=0 | data\History of the Philippines - Wikipedia.pdf::chunk_2
+Title   : History of the Philippines - Wikipedia
+Section : The first recorded visit by Europeans is Ferdinand Magellan's expedition, which landed in Homonhon
+rerank_score: -8.502195358276367
+metadata_boosted_score: 0.016573529411764706
+hybrid_score: 0.015073529411764706
+context_mode   : single_fact
+context_reason : dynamic_top_rerank_source
+keep_reason    : top_source_retrieval_priority
+filter_scope   : single_fact_dynamic_top_rerank_source
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: The first recorded visit by Europeans is Ferdinand Magellan's expedition, which landed in Homonhon | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en or reb...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+CHUNK FLOW CHECK
+--------------------------------------------------------------------------------
+Chunk ID | semantic | bm25 | hybrid | rerank | final | label
+------------------------------------------------------------------------------------------------------------------------
+data\History of the Philippines - Wikipedia.pdf::chunk_62 | S=1   | B=1   | H=1   | R=2   | F=1   | History of the Philippines - Wikipedia.pdf | page=19 | section=A Spanish expedition around the world led by Portuguese explorer Ferdi
+data\History of the Philippines - Wikipedia.pdf::chunk_2 | S=8   | B=4   | H=2   | R=3   | F=2   | History of the Philippines - Wikipedia.pdf | page=0 | section=The first recorded visit by Europeans is Ferdinand Magellan's expediti
+data\History of the Philippines - Wikipedia.pdf::chunk_125 | S=5   | B=-   | H=3   | R=8   | F=-   | History of the Philippines - Wikipedia.pdf | page=39 | section=Aguinaldo's most capable military commander, was killed by
+data\History of the Philippines (1565–1898) - Wikipedia.pdf::chunk_29 | S=9   | B=-   | H=4   | R=9   | F=-   | History of the Philippines (1565–1898) - Wikipedia.pdf | page=10 | section=Many of the educated ilustrado class such as Antonio Luna and Apolinar
+data\Katipunan - Wikipedia.pdf::chunk_31 | S=2   | B=-   | H=5   | R=10  | F=-   | Katipunan - Wikipedia.pdf | page=10 | section=Baldomero Aguinaldo (1818–1924) – the President of the Magdalo chapter
+data\History of the Philippines - Wikipedia.pdf::chunk_61 | S=3   | B=-   | H=6   | R=6   | F=-   | History of the Philippines - Wikipedia.pdf | page=19 | section=vengeance against the Muslims and Portuguese allied to the
+data\Philippine–American War - Wikipedia.pdf::chunk_60 | S=4   | B=-   | H=7   | R=5   | F=-   | Philippine–American War - Wikipedia.pdf | page=18 | section=described deliberate attacks by Filipino sharpshooters upon American s
+data\History of the Philippines - Wikipedia.pdf::chunk_162 | S=6   | B=-   | H=8   | R=1   | F=-   | History of the Philippines - Wikipedia.pdf | page=51 | section=Manila circa 1980s
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_23 | S=7   | B=-   | H=9   | R=11  | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=7 | section=In late 1896, Bonifacio, as the recognized overall leader of the
+data\History of the Philippines - Wikipedia.pdf::chunk_40 | S=-   | B=2   | H=10  | R=7   | F=-   | History of the Philippines - Wikipedia.pdf | page=12 | section=diplomatic recognition of Thailand as observed by Ferdinand Magellan's
+data\History of the Philippines - Wikipedia.pdf::chunk_192 | S=-   | B=3   | H=11  | R=4   | F=-   | History of the Philippines - Wikipedia.pdf | page=61 | section=18. Bergreen, Laurence (October 14, 2003). Over the Edge of the World:
+data\Philippine–American War - Wikipedia.pdf::chunk_54 | S=-   | B=5   | H=12  | R=12  | F=-   | Philippine–American War - Wikipedia.pdf | page=17 | section=open. Immediately orders were received from General Wheaton to burn th
+data\Philippine–American War - Wikipedia.pdf::chunk_31 | S=-   | B=6   | H=-   | R=-   | F=-   | Philippine–American War - Wikipedia.pdf | page=9 | section=of the guard in approved military style. The man moved. I challenged h
+data\Philippine–American War - Wikipedia.pdf::chunk_51 | S=-   | B=7   | H=-   | R=-   | F=-   | Philippine–American War - Wikipedia.pdf | page=16 | section=Brigadier General Jacob H. Smith's
+data\Emilio Aguinaldo - Wikipedia.pdf::chunk_6 | S=-   | B=8   | H=-   | R=-   | F=-   | Emilio Aguinaldo - Wikipedia.pdf | page=2 | section=However, Aguinaldo and other Cavite rebels initially
+
+WARNING: These top 5 reranked chunks were not included in FINAL RETRIEVED CHUNKS:
+- data\History of the Philippines - Wikipedia.pdf::chunk_162 | History of the Philippines - Wikipedia.pdf | page=51 | section=Manila circa 1980s
+- data\History of the Philippines - Wikipedia.pdf::chunk_192 | History of the Philippines - Wikipedia.pdf | page=61 | section=18. Bergreen, Laurence (October 14, 2003). Over the Edge of the World:
+- data\Philippine–American War - Wikipedia.pdf::chunk_60 | Philippine–American War - Wikipedia.pdf | page=18 | section=described deliberate attacks by Filipino sharpshooters upon American s
+
+--------------------------------------------------------------------------------
+QUESTION FINAL CHECK
+--------------------------------------------------------------------------------
+Semantic results : 9
+BM25 results     : 9
+Hybrid candidates: 12
+Reranked results : 12
+Final chunks     : 2
+Analyzer mode    : single_fact
+
+================================================================================
+TIMING SUMMARY
+================================================================================
+Total measured time : 4.85 sec
+
+- Hybrid search | Did Lapu-Lapu kill Magellan?       0.07 sec (  1.4%)
+- Rerank hybrid results | Did Lapu-Lapu kill Magellan?       4.70 sec ( 96.9%)
+- Final context filter | Did Lapu-Lapu kill Magellan?       0.08 sec (  1.7%)
+
+Main bottleneck     : Rerank hybrid results | Did Lapu-Lapu kill Magellan?
+Bottleneck time     : 4.70 sec
+
+================================================================================
+QUESTION: Who are the ladies that had relationship with Jose Rizal?
+================================================================================
+Question mode from analyzer : list_enumeration
+Important terms             : ['ladies', 'that', 'had', 'relationship', 'jose', 'rizal']
+Source keywords             : ['ladies', 'that', 'had', 'relationship', 'jose', 'rizal']
+
+create_bm25_retriever k              : 9
+hybrid_search semantic_k             : 9
+hybrid_search bm25_k                 : 9
+hybrid_search final_k                : 12
+rerank_documents top_n               : len(hybrid_docs) after hybrid search
+select_final_context_docs top_n      : None / auto by context_filter mode
+select_final_context_docs all_chunks : NOT PASSED in this batch test
+[START] Hybrid search | Who are the ladies that had relationship with Jose Rizal?
+[DONE]  Hybrid search | Who are the ladies that had relationship with Jose Rizal? - 0.08 sec
+create_bm25_retriever k              : 9
+hybrid_search semantic_k             : 9
+hybrid_search bm25_k                 : 9
+hybrid_search final_k                : 12
+rerank_documents top_n               : 12 (len(hybrid_docs))
+select_final_context_docs top_n      : None / auto by context_filter mode
+select_final_context_docs all_chunks : NOT PASSED in this batch test
+[START] Rerank hybrid results | Who are the ladies that had relationship with Jose Rizal?
+[DONE]  Rerank hybrid results | Who are the ladies that had relationship with Jose Rizal? - 5.72 sec
+[START] Final context filter | Who are the ladies that had relationship with Jose Rizal?
+[DONE]  Final context filter | Who are the ladies that had relationship with Jose Rizal? - 0.02 sec
+
+--------------------------------------------------------------------------------
+TOP SEMANTIC RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : José Rizal - Wikipedia.pdf | page=5 | data\José Rizal - Wikipedia.pdf::chunk_20
+Title   : José Rizal - Wikipedia
+Section : been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camden,
+semantic_distance: 0.26957497000694275
+semantic_rank: 1
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camden, | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camde...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_22
+Title   : José Rizal - Wikipedia
+Section : Josephine Bracken was Rizal's
+semantic_distance: 0.27639371156692505
+semantic_rank: 2
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: Josephine Bracken was Rizal's | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en Josephine Bracken was Rizal's common-law wife whom he reportedly married shortly before his execution. In 1888, Rizal stopp...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : José Rizal - Wikipedia.pdf | page=26 | data\José Rizal - Wikipedia.pdf::chunk_89
+Title   : José Rizal - Wikipedia
+Section : 74. Leonor Rivera ( José Rizal University,
+semantic_distance: 0.28613531589508057
+semantic_rank: 3
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: 74. Leonor Rivera ( José Rizal University, | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en 71. Ambeth Ocampo (1990). Rizal without the Overcoat. Anvil Publishing Co., Manila. ISBN 971-27-0043-7. 74. Le...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : José Rizal - Wikipedia.pdf | page=4 | data\José Rizal - Wikipedia.pdf::chunk_18
+Title   : José Rizal - Wikipedia
+Section : Asian encountering the West for the first time (other than in Spanish
+semantic_distance: 0.2952432632446289
+semantic_rank: 4
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: Asian encountering the West for the first time (other than in Spanish | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en Asian encountering the West for the first time (other than in Spanish manifestation...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_23
+Title   : José Rizal - Wikipedia
+Section : She had accompanied her blind adoptive father, George Taufer, to have his eyes
+semantic_distance: 0.2959909737110138
+semantic_rank: 5
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: She had accompanied her blind adoptive father, George Taufer, to have his eyes | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en the Blumentritts in Germany saved even napkins that Rizal had made sketche...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP BM25 RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : José Rizal - Wikipedia.pdf | page=17 | data\José Rizal - Wikipedia.pdf::chunk_65
+Title   : José Rizal - Wikipedia
+Section : about Jose Rizal: Rizal in Belgium and France, Jose Rizal's Europe, Growing
+bm25_rank: 1
+bm25_rank_score: 1.0
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: about Jose Rizal: Rizal in Belgium and France, Jose Rizal's Europe, Growing | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en about Jose Rizal: Rizal in Belgium and France, Jose Rizal's Europe, Growing u...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : José Rizal - Wikipedia.pdf | page=19 | data\José Rizal - Wikipedia.pdf::chunk_74
+Title   : José Rizal - Wikipedia
+Section : The Grand Oriental Hotel in Colombo, Sri Lanka has a suite named after
+bm25_rank: 2
+bm25_rank_score: 0.5
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: The Grand Oriental Hotel in Colombo, Sri Lanka has a suite named after | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en named for him. A Jose Rizal-class frigate of the Philippine Navy was built by Hyun...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_25
+Title   : José Rizal - Wikipedia
+Section : discussed the significance of Palm Sunday in socio-political terms
+bm25_rank: 3
+bm25_rank_score: 0.3333333333333333
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: discussed the significance of Palm Sunday in socio-political terms | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en records clarifying their names and ages. Rizal's Brussels stay was short-lived; he mov...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Katipunan - Wikipedia.pdf | page=11 | data\Katipunan - Wikipedia.pdf::chunk_35
+Title   : Katipunan - Wikipedia
+Section : available texts accessible reprinted through books are the one published by Jose P. Santos in
+bm25_rank: 4
+bm25_rank_score: 0.25
+Preview : Retrieval context: title: Katipunan - Wikipedia | section: available texts accessible reprinted through books are the one published by Jose P. Santos in | category: history | doc_type: article | source: data\Katipunan - Wikipedia.pdf | file_name: Katipunan - Wikipedia.pdf | language: en available texts accessible reprinted through books are the one...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : History of the Philippines - Wikipedia.pdf | page=6 | data\History of the Philippines - Wikipedia.pdf::chunk_19
+Title   : History of the Philippines - Wikipedia
+Section : not much archaeological evidence to definitively support such a relationship. Considerable
+bm25_rank: 5
+bm25_rank_score: 0.2
+Preview : Retrieval context: title: History of the Philippines - Wikipedia | section: not much archaeological evidence to definitively support such a relationship. Considerable | category: history | doc_type: article | source: data\History of the Philippines - Wikipedia.pdf | file_name: History of the Philippines - Wikipedia.pdf | language: en was personalit...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP RRF + METADATA BOOST RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : José Rizal - Wikipedia.pdf | page=5 | data\José Rizal - Wikipedia.pdf::chunk_20
+Title   : José Rizal - Wikipedia
+Section : been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camden,
+hybrid_score: 0.015806214827501833
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.017306214827501835
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camden, | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camde...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_22
+Title   : José Rizal - Wikipedia
+Section : Josephine Bracken was Rizal's
+hybrid_score: 0.00967741935483871
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.01217741935483871
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: Josephine Bracken was Rizal's | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en Josephine Bracken was Rizal's common-law wife whom he reportedly married shortly before his execution. In 1888, Rizal stopp...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : José Rizal - Wikipedia.pdf | page=26 | data\José Rizal - Wikipedia.pdf::chunk_89
+Title   : José Rizal - Wikipedia
+Section : 74. Leonor Rivera ( José Rizal University,
+hybrid_score: 0.009523809523809523
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.012023809523809523
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: 74. Leonor Rivera ( José Rizal University, | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en 71. Ambeth Ocampo (1990). Rizal without the Overcoat. Anvil Publishing Co., Manila. ISBN 971-27-0043-7. 74. Le...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_23
+Title   : José Rizal - Wikipedia
+Section : She had accompanied her blind adoptive father, George Taufer, to have his eyes
+hybrid_score: 0.00923076923076923
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.01173076923076923
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: She had accompanied her blind adoptive father, George Taufer, to have his eyes | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en the Blumentritts in Germany saved even napkins that Rizal had made sketche...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : José Rizal - Wikipedia.pdf | page=0 | data\José Rizal - Wikipedia.pdf::chunk_1
+Title   : José Rizal - Wikipedia
+Section : profession, Rizal became a writer and a key member of the Filipino
+hybrid_score: 0.00909090909090909
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.011590909090909091
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: profession, Rizal became a writer and a key member of the Filipino | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en profession, Rizal became a writer and a key member of the Filipino Propaganda Movement...
+--------------------------------------------------------------------------------
+Rank    : 6
+Source  : José Rizal - Wikipedia.pdf | page=28 | data\José Rizal - Wikipedia.pdf::chunk_92
+Title   : José Rizal - Wikipedia
+Section : 74. Leonor Rivera ( José Rizal University,
+hybrid_score: 0.008955223880597015
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.011455223880597016
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: 74. Leonor Rivera ( José Rizal University, | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en 105. Almario, Virgilio (2011). "6. Mahal Mo Ba ang Bayan Mo?". Rizal: Makata ( (in Filipino). Mandaluyong: Anv...
+--------------------------------------------------------------------------------
+Rank    : 7
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_24
+Title   : José Rizal - Wikipedia
+Section : be a lesser sacrament but less sinful to Rizal's conscience than making any sort of
+hybrid_score: 0.008823529411764706
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.011323529411764706
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: be a lesser sacrament but less sinful to Rizal's conscience than making any sort of | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en be a lesser sacrament but less sinful to Rizal's conscience than maki...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP RERANKED RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_24
+Title   : José Rizal - Wikipedia
+Section : be a lesser sacrament but less sinful to Rizal's conscience than making any sort of
+rerank_score: 1.0614676475524902
+rerank_rank: 1
+rerank_original_rank: 7
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: be a lesser sacrament but less sinful to Rizal's conscience than making any sort of | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en be a lesser sacrament but less sinful to Rizal's conscience than maki...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_22
+Title   : José Rizal - Wikipedia
+Section : Josephine Bracken was Rizal's
+rerank_score: -0.08489499986171722
+rerank_rank: 2
+rerank_original_rank: 2
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: Josephine Bracken was Rizal's | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en Josephine Bracken was Rizal's common-law wife whom he reportedly married shortly before his execution. In 1888, Rizal stopp...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_23
+Title   : José Rizal - Wikipedia
+Section : She had accompanied her blind adoptive father, George Taufer, to have his eyes
+rerank_score: -1.9207532405853271
+rerank_rank: 3
+rerank_original_rank: 4
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: She had accompanied her blind adoptive father, George Taufer, to have his eyes | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en the Blumentritts in Germany saved even napkins that Rizal had made sketche...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : José Rizal - Wikipedia.pdf | page=5 | data\José Rizal - Wikipedia.pdf::chunk_20
+Title   : José Rizal - Wikipedia
+Section : been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camden,
+rerank_score: -2.3806025981903076
+rerank_rank: 4
+rerank_original_rank: 1
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camden, | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camde...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_25
+Title   : José Rizal - Wikipedia
+Section : discussed the significance of Palm Sunday in socio-political terms
+rerank_score: -2.405336380004883
+rerank_rank: 5
+rerank_original_rank: 12
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: discussed the significance of Palm Sunday in socio-political terms | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en records clarifying their names and ages. Rizal's Brussels stay was short-lived; he mov...
+--------------------------------------------------------------------------------
+Rank    : 6
+Source  : José Rizal - Wikipedia.pdf | page=4 | data\José Rizal - Wikipedia.pdf::chunk_18
+Title   : José Rizal - Wikipedia
+Section : Asian encountering the West for the first time (other than in Spanish
+rerank_score: -4.3471293449401855
+rerank_rank: 6
+rerank_original_rank: 8
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: Asian encountering the West for the first time (other than in Spanish | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en Asian encountering the West for the first time (other than in Spanish manifestation...
+--------------------------------------------------------------------------------
+Rank    : 7
+Source  : José Rizal - Wikipedia.pdf | page=0 | data\José Rizal - Wikipedia.pdf::chunk_1
+Title   : José Rizal - Wikipedia
+Section : profession, Rizal became a writer and a key member of the Filipino
+rerank_score: -4.577009677886963
+rerank_rank: 7
+rerank_original_rank: 5
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: profession, Rizal became a writer and a key member of the Filipino | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en profession, Rizal became a writer and a key member of the Filipino Propaganda Movement...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+FINAL RETRIEVED CHUNKS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_24
+Title   : José Rizal - Wikipedia
+Section : be a lesser sacrament but less sinful to Rizal's conscience than making any sort of
+rerank_score: 1.0614676475524902
+metadata_boosted_score: 0.011323529411764706
+hybrid_score: 0.008823529411764706
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: be a lesser sacrament but less sinful to Rizal's conscience than making any sort of | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en be a lesser sacrament but less sinful to Rizal's conscience than maki...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : José Rizal - Wikipedia.pdf | page=6 | data\José Rizal - Wikipedia.pdf::chunk_22
+Title   : José Rizal - Wikipedia
+Section : Josephine Bracken was Rizal's
+rerank_score: -0.08489499986171722
+metadata_boosted_score: 0.01217741935483871
+hybrid_score: 0.00967741935483871
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: Josephine Bracken was Rizal's | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en Josephine Bracken was Rizal's common-law wife whom he reportedly married shortly before his execution. In 1888, Rizal stopp...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : José Rizal - Wikipedia.pdf | page=5 | data\José Rizal - Wikipedia.pdf::chunk_20
+Title   : José Rizal - Wikipedia
+Section : been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camden,
+rerank_score: -2.3806025981903076
+metadata_boosted_score: 0.017306214827501835
+hybrid_score: 0.015806214827501833
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camden, | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, Camde...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : José Rizal - Wikipedia.pdf | page=17 | data\José Rizal - Wikipedia.pdf::chunk_65
+Title   : José Rizal - Wikipedia
+Section : about Jose Rizal: Rizal in Belgium and France, Jose Rizal's Europe, Growing
+rerank_score: -5.450022220611572
+metadata_boosted_score: 0.009057377049180328
+hybrid_score: 0.006557377049180328
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: about Jose Rizal: Rizal in Belgium and France, Jose Rizal's Europe, Growing | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en about Jose Rizal: Rizal in Belgium and France, Jose Rizal's Europe, Growing u...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : José Rizal - Wikipedia.pdf | page=19 | data\José Rizal - Wikipedia.pdf::chunk_74
+Title   : José Rizal - Wikipedia
+Section : The Grand Oriental Hotel in Colombo, Sri Lanka has a suite named after
+rerank_score: -5.805805683135986
+metadata_boosted_score: 0.007951612903225807
+hybrid_score: 0.0064516129032258064
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: The Grand Oriental Hotel in Colombo, Sri Lanka has a suite named after | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en named for him. A Jose Rizal-class frigate of the Philippine Navy was built by Hyun...
+--------------------------------------------------------------------------------
+Rank    : 6
+Source  : José Rizal - Wikipedia.pdf | page=26 | data\José Rizal - Wikipedia.pdf::chunk_89
+Title   : José Rizal - Wikipedia
+Section : 74. Leonor Rivera ( José Rizal University,
+rerank_score: -6.479258060455322
+metadata_boosted_score: 0.012023809523809523
+hybrid_score: 0.009523809523809523
+context_mode   : list_enumeration
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: 74. Leonor Rivera ( José Rizal University, | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en 71. Ambeth Ocampo (1990). Rizal without the Overcoat. Anvil Publishing Co., Manila. ISBN 971-27-0043-7. 74. Le...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+CHUNK FLOW CHECK
+--------------------------------------------------------------------------------
+Chunk ID | semantic | bm25 | hybrid | rerank | final | label
+------------------------------------------------------------------------------------------------------------------------
+data\José Rizal - Wikipedia.pdf::chunk_20 | S=1   | B=7   | H=1   | R=4   | F=3   | José Rizal - Wikipedia.pdf | page=5 | section=been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill, 
+data\José Rizal - Wikipedia.pdf::chunk_22 | S=2   | B=-   | H=2   | R=2   | F=2   | José Rizal - Wikipedia.pdf | page=6 | section=Josephine Bracken was Rizal's
+data\José Rizal - Wikipedia.pdf::chunk_89 | S=3   | B=-   | H=3   | R=11  | F=6   | José Rizal - Wikipedia.pdf | page=26 | section=74. Leonor Rivera ( José Rizal University,
+data\José Rizal - Wikipedia.pdf::chunk_23 | S=5   | B=-   | H=4   | R=3   | F=-   | José Rizal - Wikipedia.pdf | page=6 | section=She had accompanied her blind adoptive father, George Taufer, to have 
+data\José Rizal - Wikipedia.pdf::chunk_1 | S=6   | B=-   | H=5   | R=7   | F=-   | José Rizal - Wikipedia.pdf | page=0 | section=profession, Rizal became a writer and a key member of the Filipino
+data\José Rizal - Wikipedia.pdf::chunk_92 | S=7   | B=-   | H=6   | R=9   | F=-   | José Rizal - Wikipedia.pdf | page=28 | section=74. Leonor Rivera ( José Rizal University,
+data\José Rizal - Wikipedia.pdf::chunk_24 | S=8   | B=-   | H=7   | R=1   | F=1   | José Rizal - Wikipedia.pdf | page=6 | section=be a lesser sacrament but less sinful to Rizal's conscience than makin
+data\José Rizal - Wikipedia.pdf::chunk_18 | S=4   | B=-   | H=8   | R=6   | F=-   | José Rizal - Wikipedia.pdf | page=4 | section=Asian encountering the West for the first time (other than in Spanish
+data\José Rizal - Wikipedia.pdf::chunk_102 | S=9   | B=-   | H=9   | R=12  | F=-   | José Rizal - Wikipedia.pdf | page=33 | section=Catchillar, Chryzelle P. (1994). The Twilight in the Philippines
+data\José Rizal - Wikipedia.pdf::chunk_65 | S=-   | B=1   | H=10  | R=8   | F=4   | José Rizal - Wikipedia.pdf | page=17 | section=about Jose Rizal: Rizal in Belgium and France, Jose Rizal's Europe, Gr
+data\José Rizal - Wikipedia.pdf::chunk_74 | S=-   | B=2   | H=11  | R=10  | F=5   | José Rizal - Wikipedia.pdf | page=19 | section=The Grand Oriental Hotel in Colombo, Sri Lanka has a suite named after
+data\José Rizal - Wikipedia.pdf::chunk_25 | S=-   | B=3   | H=12  | R=5   | F=-   | José Rizal - Wikipedia.pdf | page=6 | section=discussed the significance of Palm Sunday in socio-political terms
+data\Katipunan - Wikipedia.pdf::chunk_35 | S=-   | B=4   | H=-   | R=-   | F=-   | Katipunan - Wikipedia.pdf | page=11 | section=available texts accessible reprinted through books are the one publish
+data\History of the Philippines - Wikipedia.pdf::chunk_19 | S=-   | B=5   | H=-   | R=-   | F=-   | History of the Philippines - Wikipedia.pdf | page=6 | section=not much archaeological evidence to definitively support such a relati
+data\José Rizal - Wikipedia.pdf::chunk_73 | S=-   | B=6   | H=-   | R=-   | F=-   | José Rizal - Wikipedia.pdf | page=19 | section=The Grand Oriental Hotel in Colombo, Sri Lanka has a suite named after
+
+WARNING: These top 5 reranked chunks were not included in FINAL RETRIEVED CHUNKS:
+- data\José Rizal - Wikipedia.pdf::chunk_23 | José Rizal - Wikipedia.pdf | page=6 | section=She had accompanied her blind adoptive father, George Taufer, to have 
+- data\José Rizal - Wikipedia.pdf::chunk_25 | José Rizal - Wikipedia.pdf | page=6 | section=discussed the significance of Palm Sunday in socio-political terms
+
+--------------------------------------------------------------------------------
+QUESTION FINAL CHECK
+--------------------------------------------------------------------------------
+Semantic results : 9
+BM25 results     : 9
+Hybrid candidates: 12
+Reranked results : 12
+Final chunks     : 6
+Analyzer mode    : list_enumeration
+
+================================================================================
+TIMING SUMMARY
+================================================================================
+Total measured time : 5.82 sec
+
+- Hybrid search | Who are the ladies that had relationship with Jose Rizal?       0.08 sec (  1.4%)
+- Rerank hybrid results | Who are the ladies that had relationship with Jose Rizal?       5.72 sec ( 98.3%)
+- Final context filter | Who are the ladies that had relationship with Jose Rizal?       0.02 sec (  0.3%)
+
+Main bottleneck     : Rerank hybrid results | Who are the ladies that had relationship with Jose Rizal?
+Bottleneck time     : 5.72 sec
+
+================================================================================
+TIMING SUMMARY
+================================================================================
+Total measured time : 11.11 sec
+
+- Setup: Load embedding model            7.59 sec ( 68.3%)
+- Setup: Load Chroma vectorstore         0.62 sec (  5.6%)
+- Setup: Load chunks for BM25            0.02 sec (  0.1%)
+- Setup: Create BM25 retriever           0.46 sec (  4.1%)
+- Setup: Load reranker                   2.43 sec ( 21.9%)
+
+Main bottleneck     : Setup: Load embedding model
+Bottleneck time     : 7.59 sec
+
+================================================================================
+BATCH SUMMARY
+================================================================================
+Question | status | mode | semantic | bm25 | hybrid | reranked | final
+------------------------------------------------------------------------------------------------------------------------
+Why did Jose Rizal become the Supremo of the Katipunan? | OK | false_premise | 9 | 9 | 12 | 12 | 2
+  Final 1: José Rizal - Wikipedia.pdf | page=9 | section=incoming revolution, believing that a peaceful stand is the best way t | chunk=data\José Rizal - Wikipedia.pdf::chunk_35
+  Final 2: Katipunan - Wikipedia.pdf | page=1 | section="katipunan" (literally, "association", "gathering", "assemblage", or " | chunk=data\Katipunan - Wikipedia.pdf::chunk_4
+Did Lapu-Lapu kill Magellan? | OK | single_fact | 9 | 9 | 12 | 12 | 2
+  Final 1: History of the Philippines - Wikipedia.pdf | page=19 | section=A Spanish expedition around the world led by Portuguese explorer Ferdi | chunk=data\History of the Philippines - Wikipedia.pdf::chunk_62
+  Final 2: History of the Philippines - Wikipedia.pdf | page=0 | section=The first recorded visit by Europeans is Ferdinand Magellan's expediti | chunk=data\History of the Philippines - Wikipedia.pdf::chunk_2
+Who are the ladies that had relationship with Jose Rizal? | OK | list_enumeration | 9 | 9 | 12 | 12 | 6
+  Final 1: José Rizal - Wikipedia.pdf | page=6 | section=be a lesser sacrament but less sinful to Rizal's conscience than makin | chunk=data\José Rizal - Wikipedia.pdf::chunk_24
+  Final 2: José Rizal - Wikipedia.pdf | page=6 | section=Josephine Bracken was Rizal's | chunk=data\José Rizal - Wikipedia.pdf::chunk_22
+  Final 3: José Rizal - Wikipedia.pdf | page=5 | section=been identified: Gertrude Beckett of Chalcot Crescent, Primrose Hill,  | chunk=data\José Rizal - Wikipedia.pdf::chunk_20
+  Final 4: José Rizal - Wikipedia.pdf | page=17 | section=about Jose Rizal: Rizal in Belgium and France, Jose Rizal's Europe, Gr | chunk=data\José Rizal - Wikipedia.pdf::chunk_65
+  Final 5: José Rizal - Wikipedia.pdf | page=19 | section=The Grand Oriental Hotel in Colombo, Sri Lanka has a suite named after | chunk=data\José Rizal - Wikipedia.pdf::chunk_74
+  Final 6: José Rizal - Wikipedia.pdf | page=26 | section=74. Leonor Rivera ( José Rizal University, | chunk=data\José Rizal - Wikipedia.pdf::chunk_89

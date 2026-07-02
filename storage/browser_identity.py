@@ -5,6 +5,7 @@ import uuid
 
 BROWSER_ID_SESSION_KEY = "browser_id"
 BROWSER_ID_QUERY_KEY = "bid"
+BROWSER_ID_SYNC_SESSION_KEY = "browser_id_query_synced"
 BROWSER_ID_RE = re.compile(r"^[a-zA-Z0-9_-]{12,80}$")
 
 
@@ -30,18 +31,28 @@ def get_query_browser_id(st):
 
 
 def set_query_browser_id(st, browser_id):
-    # Isulat sa URL para survive sa refresh.
+    # Isulat sa URL only when needed.
+    # Updating query params can trigger another rerun, so avoid duplicate writes.
     if not is_valid_browser_id(browser_id):
+        return
+
+    if get_query_browser_id(st) == browser_id:
+        st.session_state[BROWSER_ID_SYNC_SESSION_KEY] = True
+        return
+
+    if st.session_state.get(BROWSER_ID_SYNC_SESSION_KEY):
         return
 
     try:
         st.query_params[BROWSER_ID_QUERY_KEY] = browser_id
+        st.session_state[BROWSER_ID_SYNC_SESSION_KEY] = True
         return
     except Exception:
         pass
 
     try:
         st.experimental_set_query_params(**{BROWSER_ID_QUERY_KEY: browser_id})
+        st.session_state[BROWSER_ID_SYNC_SESSION_KEY] = True
     except Exception:
         pass
 

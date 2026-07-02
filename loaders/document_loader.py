@@ -1,7 +1,5 @@
 from pathlib import Path
-
 from loaders.file_loaders import get_loader, get_supported_extensions
-
 
 EMPTY_REPORT = {
     "loaded_files": 0,
