@@ -1139,8 +1139,6 @@ div[data-testid="stChatInput"] button::after {
     justify-content: center !important;
 }
 
-
-
 /* =========================
    Right Source Drawer
 ========================= */
@@ -1856,7 +1854,7 @@ div[data-testid="stChatInput"] [data-baseweb="textarea"] > div {
    All visual styling belongs here.
 ========================= */
 
-/* Hide stale action buttons and export panel while answering/regenerating. */
+/* Hide stale action buttons and export panel while answering. */
 .stApp:has(.hide-answer-controls-active) [class*="st-key-action_area_"],
 .stApp:has(.hide-answer-controls-active) [class*="st-key-export_inline_panel_"] {
     display: none !important;
@@ -1938,7 +1936,7 @@ div[data-testid="stChatInput"] [data-baseweb="textarea"] > div {
    Problem solved:
    - stBottom no longer scrolls with chat messages.
    - Chat messages get enough bottom space so the last answer
-     is not hidden behind the fixed input.
+     are not hidden behind the fixed input.
    - Python only renders marker divs; all layout styling remains here.
 ========================================================= */
 

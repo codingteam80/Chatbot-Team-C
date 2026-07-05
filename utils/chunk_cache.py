@@ -16,7 +16,7 @@ from preprocessing.chunker import chunk_documents
 
 
 def get_file_signature(data_path):
-    # Gumawa ng signature gamit path, size, at modified time ng files.
+    # Create a signature using each file path, size, and modified time.
     data_path = Path(data_path)
     items = []
 
@@ -36,7 +36,7 @@ def get_file_signature(data_path):
 
 
 def get_cache_metadata(data_path):
-    # Metadata para malaman kung stale na ang chunk cache.
+    # Metadata used to determine whether the chunk cache is stale.
     return {
         "data_signature": get_file_signature(data_path),
         "chunk_size": CHUNK_SIZE,
@@ -60,7 +60,7 @@ def write_json(path, data):
 
 
 def cache_is_valid(data_path, cache_path=CHUNK_CACHE_PATH, meta_path=CHUNK_CACHE_META_PATH):
-    # Valid lang kapag existing cache at tugma ang metadata.
+    # Valid only when existing cache at tugma the metadata.
     if not Path(cache_path).exists():
         return False
 
@@ -69,7 +69,7 @@ def cache_is_valid(data_path, cache_path=CHUNK_CACHE_PATH, meta_path=CHUNK_CACHE
 
 
 def save_chunks_cache(chunks, data_path="data", cache_path=CHUNK_CACHE_PATH, meta_path=CHUNK_CACHE_META_PATH):
-    # I-save ang chunks at metadata.
+    # Save chunks and metadata.
     cache_path = Path(cache_path)
     cache_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -80,7 +80,7 @@ def save_chunks_cache(chunks, data_path="data", cache_path=CHUNK_CACHE_PATH, met
 
 
 def load_chunks_cache(cache_path=CHUNK_CACHE_PATH):
-    # I-load ang chunk cache.
+    # Load the chunk cache.
     with Path(cache_path).open("rb") as file:
         return pickle.load(file)
 
@@ -93,7 +93,7 @@ def build_chunks(data_path="data"):
 
 
 def load_or_create_chunks(data_path="data", force_rebuild=False):
-    # Gumamit ng chunk cache kung valid; rebuild kapag may bagong/changed files.
+    # Use the chunk cache when valid; rebuild when files are new or changed.
     force_rebuild = force_rebuild or FORCE_CACHE_REBUILD
 
     if cache_is_valid(data_path) and not force_rebuild:

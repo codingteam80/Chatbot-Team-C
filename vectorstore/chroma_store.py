@@ -7,7 +7,7 @@ from config.settings import CHROMA_COLLECTION_NAME, CHROMA_PATH
 
 
 def has_chroma_files(persist_directory=CHROMA_PATH):
-    # Check kung may existing ChromaDB folder na may laman.
+    # Check whether there is an existing ChromaDB folder with content.
     path = Path(persist_directory)
 
     if not path.exists():
@@ -20,8 +20,8 @@ def has_chroma_files(persist_directory=CHROMA_PATH):
 
 
 def reset_chroma_folder(persist_directory=CHROMA_PATH):
-    # Burahin ang old ChromaDB folder bago gumawa ng bagong vectors.
-    # Ginagamit ito sa full re-ingest para maiwasan ang duplicate vectors.
+    # Delete the old ChromaDB folder before creating new vectors.
+    # Used during full re-ingest to avoid duplicate vectors.
     path = Path(persist_directory)
 
     if path.exists():
@@ -36,8 +36,8 @@ def create_chroma_vectorstore(
     persist_directory=CHROMA_PATH,
     collection_name=CHROMA_COLLECTION_NAME,
 ):
-    # Gumawa ng bagong ChromaDB mula sa chunks.
-    # Dito nangyayari ang actual embedding + save sa Chroma.
+    # Create a new ChromaDB from chunks.
+    # Actual embedding and Chroma saving happens here.
     if not chunks:
         raise ValueError("No chunks received. Check load -> clean -> chunk steps first.")
 
@@ -63,7 +63,7 @@ def load_chroma_vectorstore(
     persist_directory=CHROMA_PATH,
     collection_name=CHROMA_COLLECTION_NAME,
 ):
-    # I-load ang existing ChromaDB para magamit sa retrieval/chatbot.
+    # Load the existing ChromaDB for retrieval/chatbot usage.
     path = Path(persist_directory)
 
     if not path.exists():
@@ -88,7 +88,7 @@ def load_chroma_vectorstore(
 
 
 def get_chroma_document_count(vectorstore):
-    # Kunin kung ilang vectors/documents ang nasa Chroma collection.
+    # Get how many vectors/documents are in the Chroma collection.
     if vectorstore is None:
         return 0
 
@@ -96,7 +96,7 @@ def get_chroma_document_count(vectorstore):
 
 
 def print_chroma_status(persist_directory=CHROMA_PATH):
-    # Optional helper para madaling makita kung may ChromaDB na.
+    # Optional helper for madaling see if may ChromaDB that.
     if has_chroma_files(persist_directory):
         print(f"[CHROMA] Existing ChromaDB found: {persist_directory}", flush=True)
     else:
@@ -104,7 +104,7 @@ def print_chroma_status(persist_directory=CHROMA_PATH):
 
 
 if __name__ == "__main__":
-    # Pang quick check lang.
-    # Hindi ito ang normal way ng ingest.
-    # Normal run dapat: python ingest.py
+    # For quick checks only.
+    # This is not the normal ingest path.
+    # Normal run should be: python ingest.py
     print_chroma_status()

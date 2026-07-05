@@ -1,95 +1,114 @@
-"""Small session-memory helper for follow-up questions."""
-
-MEMORY_KEY = "chat_memory"
+from config.settings import MAX_HISTORY_CHARS, MEMORY_KEY
 
 
-def init_memory(st):
-    # Gumawa ng memory list once per Streamlit session.
-    st.session_state.setdefault(MEMORY_KEY, [])
+ROLE_LABELS = {
+    "user": "User",
+    "assistant": "Assistant",
+}
 
 
-def get_conversation_history(st, limit=None):
-    # Ibalik ang current chat memory bilang prompt-ready text.
-    init_memory(st)
-    memory = st.session_state.get(MEMORY_KEY, [])
-
-    if limit is not None:
-        memory = memory[-limit:]
-
-    return "\n".join(memory)
+def normalize_space(text):
+    # Collapse whitespace so memory stays compact and prompt-friendly.
+    return " ".join(str(text or "").split()).strip()
 
 
-def get_message_source_titles(message):
-    titles = []
-    seen = set()
+def trim_history_text(text, max_chars=MAX_HISTORY_CHARS):
+    # Keep the most recent turns if the session becomes long.
+    text = str(text or "").strip()
 
-    for source in message.get("sources", []) or []:
-        if not isinstance(source, dict):
-            continue
+    if not max_chars or len(text) <= max_chars:
+        return text
 
-        title = str(
-            source.get("title")
-            or source.get("source")
-            or source.get("file_name")
-            or ""
-        ).strip()
-
-        if not title:
-            continue
-
-        key = title.lower()
-        if key in seen:
-            continue
-
-        seen.add(key)
-        titles.append(title)
-
-    return titles
+    return text[-max_chars:].lstrip()
 
 
-def save_to_memory(st, question, answer):
-    # Keep only the user question in fallback memory.
-    # Raw assistant answers may be short dates/numbers and can poison follow-up rewriting.
-    init_memory(st)
-    question = str(question or "").strip()
+def get_source_title(source):
+    # Keep this helper for older imports, but sources are not used as rewrite memory.
+    if not isinstance(source, dict):
+        return ""
 
-    if not question:
-        return
+    metadata = source.get("metadata") if isinstance(source.get("metadata"), dict) else {}
 
-    st.session_state[MEMORY_KEY].append(f"User: {question}")
+    title = (
+        source.get("title")
+        or source.get("source")
+        or source.get("file_name")
+        or source.get("filename")
+        or metadata.get("title")
+        or metadata.get("source")
+        or metadata.get("file_name")
+        or metadata.get("filename")
+        or ""
+    )
+
+    return normalize_space(title)
 
 
-def rebuild_conversation_memory(st, messages):
-    # Rebuild prompt memory from visible messages using topics/sources, not raw answers.
-    rebuilt = []
-    last_question = None
+def build_memory_lines_from_messages(messages):
+    # Convert saved visible messages into User/Assistant lines only.
+    lines = []
 
     for message in messages or []:
         if not isinstance(message, dict):
             continue
 
-        role = message.get("role")
-        content = str(message.get("content", "")).strip()
+        role = str(message.get("role") or "").strip().lower()
+        label = ROLE_LABELS.get(role)
+        content = normalize_space(message.get("content", ""))
 
-        if role == "user" and content:
-            last_question = content
-            rebuilt.append(f"User: {content}")
-            continue
+        if label and content:
+            lines.append(f"{label}: {content}")
 
-        if role == "assistant":
-            resolved_question = str(message.get("question") or last_question or "").strip()
+    return lines
 
-            if resolved_question:
-                rebuilt.append(f"Resolved question: {resolved_question}")
 
-            for title in get_message_source_titles(message):
-                rebuilt.append(f"Source: {title}")
+def history_lines_to_text(lines, limit=None, max_chars=MAX_HISTORY_CHARS):
+    # Turn memory lines into prompt-ready text.
+    lines = [normalize_space(line) for line in lines or [] if normalize_space(line)]
 
-            last_question = None
+    if limit is not None:
+        lines = lines[-int(limit):]
 
-    st.session_state[MEMORY_KEY] = rebuilt
+    return trim_history_text("\n".join(lines), max_chars=max_chars)
+
+
+def init_memory(st):
+    # Create the compatibility memory list once per Streamlit session.
+    st.session_state.setdefault(MEMORY_KEY, [])
+
+
+def get_conversation_history(st, limit=None):
+    # Prefer visible chat messages, then fallback to compatibility memory.
+    init_memory(st)
+
+    messages = st.session_state.get("messages", [])
+    lines = build_memory_lines_from_messages(messages)
+
+    if not lines:
+        lines = st.session_state.get(MEMORY_KEY, [])
+
+    return history_lines_to_text(lines, limit=limit)
+
+
+def save_to_memory(st, question, answer, sources=None):
+    # Keep sources parameter for older call sites, but do not store source titles.
+    init_memory(st)
+
+    question = normalize_space(question)
+    answer = normalize_space(answer)
+
+    if question:
+        st.session_state[MEMORY_KEY].append(f"User: {question}")
+
+    if answer:
+        st.session_state[MEMORY_KEY].append(f"Assistant: {answer}")
+
+
+def rebuild_conversation_memory(st, messages):
+    # Rebuild compatibility memory from the visible chat.
+    st.session_state[MEMORY_KEY] = build_memory_lines_from_messages(messages)
 
 
 def clear_conversation_memory(st):
-    # Burahin ang memory ng current Streamlit session.
+    # Clear memory for the current Streamlit browser session.
     st.session_state[MEMORY_KEY] = []

@@ -44,7 +44,7 @@ DOMAIN_EXTENSIONS = (
 
 
 def is_url_like_text(text):
-    # Check kung URL/domain-like ang text kahit naputol ng PDF extraction.
+    # Check whether text is URL/domain-like even after PDF extraction splits it.
     text = str(text or "").strip()
 
     if not text:
@@ -65,15 +65,15 @@ def is_url_like_text(text):
 
 
 def normalize_section_heading(line):
-    # Gawing comparable ang possible section heading.
+    # Make the possible section heading comparable.
     # Example: "== References ==" -> "references".
     line = str(line or "").strip().lower()
 
-    # Tanggalin common heading symbols from markdown/wiki/pdf extraction.
+    # Remove common heading symbols from markdown/wiki/pdf extraction.
     line = re.sub(r"^[=#*_\-\s]+", "", line)
     line = re.sub(r"[=#*_\-\s]+$", "", line)
 
-    # Tanggalin numbering sa heading.
+    # Remove numbering from the heading.
     # Example: "12 References" -> "references".
     line = re.sub(r"^\d+(\.\d+)*\s+", "", line)
 
@@ -85,7 +85,7 @@ def normalize_section_heading(line):
 
 def is_noise_section_heading(line):
     # Detect common ending sections that usually create bad retrieval chunks.
-    # Generic ito sa web/PDF docs, hindi specific sa History or company topic.
+    # This is generic for web/PDF docs and is not specific to history or company topics.
     heading = normalize_section_heading(line)
 
     if not heading:
@@ -95,8 +95,8 @@ def is_noise_section_heading(line):
 
 
 def remove_noise_sections(text):
-    # Tanggalin ang buong ending/reference section bago pa mag-chunk.
-    # Line-level cleaning alone is not enough kapag maraming citation/link lines.
+    # Remove the full ending/reference section before chunking.
+    # Line-level cleaning alone is not enough when there are many citation/link lines.
     kept_lines = []
 
     for line in str(text or "").splitlines():
@@ -109,7 +109,7 @@ def remove_noise_sections(text):
 
 
 def is_noise_line(line):
-    # Alisin lang ang obvious noise lines para hindi matanggal ang useful SOP/manual content.
+    # Remove only obvious noise lines to avoid deleting useful SOP/manual content.
     line = str(line or "").strip()
     lower = line.lower()
 
@@ -128,7 +128,7 @@ def is_noise_line(line):
     if re.fullmatch(r"\d{1,2}/\d{1,2}/\d{2,4},\s*\d{1,2}:\d{2}\s*(am|pm)?", lower):
         return True
 
-    # Example: a line na URL/domain lang ang laman.
+    # Example: a line that only contains a URL/domain.
     if is_url_like_text(line) and len(line) < 220:
         return True
 
@@ -136,7 +136,7 @@ def is_noise_line(line):
     if re.fullmatch(r"(\[\d+\]\s*)+", line):
         return True
 
-    # Scraped reference/footer lines. Nililimit sa maikling line para hindi maging aggressive.
+    # Scraped reference/footer lines. Limit this to short lines to avoid being too aggressive.
     if len(line) < 180 and any(keyword in lower for keyword in WEB_NOISE_KEYWORDS):
         return True
 
@@ -148,7 +148,7 @@ def is_noise_line(line):
 
 
 def remove_markdown_and_links(text):
-    # Gawing plain text ang common markdown syntax nang hindi binubura ang main content.
+    # Convert common markdown syntax to plain text without deleting the main content.
     domain_ext = "|".join(DOMAIN_EXTENSIONS)
 
     # Markdown link: [label](url) -> label
@@ -202,7 +202,7 @@ def remove_markdown_and_links(text):
 
 
 def normalize_symbols(text):
-    # Alisin ang control characters at common extraction artifacts.
+    # Remove control characters and common extraction artifacts.
     text = text.replace("�", " ")
     text = re.sub(r"[\x00-\x09\x0B-\x1F\x7F-\x9F]", " ", text)
     text = re.sub(r"[«»¤©®™†‡•]", " ", text)
@@ -212,15 +212,15 @@ def normalize_symbols(text):
 
 
 def normalize_spacing(text):
-    # Ayusin ang sobrang spaces at blank lines.
+    # Fix excessive spaces and blank lines.
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n\s*\n+", "\n\n", text)
     return text.strip()
 
 
 def clean_text(text):
-    # General cleaning flow bago chunking at embedding.
-    # Safe ito para sa company docs, SOP, manuals, policies, at mixed-language text.
+    # General cleaning flow before chunking and embedding.
+    # This is safe for company docs, SOPs, manuals, policies, and mixed-language text.
     if not text:
         return ""
 
@@ -239,7 +239,7 @@ def clean_text(text):
 
 
 def clean_documents(docs, min_length=MIN_CLEAN_TEXT_LENGTH):
-    # Linisin ang list of LangChain Document objects.
+    # Clean a list of LangChain Document objects.
     cleaned_docs = []
 
     for doc in docs or []:

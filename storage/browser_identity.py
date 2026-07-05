@@ -1,5 +1,3 @@
-"""No-login browser identity for per-browser chat history."""
-
 import re
 import uuid
 
@@ -10,12 +8,12 @@ BROWSER_ID_RE = re.compile(r"^[a-zA-Z0-9_-]{12,80}$")
 
 
 def is_valid_browser_id(value):
-    # Safe browser id lang ang tatanggapin.
+    # Accept only safe browser IDs.
     return bool(value and BROWSER_ID_RE.match(str(value)))
 
 
 def get_query_browser_id(st):
-    # Basahin ang browser id mula sa URL query params.
+    # Read the browser ID from URL query params.
     try:
         value = st.query_params.get(BROWSER_ID_QUERY_KEY)
     except Exception:
@@ -31,7 +29,7 @@ def get_query_browser_id(st):
 
 
 def set_query_browser_id(st, browser_id):
-    # Isulat sa URL only when needed.
+    # Write it to the URL only when needed.
     # Updating query params can trigger another rerun, so avoid duplicate writes.
     if not is_valid_browser_id(browser_id):
         return
@@ -58,7 +56,7 @@ def set_query_browser_id(st, browser_id):
 
 
 def get_browser_id(st):
-    # Gumawa o kumuha ng browser id. Hindi ito authentication.
+    # Create or get a browser ID. This is not authentication.
     existing_id = st.session_state.get(BROWSER_ID_SESSION_KEY)
 
     if is_valid_browser_id(existing_id):

@@ -48,19 +48,19 @@ WEAK_TEXT_MARKERS = (
 
 
 def normalize_text(text):
-    # Lowercase + normalize spaces para stable ang debug/checking.
+    # Lowercase and normalize spaces for stable debugging/checking.
     text = str(text or "").lower()
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
 
 def get_doc_text(doc):
-    # Safe getter ng chunk text.
+    # Safe getter for chunk text.
     return str(getattr(doc, "page_content", "") or "")
 
 
 def get_doc_metadata(doc):
-    # Safe getter ng chunk metadata.
+    # Safe getter for chunk metadata.
     return dict(getattr(doc, "metadata", {}) or {})
 
 
@@ -237,7 +237,7 @@ def add_quality_metadata(doc, status, issue=""):
 
 def filter_quality_chunks(chunks, report_path=CHUNK_QUALITY_REPORT_FILE):
     # Filter weak chunks before cache/embedding.
-    # Generic ito: length, reference sections, URL/citation noise, metadata-only text.
+    # This is generic: length, reference sections, URL/citation noise, and metadata-only text.
     chunks = list(chunks or [])
 
     if not ENABLE_CHUNK_QUALITY_FILTER:

@@ -13,7 +13,7 @@ try:
         USE_HISTORY_TEST_CATEGORY,
     )
 except ImportError:
-    # Fallback para runnable pa rin habang wala pang settings.py.
+    # Fallback so the code remains runnable while settings.py is missing.
     CHUNK_SIZE = 900
     CHUNK_OVERLAP = 150
     MIN_DOCUMENT_LENGTH = 50
@@ -35,8 +35,8 @@ DEFAULT_SEPARATORS = [
 ]
 
 # ADD_RETRIEVAL_CONTEXT_PREFIX and USE_HISTORY_TEST_CATEGORY are settings-driven.
-# USE_HISTORY_TEST_CATEGORY=True habang history/Wikipedia sample data pa ang gamit.
-# Kapag company documents na ang laman ng data folder, gawing False sa config/settings.py.
+# Use USE_HISTORY_TEST_CATEGORY=True while using the history/Wikipedia sample data.
+# Set this to False in config/settings.py when the data folder contains company documents.
 
 
 JAPANESE_TEXT_PATTERN = re.compile(r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]")
@@ -156,7 +156,7 @@ REQUIRED_METADATA_KEYS = [
 
 
 def validate_chunk_settings(chunk_size, chunk_overlap):
-    # I-check kung valid ang chunk settings.
+    # Check whether chunk settings are valid.
     if chunk_size <= 0:
         raise ValueError("chunk_size must be greater than 0")
 
@@ -168,12 +168,12 @@ def validate_chunk_settings(chunk_size, chunk_overlap):
 
 
 def get_text(doc):
-    # Safe getter ng page_content.
+    # Safe getter for page_content.
     return str(getattr(doc, "page_content", "") or "")
 
 
 def get_valid_documents(docs, min_length=MIN_DOCUMENT_LENGTH):
-    # Tanggalin ang empty o sobrang ikling docs bago mag-chunk.
+    # Remove empty or very short docs before chunking.
     valid_docs = []
 
     for doc in docs or []:
@@ -196,7 +196,7 @@ def clean_metadata_value(value):
 
 
 def normalize_metadata(metadata):
-    # Linisin ang metadata keys/values para stable sa vectorstore.
+    # Clean metadata keys/values for stable vectorstore usage.
     normalized = {}
 
     for key, value in dict(metadata or {}).items():
@@ -210,7 +210,7 @@ def normalize_metadata(metadata):
 
 
 def get_first_existing(metadata, keys):
-    # Kunin ang unang existing metadata field.
+    # Get the first existing metadata field.
     for key in keys:
         value = str(metadata.get(key, "") or "").strip()
         if value:
@@ -220,7 +220,7 @@ def get_first_existing(metadata, keys):
 
 
 def get_file_name_from_path(path_value):
-    # Kunin ang file name kahit Windows path o Linux path.
+    # Get the file name from either a Windows path or Linux path.
     path_text = str(path_value or "").strip()
 
     if not path_text:
@@ -230,7 +230,7 @@ def get_file_name_from_path(path_value):
 
 
 def get_file_stem(file_name):
-    # Gamitin ang file name bilang readable title.
+    # Use the file name as a readable title.
     if not file_name:
         return "Untitled document"
 
@@ -238,7 +238,7 @@ def get_file_stem(file_name):
 
 
 def get_file_type(file_name):
-    # Kunin ang extension like .pdf, .docx, .md.
+    # Get the extension, such as .pdf, .docx, or .md.
     if not file_name:
         return ""
 
@@ -246,7 +246,7 @@ def get_file_type(file_name):
 
 
 def normalize_for_detect(text):
-    # Simple lowercase text para sa keyword detection.
+    # Simple lowercase text for keyword detection.
     return " ".join(str(text or "").lower().replace("_", " ").replace("-", " ").split())
 
 
@@ -264,7 +264,7 @@ def detect_language(text, metadata):
 
 
 def get_metadata_haystack(metadata):
-    # Gumamit muna ng file/title metadata para hindi malito sa random chunk words.
+    # Use file/title metadata first to avoid confusion from random chunk words.
     return normalize_for_detect(
         " ".join([
             str(metadata.get("source", "") or ""),
@@ -278,8 +278,8 @@ def get_metadata_haystack(metadata):
 
 def is_history_test_document(metadata):
     # Optional test-data mode only.
-    # Kapag True, old Wikipedia/history sample files will use category=history and doc_type=article.
-    # Kapag False, normal generic category/doc_type detection ang gagamitin.
+    # When True, old Wikipedia/history sample files use category=history and doc_type=article.
+    # When False, normal generic category/doc_type detection is used.
     if not USE_HISTORY_TEST_CATEGORY:
         return False
 
@@ -303,7 +303,7 @@ def detect_from_keywords(haystack, keyword_map, default_value):
 
 
 def detect_category(text, metadata):
-    # Category = broad business area ng document.
+    # Category = broad business area of the document.
     existing_category = str(metadata.get("category", "") or "").strip().lower()
 
     if existing_category:
@@ -331,7 +331,7 @@ def detect_doc_type(text, metadata):
 
 
 def extract_section(text, metadata):
-    # Kunin ang section from metadata, markdown heading, or first useful line.
+    # Get the section from metadata, markdown heading, or first useful line.
     existing_section = get_first_existing(metadata, ["section", "heading", "header", "page_title"])
 
     if existing_section:
@@ -400,7 +400,7 @@ def get_source_key(metadata):
 
 
 def update_section_metadata(metadata, text, last_section_by_source):
-    # I-carry forward ang previous section kapag continuation chunk.
+    # Carry forward the previous section when the chunk is a continuation.
     source_key = get_source_key(metadata)
     section = extract_section(text, metadata)
 
@@ -418,7 +418,7 @@ def update_section_metadata(metadata, text, last_section_by_source):
 
 
 def build_retrieval_context(metadata):
-    # Compact text version ng metadata para ma-embed kasama ng chunk.
+    # Compact metadata text version to embed together with the chunk.
     parts = []
 
     for key in SEARCHABLE_METADATA_KEYS:
@@ -430,7 +430,7 @@ def build_retrieval_context(metadata):
 
 
 def add_retrieval_context_prefix(chunk, metadata):
-    # I-prepend ang metadata context sa chunk text.
+    # Prepend the metadata context to the chunk text.
     if not ADD_RETRIEVAL_CONTEXT_PREFIX:
         return chunk
 
@@ -451,7 +451,7 @@ def add_retrieval_context_prefix(chunk, metadata):
 
 
 def add_chunk_metadata(chunks, chunk_size, chunk_overlap):
-    # Lagyan ng retrieval-ready metadata bawat chunk.
+    # Add retrieval-ready metadata to each chunk.
     source_counts = defaultdict(int)
     last_section_by_source = {}
 

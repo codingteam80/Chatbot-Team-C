@@ -19,6 +19,8 @@ Test questions:
 11. Why did Jose Rizal become the Supremo of the Katipunan?
 12. What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?
 13. When is rizal's birthday?
+14. June 19, 1861
+15. bonifacio
 
 Flow per question:
 1. Query analyzer
@@ -81,15 +83,15 @@ get_query_type_label signature : (question)
 
 Dynamic BM25 retriever pool k: 10
 [START] Setup: Load embedding model
-[DONE]  Setup: Load embedding model - 7.69 sec
+[DONE]  Setup: Load embedding model - 7.92 sec
 [START] Setup: Load Chroma vectorstore
-[DONE]  Setup: Load Chroma vectorstore - 0.48 sec
+[DONE]  Setup: Load Chroma vectorstore - 0.66 sec
 [START] Setup: Load chunks for BM25
 [DONE]  Setup: Load chunks for BM25 - 0.02 sec
 [START] Setup: Create BM25 retriever
-[DONE]  Setup: Create BM25 retriever - 0.45 sec
+[DONE]  Setup: Create BM25 retriever - 0.43 sec
 [START] Setup: Load reranker
-[DONE]  Setup: Load reranker - 2.36 sec
+[DONE]  Setup: Load reranker - 2.17 sec
 
 ================================================================================
 QUESTION: Who are the ladies that had relationship with Jose Rizal?
@@ -113,7 +115,7 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Hybrid search | Who are the ladies that had relationship with Jose Rizal?
-[DONE]  Hybrid search | Who are the ladies that had relationship with Jose Rizal? - 8.37 sec
+[DONE]  Hybrid search | Who are the ladies that had relationship with Jose Rizal? - 9.14 sec
 dynamic context mode               : list_answer
 create_bm25_retriever pool k       : 10
 hybrid_search semantic_k           : 10
@@ -127,9 +129,9 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | Who are the ladies that had relationship with Jose Rizal?
-[DONE]  Rerank hybrid results | Who are the ladies that had relationship with Jose Rizal? - 4.56 sec
+[DONE]  Rerank hybrid results | Who are the ladies that had relationship with Jose Rizal? - 4.08 sec
 [START] Final context filter | Who are the ladies that had relationship with Jose Rizal?
-[DONE]  Final context filter | Who are the ladies that had relationship with Jose Rizal? - 12.04 sec
+[DONE]  Final context filter | Who are the ladies that had relationship with Jose Rizal? - 12.37 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -552,14 +554,14 @@ Dynamic mode     : list_answer
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 24.97 sec
+Total measured time : 25.59 sec
 
-- Hybrid search | Who are the ladies that had relationship with Jose Rizal?       8.37 sec ( 33.5%)
-- Rerank hybrid results | Who are the ladies that had relationship with Jose Rizal?       4.56 sec ( 18.3%)
-- Final context filter | Who are the ladies that had relationship with Jose Rizal?      12.04 sec ( 48.2%)
+- Hybrid search | Who are the ladies that had relationship with Jose Rizal?       9.14 sec ( 35.7%)
+- Rerank hybrid results | Who are the ladies that had relationship with Jose Rizal?       4.08 sec ( 16.0%)
+- Final context filter | Who are the ladies that had relationship with Jose Rizal?      12.37 sec ( 48.3%)
 
 Main bottleneck     : Final context filter | Who are the ladies that had relationship with Jose Rizal?
-Bottleneck time     : 12.04 sec
+Bottleneck time     : 12.37 sec
 
 ================================================================================
 QUESTION: Who killed Ferdinand Magellan?
@@ -597,9 +599,9 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | Who killed Ferdinand Magellan?
-[DONE]  Rerank hybrid results | Who killed Ferdinand Magellan? - 2.50 sec
+[DONE]  Rerank hybrid results | Who killed Ferdinand Magellan? - 2.88 sec
 [START] Final context filter | Who killed Ferdinand Magellan?
-[DONE]  Final context filter | Who killed Ferdinand Magellan? - 6.12 sec
+[DONE]  Final context filter | Who killed Ferdinand Magellan? - 4.63 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -890,14 +892,14 @@ Dynamic mode     : single_fact
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 8.69 sec
+Total measured time : 7.58 sec
 
-- Hybrid search | Who killed Ferdinand Magellan?       0.07 sec (  0.8%)
-- Rerank hybrid results | Who killed Ferdinand Magellan?       2.50 sec ( 28.8%)
-- Final context filter | Who killed Ferdinand Magellan?       6.12 sec ( 70.4%)
+- Hybrid search | Who killed Ferdinand Magellan?       0.07 sec (  0.9%)
+- Rerank hybrid results | Who killed Ferdinand Magellan?       2.88 sec ( 38.0%)
+- Final context filter | Who killed Ferdinand Magellan?       4.63 sec ( 61.1%)
 
 Main bottleneck     : Final context filter | Who killed Ferdinand Magellan?
-Bottleneck time     : 6.12 sec
+Bottleneck time     : 4.63 sec
 
 ================================================================================
 QUESTION: Did Lapu-Lapu kill Magellan?
@@ -921,7 +923,7 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Hybrid search | Did Lapu-Lapu kill Magellan?
-[DONE]  Hybrid search | Did Lapu-Lapu kill Magellan? - 0.28 sec
+[DONE]  Hybrid search | Did Lapu-Lapu kill Magellan? - 0.06 sec
 dynamic context mode               : single_fact
 create_bm25_retriever pool k       : 10
 hybrid_search semantic_k           : 6
@@ -935,7 +937,7 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | Did Lapu-Lapu kill Magellan?
-[DONE]  Rerank hybrid results | Did Lapu-Lapu kill Magellan? - 2.39 sec
+[DONE]  Rerank hybrid results | Did Lapu-Lapu kill Magellan? - 2.09 sec
 [START] Final context filter | Did Lapu-Lapu kill Magellan?
 [DONE]  Final context filter | Did Lapu-Lapu kill Magellan? - 2.21 sec
 
@@ -1229,14 +1231,14 @@ Dynamic mode     : single_fact
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 4.87 sec
+Total measured time : 4.37 sec
 
-- Hybrid search | Did Lapu-Lapu kill Magellan?       0.28 sec (  5.7%)
-- Rerank hybrid results | Did Lapu-Lapu kill Magellan?       2.39 sec ( 49.0%)
-- Final context filter | Did Lapu-Lapu kill Magellan?       2.21 sec ( 45.3%)
+- Hybrid search | Did Lapu-Lapu kill Magellan?       0.06 sec (  1.5%)
+- Rerank hybrid results | Did Lapu-Lapu kill Magellan?       2.09 sec ( 47.9%)
+- Final context filter | Did Lapu-Lapu kill Magellan?       2.21 sec ( 50.7%)
 
-Main bottleneck     : Rerank hybrid results | Did Lapu-Lapu kill Magellan?
-Bottleneck time     : 2.39 sec
+Main bottleneck     : Final context filter | Did Lapu-Lapu kill Magellan?
+Bottleneck time     : 2.21 sec
 
 ================================================================================
 QUESTION: Who is the first Philippine president?
@@ -1260,7 +1262,7 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Hybrid search | Who is the first Philippine president?
-[DONE]  Hybrid search | Who is the first Philippine president? - 0.06 sec
+[DONE]  Hybrid search | Who is the first Philippine president? - 0.07 sec
 dynamic context mode               : single_fact
 create_bm25_retriever pool k       : 10
 hybrid_search semantic_k           : 6
@@ -1274,9 +1276,9 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | Who is the first Philippine president?
-[DONE]  Rerank hybrid results | Who is the first Philippine president? - 2.23 sec
+[DONE]  Rerank hybrid results | Who is the first Philippine president? - 2.13 sec
 [START] Final context filter | Who is the first Philippine president?
-[DONE]  Final context filter | Who is the first Philippine president? - 3.29 sec
+[DONE]  Final context filter | Who is the first Philippine president? - 3.42 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -1568,14 +1570,14 @@ Dynamic mode     : single_fact
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 5.58 sec
+Total measured time : 5.62 sec
 
-- Hybrid search | Who is the first Philippine president?       0.06 sec (  1.2%)
-- Rerank hybrid results | Who is the first Philippine president?       2.23 sec ( 40.0%)
-- Final context filter | Who is the first Philippine president?       3.29 sec ( 58.9%)
+- Hybrid search | Who is the first Philippine president?       0.07 sec (  1.2%)
+- Rerank hybrid results | Who is the first Philippine president?       2.13 sec ( 37.9%)
+- Final context filter | Who is the first Philippine president?       3.42 sec ( 61.0%)
 
 Main bottleneck     : Final context filter | Who is the first Philippine president?
-Bottleneck time     : 3.29 sec
+Bottleneck time     : 3.42 sec
 
 ================================================================================
 QUESTION: What did the Treaty of Paris of 1898 say about the Philippines?
@@ -1599,7 +1601,7 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Hybrid search | What did the Treaty of Paris of 1898 say about the Philippines?
-[DONE]  Hybrid search | What did the Treaty of Paris of 1898 say about the Philippines? - 0.08 sec
+[DONE]  Hybrid search | What did the Treaty of Paris of 1898 say about the Philippines? - 0.07 sec
 dynamic context mode               : single_fact
 create_bm25_retriever pool k       : 10
 hybrid_search semantic_k           : 6
@@ -1613,9 +1615,9 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | What did the Treaty of Paris of 1898 say about the Philippines?
-[DONE]  Rerank hybrid results | What did the Treaty of Paris of 1898 say about the Philippines? - 3.04 sec
+[DONE]  Rerank hybrid results | What did the Treaty of Paris of 1898 say about the Philippines? - 2.32 sec
 [START] Final context filter | What did the Treaty of Paris of 1898 say about the Philippines?
-[DONE]  Final context filter | What did the Treaty of Paris of 1898 say about the Philippines? - 6.65 sec
+[DONE]  Final context filter | What did the Treaty of Paris of 1898 say about the Philippines? - 6.94 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -1938,14 +1940,14 @@ Dynamic mode     : single_fact
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 9.78 sec
+Total measured time : 9.33 sec
 
-- Hybrid search | What did the Treaty of Paris of 1898 say about the Philippines?       0.08 sec (  0.9%)
-- Rerank hybrid results | What did the Treaty of Paris of 1898 say about the Philippines?       3.04 sec ( 31.1%)
-- Final context filter | What did the Treaty of Paris of 1898 say about the Philippines?       6.65 sec ( 68.0%)
+- Hybrid search | What did the Treaty of Paris of 1898 say about the Philippines?       0.07 sec (  0.8%)
+- Rerank hybrid results | What did the Treaty of Paris of 1898 say about the Philippines?       2.32 sec ( 24.9%)
+- Final context filter | What did the Treaty of Paris of 1898 say about the Philippines?       6.94 sec ( 74.3%)
 
 Main bottleneck     : Final context filter | What did the Treaty of Paris of 1898 say about the Philippines?
-Bottleneck time     : 6.65 sec
+Bottleneck time     : 6.94 sec
 
 ================================================================================
 QUESTION: What hardships did Filipinos experience during the Japanese occupation?
@@ -1969,7 +1971,7 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Hybrid search | What hardships did Filipinos experience during the Japanese occupation?
-[DONE]  Hybrid search | What hardships did Filipinos experience during the Japanese occupation? - 0.06 sec
+[DONE]  Hybrid search | What hardships did Filipinos experience during the Japanese occupation? - 0.08 sec
 dynamic context mode               : list_answer
 create_bm25_retriever pool k       : 10
 hybrid_search semantic_k           : 10
@@ -1983,9 +1985,9 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | What hardships did Filipinos experience during the Japanese occupation?
-[DONE]  Rerank hybrid results | What hardships did Filipinos experience during the Japanese occupation? - 4.68 sec
+[DONE]  Rerank hybrid results | What hardships did Filipinos experience during the Japanese occupation? - 3.69 sec
 [START] Final context filter | What hardships did Filipinos experience during the Japanese occupation?
-[DONE]  Final context filter | What hardships did Filipinos experience during the Japanese occupation? - 9.83 sec
+[DONE]  Final context filter | What hardships did Filipinos experience during the Japanese occupation? - 8.95 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -2401,14 +2403,14 @@ Dynamic mode     : list_answer
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 14.57 sec
+Total measured time : 12.73 sec
 
-- Hybrid search | What hardships did Filipinos experience during the Japanese occupation?       0.06 sec (  0.4%)
-- Rerank hybrid results | What hardships did Filipinos experience during the Japanese occupation?       4.68 sec ( 32.1%)
-- Final context filter | What hardships did Filipinos experience during the Japanese occupation?       9.83 sec ( 67.5%)
+- Hybrid search | What hardships did Filipinos experience during the Japanese occupation?       0.08 sec (  0.7%)
+- Rerank hybrid results | What hardships did Filipinos experience during the Japanese occupation?       3.69 sec ( 29.0%)
+- Final context filter | What hardships did Filipinos experience during the Japanese occupation?       8.95 sec ( 70.3%)
 
 Main bottleneck     : Final context filter | What hardships did Filipinos experience during the Japanese occupation?
-Bottleneck time     : 9.83 sec
+Bottleneck time     : 8.95 sec
 
 ================================================================================
 QUESTION: Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?
@@ -2432,7 +2434,7 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Hybrid search | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?
-[DONE]  Hybrid search | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain? - 0.09 sec
+[DONE]  Hybrid search | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain? - 0.08 sec
 dynamic context mode               : single_fact
 create_bm25_retriever pool k       : 10
 hybrid_search semantic_k           : 6
@@ -2446,9 +2448,9 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?
-[DONE]  Rerank hybrid results | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain? - 2.98 sec
+[DONE]  Rerank hybrid results | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain? - 2.51 sec
 [START] Final context filter | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?
-[DONE]  Final context filter | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain? - 8.89 sec
+[DONE]  Final context filter | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain? - 8.47 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -2785,14 +2787,14 @@ Dynamic mode     : single_fact
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 11.96 sec
+Total measured time : 11.06 sec
 
-- Hybrid search | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?       0.09 sec (  0.7%)
-- Rerank hybrid results | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?       2.98 sec ( 24.9%)
-- Final context filter | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?       8.89 sec ( 74.3%)
+- Hybrid search | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?       0.08 sec (  0.7%)
+- Rerank hybrid results | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?       2.51 sec ( 22.7%)
+- Final context filter | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?       8.47 sec ( 76.6%)
 
 Main bottleneck     : Final context filter | Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?
-Bottleneck time     : 8.89 sec
+Bottleneck time     : 8.47 sec
 
 ================================================================================
 QUESTION: Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?
@@ -2816,7 +2818,7 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Hybrid search | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?
-[DONE]  Hybrid search | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896? - 0.09 sec
+[DONE]  Hybrid search | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896? - 0.08 sec
 dynamic context mode               : single_fact
 create_bm25_retriever pool k       : 10
 hybrid_search semantic_k           : 6
@@ -2830,9 +2832,9 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?
-[DONE]  Rerank hybrid results | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896? - 2.73 sec
+[DONE]  Rerank hybrid results | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896? - 2.46 sec
 [START] Final context filter | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?
-[DONE]  Final context filter | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896? - 8.23 sec
+[DONE]  Final context filter | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896? - 8.04 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -3149,14 +3151,14 @@ Dynamic mode     : single_fact
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 11.05 sec
+Total measured time : 10.59 sec
 
-- Hybrid search | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?       0.09 sec (  0.8%)
-- Rerank hybrid results | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?       2.73 sec ( 24.7%)
-- Final context filter | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?       8.23 sec ( 74.4%)
+- Hybrid search | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?       0.08 sec (  0.8%)
+- Rerank hybrid results | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?       2.46 sec ( 23.2%)
+- Final context filter | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?       8.04 sec ( 76.0%)
 
 Main bottleneck     : Final context filter | Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?
-Bottleneck time     : 8.23 sec
+Bottleneck time     : 8.04 sec
 
 ================================================================================
 QUESTION: Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?
@@ -3180,7 +3182,7 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Hybrid search | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?
-[DONE]  Hybrid search | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito? - 0.09 sec
+[DONE]  Hybrid search | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito? - 0.08 sec
 dynamic context mode               : single_fact
 create_bm25_retriever pool k       : 10
 hybrid_search semantic_k           : 6
@@ -3194,9 +3196,9 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?
-[DONE]  Rerank hybrid results | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito? - 2.62 sec
+[DONE]  Rerank hybrid results | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito? - 2.36 sec
 [START] Final context filter | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?
-[DONE]  Final context filter | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito? - 3.58 sec
+[DONE]  Final context filter | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito? - 3.44 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -3208,9 +3210,9 @@ Section : Independence Day
 semantic_distance: 0.2962229251861572
 semantic_rank: 1
 context_mode   : single_fact
-context_reason : dynamic_date_fact_low_confidence_primary_evidence
+context_reason : dynamic_date_fact_primary_evidence
 keep_reason    : best_primary_evidence
-filter_scope   : dynamic_single_fact_low_confidence_primary_evidence
+filter_scope   : dynamic_single_fact_primary_evidence
 Preview : Retrieval context: title: Independence Day (Philippines) - Wikipedia | section: Independence Day | category: history | doc_type: article | source: data\Independence Day (Philippines) - Wikipedia.pdf | file_name: Independence Day (Philippines) - Wikipedia.pdf | language: en Independence Day Araw ng Kalayaan Aguinaldo Shrine, where Emilio Aguinaldo declared the country's independence from Spain Official name Araw ng Kasarinlán Also called Araw ng Kalayaan Observed by Philippines Type National Day Significance Declaring Philippine independence from Spain Date June 12 Next time June 12, 2026 Frequency Annual Related to Republic Day Independence Day (Philippines) Independence Day of the Philippines (Filipino: Araw ng Kasarinlán; also known as Araw ng Kalayaan, "Day of Freedom") is a national holiday in the Philippines observed annually on June 12, commemorating the declaration of Philippine i...
 --------------------------------------------------------------------------------
 Rank    : 2
@@ -3301,9 +3303,9 @@ hybrid_score: 0.016287678476996297
 metadata_boost_score: 0.0
 metadata_boosted_score: 0.016287678476996297
 context_mode   : single_fact
-context_reason : dynamic_date_fact_low_confidence_primary_evidence
+context_reason : dynamic_date_fact_primary_evidence
 keep_reason    : best_primary_evidence
-filter_scope   : dynamic_single_fact_low_confidence_primary_evidence
+filter_scope   : dynamic_single_fact_primary_evidence
 Preview : Retrieval context: title: Independence Day (Philippines) - Wikipedia | section: Independence Day | category: history | doc_type: article | source: data\Independence Day (Philippines) - Wikipedia.pdf | file_name: Independence Day (Philippines) - Wikipedia.pdf | language: en Independence Day Araw ng Kalayaan Aguinaldo Shrine, where Emilio Aguinaldo declared the country's independence from Spain Official name Araw ng Kasarinlán Also called Araw ng Kalayaan Observed by Philippines Type National Day Significance Declaring Philippine independence from Spain Date June 12 Next time June 12, 2026 Frequency Annual Related to Republic Day Independence Day (Philippines) Independence Day of the Philippines (Filipino: Araw ng Kasarinlán; also known as Araw ng Kalayaan, "Day of Freedom") is a national holiday in the Philippines observed annually on June 12, commemorating the declaration of Philippine i...
 --------------------------------------------------------------------------------
 Rank    : 2
@@ -3381,9 +3383,9 @@ rerank_score: -6.560546398162842
 rerank_rank: 1
 rerank_original_rank: 1
 context_mode   : single_fact
-context_reason : dynamic_date_fact_low_confidence_primary_evidence
+context_reason : dynamic_date_fact_primary_evidence
 keep_reason    : best_primary_evidence
-filter_scope   : dynamic_single_fact_low_confidence_primary_evidence
+filter_scope   : dynamic_single_fact_primary_evidence
 Preview : Retrieval context: title: Independence Day (Philippines) - Wikipedia | section: Independence Day | category: history | doc_type: article | source: data\Independence Day (Philippines) - Wikipedia.pdf | file_name: Independence Day (Philippines) - Wikipedia.pdf | language: en Independence Day Araw ng Kalayaan Aguinaldo Shrine, where Emilio Aguinaldo declared the country's independence from Spain Official name Araw ng Kasarinlán Also called Araw ng Kalayaan Observed by Philippines Type National Day Significance Declaring Philippine independence from Spain Date June 12 Next time June 12, 2026 Frequency Annual Related to Republic Day Independence Day (Philippines) Independence Day of the Philippines (Filipino: Araw ng Kasarinlán; also known as Araw ng Kalayaan, "Day of Freedom") is a national holiday in the Philippines observed annually on June 12, commemorating the declaration of Philippine i...
 --------------------------------------------------------------------------------
 Rank    : 2
@@ -3443,9 +3445,9 @@ rerank_score: -6.560546398162842
 metadata_boosted_score: 0.016287678476996297
 hybrid_score: 0.016287678476996297
 context_mode   : single_fact
-context_reason : dynamic_date_fact_low_confidence_primary_evidence
+context_reason : dynamic_date_fact_primary_evidence
 keep_reason    : best_primary_evidence
-filter_scope   : dynamic_single_fact_low_confidence_primary_evidence
+filter_scope   : dynamic_single_fact_primary_evidence
 Preview : Retrieval context: title: Independence Day (Philippines) - Wikipedia | section: Independence Day | category: history | doc_type: article | source: data\Independence Day (Philippines) - Wikipedia.pdf | file_name: Independence Day (Philippines) - Wikipedia.pdf | language: en Independence Day Araw ng Kalayaan Aguinaldo Shrine, where Emilio Aguinaldo declared the country's independence from Spain Official name Araw ng Kasarinlán Also called Araw ng Kalayaan Observed by Philippines Type National Day Significance Declaring Philippine independence from Spain Date June 12 Next time June 12, 2026 Frequency Annual Related to Republic Day Independence Day (Philippines) Independence Day of the Philippines (Filipino: Araw ng Kasarinlán; also known as Araw ng Kalayaan, "Day of Freedom") is a national holiday in the Philippines observed annually on June 12, commemorating the declaration of Philippine i...
 --------------------------------------------------------------------------------
 
@@ -3488,14 +3490,14 @@ Dynamic mode     : single_fact
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 6.28 sec
+Total measured time : 5.88 sec
 
-- Hybrid search | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?       0.09 sec (  1.4%)
-- Rerank hybrid results | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?       2.62 sec ( 41.7%)
-- Final context filter | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?       3.58 sec ( 56.9%)
+- Hybrid search | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?       0.08 sec (  1.3%)
+- Rerank hybrid results | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?       2.36 sec ( 40.1%)
+- Final context filter | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?       3.44 sec ( 58.5%)
 
 Main bottleneck     : Final context filter | Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?
-Bottleneck time     : 3.58 sec
+Bottleneck time     : 3.44 sec
 
 ================================================================================
 QUESTION: How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
@@ -3519,7 +3521,7 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Hybrid search | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
-[DONE]  Hybrid search | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War? - 0.10 sec
+[DONE]  Hybrid search | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War? - 0.08 sec
 dynamic context mode               : cross_doc
 create_bm25_retriever pool k       : 10
 hybrid_search semantic_k           : 10
@@ -3533,9 +3535,9 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
-[DONE]  Rerank hybrid results | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War? - 5.84 sec
+[DONE]  Rerank hybrid results | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War? - 5.33 sec
 [START] Final context filter | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
-[DONE]  Final context filter | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War? - 4.16 sec
+[DONE]  Final context filter | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War? - 4.00 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -3921,14 +3923,14 @@ Dynamic mode     : cross_doc
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 10.10 sec
+Total measured time : 9.41 sec
 
-- Hybrid search | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?       0.10 sec (  0.9%)
-- Rerank hybrid results | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?       5.84 sec ( 57.8%)
-- Final context filter | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?       4.16 sec ( 41.2%)
+- Hybrid search | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?       0.08 sec (  0.9%)
+- Rerank hybrid results | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?       5.33 sec ( 56.6%)
+- Final context filter | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?       4.00 sec ( 42.5%)
 
 Main bottleneck     : Rerank hybrid results | How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?
-Bottleneck time     : 5.84 sec
+Bottleneck time     : 5.33 sec
 
 ================================================================================
 QUESTION: Why did Jose Rizal become the Supremo of the Katipunan?
@@ -3952,7 +3954,7 @@ select_final_context_docs max_chars: 4000
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Hybrid search | Why did Jose Rizal become the Supremo of the Katipunan?
-[DONE]  Hybrid search | Why did Jose Rizal become the Supremo of the Katipunan? - 0.08 sec
+[DONE]  Hybrid search | Why did Jose Rizal become the Supremo of the Katipunan? - 0.07 sec
 dynamic context mode               : false_premise
 create_bm25_retriever pool k       : 10
 hybrid_search semantic_k           : 8
@@ -3966,9 +3968,9 @@ select_final_context_docs max_chars: 4000
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | Why did Jose Rizal become the Supremo of the Katipunan?
-[DONE]  Rerank hybrid results | Why did Jose Rizal become the Supremo of the Katipunan? - 3.72 sec
+[DONE]  Rerank hybrid results | Why did Jose Rizal become the Supremo of the Katipunan? - 3.35 sec
 [START] Final context filter | Why did Jose Rizal become the Supremo of the Katipunan?
-[DONE]  Final context filter | Why did Jose Rizal become the Supremo of the Katipunan? - 1.62 sec
+[DONE]  Final context filter | Why did Jose Rizal become the Supremo of the Katipunan? - 1.52 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -4322,14 +4324,14 @@ Dynamic mode     : false_premise
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 5.42 sec
+Total measured time : 4.94 sec
 
-- Hybrid search | Why did Jose Rizal become the Supremo of the Katipunan?       0.08 sec (  1.5%)
-- Rerank hybrid results | Why did Jose Rizal become the Supremo of the Katipunan?       3.72 sec ( 68.7%)
-- Final context filter | Why did Jose Rizal become the Supremo of the Katipunan?       1.62 sec ( 29.9%)
+- Hybrid search | Why did Jose Rizal become the Supremo of the Katipunan?       0.07 sec (  1.4%)
+- Rerank hybrid results | Why did Jose Rizal become the Supremo of the Katipunan?       3.35 sec ( 67.8%)
+- Final context filter | Why did Jose Rizal become the Supremo of the Katipunan?       1.52 sec ( 30.8%)
 
 Main bottleneck     : Rerank hybrid results | Why did Jose Rizal become the Supremo of the Katipunan?
-Bottleneck time     : 3.72 sec
+Bottleneck time     : 3.35 sec
 
 ================================================================================
 QUESTION: What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?
@@ -4367,9 +4369,9 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?
-[DONE]  Rerank hybrid results | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution? - 5.45 sec
+[DONE]  Rerank hybrid results | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution? - 5.12 sec
 [START] Final context filter | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?
-[DONE]  Final context filter | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution? - 4.13 sec
+[DONE]  Final context filter | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution? - 4.02 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -4772,14 +4774,14 @@ Dynamic mode     : comparison
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 9.67 sec
+Total measured time : 9.25 sec
 
-- Hybrid search | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?       0.10 sec (  1.0%)
-- Rerank hybrid results | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?       5.45 sec ( 56.3%)
-- Final context filter | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?       4.13 sec ( 42.7%)
+- Hybrid search | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?       0.10 sec (  1.1%)
+- Rerank hybrid results | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?       5.12 sec ( 55.4%)
+- Final context filter | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?       4.02 sec ( 43.5%)
 
 Main bottleneck     : Rerank hybrid results | What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?
-Bottleneck time     : 5.45 sec
+Bottleneck time     : 5.12 sec
 
 ================================================================================
 QUESTION: When is rizal's birthday?
@@ -4803,7 +4805,7 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Hybrid search | When is rizal's birthday?
-[DONE]  Hybrid search | When is rizal's birthday? - 0.14 sec
+[DONE]  Hybrid search | When is rizal's birthday? - 0.07 sec
 dynamic context mode               : single_fact
 create_bm25_retriever pool k       : 10
 hybrid_search semantic_k           : 6
@@ -4817,9 +4819,9 @@ select_final_context_docs max_chars: 6500
 select_final_context_docs neighbors: False
 select_final_context_docs all_chunks: PASSED from loaded/cached chunks
 [START] Rerank hybrid results | When is rizal's birthday?
-[DONE]  Rerank hybrid results | When is rizal's birthday? - 2.71 sec
+[DONE]  Rerank hybrid results | When is rizal's birthday? - 2.44 sec
 [START] Final context filter | When is rizal's birthday?
-[DONE]  Final context filter | When is rizal's birthday? - 6.45 sec
+[DONE]  Final context filter | When is rizal's birthday? - 6.36 sec
 
 --------------------------------------------------------------------------------
 TOP SEMANTIC RESULTS
@@ -4899,9 +4901,9 @@ Section : elite that was situated near the town plaza, a proximity that historia
 bm25_rank: 4
 bm25_rank_score: 0.25
 context_mode   : single_fact
-context_reason : dynamic_date_fact_low_confidence_primary_evidence
+context_reason : dynamic_date_fact_primary_evidence
 keep_reason    : best_primary_evidence
-filter_scope   : dynamic_single_fact_low_confidence_primary_evidence
+filter_scope   : dynamic_single_fact_primary_evidence
 Preview : Retrieval context: title: José Rizal - Wikipedia | section: elite that was situated near the town plaza, a proximity that historian | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en elite that was situated near the town plaza, a proximity that historian John Ray Ramos states indicated the family's social and political influence. José Mercado was born on June 19, 1861, in Calamba, Laguna. The seventh child of Francisco Rizal Mercado and Teodora Alonso Realonda y Quintos, he was baptized into the Roman Catholic Church on June 22 at the town's parish by Father Rufino Collantes. His parents were leaseholders of a hacienda and a rice farm owned by the Dominican Order. Teodora taught him the alphabet at age three, and by five he could read and write. She instructed him in prayer and poetry, and required him...
 --------------------------------------------------------------------------------
 Rank    : 5
@@ -5055,9 +5057,9 @@ Source  : José Rizal - Wikipedia.pdf | page=1 | data\José Rizal - Wikipedia.pd
 Title   : José Rizal - Wikipedia
 Section : elite that was situated near the town plaza, a proximity that historian
 context_mode   : single_fact
-context_reason : dynamic_date_fact_low_confidence_primary_evidence
+context_reason : dynamic_date_fact_primary_evidence
 keep_reason    : best_primary_evidence
-filter_scope   : dynamic_single_fact_low_confidence_primary_evidence
+filter_scope   : dynamic_single_fact_primary_evidence
 Preview : Retrieval context: title: José Rizal - Wikipedia | section: elite that was situated near the town plaza, a proximity that historian | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en elite that was situated near the town plaza, a proximity that historian John Ray Ramos states indicated the family's social and political influence. José Mercado was born on June 19, 1861, in Calamba, Laguna. The seventh child of Francisco Rizal Mercado and Teodora Alonso Realonda y Quintos, he was baptized into the Roman Catholic Church on June 22 at the town's parish by Father Rufino Collantes. His parents were leaseholders of a hacienda and a rice farm owned by the Dominican Order. Teodora taught him the alphabet at age three, and by five he could read and write. She instructed him in prayer and poetry, and required him...
 --------------------------------------------------------------------------------
 
@@ -5101,28 +5103,725 @@ Dynamic mode     : single_fact
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 9.31 sec
+Total measured time : 8.87 sec
 
-- Hybrid search | When is rizal's birthday?       0.14 sec (  1.5%)
-- Rerank hybrid results | When is rizal's birthday?       2.71 sec ( 29.2%)
-- Final context filter | When is rizal's birthday?       6.45 sec ( 69.3%)
+- Hybrid search | When is rizal's birthday?       0.07 sec (  0.8%)
+- Rerank hybrid results | When is rizal's birthday?       2.44 sec ( 27.5%)
+- Final context filter | When is rizal's birthday?       6.36 sec ( 71.8%)
 
 Main bottleneck     : Final context filter | When is rizal's birthday?
-Bottleneck time     : 6.45 sec
+Bottleneck time     : 6.36 sec
+
+================================================================================
+QUESTION: June 19, 1861
+================================================================================
+Question mode from analyzer : single_fact
+Query type detector label   : short_fact_like
+Dynamic context mode        : single_fact
+Important terms             : ['june', '19', '1861']
+Source keywords             : ['june', '19', '1861']
+
+dynamic context mode               : single_fact
+create_bm25_retriever pool k       : 10
+hybrid_search semantic_k           : 6
+hybrid_search bm25_k               : 6
+hybrid_search final_k              : 8
+rerank_documents input_k           : 6
+rerank_documents top_n             : 6
+rerank_documents actual input docs : pending hybrid search
+select_final_context_docs top_n    : 5 / dynamic max by context_filter mode
+select_final_context_docs max_chars: 6500
+select_final_context_docs neighbors: False
+select_final_context_docs all_chunks: PASSED from loaded/cached chunks
+[START] Hybrid search | June 19, 1861
+[DONE]  Hybrid search | June 19, 1861 - 0.06 sec
+dynamic context mode               : single_fact
+create_bm25_retriever pool k       : 10
+hybrid_search semantic_k           : 6
+hybrid_search bm25_k               : 6
+hybrid_search final_k              : 8
+rerank_documents input_k           : 6
+rerank_documents top_n             : 6
+rerank_documents actual input docs : 6 of 8 hybrid docs
+select_final_context_docs top_n    : 5 / dynamic max by context_filter mode
+select_final_context_docs max_chars: 6500
+select_final_context_docs neighbors: False
+select_final_context_docs all_chunks: PASSED from loaded/cached chunks
+[START] Rerank hybrid results | June 19, 1861
+[DONE]  Rerank hybrid results | June 19, 1861 - 2.24 sec
+[START] Final context filter | June 19, 1861
+[DONE]  Final context filter | June 19, 1861 - 4.21 sec
+
+--------------------------------------------------------------------------------
+TOP SEMANTIC RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Spanish–American War - Wikipedia.pdf | page=40 | data\Spanish–American War - Wikipedia.pdf::chunk_124
+Title   : Spanish–American War - Wikipedia
+Section : 308/). Lincoln Evening News. Lincoln, Nebraska. May 14, 1898. p. 1 – via
+semantic_distance: 0.34284719824790955
+semantic_rank: 1
+Preview : Retrieval context: title: Spanish–American War - Wikipedia | section: 308/). Lincoln Evening News. Lincoln, Nebraska. May 14, 1898. p. 1 – via | category: history | doc_type: article | source: data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en 308/). Lincoln Evening News. Lincoln, Nebraska. May 14, 1898. p. 1 – via . 138. "A Stowaway Reporter" ( Los Angeles Herald. Los Angeles, California. May 19, 1898. p. 8 – via . 139. "The .30-40 U.S. Krag-Jorgensen in Combat" ( December 10, 2024. 140. "Today in History - June 10" ( Library of 141. The Spanish–American War in Cuba : Battle of Las Guasimas ( canwar.info/cuba.htm#LasGuasimas) May 10, 2011, at the Wayback Machine. 142. Roosevelt, Theodore, The Rough Riders, Scribner's Magazine, Vol. 25 (January–June), New York: Charles Scribner's Sons, p. 572 143. The Battles at El Caney and San Jua...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Spanish–American War - Wikipedia.pdf | page=3 | data\Spanish–American War - Wikipedia.pdf::chunk_9
+Title   : Spanish–American War - Wikipedia
+Section : ideas were much admired by future 26th President Theodore Roosevelt, as the U.S. rapidly built a
+semantic_distance: 0.3546236753463745
+semantic_rank: 2
+Preview : Retrieval context: title: Spanish–American War - Wikipedia | section: ideas were much admired by future 26th President Theodore Roosevelt, as the U.S. rapidly built a | category: history | doc_type: article | source: data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en need for naval protection. Captain Alfred Thayer Mahan was an exceptionally influential theorist; his ideas were much admired by future 26th President Theodore Roosevelt, as the U.S. rapidly built a powerful naval fleet of steel warships in the 1880s and 1890s. Roosevelt served as Assistant Secretary of the Navy from 1897 to 1898 and was an aggressive supporter of an American war with Spain over Cuban interests. Meanwhile, the "Cuba Libre" movement, led by Cuban intellectual José Martí until he died in 1895, had established offices in Florida. The face of the Cuban revo...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : Emilio Aguinaldo - Wikipedia.pdf | page=23 | data\Emilio Aguinaldo - Wikipedia.pdf::chunk_68
+Title   : Emilio Aguinaldo - Wikipedia
+Section : 91. Ara 2015, p. 173
+semantic_distance: 0.37055733799934387
+semantic_rank: 3
+Preview : Retrieval context: title: Emilio Aguinaldo - Wikipedia | section: 91. Ara 2015, p. 173 | category: history | doc_type: article | source: data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en 91. Ara 2015, p. 173 92. Ara 2015, p. 184 93. "Emilio Aguinaldo" ( 94. Fredriksen, John C (2001). America's military adversaries: from colonial times to the present ( ABC-CLIO. p. 2. ISBN 978-1-57607-603-3. 95. Treaty of General Relations Between the United States of America and the Republic of the Philippines. Signed at Manila, ON 4 JULY 1946 ( December 10, 2007 96. "La confesión más dura del primer presidente de Filipinas: "Me arrepiento de haberme independizado de España"" ( s-arrepiento-haberme-20240610095937-nt.html). Diario ABC (in Spanish). June 10, 2024. 97. Diosdado Macapagal, Proclamation No. 28 Declaring June 12 as Philippine Independence Day (...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Spanish–American War - Wikipedia.pdf | page=1 | data\Spanish–American War - Wikipedia.pdf::chunk_2
+Title   : Spanish–American War - Wikipedia
+Section : Date April 21[b] – August 13,[d] 1898
+semantic_distance: 0.3719223439693451
+semantic_rank: 4
+Preview : Retrieval context: title: Spanish–American War - Wikipedia | section: Date April 21[b] – August 13,[d] 1898 | category: history | doc_type: article | source: data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en Date April 21[b] – August 13,[d] 1898 (3 months, 3 weeks and 1 day) Location Cuba and Puerto Rico (Caribbean Sea) Guam (Pacific Ocean) and the Philippines (Southeast Asia) Result American victory Territorial changes Spain relinquishes sovereignty over Cuba; cedes Puerto Rico, Guam, and the Philippines to the United States. $20 million paid to Spain by the United States for infrastructure owned by Spain. Belligerents United States Supported by: Cuban Liberation Army Philippine Revolutionary Army Spain Commanders and leaders William McKinley Russell A. Alger John Davis Long Nelson A. Miles Theodore Roosevelt William Shafter Fitzh...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Emilio Aguinaldo - Wikipedia.pdf | page=7 | data\Emilio Aguinaldo - Wikipedia.pdf::chunk_22
+Title   : Emilio Aguinaldo - Wikipedia
+Section : On May 28, 1898, Aguinaldo gathered a force of about 18,000 troops and fought against a small
+semantic_distance: 0.37290358543395996
+semantic_rank: 5
+Preview : Retrieval context: title: Emilio Aguinaldo - Wikipedia | section: On May 28, 1898, Aguinaldo gathered a force of about 18,000 troops and fought against a small | category: history | doc_type: article | source: data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en On May 28, 1898, Aguinaldo gathered a force of about 18,000 troops and fought against a small garrison of Spanish troops in Alapan, Imus, Cavite. The battle lasted from 10:00 a.m. to 3:00 p.m. After the victory at Alapan, Aguinaldo unfurled the Philippine flag for the first time and hoisted it at the Teatro Caviteño in Cavite Nuevo (present-day Cavite City) in front of Filipino revolutionaries and more than 300 captured Spanish troops. A group of American sailors of the US Asiatic Squadron also witnessed the unfurling. Flag Day is celebrated every May 28 to honor the battle. On June 1...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP BM25 RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : José Rizal - Wikipedia.pdf | page=0 | data\José Rizal - Wikipedia.pdf::chunk_0
+Title   : José Rizal - Wikipedia
+Section : José Protasio Rizal
+bm25_rank: 1
+bm25_rank_score: 1.0
+context_mode   : single_fact
+context_reason : dynamic_date_fact_primary_evidence
+keep_reason    : best_primary_evidence
+filter_scope   : dynamic_single_fact_primary_evidence
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: José Protasio Rizal | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en José Protasio Rizal Rizal c. 1890s Born José Protasio Rizal Mercado y Alonso Realonda June 19, 1861 Calamba, La Laguna, Captaincy General of the Philippines, Spanish Empire Died December 30, 1896 (aged 35) Bagumbayan, Manila, Captaincy General of the Philippines, Spanish Empire Cause ofdeath Execution by firing squad Resting place Original internment: Paco Park Reinterred: Rizal Monument, Manila Monuments Daet, Camarines Norte · Manila · Calamba, Laguna · Madrid, Spain Other names Pepe, Tío Pepe Alma mater Ateneo Municipal de Manila (AB) University of Santo Tomas Universidad Central de Madrid (MD) José Rizal José Protasio Rizal Mercado y Alonso Realonda (Spanish: [xo ˈ se ri...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : José Rizal - Wikipedia.pdf | page=1 | data\José Rizal - Wikipedia.pdf::chunk_4
+Title   : José Rizal - Wikipedia
+Section : elite that was situated near the town plaza, a proximity that historian
+bm25_rank: 2
+bm25_rank_score: 0.5
+context_mode   : single_fact
+context_reason : dynamic_date_fact_primary_evidence
+keep_reason    : useful_answer_pattern_support
+filter_scope   : dynamic_single_fact_primary_evidence
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: elite that was situated near the town plaza, a proximity that historian | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en elite that was situated near the town plaza, a proximity that historian John Ray Ramos states indicated the family's social and political influence. José Mercado was born on June 19, 1861, in Calamba, Laguna. The seventh child of Francisco Rizal Mercado and Teodora Alonso Realonda y Quintos, he was baptized into the Roman Catholic Church on June 22 at the town's parish by Father Rufino Collantes. His parents were leaseholders of a hacienda and a rice farm owned by the Dominican Order. Teodora taught him the alphabet at age three, and by five he could read and write. She instructed him in prayer and poetry, and required him...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : José Rizal - Wikipedia.pdf | page=32 | data\José Rizal - Wikipedia.pdf::chunk_101
+Title   : José Rizal - Wikipedia
+Section : 214. Dr. Jose Rizal Park ( Seattle Parks and Recreation Information
+bm25_rank: 3
+bm25_rank_score: 0.3333333333333333
+context_mode   : single_fact
+context_reason : dynamic_date_fact_primary_evidence
+keep_reason    : useful_answer_pattern_support
+filter_scope   : dynamic_single_fact_primary_evidence
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: 214. Dr. Jose Rizal Park ( Seattle Parks and Recreation Information | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en 201. "Toronto Arts Online - Neighbourhood Arts Network" ( . 205. "Feature: Rizal returns to Singapore" ( (Press release). Philippine Information Agency (PIA). June 20, 2008.Archived from the original ( on March 24, 2010.Retrieved June 24, 2008. 214. Dr. Jose Rizal Park ( Seattle Parks and Recreation Information 215. "José Rizal's 158th Birthday" ( Google. June 19, 2019. 217. Manaranche, Martin (May 18, 2020). "Future Philippine Navy Frigate BRP 'Jose Rizal' Sails Home forCommissioning" (
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Emilio Aguinaldo - Wikipedia.pdf | page=24 | data\Emilio Aguinaldo - Wikipedia.pdf::chunk_70
+Title   : Emilio Aguinaldo - Wikipedia
+Section : 107. Republic Act No. 4087 (June 18, 1964), An Act Appropriating Fifty Thousand Pesos to Defray the
+bm25_rank: 4
+bm25_rank_score: 0.25
+Preview : Retrieval context: title: Emilio Aguinaldo - Wikipedia | section: 107. Republic Act No. 4087 (June 18, 1964), An Act Appropriating Fifty Thousand Pesos to Defray the | category: history | doc_type: article | source: data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en 107. Republic Act No. 4087 (June 18, 1964), An Act Appropriating Fifty Thousand Pesos to Defray the Expenses Incurred in Connection with the State Funeral for Emilio Aguinaldo and for the Erection of a Mausoleum to Contain His Remains ( 108. Pino, Gladys (February 24, 1954). "Official Week in Review: February 16 – February 22, 1964" ( week-in-review-february-16-february-22-1964/). Official Gazette of the Republic of the Philippines. 109. Pino, Gladys (February 7, 2019). "NHCP leads commemoration of Aguinaldo's 55th death anniv" 110. "Full text of "In Memoriam Emilio Aguinaldo""...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Emilio Aguinaldo - Wikipedia.pdf | page=1 | data\Emilio Aguinaldo - Wikipedia.pdf::chunk_3
+Title   : Emilio Aguinaldo - Wikipedia
+Section : Prime Minister Apolinario Mabini
+bm25_rank: 5
+bm25_rank_score: 0.2
+Preview : Retrieval context: title: Emilio Aguinaldo - Wikipedia | section: Prime Minister Apolinario Mabini | category: history | doc_type: article | source: data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en Prime Minister Apolinario Mabini (January 2–23, 1899) Preceded by Position established Succeeded by Position abolished (Revolutionary government superseded by the First Philippine Republic) Commanding General of the Philippine Revolutionary Army In office June 5, 1899 – April 19, 1901 President Himself Preceded by Antonio Luna Dictator of the Philippines In office May 24, 1898 – June 23, 1898 Preceded by Position established Succeeded by Position abolished (Dictatorial government replaced by a revolutionary government with Aguinaldo assuming the title president) President of the Republic of Biak-na-Bato In office November 2, 1897 – December 14,...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP RRF + METADATA BOOST RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Spanish–American War - Wikipedia.pdf | page=40 | data\Spanish–American War - Wikipedia.pdf::chunk_124
+Title   : Spanish–American War - Wikipedia
+Section : 308/). Lincoln Evening News. Lincoln, Nebraska. May 14, 1898. p. 1 – via
+hybrid_score: 0.009836065573770491
+metadata_boost_score: 0.0
+metadata_boosted_score: 0.009836065573770491
+Preview : Retrieval context: title: Spanish–American War - Wikipedia | section: 308/). Lincoln Evening News. Lincoln, Nebraska. May 14, 1898. p. 1 – via | category: history | doc_type: article | source: data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en 308/). Lincoln Evening News. Lincoln, Nebraska. May 14, 1898. p. 1 – via . 138. "A Stowaway Reporter" ( Los Angeles Herald. Los Angeles, California. May 19, 1898. p. 8 – via . 139. "The .30-40 U.S. Krag-Jorgensen in Combat" ( December 10, 2024. 140. "Today in History - June 10" ( Library of 141. The Spanish–American War in Cuba : Battle of Las Guasimas ( canwar.info/cuba.htm#LasGuasimas) May 10, 2011, at the Wayback Machine. 142. Roosevelt, Theodore, The Rough Riders, Scribner's Magazine, Vol. 25 (January–June), New York: Charles Scribner's Sons, p. 572 143. The Battles at El Caney and San Jua...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Spanish–American War - Wikipedia.pdf | page=3 | data\Spanish–American War - Wikipedia.pdf::chunk_9
+Title   : Spanish–American War - Wikipedia
+Section : ideas were much admired by future 26th President Theodore Roosevelt, as the U.S. rapidly built a
+hybrid_score: 0.00967741935483871
+metadata_boost_score: 0.0
+metadata_boosted_score: 0.00967741935483871
+Preview : Retrieval context: title: Spanish–American War - Wikipedia | section: ideas were much admired by future 26th President Theodore Roosevelt, as the U.S. rapidly built a | category: history | doc_type: article | source: data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en need for naval protection. Captain Alfred Thayer Mahan was an exceptionally influential theorist; his ideas were much admired by future 26th President Theodore Roosevelt, as the U.S. rapidly built a powerful naval fleet of steel warships in the 1880s and 1890s. Roosevelt served as Assistant Secretary of the Navy from 1897 to 1898 and was an aggressive supporter of an American war with Spain over Cuban interests. Meanwhile, the "Cuba Libre" movement, led by Cuban intellectual José Martí until he died in 1895, had established offices in Florida. The face of the Cuban revo...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : Emilio Aguinaldo - Wikipedia.pdf | page=23 | data\Emilio Aguinaldo - Wikipedia.pdf::chunk_68
+Title   : Emilio Aguinaldo - Wikipedia
+Section : 91. Ara 2015, p. 173
+hybrid_score: 0.009523809523809523
+metadata_boost_score: 0.0
+metadata_boosted_score: 0.009523809523809523
+Preview : Retrieval context: title: Emilio Aguinaldo - Wikipedia | section: 91. Ara 2015, p. 173 | category: history | doc_type: article | source: data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en 91. Ara 2015, p. 173 92. Ara 2015, p. 184 93. "Emilio Aguinaldo" ( 94. Fredriksen, John C (2001). America's military adversaries: from colonial times to the present ( ABC-CLIO. p. 2. ISBN 978-1-57607-603-3. 95. Treaty of General Relations Between the United States of America and the Republic of the Philippines. Signed at Manila, ON 4 JULY 1946 ( December 10, 2007 96. "La confesión más dura del primer presidente de Filipinas: "Me arrepiento de haberme independizado de España"" ( s-arrepiento-haberme-20240610095937-nt.html). Diario ABC (in Spanish). June 10, 2024. 97. Diosdado Macapagal, Proclamation No. 28 Declaring June 12 as Philippine Independence Day (...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Spanish–American War - Wikipedia.pdf | page=1 | data\Spanish–American War - Wikipedia.pdf::chunk_2
+Title   : Spanish–American War - Wikipedia
+Section : Date April 21[b] – August 13,[d] 1898
+hybrid_score: 0.009375
+metadata_boost_score: 0.0
+metadata_boosted_score: 0.009375
+Preview : Retrieval context: title: Spanish–American War - Wikipedia | section: Date April 21[b] – August 13,[d] 1898 | category: history | doc_type: article | source: data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en Date April 21[b] – August 13,[d] 1898 (3 months, 3 weeks and 1 day) Location Cuba and Puerto Rico (Caribbean Sea) Guam (Pacific Ocean) and the Philippines (Southeast Asia) Result American victory Territorial changes Spain relinquishes sovereignty over Cuba; cedes Puerto Rico, Guam, and the Philippines to the United States. $20 million paid to Spain by the United States for infrastructure owned by Spain. Belligerents United States Supported by: Cuban Liberation Army Philippine Revolutionary Army Spain Commanders and leaders William McKinley Russell A. Alger John Davis Long Nelson A. Miles Theodore Roosevelt William Shafter Fitzh...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Emilio Aguinaldo - Wikipedia.pdf | page=7 | data\Emilio Aguinaldo - Wikipedia.pdf::chunk_22
+Title   : Emilio Aguinaldo - Wikipedia
+Section : On May 28, 1898, Aguinaldo gathered a force of about 18,000 troops and fought against a small
+hybrid_score: 0.00923076923076923
+metadata_boost_score: 0.0
+metadata_boosted_score: 0.00923076923076923
+Preview : Retrieval context: title: Emilio Aguinaldo - Wikipedia | section: On May 28, 1898, Aguinaldo gathered a force of about 18,000 troops and fought against a small | category: history | doc_type: article | source: data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en On May 28, 1898, Aguinaldo gathered a force of about 18,000 troops and fought against a small garrison of Spanish troops in Alapan, Imus, Cavite. The battle lasted from 10:00 a.m. to 3:00 p.m. After the victory at Alapan, Aguinaldo unfurled the Philippine flag for the first time and hoisted it at the Teatro Caviteño in Cavite Nuevo (present-day Cavite City) in front of Filipino revolutionaries and more than 300 captured Spanish troops. A group of American sailors of the US Asiatic Squadron also witnessed the unfurling. Flag Day is celebrated every May 28 to honor the battle. On June 1...
+--------------------------------------------------------------------------------
+Rank    : 6
+Source  : Spanish–American War - Wikipedia.pdf | page=34 | data\Spanish–American War - Wikipedia.pdf::chunk_110
+Title   : Spanish–American War - Wikipedia
+Section : 41. Herring, George C. (October 28, 2008). "The War of 1898, the New Empire, and the Dawn of the
+hybrid_score: 0.00909090909090909
+metadata_boost_score: 0.0
+metadata_boosted_score: 0.00909090909090909
+Preview : Retrieval context: title: Spanish–American War - Wikipedia | section: 41. Herring, George C. (October 28, 2008). "The War of 1898, the New Empire, and the Dawn of the | category: history | doc_type: article | source: data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en g/stable/2507259). 41. Herring, George C. (October 28, 2008). "The War of 1898, the New Empire, and the Dawn of the American Century, 1893–1901" ( From Colony to Superpower: US Foreign Relations Since 1776. Oxford University Press. pp. 318– from the original on September 23, 2023. 42. Field, James A. (1978). "American Imperialism: The Worst Chapter in Almost Any Book". The American Historical Review. 83 (3): 644–68. doi:10.2307/1861842 ( 43. Trask 1996, pp. 2–3 ( 44. Jonathan Krohn, "Review of Tone, John Lawrence, War and Genocide in Cuba 1895–1898. "H- War, H-Net Revie...
+--------------------------------------------------------------------------------
+Rank    : 7
+Source  : José Rizal - Wikipedia.pdf | page=0 | data\José Rizal - Wikipedia.pdf::chunk_0
+Title   : José Rizal - Wikipedia
+Section : José Protasio Rizal
+hybrid_score: 0.006557377049180328
+metadata_boost_score: 0.0
+metadata_boosted_score: 0.006557377049180328
+context_mode   : single_fact
+context_reason : dynamic_date_fact_primary_evidence
+keep_reason    : best_primary_evidence
+filter_scope   : dynamic_single_fact_primary_evidence
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: José Protasio Rizal | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en José Protasio Rizal Rizal c. 1890s Born José Protasio Rizal Mercado y Alonso Realonda June 19, 1861 Calamba, La Laguna, Captaincy General of the Philippines, Spanish Empire Died December 30, 1896 (aged 35) Bagumbayan, Manila, Captaincy General of the Philippines, Spanish Empire Cause ofdeath Execution by firing squad Resting place Original internment: Paco Park Reinterred: Rizal Monument, Manila Monuments Daet, Camarines Norte · Manila · Calamba, Laguna · Madrid, Spain Other names Pepe, Tío Pepe Alma mater Ateneo Municipal de Manila (AB) University of Santo Tomas Universidad Central de Madrid (MD) José Rizal José Protasio Rizal Mercado y Alonso Realonda (Spanish: [xo ˈ se ri...
+--------------------------------------------------------------------------------
+Rank    : 8
+Source  : José Rizal - Wikipedia.pdf | page=1 | data\José Rizal - Wikipedia.pdf::chunk_4
+Title   : José Rizal - Wikipedia
+Section : elite that was situated near the town plaza, a proximity that historian
+hybrid_score: 0.0064516129032258064
+metadata_boost_score: 0.0
+metadata_boosted_score: 0.0064516129032258064
+context_mode   : single_fact
+context_reason : dynamic_date_fact_primary_evidence
+keep_reason    : useful_answer_pattern_support
+filter_scope   : dynamic_single_fact_primary_evidence
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: elite that was situated near the town plaza, a proximity that historian | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en elite that was situated near the town plaza, a proximity that historian John Ray Ramos states indicated the family's social and political influence. José Mercado was born on June 19, 1861, in Calamba, Laguna. The seventh child of Francisco Rizal Mercado and Teodora Alonso Realonda y Quintos, he was baptized into the Roman Catholic Church on June 22 at the town's parish by Father Rufino Collantes. His parents were leaseholders of a hacienda and a rice farm owned by the Dominican Order. Teodora taught him the alphabet at age three, and by five he could read and write. She instructed him in prayer and poetry, and required him...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP RERANKED RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Emilio Aguinaldo - Wikipedia.pdf | page=23 | data\Emilio Aguinaldo - Wikipedia.pdf::chunk_68
+Title   : Emilio Aguinaldo - Wikipedia
+Section : 91. Ara 2015, p. 173
+rerank_score: -6.763332366943359
+rerank_rank: 1
+rerank_original_rank: 3
+Preview : Retrieval context: title: Emilio Aguinaldo - Wikipedia | section: 91. Ara 2015, p. 173 | category: history | doc_type: article | source: data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en 91. Ara 2015, p. 173 92. Ara 2015, p. 184 93. "Emilio Aguinaldo" ( 94. Fredriksen, John C (2001). America's military adversaries: from colonial times to the present ( ABC-CLIO. p. 2. ISBN 978-1-57607-603-3. 95. Treaty of General Relations Between the United States of America and the Republic of the Philippines. Signed at Manila, ON 4 JULY 1946 ( December 10, 2007 96. "La confesión más dura del primer presidente de Filipinas: "Me arrepiento de haberme independizado de España"" ( s-arrepiento-haberme-20240610095937-nt.html). Diario ABC (in Spanish). June 10, 2024. 97. Diosdado Macapagal, Proclamation No. 28 Declaring June 12 as Philippine Independence Day (...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Spanish–American War - Wikipedia.pdf | page=34 | data\Spanish–American War - Wikipedia.pdf::chunk_110
+Title   : Spanish–American War - Wikipedia
+Section : 41. Herring, George C. (October 28, 2008). "The War of 1898, the New Empire, and the Dawn of the
+rerank_score: -6.987544536590576
+rerank_rank: 2
+rerank_original_rank: 6
+Preview : Retrieval context: title: Spanish–American War - Wikipedia | section: 41. Herring, George C. (October 28, 2008). "The War of 1898, the New Empire, and the Dawn of the | category: history | doc_type: article | source: data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en g/stable/2507259). 41. Herring, George C. (October 28, 2008). "The War of 1898, the New Empire, and the Dawn of the American Century, 1893–1901" ( From Colony to Superpower: US Foreign Relations Since 1776. Oxford University Press. pp. 318– from the original on September 23, 2023. 42. Field, James A. (1978). "American Imperialism: The Worst Chapter in Almost Any Book". The American Historical Review. 83 (3): 644–68. doi:10.2307/1861842 ( 43. Trask 1996, pp. 2–3 ( 44. Jonathan Krohn, "Review of Tone, John Lawrence, War and Genocide in Cuba 1895–1898. "H- War, H-Net Revie...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : Spanish–American War - Wikipedia.pdf | page=1 | data\Spanish–American War - Wikipedia.pdf::chunk_2
+Title   : Spanish–American War - Wikipedia
+Section : Date April 21[b] – August 13,[d] 1898
+rerank_score: -7.2914252281188965
+rerank_rank: 3
+rerank_original_rank: 4
+Preview : Retrieval context: title: Spanish–American War - Wikipedia | section: Date April 21[b] – August 13,[d] 1898 | category: history | doc_type: article | source: data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en Date April 21[b] – August 13,[d] 1898 (3 months, 3 weeks and 1 day) Location Cuba and Puerto Rico (Caribbean Sea) Guam (Pacific Ocean) and the Philippines (Southeast Asia) Result American victory Territorial changes Spain relinquishes sovereignty over Cuba; cedes Puerto Rico, Guam, and the Philippines to the United States. $20 million paid to Spain by the United States for infrastructure owned by Spain. Belligerents United States Supported by: Cuban Liberation Army Philippine Revolutionary Army Spain Commanders and leaders William McKinley Russell A. Alger John Davis Long Nelson A. Miles Theodore Roosevelt William Shafter Fitzh...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Spanish–American War - Wikipedia.pdf | page=3 | data\Spanish–American War - Wikipedia.pdf::chunk_9
+Title   : Spanish–American War - Wikipedia
+Section : ideas were much admired by future 26th President Theodore Roosevelt, as the U.S. rapidly built a
+rerank_score: -7.641865253448486
+rerank_rank: 4
+rerank_original_rank: 2
+Preview : Retrieval context: title: Spanish–American War - Wikipedia | section: ideas were much admired by future 26th President Theodore Roosevelt, as the U.S. rapidly built a | category: history | doc_type: article | source: data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en need for naval protection. Captain Alfred Thayer Mahan was an exceptionally influential theorist; his ideas were much admired by future 26th President Theodore Roosevelt, as the U.S. rapidly built a powerful naval fleet of steel warships in the 1880s and 1890s. Roosevelt served as Assistant Secretary of the Navy from 1897 to 1898 and was an aggressive supporter of an American war with Spain over Cuban interests. Meanwhile, the "Cuba Libre" movement, led by Cuban intellectual José Martí until he died in 1895, had established offices in Florida. The face of the Cuban revo...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Emilio Aguinaldo - Wikipedia.pdf | page=7 | data\Emilio Aguinaldo - Wikipedia.pdf::chunk_22
+Title   : Emilio Aguinaldo - Wikipedia
+Section : On May 28, 1898, Aguinaldo gathered a force of about 18,000 troops and fought against a small
+rerank_score: -7.735305309295654
+rerank_rank: 5
+rerank_original_rank: 5
+Preview : Retrieval context: title: Emilio Aguinaldo - Wikipedia | section: On May 28, 1898, Aguinaldo gathered a force of about 18,000 troops and fought against a small | category: history | doc_type: article | source: data\Emilio Aguinaldo - Wikipedia.pdf | file_name: Emilio Aguinaldo - Wikipedia.pdf | language: en On May 28, 1898, Aguinaldo gathered a force of about 18,000 troops and fought against a small garrison of Spanish troops in Alapan, Imus, Cavite. The battle lasted from 10:00 a.m. to 3:00 p.m. After the victory at Alapan, Aguinaldo unfurled the Philippine flag for the first time and hoisted it at the Teatro Caviteño in Cavite Nuevo (present-day Cavite City) in front of Filipino revolutionaries and more than 300 captured Spanish troops. A group of American sailors of the US Asiatic Squadron also witnessed the unfurling. Flag Day is celebrated every May 28 to honor the battle. On June 1...
+--------------------------------------------------------------------------------
+Rank    : 6
+Source  : Spanish–American War - Wikipedia.pdf | page=40 | data\Spanish–American War - Wikipedia.pdf::chunk_124
+Title   : Spanish–American War - Wikipedia
+Section : 308/). Lincoln Evening News. Lincoln, Nebraska. May 14, 1898. p. 1 – via
+rerank_score: -8.886617660522461
+rerank_rank: 6
+rerank_original_rank: 1
+Preview : Retrieval context: title: Spanish–American War - Wikipedia | section: 308/). Lincoln Evening News. Lincoln, Nebraska. May 14, 1898. p. 1 – via | category: history | doc_type: article | source: data\Spanish–American War - Wikipedia.pdf | file_name: Spanish–American War - Wikipedia.pdf | language: en 308/). Lincoln Evening News. Lincoln, Nebraska. May 14, 1898. p. 1 – via . 138. "A Stowaway Reporter" ( Los Angeles Herald. Los Angeles, California. May 19, 1898. p. 8 – via . 139. "The .30-40 U.S. Krag-Jorgensen in Combat" ( December 10, 2024. 140. "Today in History - June 10" ( Library of 141. The Spanish–American War in Cuba : Battle of Las Guasimas ( canwar.info/cuba.htm#LasGuasimas) May 10, 2011, at the Wayback Machine. 142. Roosevelt, Theodore, The Rough Riders, Scribner's Magazine, Vol. 25 (January–June), New York: Charles Scribner's Sons, p. 572 143. The Battles at El Caney and San Jua...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+FINAL RETRIEVED CHUNKS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : José Rizal - Wikipedia.pdf | page=0 | data\José Rizal - Wikipedia.pdf::chunk_0
+Title   : José Rizal - Wikipedia
+Section : José Protasio Rizal
+metadata_boosted_score: 0.006557377049180328
+hybrid_score: 0.006557377049180328
+context_mode   : single_fact
+context_reason : dynamic_date_fact_primary_evidence
+keep_reason    : best_primary_evidence
+filter_scope   : dynamic_single_fact_primary_evidence
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: José Protasio Rizal | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en José Protasio Rizal Rizal c. 1890s Born José Protasio Rizal Mercado y Alonso Realonda June 19, 1861 Calamba, La Laguna, Captaincy General of the Philippines, Spanish Empire Died December 30, 1896 (aged 35) Bagumbayan, Manila, Captaincy General of the Philippines, Spanish Empire Cause ofdeath Execution by firing squad Resting place Original internment: Paco Park Reinterred: Rizal Monument, Manila Monuments Daet, Camarines Norte · Manila · Calamba, Laguna · Madrid, Spain Other names Pepe, Tío Pepe Alma mater Ateneo Municipal de Manila (AB) University of Santo Tomas Universidad Central de Madrid (MD) José Rizal José Protasio Rizal Mercado y Alonso Realonda (Spanish: [xo ˈ se ri...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : José Rizal - Wikipedia.pdf | page=1 | data\José Rizal - Wikipedia.pdf::chunk_4
+Title   : José Rizal - Wikipedia
+Section : elite that was situated near the town plaza, a proximity that historian
+metadata_boosted_score: 0.0064516129032258064
+hybrid_score: 0.0064516129032258064
+context_mode   : single_fact
+context_reason : dynamic_date_fact_primary_evidence
+keep_reason    : useful_answer_pattern_support
+filter_scope   : dynamic_single_fact_primary_evidence
+Preview : Retrieval context: title: José Rizal - Wikipedia | section: elite that was situated near the town plaza, a proximity that historian | category: history | doc_type: article | source: data\José Rizal - Wikipedia.pdf | file_name: José Rizal - Wikipedia.pdf | language: en elite that was situated near the town plaza, a proximity that historian John Ray Ramos states indicated the family's social and political influence. José Mercado was born on June 19, 1861, in Calamba, Laguna. The seventh child of Francisco Rizal Mercado and Teodora Alonso Realonda y Quintos, he was baptized into the Roman Catholic Church on June 22 at the town's parish by Father Rufino Collantes. His parents were leaseholders of a hacienda and a rice farm owned by the Dominican Order. Teodora taught him the alphabet at age three, and by five he could read and write. She instructed him in prayer and poetry, and required him...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+CHUNK FLOW CHECK
+--------------------------------------------------------------------------------
+Chunk ID | semantic | bm25 | hybrid | rerank | final | label
+------------------------------------------------------------------------------------------------------------------------
+data\Spanish–American War - Wikipedia.pdf::chunk_124 | S=1   | B=-   | H=1   | R=6   | F=-   | Spanish–American War - Wikipedia.pdf | page=40 | section=308/). Lincoln Evening News. Lincoln, Nebraska. May 14, 1898. p. 1 – v
+data\Spanish–American War - Wikipedia.pdf::chunk_9 | S=2   | B=-   | H=2   | R=4   | F=-   | Spanish–American War - Wikipedia.pdf | page=3 | section=ideas were much admired by future 26th President Theodore Roosevelt, a
+data\Emilio Aguinaldo - Wikipedia.pdf::chunk_68 | S=3   | B=-   | H=3   | R=1   | F=-   | Emilio Aguinaldo - Wikipedia.pdf | page=23 | section=91. Ara 2015, p. 173
+data\Spanish–American War - Wikipedia.pdf::chunk_2 | S=4   | B=-   | H=4   | R=3   | F=-   | Spanish–American War - Wikipedia.pdf | page=1 | section=Date April 21[b] – August 13,[d] 1898
+data\Emilio Aguinaldo - Wikipedia.pdf::chunk_22 | S=5   | B=-   | H=5   | R=5   | F=-   | Emilio Aguinaldo - Wikipedia.pdf | page=7 | section=On May 28, 1898, Aguinaldo gathered a force of about 18,000 troops and
+data\Spanish–American War - Wikipedia.pdf::chunk_110 | S=6   | B=-   | H=6   | R=2   | F=-   | Spanish–American War - Wikipedia.pdf | page=34 | section=41. Herring, George C. (October 28, 2008). "The War of 1898, the New E
+data\José Rizal - Wikipedia.pdf::chunk_0 | S=-   | B=1   | H=7   | R=-   | F=1   | José Rizal - Wikipedia.pdf | page=0 | section=José Protasio Rizal
+data\José Rizal - Wikipedia.pdf::chunk_4 | S=-   | B=2   | H=8   | R=-   | F=2   | José Rizal - Wikipedia.pdf | page=1 | section=elite that was situated near the town plaza, a proximity that historia
+data\José Rizal - Wikipedia.pdf::chunk_101 | S=-   | B=3   | H=-   | R=-   | F=-   | José Rizal - Wikipedia.pdf | page=32 | section=214. Dr. Jose Rizal Park ( Seattle Parks and Recreation Information
+data\Emilio Aguinaldo - Wikipedia.pdf::chunk_70 | S=-   | B=4   | H=-   | R=-   | F=-   | Emilio Aguinaldo - Wikipedia.pdf | page=24 | section=107. Republic Act No. 4087 (June 18, 1964), An Act Appropriating Fifty
+data\Emilio Aguinaldo - Wikipedia.pdf::chunk_3 | S=-   | B=5   | H=-   | R=-   | F=-   | Emilio Aguinaldo - Wikipedia.pdf | page=1 | section=Prime Minister Apolinario Mabini
+data\Katipunan - Wikipedia.pdf::chunk_33 | S=-   | B=6   | H=-   | R=-   | F=-   | Katipunan - Wikipedia.pdf | page=10 | section=wrote and directed the anti-imperialist play Kahapon, Ngayon at Bukas 
+
+WARNING: These top 6 reranked chunks were not included in FINAL RETRIEVED CHUNKS:
+- data\Emilio Aguinaldo - Wikipedia.pdf::chunk_68 | Emilio Aguinaldo - Wikipedia.pdf | page=23 | section=91. Ara 2015, p. 173
+- data\Spanish–American War - Wikipedia.pdf::chunk_110 | Spanish–American War - Wikipedia.pdf | page=34 | section=41. Herring, George C. (October 28, 2008). "The War of 1898, the New E
+- data\Spanish–American War - Wikipedia.pdf::chunk_2 | Spanish–American War - Wikipedia.pdf | page=1 | section=Date April 21[b] – August 13,[d] 1898
+- data\Spanish–American War - Wikipedia.pdf::chunk_9 | Spanish–American War - Wikipedia.pdf | page=3 | section=ideas were much admired by future 26th President Theodore Roosevelt, a
+- data\Emilio Aguinaldo - Wikipedia.pdf::chunk_22 | Emilio Aguinaldo - Wikipedia.pdf | page=7 | section=On May 28, 1898, Aguinaldo gathered a force of about 18,000 troops and
+- data\Spanish–American War - Wikipedia.pdf::chunk_124 | Spanish–American War - Wikipedia.pdf | page=40 | section=308/). Lincoln Evening News. Lincoln, Nebraska. May 14, 1898. p. 1 – v
+
+--------------------------------------------------------------------------------
+QUESTION FINAL CHECK
+--------------------------------------------------------------------------------
+Semantic results : 6
+BM25 results     : 6
+Hybrid candidates: 8
+Reranked results : 6
+Final chunks     : 2
+Analyzer mode    : single_fact
+Query type label : short_fact_like
+Dynamic mode     : single_fact
 
 ================================================================================
 TIMING SUMMARY
 ================================================================================
-Total measured time : 11.00 sec
+Total measured time : 6.50 sec
 
-- Setup: Load embedding model            7.69 sec ( 69.9%)
-- Setup: Load Chroma vectorstore         0.48 sec (  4.3%)
+- Hybrid search | June 19, 1861          0.06 sec (  0.9%)
+- Rerank hybrid results | June 19, 1861       2.24 sec ( 34.4%)
+- Final context filter | June 19, 1861       4.21 sec ( 64.7%)
+
+Main bottleneck     : Final context filter | June 19, 1861
+Bottleneck time     : 4.21 sec
+
+================================================================================
+QUESTION: bonifacio
+================================================================================
+Question mode from analyzer : single_fact
+Query type detector label   : short_fact_like
+Dynamic context mode        : single_fact
+Important terms             : ['bonifacio']
+Source keywords             : ['bonifacio']
+
+dynamic context mode               : single_fact
+create_bm25_retriever pool k       : 10
+hybrid_search semantic_k           : 6
+hybrid_search bm25_k               : 6
+hybrid_search final_k              : 8
+rerank_documents input_k           : 6
+rerank_documents top_n             : 6
+rerank_documents actual input docs : pending hybrid search
+select_final_context_docs top_n    : 5 / dynamic max by context_filter mode
+select_final_context_docs max_chars: 6500
+select_final_context_docs neighbors: False
+select_final_context_docs all_chunks: PASSED from loaded/cached chunks
+[START] Hybrid search | bonifacio
+[DONE]  Hybrid search | bonifacio - 0.06 sec
+dynamic context mode               : single_fact
+create_bm25_retriever pool k       : 10
+hybrid_search semantic_k           : 6
+hybrid_search bm25_k               : 6
+hybrid_search final_k              : 8
+rerank_documents input_k           : 6
+rerank_documents top_n             : 6
+rerank_documents actual input docs : 6 of 8 hybrid docs
+select_final_context_docs top_n    : 5 / dynamic max by context_filter mode
+select_final_context_docs max_chars: 6500
+select_final_context_docs neighbors: False
+select_final_context_docs all_chunks: PASSED from loaded/cached chunks
+[START] Rerank hybrid results | bonifacio
+[DONE]  Rerank hybrid results | bonifacio - 2.28 sec
+[START] Final context filter | bonifacio
+[DONE]  Final context filter | bonifacio - 9.13 sec
+
+--------------------------------------------------------------------------------
+TOP SEMANTIC RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=15 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_54
+Title   : Andrés Bonifacio - Wikipedia
+Section : 3. "Filipinos honor 'Father of Philippine Revolution'" (
+semantic_distance: 0.2916649281978607
+semantic_rank: 1
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: 3. "Filipinos honor 'Father of Philippine Revolution'" ( | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en The Spanish pronunciation of Bonifacio in both Latin America and the United States is [boniˈfasjo]. 3. "Filipinos honor 'Father of Philippine Revolution'" ( December 31, 2018. 4. Arcilla, Jose S. (1997). "Who is Andres Bonifacio?". Philippine Studies. 45 (4): 570–577. 5. "Selection and Proclamation of National Heroes and Laws Honoring Filipino Historical Figures" ( 0301 1.pdf) (PDF). Reference and Research Bureau Legislative Research Service, House of 1.pdf) (PDF) on June 4, 2011.. Bonifacio's bones
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=17 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_57
+Title   : Andrés Bonifacio - Wikipedia
+Section : 23. Turning Points I ( Rex Bookstore, Inc., 2007,
+semantic_distance: 0.30482205748558044
+semantic_rank: 2
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: 23. Turning Points I ( Rex Bookstore, Inc., 2007, | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en 23. Turning Points I ( Rex Bookstore, Inc., 2007, p. 26 ( 39/ from the original on August 5, 2020, 24. Ocampo 2016. 25. Carballo, Bibsy M. (December 15, 2014). "Bonifacio, Ang Unang Pangulo" ( m/entertainment/2014/12/15/1402782/bonifacio-ang-unang-pangulo). . PhilStar ment/2014/12/15/1402782/bonifacio-ang-unang-pangulo) from the original on August 18, 2019. 26. Ventura, Sylvia Mendez (2001). Supremo: The Story of Andres Bonifacio ( m/books? Tahanan Books for Young Readers. from the original on November 28, 2020. 27. Villanueva 1989, p. 30. 28. Ventura, Sylvia Mendez (2001). Supremo: The Story of Andres Bonifacio ( m/books? Taha...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=23 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_71
+Title   : Andrés Bonifacio - Wikipedia
+Section : ISBN 971-27-0920-5
+semantic_distance: 0.3050040006637573
+semantic_rank: 3
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: ISBN 971-27-0920-5 | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en ISBN 971-27-0920-5 Quirino, Carlos (1969), The Young Aguinaldo: From Kawit to Biyak-na-Bato, Manila Ronquillo, Carlos (1996), Isagani Medina (ed.), Ilang talata tungkol sa paghihimagsik nang 1896– 1897, Quezon City: University of the Philippines Press Salazar, Zeus (1994), Agosto 29–30, 1896: Ang pagsalakay ni Bonifacio sa Maynila, Quezon City: Miranda Bookstore Villanueva, Alejo (1989), Bonifacio's Unfinished Revolution (
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=20 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_64
+Title   : Andrés Bonifacio - Wikipedia
+Section : ipinahahayag kong lansag at walang kabuluhan ang lahat ng bagay na pinagkayarian at
+semantic_distance: 0.3067300617694855
+semantic_rank: 4
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: ipinahahayag kong lansag at walang kabuluhan ang lahat ng bagay na pinagkayarian at | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en ipinahahayag kong lansag at walang kabuluhan ang lahat ng bagay na pinagkayarian at pinagtibay sa Pulong na ito." 105. Constantino 1975, p. 185 106. Alvarez, S.V., 1992, Recalling the Revolution, Madison: Center for Southeast Asia Studies, University of Wisconsin-Madison, ISBN 1-881261-05-0 107. Álvarez 1992. 108. Artemio Ricarte Declaration dated March 24, 1897. "Katipunan" ( aysayan-kkk.info/docs.ar.240397.htm) on August 19, 2011. 109. Constantino 1975, pp. 188 110. Guerrero 1998, p. 192. 111. Agoncillo 1990, pp. 171–172.
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=22 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_68
+Title   : Andrés Bonifacio - Wikipedia
+Section : ISBN 971-542-471-6
+semantic_distance: 0.3166080415248871
+semantic_rank: 5
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: ISBN 971-542-471-6 | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en ISBN 971-542-471-6 Borromeo-Buehler, Soledad Masangkay (1998), The Cry of Balintawak: a contrived controversy, Ateneo de Manila University Press, ISBN 978-971-550-278-8 Constantino, Renato (1980) , "Veneration without Understanding", Dissent and Counter- consciousness, Quezon City: Malaya Books, pp. 125–145 Constantino, Renato (1975), The Philippines: A Past Revisited ( Delmendo, Sharon (2000), "Pax Americana and the Pacific Theater" ( oks? in Tolentino, Roland (ed.), Geopolitics of the visible: essays on Philippine film cultures ( from the Friend, Theodore (1965) , Between Two Empires: The Ordeal of the Philippines, 1929–1946 ( Yale University Press, Rodao...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP BM25 RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=24 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_72
+Title   : Andrés Bonifacio - Wikipedia
+Section : Zaide, Gregorio F. (1983). History of the Republic of the Philippines (
+bm25_rank: 1
+bm25_rank_score: 1.0
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: Zaide, Gregorio F. (1983). History of the Republic of the Philippines ( | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en Zaide, Gregorio F. (1983). History of the Republic of the Philippines ( ks? National Book Store. ISBN 978-971-08-3995-7. Zaide, Gregorio (1984), Philippine History and Government, National Bookstore Printing Press Zaide, Sonia M. (1999), The Philippines: A Unique Nation ( g/web/20161119151718/ from the original Works by or about Andrés Bonifacio ( A Bonifacio Andrés OR subject Andrés Bonifacio O R creator Bonifacio Andrés OR creator Andrés Boni facio OR title Andrés Bonifacio OR description Bonif acio Andrés OR description Andrés Bonifacio OR % 22Bonifacio Andres OR Andres Bonifacio OR %2 8 1863-1897 AND B...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=8 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_25
+Title   : Andrés Bonifacio - Wikipedia
+Section : Emilio Jacinto, Bonifacio's secretary and right-hand man. Jacinto was said to be against Bonifacio's
+bm25_rank: 2
+bm25_rank_score: 0.5
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: Emilio Jacinto, Bonifacio's secretary and right-hand man. Jacinto was said to be against Bonifacio's | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en Emilio Jacinto, Bonifacio's secretary and right-hand man. Jacinto was said to be against Bonifacio's expedition to Cavite. The Bonifacio brothers stayed in San Francisco de Malabón (present-day General Trias) during this time. Upon his arrival at Cavite, friction grew between Bonifacio and the Magdalo leaders. Apolinario Mabini, who later served as Emilio Aguinaldo's adviser, writes that at this point the Magdalo leaders "already paid little heed to his authority and orders." Bonifacio was partial to the Magdiwang, perhaps due to his kinship ties with Mariano Álvarez, or more i...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=11 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_39
+Title   : Andrés Bonifacio - Wikipedia
+Section : wrote that Bonifacio's death demoralized many rebels from Manila, La Laguna and Batangas who had
+bm25_rank: 3
+bm25_rank_score: 0.3333333333333333
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: wrote that Bonifacio's death demoralized many rebels from Manila, La Laguna and Batangas who had | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en wrote that Bonifacio's death demoralized many rebels from Manila, La Laguna and Batangas who had come to help those in Cavite, and caused them to quit. In other areas, Bonifacio's close associates like Emilio Jacinto and Macario Sakay continued the Katipunan and never recognized Aguinaldo's authority. The historical assessment of Bonifacio involves several controversial points. His death is alternately viewed as a justified execution for treason, and a "legal murder" fueled by politics. Some historians consider him to be the rightful first President of the Philippines instead of Ag...
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=17 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_57
+Title   : Andrés Bonifacio - Wikipedia
+Section : 23. Turning Points I ( Rex Bookstore, Inc., 2007,
+bm25_rank: 4
+bm25_rank_score: 0.25
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: 23. Turning Points I ( Rex Bookstore, Inc., 2007, | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en 23. Turning Points I ( Rex Bookstore, Inc., 2007, p. 26 ( 39/ from the original on August 5, 2020, 24. Ocampo 2016. 25. Carballo, Bibsy M. (December 15, 2014). "Bonifacio, Ang Unang Pangulo" ( m/entertainment/2014/12/15/1402782/bonifacio-ang-unang-pangulo). . PhilStar ment/2014/12/15/1402782/bonifacio-ang-unang-pangulo) from the original on August 18, 2019. 26. Ventura, Sylvia Mendez (2001). Supremo: The Story of Andres Bonifacio ( m/books? Tahanan Books for Young Readers. from the original on November 28, 2020. 27. Villanueva 1989, p. 30. 28. Ventura, Sylvia Mendez (2001). Supremo: The Story of Andres Bonifacio ( m/books? Taha...
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=17 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_58
+Title   : Andrés Bonifacio - Wikipedia
+Section : 32. De Ocampo, Esteban A. (1966). The Life and Achievements of Bonifacio (
+bm25_rank: 5
+bm25_rank_score: 0.2
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: 32. De Ocampo, Esteban A. (1966). The Life and Achievements of Bonifacio ( | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en 32. De Ocampo, Esteban A. (1966). The Life and Achievements of Bonifacio ( m/books? p. 8 ( osy). 33. Ocampo, Ambeth R. "Walking tour of Bonifacio's Manila" ( 063407/ from the original on 34. Ventura, Sylvia Mendez (2001). Supremo: The Story of Andres Bonifacio ( m/books? Tahanan Books for Young Readers. p. 38. from the original on November 28, 2020. 35. "Andres Bonifacio and the Katipunan – National Historical Commission of the Philippines" ( National Historical Commission of the August 18, 2019.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP RRF + METADATA BOOST RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=17 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_57
+Title   : Andrés Bonifacio - Wikipedia
+Section : 23. Turning Points I ( Rex Bookstore, Inc., 2007,
+hybrid_score: 0.015927419354838712
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.017427419354838714
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: 23. Turning Points I ( Rex Bookstore, Inc., 2007, | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en 23. Turning Points I ( Rex Bookstore, Inc., 2007, p. 26 ( 39/ from the original on August 5, 2020, 24. Ocampo 2016. 25. Carballo, Bibsy M. (December 15, 2014). "Bonifacio, Ang Unang Pangulo" ( m/entertainment/2014/12/15/1402782/bonifacio-ang-unang-pangulo). . PhilStar ment/2014/12/15/1402782/bonifacio-ang-unang-pangulo) from the original on August 18, 2019. 26. Ventura, Sylvia Mendez (2001). Supremo: The Story of Andres Bonifacio ( m/books? Tahanan Books for Young Readers. from the original on November 28, 2020. 27. Villanueva 1989, p. 30. 28. Ventura, Sylvia Mendez (2001). Supremo: The Story of Andres Bonifacio ( m/books? Taha...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=15 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_54
+Title   : Andrés Bonifacio - Wikipedia
+Section : 3. "Filipinos honor 'Father of Philippine Revolution'" (
+hybrid_score: 0.009836065573770491
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.01133606557377049
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: 3. "Filipinos honor 'Father of Philippine Revolution'" ( | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en The Spanish pronunciation of Bonifacio in both Latin America and the United States is [boniˈfasjo]. 3. "Filipinos honor 'Father of Philippine Revolution'" ( December 31, 2018. 4. Arcilla, Jose S. (1997). "Who is Andres Bonifacio?". Philippine Studies. 45 (4): 570–577. 5. "Selection and Proclamation of National Heroes and Laws Honoring Filipino Historical Figures" ( 0301 1.pdf) (PDF). Reference and Research Bureau Legislative Research Service, House of 1.pdf) (PDF) on June 4, 2011.. Bonifacio's bones
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=23 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_71
+Title   : Andrés Bonifacio - Wikipedia
+Section : ISBN 971-27-0920-5
+hybrid_score: 0.009523809523809523
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.011023809523809523
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: ISBN 971-27-0920-5 | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en ISBN 971-27-0920-5 Quirino, Carlos (1969), The Young Aguinaldo: From Kawit to Biyak-na-Bato, Manila Ronquillo, Carlos (1996), Isagani Medina (ed.), Ilang talata tungkol sa paghihimagsik nang 1896– 1897, Quezon City: University of the Philippines Press Salazar, Zeus (1994), Agosto 29–30, 1896: Ang pagsalakay ni Bonifacio sa Maynila, Quezon City: Miranda Bookstore Villanueva, Alejo (1989), Bonifacio's Unfinished Revolution (
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=20 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_64
+Title   : Andrés Bonifacio - Wikipedia
+Section : ipinahahayag kong lansag at walang kabuluhan ang lahat ng bagay na pinagkayarian at
+hybrid_score: 0.009375
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.010875
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: ipinahahayag kong lansag at walang kabuluhan ang lahat ng bagay na pinagkayarian at | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en ipinahahayag kong lansag at walang kabuluhan ang lahat ng bagay na pinagkayarian at pinagtibay sa Pulong na ito." 105. Constantino 1975, p. 185 106. Alvarez, S.V., 1992, Recalling the Revolution, Madison: Center for Southeast Asia Studies, University of Wisconsin-Madison, ISBN 1-881261-05-0 107. Álvarez 1992. 108. Artemio Ricarte Declaration dated March 24, 1897. "Katipunan" ( aysayan-kkk.info/docs.ar.240397.htm) on August 19, 2011. 109. Constantino 1975, pp. 188 110. Guerrero 1998, p. 192. 111. Agoncillo 1990, pp. 171–172.
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=22 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_68
+Title   : Andrés Bonifacio - Wikipedia
+Section : ISBN 971-542-471-6
+hybrid_score: 0.00923076923076923
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.01073076923076923
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: ISBN 971-542-471-6 | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en ISBN 971-542-471-6 Borromeo-Buehler, Soledad Masangkay (1998), The Cry of Balintawak: a contrived controversy, Ateneo de Manila University Press, ISBN 978-971-550-278-8 Constantino, Renato (1980) , "Veneration without Understanding", Dissent and Counter- consciousness, Quezon City: Malaya Books, pp. 125–145 Constantino, Renato (1975), The Philippines: A Past Revisited ( Delmendo, Sharon (2000), "Pax Americana and the Pacific Theater" ( oks? in Tolentino, Roland (ed.), Geopolitics of the visible: essays on Philippine film cultures ( from the Friend, Theodore (1965) , Between Two Empires: The Ordeal of the Philippines, 1929–1946 ( Yale University Press, Rodao...
+--------------------------------------------------------------------------------
+Rank    : 6
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=24 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_73
+Title   : Andrés Bonifacio - Wikipedia
+Section : the historical court documents and testimonies in the trial and execution of Andres and Procopio
+hybrid_score: 0.00909090909090909
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.01059090909090909
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: the historical court documents and testimonies in the trial and execution of Andres and Procopio | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en the historical court documents and testimonies in the trial and execution of Andres and Procopio Bonifacio processed by ( Ang Dapat Mabatid ng mga Tagalog ( Summary and full text of an article written by Andrés Bonifacio in the Katipunan newspaper Kalayaan posted in ( "Transcript of the Trial of Andres Bonifacio" ( from the original ( on "Aguinaldo 'confession' letters on Bonifacio execution fetch P5 million at auction" ( - uction). ABS-CBN News (with image of a typewritten account amended in Emilio Aguinaldo’s handwriting). February 23, 2019.
+--------------------------------------------------------------------------------
+Rank    : 7
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=8 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_25
+Title   : Andrés Bonifacio - Wikipedia
+Section : Emilio Jacinto, Bonifacio's secretary and right-hand man. Jacinto was said to be against Bonifacio's
+hybrid_score: 0.0064516129032258064
+metadata_boost_score: 0.0025
+metadata_boosted_score: 0.008951612903225806
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: Emilio Jacinto, Bonifacio's secretary and right-hand man. Jacinto was said to be against Bonifacio's | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en Emilio Jacinto, Bonifacio's secretary and right-hand man. Jacinto was said to be against Bonifacio's expedition to Cavite. The Bonifacio brothers stayed in San Francisco de Malabón (present-day General Trias) during this time. Upon his arrival at Cavite, friction grew between Bonifacio and the Magdalo leaders. Apolinario Mabini, who later served as Emilio Aguinaldo's adviser, writes that at this point the Magdalo leaders "already paid little heed to his authority and orders." Bonifacio was partial to the Magdiwang, perhaps due to his kinship ties with Mariano Álvarez, or more i...
+--------------------------------------------------------------------------------
+Rank    : 8
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=24 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_72
+Title   : Andrés Bonifacio - Wikipedia
+Section : Zaide, Gregorio F. (1983). History of the Republic of the Philippines (
+hybrid_score: 0.006557377049180328
+metadata_boost_score: 0.0015
+metadata_boosted_score: 0.008057377049180327
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: Zaide, Gregorio F. (1983). History of the Republic of the Philippines ( | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en Zaide, Gregorio F. (1983). History of the Republic of the Philippines ( ks? National Book Store. ISBN 978-971-08-3995-7. Zaide, Gregorio (1984), Philippine History and Government, National Bookstore Printing Press Zaide, Sonia M. (1999), The Philippines: A Unique Nation ( g/web/20161119151718/ from the original Works by or about Andrés Bonifacio ( A Bonifacio Andrés OR subject Andrés Bonifacio O R creator Bonifacio Andrés OR creator Andrés Boni facio OR title Andrés Bonifacio OR description Bonif acio Andrés OR description Andrés Bonifacio OR % 22Bonifacio Andres OR Andres Bonifacio OR %2 8 1863-1897 AND B...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TOP RERANKED RESULTS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=15 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_54
+Title   : Andrés Bonifacio - Wikipedia
+Section : 3. "Filipinos honor 'Father of Philippine Revolution'" (
+rerank_score: 1.9401806592941284
+rerank_rank: 1
+rerank_original_rank: 2
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: 3. "Filipinos honor 'Father of Philippine Revolution'" ( | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en The Spanish pronunciation of Bonifacio in both Latin America and the United States is [boniˈfasjo]. 3. "Filipinos honor 'Father of Philippine Revolution'" ( December 31, 2018. 4. Arcilla, Jose S. (1997). "Who is Andres Bonifacio?". Philippine Studies. 45 (4): 570–577. 5. "Selection and Proclamation of National Heroes and Laws Honoring Filipino Historical Figures" ( 0301 1.pdf) (PDF). Reference and Research Bureau Legislative Research Service, House of 1.pdf) (PDF) on June 4, 2011.. Bonifacio's bones
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=17 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_57
+Title   : Andrés Bonifacio - Wikipedia
+Section : 23. Turning Points I ( Rex Bookstore, Inc., 2007,
+rerank_score: 1.4340254068374634
+rerank_rank: 2
+rerank_original_rank: 1
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: 23. Turning Points I ( Rex Bookstore, Inc., 2007, | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en 23. Turning Points I ( Rex Bookstore, Inc., 2007, p. 26 ( 39/ from the original on August 5, 2020, 24. Ocampo 2016. 25. Carballo, Bibsy M. (December 15, 2014). "Bonifacio, Ang Unang Pangulo" ( m/entertainment/2014/12/15/1402782/bonifacio-ang-unang-pangulo). . PhilStar ment/2014/12/15/1402782/bonifacio-ang-unang-pangulo) from the original on August 18, 2019. 26. Ventura, Sylvia Mendez (2001). Supremo: The Story of Andres Bonifacio ( m/books? Tahanan Books for Young Readers. from the original on November 28, 2020. 27. Villanueva 1989, p. 30. 28. Ventura, Sylvia Mendez (2001). Supremo: The Story of Andres Bonifacio ( m/books? Taha...
+--------------------------------------------------------------------------------
+Rank    : 3
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=24 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_73
+Title   : Andrés Bonifacio - Wikipedia
+Section : the historical court documents and testimonies in the trial and execution of Andres and Procopio
+rerank_score: 0.9588184356689453
+rerank_rank: 3
+rerank_original_rank: 6
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: the historical court documents and testimonies in the trial and execution of Andres and Procopio | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en the historical court documents and testimonies in the trial and execution of Andres and Procopio Bonifacio processed by ( Ang Dapat Mabatid ng mga Tagalog ( Summary and full text of an article written by Andrés Bonifacio in the Katipunan newspaper Kalayaan posted in ( "Transcript of the Trial of Andres Bonifacio" ( from the original ( on "Aguinaldo 'confession' letters on Bonifacio execution fetch P5 million at auction" ( - uction). ABS-CBN News (with image of a typewritten account amended in Emilio Aguinaldo’s handwriting). February 23, 2019.
+--------------------------------------------------------------------------------
+Rank    : 4
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=20 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_64
+Title   : Andrés Bonifacio - Wikipedia
+Section : ipinahahayag kong lansag at walang kabuluhan ang lahat ng bagay na pinagkayarian at
+rerank_score: 0.2502886950969696
+rerank_rank: 4
+rerank_original_rank: 4
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: ipinahahayag kong lansag at walang kabuluhan ang lahat ng bagay na pinagkayarian at | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en ipinahahayag kong lansag at walang kabuluhan ang lahat ng bagay na pinagkayarian at pinagtibay sa Pulong na ito." 105. Constantino 1975, p. 185 106. Alvarez, S.V., 1992, Recalling the Revolution, Madison: Center for Southeast Asia Studies, University of Wisconsin-Madison, ISBN 1-881261-05-0 107. Álvarez 1992. 108. Artemio Ricarte Declaration dated March 24, 1897. "Katipunan" ( aysayan-kkk.info/docs.ar.240397.htm) on August 19, 2011. 109. Constantino 1975, pp. 188 110. Guerrero 1998, p. 192. 111. Agoncillo 1990, pp. 171–172.
+--------------------------------------------------------------------------------
+Rank    : 5
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=22 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_68
+Title   : Andrés Bonifacio - Wikipedia
+Section : ISBN 971-542-471-6
+rerank_score: 0.22184662520885468
+rerank_rank: 5
+rerank_original_rank: 5
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: ISBN 971-542-471-6 | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en ISBN 971-542-471-6 Borromeo-Buehler, Soledad Masangkay (1998), The Cry of Balintawak: a contrived controversy, Ateneo de Manila University Press, ISBN 978-971-550-278-8 Constantino, Renato (1980) , "Veneration without Understanding", Dissent and Counter- consciousness, Quezon City: Malaya Books, pp. 125–145 Constantino, Renato (1975), The Philippines: A Past Revisited ( Delmendo, Sharon (2000), "Pax Americana and the Pacific Theater" ( oks? in Tolentino, Roland (ed.), Geopolitics of the visible: essays on Philippine film cultures ( from the Friend, Theodore (1965) , Between Two Empires: The Ordeal of the Philippines, 1929–1946 ( Yale University Press, Rodao...
+--------------------------------------------------------------------------------
+Rank    : 6
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=23 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_71
+Title   : Andrés Bonifacio - Wikipedia
+Section : ISBN 971-27-0920-5
+rerank_score: -0.3004418909549713
+rerank_rank: 6
+rerank_original_rank: 3
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: ISBN 971-27-0920-5 | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en ISBN 971-27-0920-5 Quirino, Carlos (1969), The Young Aguinaldo: From Kawit to Biyak-na-Bato, Manila Ronquillo, Carlos (1996), Isagani Medina (ed.), Ilang talata tungkol sa paghihimagsik nang 1896– 1897, Quezon City: University of the Philippines Press Salazar, Zeus (1994), Agosto 29–30, 1896: Ang pagsalakay ni Bonifacio sa Maynila, Quezon City: Miranda Bookstore Villanueva, Alejo (1989), Bonifacio's Unfinished Revolution (
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+FINAL RETRIEVED CHUNKS
+--------------------------------------------------------------------------------
+Rank    : 1
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=0 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_0
+Title   : Andrés Bonifacio - Wikipedia
+Section : Andrés C. Bonifacio
+context_mode   : single_fact
+context_reason : short_source_title_match
+keep_reason    : short_source_title_intro_or_evidence
+filter_scope   : single_fact_short_source_title_match
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: Andrés C. Bonifacio | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en Andrés C. Bonifacio The only extant portrait photograph of Bonifacio, c. 1896. Unofficial President of the Sovereign Tagalog Nation President of the Philippines (unofficial) In office August 24, 1896 – March 22 or May 10, 1897 Preceded by Office established Succeeded by Office abolished Emilio Aguinaldo (as President of Tejeros Revolutionary Government) Supremo of Katipunan In office November 1895 – May 10, 1897 Preceded by Román Basa Succeeded by Organization defunct Personal details Born Andrés Castro Bonifacio November 30, 1863 Tondo, Manila, Captaincy General of the Philippines Andrés Bonifacio Andrés Bonifacio (Tagalog: [an ˈ d ɾ es (an ˈ d ɾ ez-) bon...
+--------------------------------------------------------------------------------
+Rank    : 2
+Source  : Andrés Bonifacio - Wikipedia.pdf | page=0 | data\Andrés Bonifacio - Wikipedia.pdf::chunk_1
+Title   : Andrés Bonifacio - Wikipedia
+Section : often shortened by contemporaries and historians to
+context_mode   : single_fact
+context_reason : short_source_title_match
+keep_reason    : short_source_title_intro_or_evidence
+filter_scope   : single_fact_short_source_title_match
+Preview : Retrieval context: title: Andrés Bonifacio - Wikipedia | section: often shortened by contemporaries and historians to | category: history | doc_type: article | source: data\Andrés Bonifacio - Wikipedia.pdf | file_name: Andrés Bonifacio - Wikipedia.pdf | language: en often shortened by contemporaries and historians to Supremo) of the Kataastaasan, Kagalanggalang Katipunan ng mga Anak ng Bayan more commonly known as the "Katipunan", a movement that sought the independence of the Philippines from Spanish colonial rule and started the Revolution. Bonifacio reorganized the Katipunan into a revolutionary government, with himself as Pangulo (President) of a nation-state called Haring Bayang Katagalugan (“Sovereign Nation of the Tagalog People” or “Sovereign Tagalog Nation”), also Republika ng Katagaluguan (Spanish: República Tagala, “Tagalog Republic”), wherein "Tagalog" referred to all those b...
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+CHUNK FLOW CHECK
+--------------------------------------------------------------------------------
+Chunk ID | semantic | bm25 | hybrid | rerank | final | label
+------------------------------------------------------------------------------------------------------------------------
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_57 | S=2   | B=4   | H=1   | R=2   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=17 | section=23. Turning Points I ( Rex Bookstore, Inc., 2007,
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_54 | S=1   | B=-   | H=2   | R=1   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=15 | section=3. "Filipinos honor 'Father of Philippine Revolution'" (
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_71 | S=3   | B=-   | H=3   | R=6   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=23 | section=ISBN 971-27-0920-5
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_64 | S=4   | B=-   | H=4   | R=4   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=20 | section=ipinahahayag kong lansag at walang kabuluhan ang lahat ng bagay na pin
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_68 | S=5   | B=-   | H=5   | R=5   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=22 | section=ISBN 971-542-471-6
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_73 | S=6   | B=-   | H=6   | R=3   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=24 | section=the historical court documents and testimonies in the trial and execut
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_25 | S=-   | B=2   | H=7   | R=-   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=8 | section=Emilio Jacinto, Bonifacio's secretary and right-hand man. Jacinto was 
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_72 | S=-   | B=1   | H=8   | R=-   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=24 | section=Zaide, Gregorio F. (1983). History of the Republic of the Philippines 
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_39 | S=-   | B=3   | H=-   | R=-   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=11 | section=wrote that Bonifacio's death demoralized many rebels from Manila, La L
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_58 | S=-   | B=5   | H=-   | R=-   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=17 | section=32. De Ocampo, Esteban A. (1966). The Life and Achievements of Bonifac
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_26 | S=-   | B=6   | H=-   | R=-   | F=-   | Andrés Bonifacio - Wikipedia.pdf | page=8 | section=Magdalo leaders refused to surrender him. Townspeople in Noveleta (a M
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_0 | S=-   | B=-   | H=-   | R=-   | F=1   | Andrés Bonifacio - Wikipedia.pdf | page=0 | section=Andrés C. Bonifacio
+data\Andrés Bonifacio - Wikipedia.pdf::chunk_1 | S=-   | B=-   | H=-   | R=-   | F=2   | Andrés Bonifacio - Wikipedia.pdf | page=0 | section=often shortened by contemporaries and historians to
+
+WARNING: These top 6 reranked chunks were not included in FINAL RETRIEVED CHUNKS:
+- data\Andrés Bonifacio - Wikipedia.pdf::chunk_54 | Andrés Bonifacio - Wikipedia.pdf | page=15 | section=3. "Filipinos honor 'Father of Philippine Revolution'" (
+- data\Andrés Bonifacio - Wikipedia.pdf::chunk_57 | Andrés Bonifacio - Wikipedia.pdf | page=17 | section=23. Turning Points I ( Rex Bookstore, Inc., 2007,
+- data\Andrés Bonifacio - Wikipedia.pdf::chunk_73 | Andrés Bonifacio - Wikipedia.pdf | page=24 | section=the historical court documents and testimonies in the trial and execut
+- data\Andrés Bonifacio - Wikipedia.pdf::chunk_64 | Andrés Bonifacio - Wikipedia.pdf | page=20 | section=ipinahahayag kong lansag at walang kabuluhan ang lahat ng bagay na pin
+- data\Andrés Bonifacio - Wikipedia.pdf::chunk_68 | Andrés Bonifacio - Wikipedia.pdf | page=22 | section=ISBN 971-542-471-6
+- data\Andrés Bonifacio - Wikipedia.pdf::chunk_71 | Andrés Bonifacio - Wikipedia.pdf | page=23 | section=ISBN 971-27-0920-5
+
+--------------------------------------------------------------------------------
+QUESTION FINAL CHECK
+--------------------------------------------------------------------------------
+Semantic results : 6
+BM25 results     : 6
+Hybrid candidates: 8
+Reranked results : 6
+Final chunks     : 2
+Analyzer mode    : single_fact
+Query type label : short_fact_like
+Dynamic mode     : single_fact
+
+================================================================================
+TIMING SUMMARY
+================================================================================
+Total measured time : 11.46 sec
+
+- Hybrid search | bonifacio              0.06 sec (  0.5%)
+- Rerank hybrid results | bonifacio       2.28 sec ( 19.9%)
+- Final context filter | bonifacio       9.13 sec ( 79.6%)
+
+Main bottleneck     : Final context filter | bonifacio
+Bottleneck time     : 9.13 sec
+
+================================================================================
+TIMING SUMMARY
+================================================================================
+Total measured time : 11.20 sec
+
+- Setup: Load embedding model            7.92 sec ( 70.6%)
+- Setup: Load Chroma vectorstore         0.66 sec (  5.9%)
 - Setup: Load chunks for BM25            0.02 sec (  0.2%)
-- Setup: Create BM25 retriever           0.45 sec (  4.1%)
-- Setup: Load reranker                   2.36 sec ( 21.4%)
+- Setup: Create BM25 retriever           0.43 sec (  3.9%)
+- Setup: Load reranker                   2.17 sec ( 19.4%)
 
 Main bottleneck     : Setup: Load embedding model
-Bottleneck time     : 7.69 sec
+Bottleneck time     : 7.92 sec
 
 ================================================================================
 BATCH SUMMARY
@@ -5170,3 +5869,9 @@ What is the difference between the Philippine Revolution and the Katipunan? Is o
   Final 4: Katipunan - Wikipedia.pdf | page=18 | section=the Philippine Revolution and the Philippine–American War)—that the | chunk=data\Katipunan - Wikipedia.pdf::chunk_56
 When is rizal's birthday? | OK | single_fact | direct_fact | single_fact | 6 | 6 | 8 | 6 | 1
   Final 1: José Rizal - Wikipedia.pdf | page=1 | section=elite that was situated near the town plaza, a proximity that historia | chunk=data\José Rizal - Wikipedia.pdf::chunk_4
+June 19, 1861 | OK | single_fact | short_fact_like | single_fact | 6 | 6 | 8 | 6 | 2
+  Final 1: José Rizal - Wikipedia.pdf | page=0 | section=José Protasio Rizal | chunk=data\José Rizal - Wikipedia.pdf::chunk_0
+  Final 2: José Rizal - Wikipedia.pdf | page=1 | section=elite that was situated near the town plaza, a proximity that historia | chunk=data\José Rizal - Wikipedia.pdf::chunk_4
+bonifacio | OK | single_fact | short_fact_like | single_fact | 6 | 6 | 8 | 6 | 2
+  Final 1: Andrés Bonifacio - Wikipedia.pdf | page=0 | section=Andrés C. Bonifacio | chunk=data\Andrés Bonifacio - Wikipedia.pdf::chunk_0
+  Final 2: Andrés Bonifacio - Wikipedia.pdf | page=0 | section=often shortened by contemporaries and historians to | chunk=data\Andrés Bonifacio - Wikipedia.pdf::chunk_1

@@ -1,11 +1,10 @@
-"""Left sidebar navigation for InknowVa."""
-
 import base64
 import html
 from pathlib import Path
 
 import streamlit as st
 
+from retrieval.context_config import read_query_config
 from storage.chat_history_store import list_conversations
 from ui.source_ui import (
     clean_preview_text,
@@ -230,24 +229,27 @@ def display_source_items(sources):
     )
 
 
+def get_sidebar_source_fallback_keys():
+    config = read_query_config()
+    ui_config = config.get("ui", {})
+    sidebar_config = ui_config.get("sidebar", {})
+    keys = sidebar_config.get("source_fallback_keys", ())
+
+    if isinstance(keys, str):
+        keys = keys.split("|")
+
+    if not isinstance(keys, (list, tuple, set)):
+        return []
+
+    return [str(key).strip() for key in keys if str(key).strip()]
+
+
 def get_sidebar_sources(sources=None):
     # Use explicit sources first.
     if sources:
         return sources
 
-    # Fallback keys used by different UI versions.
-    fallback_keys = [
-        "sidebar_sources",
-        "latest_sources_clean",
-        "latest_sources",
-        "current_sources",
-        "last_sources",
-        "answer_sources",
-        "last_answer_sources",
-        "current_answer_sources",
-    ]
-
-    for key in fallback_keys:
+    for key in get_sidebar_source_fallback_keys():
         value = st.session_state.get(key)
 
         if value:

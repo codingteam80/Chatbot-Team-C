@@ -1,0 +1,2365 @@
+InknowVa Python file explanations
+Tests are excluded from this report.
+Paliwanag ay Tagalog/Taglish para mas madaling maintindihan habang code names ay pinanatiling English.
+Kasama ang bawat .py file at bawat top-level function/class method na nakita sa AST parse.
+
+====================================================================================================
+app.py
+Lines: 3
+Ginagawa ng file: Entry point ng Streamlit app. Ito ang tumatawag sa main chat UI para magsimula ang application.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+chains/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+chains/chatbot.py
+Lines: 187
+Ginagawa ng file: Chatbot orchestration layer. Pinagdugtong nito ang retrieval, question rewriting, context filtering, answer generation, sources, at streaming output.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+chains/chatbot_parts/__init__.py
+Lines: 0
+Ginagawa ng file: Chatbot orchestration layer. Pinagdugtong nito ang retrieval, question rewriting, context filtering, answer generation, sources, at streaming output.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+chains/chatbot_parts/common.py
+Lines: 165
+Ginagawa ng file: Chatbot orchestration layer. Pinagdugtong nito ang retrieval, question rewriting, context filtering, answer generation, sources, at streaming output.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+chains/chatbot_parts/common_parts/__init__.py
+Lines: 0
+Ginagawa ng file: Chatbot orchestration layer. Pinagdugtong nito ang retrieval, question rewriting, context filtering, answer generation, sources, at streaming output.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+chains/chatbot_parts/common_parts/debug_helpers.py
+Lines: 367
+Ginagawa ng file: Chatbot orchestration layer. Pinagdugtong nito ang retrieval, question rewriting, context filtering, answer generation, sources, at streaming output.
+
+Top-level functions:
+  - load_fallback_retry_skip_categories() [line 60]
+    naglo-load ang fallback handling, retry flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - cache_chatbot_resource(show_spinner) [line 78]
+    nagka-cache ang chatbot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_response(answer, sources, documents) [line 90]
+    gumagawa/nagbu-build ang response. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - print_ui_rag_debug(message) [line 99]
+    nagpi-print ang UI, RAG flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - print_debug_docs(docs, label, preview_chars) [line 104]
+    nagpi-print ang documents. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - append_ui_rag_debug(lines) [line 136]
+    nagdadagdag sa dulo ang UI, RAG flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - add_ui_debug_section(lines, title) [line 160]
+    nagdadagdag ang UI. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_ui_debug_source_label(doc) [line 168]
+    kumukuha ang UI, source/citation. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_ui_debug_preview(doc, max_chars) [line 177]
+    kumukuha ang UI. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - add_ui_debug_docs(lines, title, docs, max_docs) [line 187]
+    nagdadagdag ang UI, documents. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - log_ui_rag_input(mode, question, raw_chat_history, effective_chat_history, rewritten_question, answer_question, retrieval_queries) [line 232]
+    nagle-log ang UI, RAG flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - log_ui_retrieval_result(mode, retrieval_result, include_final) [line 259]
+    nagle-log ang UI, retrieval flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - log_ui_final_context(mode, final_docs) [line 275]
+    nagle-log ang UI, context. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - log_ui_prompt(mode, prompt) [line 282]
+    nagle-log ang UI, prompt. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - log_ui_answer(mode, answer, sources) [line 292]
+    nagle-log ang UI, sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/chatbot_parts/common_parts/doc_helpers.py
+Lines: 405
+Ginagawa ng file: Chatbot orchestration layer. Pinagdugtong nito ang retrieval, question rewriting, context filtering, answer generation, sources, at streaming output.
+
+Top-level functions:
+  - call_supported(function, *args, **kwargs) [line 65]
+    tumatawag ang supported. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_metadata(doc) [line 85]
+    kumukuha ang metadata. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_doc_key(doc) [line 90]
+    kumukuha ang document. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - merge_unique_docs(*doc_lists, limit) [line 100]
+    nagma-merge ang documents. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - normalize_rerank_result(result) [line 121]
+    nagno-normalize ang rerank result. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_no_answer(answer) [line 134]
+    nagche-check kung ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_fallback_answer(answer) [line 142]
+    nagche-check kung ang fallback handling, sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - looks_truncated_answer(answer) [line 147]
+    nagche-check kung mukhang ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - should_retry_answer(answer, retrieval_result, category, no_llm) [line 160]
+    nagdedesisyon kung dapat ang retry flow, sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - has_searchable_question_terms(question) [line 184]
+    nagche-check kung may ang tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - normalize_query_list(queries, max_queries) [line 195]
+    nagno-normalize ang query/tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_query_analyzer_terms(question) [line 216]
+    kumukuha ang query/tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_keyword_query(question) [line 247]
+    kumukuha ang keyword, query/tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_retrieval_queries(question, rewritten_question, enabled, max_queries) [line 290]
+    gumagawa/nagbu-build ang retrieval flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - combine_retrieval_queries(retrieval_queries) [line 324]
+    pinagsasama ang retrieval flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/chatbot_parts/common_parts/question_helpers.py
+Lines: 241
+Ginagawa ng file: Chatbot orchestration layer. Pinagdugtong nito ang retrieval, question rewriting, context filtering, answer generation, sources, at streaming output.
+
+Top-level functions:
+  - is_clarification_response(text) [line 81]
+    nagche-check kung ang clarification response. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_clarification_answer(text) [line 86]
+    kumukuha ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_answer_question(question, rewritten_question) [line 96]
+    kumukuha ang sagot, tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - safe_rewrite_question(question, chat_history, llm) [line 106]
+    ligtas na nagpapatakbo/nagha-handle ng ang tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_effective_chat_history(question, chat_history) [line 143]
+    kumukuha ang chat history. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/chatbot_parts/components.py
+Lines: 213
+Ginagawa ng file: Chatbot orchestration layer. Pinagdugtong nito ang retrieval, question rewriting, context filtering, answer generation, sources, at streaming output.
+
+Top-level functions:
+  - load_chatbot_components() [line 86]
+    naglo-load ang chatbot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - resolve_all_chunks(all_chunks) [line 112]
+    nagre-resolve ang chunks. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - clear_chatbot_components_cache() [line 123]
+    naglilinis/nagre-reset ang chatbot, cache. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/chatbot_parts/public_api.py
+Lines: 427
+Ginagawa ng file: Chatbot orchestration layer. Pinagdugtong nito ang retrieval, question rewriting, context filtering, answer generation, sources, at streaming output.
+
+Top-level functions:
+  - ask_rag(question, vectorstore, bm25_retriever, reranker, llm, chat_history, debug, all_chunks) [line 94]
+    Main non-streaming chatbot entry point. Tumatanggap ng tanong, kumukuha ng relevant context, nagpapagawa ng sagot sa LLM, at nagbabalik ng answer/sources.
+  - ask_rag_stream(question, vectorstore, bm25_retriever, reranker, llm, chat_history, debug, all_chunks) [line 207]
+    Streaming chatbot entry point. Pareho ng ask_rag pero paunti-unting ibinabalik ang sagot habang nagge-generate ang LLM.
+Classes: wala
+
+====================================================================================================
+chains/chatbot_parts/retrieval_flow.py
+Lines: 422
+Ginagawa ng file: Chatbot orchestration layer. Pinagdugtong nito ang retrieval, question rewriting, context filtering, answer generation, sources, at streaming output.
+
+Top-level functions:
+  - run_retrieval_core(question, retrieval_queries, vectorstore, bm25_retriever, reranker, use_metadata_boost, use_reranker, debug) [line 88]
+    humahawak sa ang retrieval flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - ensure_final_context_docs(question, retrieval_result, all_chunks, debug) [line 183]
+    sinisigurado ang context, documents. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - retrieve_documents(retrieval_query, vectorstore, bm25_retriever, reranker, all_chunks, answer_query, debug) [line 204]
+    humahawak sa ang documents. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - generate_chatbot_answer(question, retrieval_result, llm, chat_history, debug, correction_retry, completion_retry, all_chunks) [line 232]
+    nagge-generate ang chatbot, sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - generate_chatbot_answer_with_retry(question, retrieval_result, llm, chat_history, debug, category, no_llm, all_chunks) [line 273]
+    nagge-generate ang chatbot, sagot, retry flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_retrieval_query_list(question, rewritten_question) [line 322]
+    gumagawa/nagbu-build ang retrieval flow, query/tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag/__init__.py
+Lines: 0
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+chains/rag/answer_repair.py
+Lines: 253
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+chains/rag/candidate_parts/__init__.py
+Lines: 0
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+chains/rag/candidate_parts/answer_cleanup.py
+Lines: 312
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - extract_text(response) [line 82]
+    nag-e-extract ang text. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - clean_generated_answer(answer, question) [line 93]
+    naglilinis ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - safe_answer(raw_answer, question) [line 127]
+    ligtas na nagpapatakbo/nagha-handle ng ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - looks_like_truncated_answer(answer) [line 142]
+    nagche-check kung mukhang ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - candidate_name_only(candidate) [line 175]
+    humahawak sa ang candidate answer/item. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_candidate_fallback_answer(question, context_docs) [line 182]
+    gumagawa/nagbu-build ang candidate answer/item, fallback handling, sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - repair_truncated_list_answer(answer, question, context_docs) [line 215]
+    nag-aayos ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag/candidate_parts/extract_helpers.py
+Lines: 384
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - normalize_space(text) [line 53]
+    nagno-normalize ang space. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - normalize_candidate_key(text) [line 57]
+    nagno-normalize ang candidate answer/item. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_list_question(question) [line 65]
+    nagche-check kung ang tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_who_list_question(question) [line 78]
+    nagche-check kung ang tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_useful_question_terms(question) [line 88]
+    kumukuha ang tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - strip_retrieval_metadata(text) [line 104]
+    nagtatanggal ang retrieval flow, metadata. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_doc_text(doc) [line 118]
+    kumukuha ang document. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - split_candidate_sentences(text) [line 122]
+    naghahati ang candidate answer/item. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - sentence_has_list_or_relation_signal(sentence, question_terms) [line 136]
+    humahawak sa ang sentence has list or. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_target_type_question(question) [line 161]
+    nagche-check kung ang tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_local_candidate_window(sentence, start_index, end_index, radius) [line 166]
+    kumukuha ang candidate answer/item. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - make_evidence_snippet(text, candidate) [line 172]
+    gumagawa ang evidence snippet. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - has_local_relation_signal(text) [line 195]
+    nagche-check kung may ang local relation signal. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_enumeration_sentence(sentence) [line 209]
+    nagche-check kung ang enumeration sentence. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - clean_candidate_text(candidate) [line 217]
+    naglilinis ang candidate answer/item. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_weak_candidate(candidate) [line 233]
+    nagche-check kung ang candidate answer/item. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_background_actor(candidate, local_window) [line 264]
+    nagche-check kung ang background actor. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_weak_who_candidate(candidate, target_type_mode, local_window) [line 283]
+    nagche-check kung ang candidate answer/item. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag/candidate_parts/extractors.py
+Lines: 375
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - add_candidate(candidates, candidate, reason, score, who_mode, target_type_mode, local_window, evidence) [line 73]
+    nagdadagdag ang candidate answer/item. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - extract_bullet_candidates(text, candidates) [line 115]
+    nag-e-extract ang candidate answers/items. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - extract_named_candidates(sentence, candidates, score, who_mode, target_type_mode) [line 127]
+    nag-e-extract ang candidate answers/items. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - extract_role_name_candidates(sentence, candidates, score, who_mode, target_type_mode) [line 171]
+    nag-e-extract ang candidate answers/items. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - extract_delimited_candidates(sentence, candidates, score) [line 200]
+    nag-e-extract ang candidate answers/items. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - extract_quoted_candidates(sentence, candidates, score) [line 212]
+    nag-e-extract ang candidate answers/items. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - extract_list_candidates(context_docs, question) [line 217]
+    nag-e-extract ang candidate answers/items. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag/candidate_parts/prompt_block.py
+Lines: 225
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - build_candidate_checklist_block(question, context_docs) [line 80]
+    gumagawa/nagbu-build ang candidate answer/item. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - insert_candidate_checklist_into_prompt(prompt, question, context_docs) [line 110]
+    humahawak sa ang candidate answer/item, prompt. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag/candidates.py
+Lines: 173
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+chains/rag/config.py
+Lines: 239
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - read_query_config(config_path) [line 20]
+    nagbabasa ang query/tanong, configuration. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - normalize_config_list(values) [line 33]
+    nagno-normalize ang configuration. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - normalize_config_key(value) [line 51]
+    nagno-normalize ang configuration. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - normalize_config_set(values) [line 59]
+    nagno-normalize ang configuration. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - config_int(config, key, default_value) [line 63]
+    humahawak sa ang configuration. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - config_bool(config, key, default_value) [line 70]
+    humahawak sa ang configuration. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_nested_dict(data, *keys) [line 82]
+    kumukuha ang nested dict. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - load_candidate_checklist_config() [line 94]
+    naglo-load ang candidate answer/item, configuration. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag/context_prepare.py
+Lines: 353
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - prepare_context_docs(question, docs, semantic_docs, bm25_docs, debug, all_chunks) [line 129]
+    naghahanda ang context, documents. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_prompt_from_context(question, context_docs, chat_history) [line 153]
+    gumagawa/nagbu-build ang prompt, context. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_prompt_with_context(question, docs, semantic_docs, bm25_docs, chat_history, debug, all_chunks) [line 170]
+    gumagawa/nagbu-build ang prompt, context. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_prompt(question, docs, semantic_docs, bm25_docs, chat_history, debug, all_chunks) [line 201]
+    gumagawa/nagbu-build ang prompt. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag/generation.py
+Lines: 432
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - generate_answer_with_context(question, docs, llm, semantic_docs, bm25_docs, chat_history, debug, strict_assumption_check, correction_retry, completion_retry, list_coverage_retry, previous_answer, all_chunks) [line 133]
+    nagge-generate ang sagot, context. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - generate_answer(question, docs, llm, semantic_docs, bm25_docs, chat_history, debug, strict_assumption_check, correction_retry, completion_retry, list_coverage_retry, previous_answer, all_chunks) [line 213]
+    Nagge-generate ng final answer mula sa prompt/context gamit ang LLM.
+  - stream_answer(question, docs, llm, semantic_docs, bm25_docs, chat_history, debug, all_chunks) [line 248]
+    Nagge-generate ng answer gamit ang LLM habang streaming ang output.
+Classes: wala
+
+====================================================================================================
+chains/rag/repair_parts/__init__.py
+Lines: 0
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+chains/rag/repair_parts/death_actor.py
+Lines: 474
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - get_all_candidate_docs(context_docs, candidate_docs) [line 115]
+    kumukuha ang candidate answer/item, documents. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - question_contains_death_action(question) [line 137]
+    humahawak sa ang tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_death_actor_question(question) [line 142]
+    nagche-check kung ang tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - extract_question_action_target(question) [line 151]
+    nag-e-extract ang tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - extract_yes_no_actor(question) [line 169]
+    nag-e-extract ang yes no actor. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - extract_capitalized_terms(text) [line 189]
+    nag-e-extract ang capitalized terms. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - target_terms_from_question(question) [line 206]
+    humahawak sa ang tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - sentence_mentions_target(sentence, target_terms) [line 236]
+    humahawak sa ang sentence mentions target. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - sentence_mentions_death_action(sentence) [line 256]
+    humahawak sa ang sentence mentions death action. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - extract_group_actor_phrase(sentence) [line 261]
+    nag-e-extract ang group actor phrase. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - select_death_actor_evidence_sentence(question, candidate_docs) [line 288]
+    pumipili ang death actor evidence sentence. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_death_actor_supported_answer(question, candidate_docs) [line 326]
+    gumagawa/nagbu-build ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag/repair_parts/false_premise.py
+Lines: 428
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - retry_key_contains(text, phrase) [line 124]
+    umuulit kapag kailangan ang key contains. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - answer_starts_with_false_premise_rejection(answer) [line 128]
+    humahawak sa answer flow ang starts with false premise. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - clean_answer_labels_only(answer) [line 132]
+    naglilinis ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_effective_empty_answer(answer) [line 157]
+    nagche-check kung ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - extract_date_query_text(question) [line 175]
+    nag-e-extract ang query/tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_short_date_query(question) [line 187]
+    nagche-check kung ang query/tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - doc_subject_from_metadata(doc) [line 199]
+    humahawak sa ang document, metadata. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - sentence_has_date_terms(sentence, date_text) [line 213]
+    humahawak sa ang sentence has date terms. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - sentence_is_birth_date_evidence(sentence) [line 223]
+    humahawak sa ang sentence is birth date. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_short_date_context_answer(question, context_docs) [line 230]
+    gumagawa/nagbu-build ang context, sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_false_premise_statement_from_question(question) [line 272]
+    gumagawa/nagbu-build ang tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_false_premise_safe_answer(question) [line 293]
+    gumagawa/nagbu-build ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - repair_false_premise_answer(answer, question, false_premise_mode) [line 302]
+    nag-aayos ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag/repair_parts/post_retry.py
+Lines: 373
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - apply_generic_post_answer_retry(answer, question, context_docs, llm, chat_history, debug, candidate_docs) [line 127]
+    humahawak sa ang sagot, retry flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - apply_retry_instructions(prompt, correction_retry, completion_retry, **_ignored) [line 214]
+    humahawak sa ang retry flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag/repair_parts/retry_basics.py
+Lines: 327
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - load_post_answer_retry_config() [line 97]
+    naglo-load ang sagot, retry flow, configuration. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - normalize_retry_key(text) [line 121]
+    nagno-normalize ang retry flow. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_no_answer_response(answer) [line 129]
+    nagche-check kung ang sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_context_modes(context_docs) [line 145]
+    kumukuha ang context. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - is_false_premise_context(context_docs) [line 160]
+    nagche-check kung ang context. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - answer_rejects_false_premise(answer) [line 165]
+    humahawak sa answer flow ang rejects false premise. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_empty_answer_retry_question(question) [line 176]
+    gumagawa/nagbu-build ang sagot, retry flow, tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_no_answer_retry_question(question) [line 186]
+    gumagawa/nagbu-build ang sagot, retry flow, tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - build_false_premise_retry_question(question) [line 195]
+    gumagawa/nagbu-build ang retry flow, tanong. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - invoke_retry_answer(llm, retry_question, context_docs, chat_history, debug, retry_reason) [line 207]
+    humahawak sa ang retry flow, sagot. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag/sources.py
+Lines: 367
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions:
+  - clean_preview_text(text, limit) [line 136]
+    naglilinis ang preview text. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - safe_metadata_value(value, default_value) [line 148]
+    ligtas na nagpapatakbo/nagha-handle ng ang metadata. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_source_display_name(raw_source) [line 161]
+    kumukuha ang source/citation. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_source_file_name(raw_source) [line 171]
+    kumukuha ang source/citation, file. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_doc_key(raw_source, page, preview, metadata) [line 181]
+    kumukuha ang document. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+  - get_sources(docs, preview_limit) [line 191]
+    kumukuha ang sources/citations. Ginagamit ito sa RAG/chatbot flow bago o pagkatapos tumawag sa LLM.
+Classes: wala
+
+====================================================================================================
+chains/rag_chain.py
+Lines: 279
+Ginagawa ng file: RAG chain logic. Ito ang nag-o-orchestrate ng context preparation, answer generation, answer cleanup, candidate extraction, at retry rules.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+config/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+config/settings.py
+Lines: 170
+Ginagawa ng file: Central settings/constants ng project. Dito kinukuha ang paths, model names, retrieval values, at feature flags mula sa environment/config.
+
+Top-level functions:
+  - get_env_string(name, default_value) [line 4]
+    kumukuha ang env string.
+  - get_env_int(name, default_value) [line 12]
+    kumukuha ang env int.
+  - get_env_float(name, default_value) [line 20]
+    kumukuha ang env float.
+  - get_env_bool(name, default_value) [line 28]
+    kumukuha ang env bool.
+Classes: wala
+
+====================================================================================================
+embeddings/__init__.py
+Lines: 0
+Ginagawa ng file: Bahagi ito ng embedding layer. Naglo-load at nagko-configure ng embedding model na gagamitin sa vector search.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+embeddings/embedding_model.py
+Lines: 36
+Ginagawa ng file: Bahagi ito ng embedding layer. Naglo-load at nagko-configure ng embedding model na gagamitin sa vector search.
+
+Top-level functions:
+  - get_embedding_model(model_name, model_revision, device, normalize_embeddings, batch_size) [line 12]
+    Naglo-load o nagbabalik ng embedding model na gagamitin sa semantic search.
+Classes: wala
+
+====================================================================================================
+ingest.py
+Lines: 347
+Ginagawa ng file: Script para mag-load ng documents, mag-clean, mag-chunk, gumawa ng embeddings, at i-save sa Chroma/vector store.
+
+Top-level functions:
+  - format_seconds(seconds) [line 37]
+    nagfo-format ang seconds.
+  - save_report(lines) [line 47]
+    nagse-save ang report.
+  - add_section(lines, title) [line 53]
+    nagdadagdag ang section.
+  - run_step(step_name, lines, timings, function) [line 61]
+    humahawak sa ang run step.
+  - read_json(path) [line 89]
+    nagbabasa ang json.
+  - write_json(path, data) [line 97]
+    nagsusulat ang json.
+  - get_current_metadata() [line 104]
+    kumukuha ang metadata.
+  - is_vector_db_current() [line 123]
+    nagche-check kung ang vector.
+  - add_config_summary(lines) [line 134]
+    nagdadagdag ang configuration.
+  - add_loader_summary(lines, loader_report) [line 152]
+    nagdadagdag ang loader summary.
+  - add_final_summary(lines, timings, docs, cleaned_docs, chunks, vector_count) [line 176]
+    nagdadagdag ang final summary.
+  - add_skip_message(lines) [line 204]
+    nagdadagdag ang message.
+  - main() [line 221]
+    Main function/entry point ng module o script.
+Classes: wala
+
+====================================================================================================
+llm/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+llm/ollama_llm.py
+Lines: 37
+Ginagawa ng file: Wrapper para sa Ollama LLM. Dito ginagawa ang model loading at streaming/generation interface.
+
+Top-level functions:
+  - use_value(value, default_value) [line 13]
+    humahawak sa ang use value.
+  - load_llm(model_name, temperature, num_ctx, num_predict, top_p, repeat_penalty) [line 21]
+    Naglo-load ng Ollama chat model para sa answer generation.
+Classes: wala
+
+====================================================================================================
+llm/prompt_builder.py
+Lines: 327
+Ginagawa ng file: Gumagawa ng prompt na ipapasa sa LLM, kasama ang question, chat history, context, rules, at fallback guidance.
+
+Top-level functions:
+  - read_prompt_json(config_path) [line 16]
+    nagbabasa ang prompt.
+  - normalize_config_list(values) [line 29]
+    nagno-normalize ang configuration.
+  - normalize_config_patterns(values) [line 48]
+    nagno-normalize ang configuration.
+  - load_prompt_mode_detection_config() [line 66]
+    naglo-load ang prompt, configuration.
+  - load_prompt_output_config() [line 85]
+    naglo-load ang prompt, configuration.
+  - clean_value(value, default_value) [line 107]
+    naglilinis ang value.
+  - get_file_name(source) [line 120]
+    kumukuha ang file.
+  - trim_text(text, max_chars) [line 130]
+    humahawak sa ang trim text.
+  - build_context_block(doc, index, max_doc_chars) [line 140]
+    gumagawa/nagbu-build ang context.
+  - build_context(docs, max_doc_chars, max_context_chars) [line 163]
+    gumagawa/nagbu-build ang context.
+  - build_chat_history(chat_history) [line 190]
+    gumagawa/nagbu-build ang chat history.
+  - normalize_question_for_prompt(question) [line 200]
+    nagno-normalize ang tanong, prompt.
+  - is_list_question(question) [line 205]
+    nagche-check kung ang tanong.
+  - build_question_specific_rules(question) [line 230]
+    gumagawa/nagbu-build ang tanong, rules.
+  - add_rule_section(lines, title, rules) [line 235]
+    nagdadagdag ang rule.
+  - build_prompt_rules() [line 245]
+    gumagawa/nagbu-build ang prompt, rules.
+  - build_rag_prompt(question, docs, chat_history, max_doc_chars, max_context_chars) [line 297]
+    gumagawa/nagbu-build ang RAG flow, prompt.
+Classes: wala
+
+====================================================================================================
+loaders/__init__.py
+Lines: 0
+Ginagawa ng file: Bahagi ito ng document loading layer. Nagbabasa ito ng supported file types at ginagawang Document objects para sa ingest pipeline.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+loaders/document_loader.py
+Lines: 130
+Ginagawa ng file: Bahagi ito ng document loading layer. Nagbabasa ito ng supported file types at ginagawang Document objects para sa ingest pipeline.
+
+Top-level functions:
+  - add_standard_metadata(docs, file_path) [line 13]
+    nagdadagdag ang metadata. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - is_valid_document(doc) [line 28]
+    nagche-check kung ang document. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - create_report(data_path, recursive) [line 34]
+    gumagawa ang report. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - iter_source_files(data_path, recursive) [line 46]
+    humahawak sa ang source/citation, files. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - validate_data_path(data_path) [line 56]
+    nagva-validate ang data path. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - load_single_file(file_path) [line 69]
+    naglo-load ang file. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - load_documents(data_path, recursive, return_report) [line 81]
+    naglo-load ang documents. Ginagamit ito sa pag-convert ng files papunta sa documents.
+Classes: wala
+
+====================================================================================================
+loaders/file_loaders.py
+Lines: 88
+Ginagawa ng file: Bahagi ito ng document loading layer. Nagbabasa ito ng supported file types at ginagawang Document objects para sa ingest pipeline.
+
+Top-level functions:
+  - load_txt(file_path) [line 10]
+    naglo-load ang txt. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - load_markdown(file_path) [line 20]
+    naglo-load ang markdown. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - load_pdf(file_path) [line 24]
+    naglo-load ang pdf. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - load_docx(file_path) [line 31]
+    naglo-load ang docx. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - load_csv(file_path) [line 41]
+    naglo-load ang csv. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - load_xlsx(file_path) [line 52]
+    naglo-load ang xlsx. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - load_pptx(file_path) [line 60]
+    naglo-load ang pptx. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - get_loader(file_path) [line 81]
+    kumukuha ang loader. Ginagamit ito sa pag-convert ng files papunta sa documents.
+  - get_supported_extensions() [line 87]
+    kumukuha ang supported extensions. Ginagamit ito sa pag-convert ng files papunta sa documents.
+Classes: wala
+
+====================================================================================================
+memory/__init__.py
+Lines: 0
+Ginagawa ng file: Conversation memory layer. Nagha-handle ng chat history at question rewriting para sa follow-up questions.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+memory/conversation_memory.py
+Lines: 137
+Ginagawa ng file: Conversation memory layer. Nagha-handle ng chat history at question rewriting para sa follow-up questions.
+
+Top-level functions:
+  - normalize_space(text) [line 10]
+    nagno-normalize ang space.
+  - trim_history_text(text, max_chars) [line 15]
+    humahawak sa ang chat history.
+  - get_source_title(source) [line 25]
+    kumukuha ang source/citation.
+  - build_memory_lines_from_messages(messages) [line 47]
+    gumagawa/nagbu-build ang conversation memory, messages.
+  - history_lines_to_text(lines, limit, max_chars) [line 77]
+    humahawak sa ang chat history.
+  - init_memory(st) [line 87]
+    nag-i-initialize ang conversation memory.
+  - get_conversation_history(st, limit) [line 92]
+    kumukuha ang chat history.
+  - save_to_memory(st, question, answer, sources) [line 105]
+    nagse-save ang conversation memory.
+  - rebuild_conversation_memory(st, messages) [line 130]
+    humahawak sa ang conversation memory.
+  - clear_conversation_memory(st) [line 135]
+    naglilinis/nagre-reset ang conversation memory.
+Classes: wala
+
+====================================================================================================
+memory/question_rewriter.py
+Lines: 301
+Ginagawa ng file: Conversation memory layer. Nagha-handle ng chat history at question rewriting para sa follow-up questions.
+
+Top-level functions:
+  - normalize_space(text) [line 35]
+    nagno-normalize ang space.
+  - ensure_question_mark(text) [line 40]
+    sinisigurado ang tanong.
+  - is_clarification(text) [line 50]
+    nagche-check kung ang clarification.
+  - clean_topic(text) [line 55]
+    naglilinis ang topic.
+  - contains_reference_word(question) [line 73]
+    humahawak sa ang contains reference word.
+  - looks_like_short_followup(question) [line 96]
+    nagche-check kung mukhang ang like short followup.
+  - has_clear_standalone_topic(question) [line 113]
+    nagche-check kung may ang clear standalone topic.
+  - is_standalone_question(question) [line 139]
+    nagche-check kung ang tanong.
+  - is_follow_up_question(question) [line 144]
+    nagche-check kung ang tanong.
+  - extract_topic_from_question(question) [line 155]
+    nag-e-extract ang tanong.
+  - get_history_value(line) [line 181]
+    kumukuha ang chat history.
+  - get_latest_topic(chat_history, current_question) [line 192]
+    kumukuha ang latest topic.
+  - cleanup_rewrite(text) [line 220]
+    humahawak sa ang cleanup rewrite.
+  - replace_reference(question, topic) [line 228]
+    humahawak sa ang replace reference.
+  - deterministic_followup_rewrite(question, topic) [line 249]
+    humahawak sa ang deterministic followup rewrite.
+  - rewrite_question(question, chat_history, llm) [line 281]
+    humahawak sa ang tanong.
+Classes: wala
+
+====================================================================================================
+preprocessing/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+preprocessing/chunk_quality.py
+Lines: 337
+Ginagawa ng file: Nagbibigay ng quality checks sa chunks para bawasan ang noisy/mahina na context.
+
+Top-level functions:
+  - normalize_text(text) [line 50]
+    nagno-normalize ang text.
+  - get_doc_text(doc) [line 57]
+    kumukuha ang document.
+  - get_doc_metadata(doc) [line 62]
+    kumukuha ang document, metadata.
+  - get_source_label(doc) [line 67]
+    kumukuha ang source/citation.
+  - get_chunk_label(doc) [line 78]
+    kumukuha ang chunk.
+  - get_body_text(text) [line 84]
+    kumukuha ang body text.
+  - get_section_name(doc) [line 97]
+    kumukuha ang section name.
+  - is_reference_section(doc) [line 109]
+    nagche-check kung ang reference section.
+  - count_words(text) [line 126]
+    humahawak sa ang count words.
+  - count_weak_markers(text) [line 131]
+    humahawak sa ang count weak markers.
+  - looks_like_url_or_reference_list(text) [line 143]
+    nagche-check kung mukhang ang like url or reference.
+  - looks_like_metadata_only(raw_text, body_text) [line 168]
+    nagche-check kung mukhang ang metadata.
+  - is_too_short(body_text) [line 185]
+    nagche-check kung ang too short.
+  - get_chunk_quality_issue(doc) [line 198]
+    kumukuha ang chunk.
+  - add_quality_metadata(doc, status, issue) [line 224]
+    nagdadagdag ang metadata.
+  - filter_quality_chunks(chunks, report_path) [line 238]
+    nagfi-filter ang chunks.
+  - build_skip_item(doc, issue) [line 270]
+    gumagawa/nagbu-build ang skip item.
+  - write_chunk_quality_report(report_path, total_chunks, kept_chunks, skipped_items) [line 286]
+    nagsusulat ang chunk.
+Classes: wala
+
+====================================================================================================
+preprocessing/chunker.py
+Lines: 498
+Ginagawa ng file: Nagha-hati ng cleaned documents sa smaller chunks na puwedeng i-embed at i-retrieve.
+
+Top-level functions:
+  - validate_chunk_settings(chunk_size, chunk_overlap) [line 158]
+    nagva-validate ang chunk.
+  - get_text(doc) [line 170]
+    kumukuha ang text.
+  - get_valid_documents(docs, min_length) [line 175]
+    kumukuha ang documents.
+  - clean_metadata_value(value) [line 187]
+    naglilinis ang metadata.
+  - normalize_metadata(metadata) [line 198]
+    nagno-normalize ang metadata.
+  - get_first_existing(metadata, keys) [line 212]
+    kumukuha ang first existing.
+  - get_file_name_from_path(path_value) [line 222]
+    kumukuha ang file.
+  - get_file_stem(file_name) [line 232]
+    kumukuha ang file.
+  - get_file_type(file_name) [line 240]
+    kumukuha ang file.
+  - normalize_for_detect(text) [line 248]
+    nagno-normalize ang for detect.
+  - detect_language(text, metadata) [line 253]
+    nagde-detect ang language.
+  - get_metadata_haystack(metadata) [line 266]
+    kumukuha ang metadata.
+  - is_history_test_document(metadata) [line 279]
+    nagche-check kung ang chat history, document.
+  - detect_from_keywords(haystack, keyword_map, default_value) [line 295]
+    nagde-detect ang keywords.
+  - detect_category(text, metadata) [line 305]
+    nagde-detect ang category.
+  - detect_doc_type(text, metadata) [line 319]
+    nagde-detect ang document.
+  - extract_section(text, metadata) [line 333]
+    nag-e-extract ang section.
+  - enrich_document_metadata(metadata, text) [line 361]
+    humahawak sa ang document, metadata.
+  - get_source_key(metadata) [line 393]
+    kumukuha ang source/citation.
+  - update_section_metadata(metadata, text, last_section_by_source) [line 402]
+    nag-u-update ang metadata.
+  - build_retrieval_context(metadata) [line 420]
+    gumagawa/nagbu-build ang retrieval flow, context.
+  - add_retrieval_context_prefix(chunk, metadata) [line 432]
+    nagdadagdag ang retrieval flow, context.
+  - add_chunk_metadata(chunks, chunk_size, chunk_overlap) [line 453]
+    nagdadagdag ang chunk, metadata.
+  - chunk_documents(docs, chunk_size, chunk_overlap) [line 483]
+    humahawak sa ang chunk, documents.
+Classes: wala
+
+====================================================================================================
+preprocessing/cleaner.py
+Lines: 258
+Ginagawa ng file: Naglinis ng raw text bago i-chunk: tanggal noise, weird spacing, URLs/citations, at ibang artifacts.
+
+Top-level functions:
+  - is_url_like_text(text) [line 46]
+    nagche-check kung ang url like text.
+  - normalize_section_heading(line) [line 67]
+    nagno-normalize ang section heading.
+  - is_noise_section_heading(line) [line 86]
+    nagche-check kung ang noise section heading.
+  - remove_noise_sections(text) [line 97]
+    nagtatanggal ang noise sections.
+  - is_noise_line(line) [line 111]
+    nagche-check kung ang noise line.
+  - remove_markdown_and_links(text) [line 150]
+    nagtatanggal ang markdown and links.
+  - normalize_symbols(text) [line 204]
+    nagno-normalize ang symbols.
+  - normalize_spacing(text) [line 214]
+    nagno-normalize ang spacing.
+  - clean_text(text) [line 221]
+    naglilinis ang text.
+  - clean_documents(docs, min_length) [line 241]
+    naglilinis ang documents.
+Classes: wala
+
+====================================================================================================
+retrieval/bm25_retriever.py
+Lines: 85
+Ginagawa ng file: BM25 keyword retriever. Gumagamit ng lexical/keyword search para makahanap ng chunks kahit hindi perfect ang semantic match.
+
+Top-level functions:
+  - preprocess_text(text) [line 13]
+    humahawak sa ang preprocess text. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_doc_label(doc) [line 22]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - create_bm25_retriever(chunks, k, use_preprocessing, debug) [line 30]
+    gumagawa ang BM25 index/search. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - bm25_search(bm25_retriever, query, k, debug) [line 55]
+    humahawak sa ang BM25 index/search. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/context/mode_detection.py
+Lines: 533
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - detect_question_mode(question) [line 59]
+    nagde-detect ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - limit_context_docs(docs, max_chars, max_per_source) [line 117]
+    humahawak sa ang context, documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - count_source_question_matches(question_terms, source_key) [line 149]
+    humahawak sa ang source/citation, tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - source_key_has_exact_question_phrase(source_key, normalized_question) [line 161]
+    humahawak sa ang source/citation, tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_safe_single_token_source_anchor(source_key, matched_terms) [line 181]
+    nagche-check kung ang source/citation. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_strong_source_anchor(source_key, question_terms, normalized_question) [line 203]
+    nagche-check kung ang source/citation. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - choose_single_fact_anchor_source(docs, question) [line 244]
+    humahawak sa ang source/citation. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - apply_confident_filter_inside_anchor_source(docs, high_confidence_score, max_score_drop) [line 299]
+    humahawak sa ang source/citation. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - build_rank_map(docs) [line 341]
+    gumagawa/nagbu-build ang rank map. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_rank_from_metadata(doc, keys) [line 351]
+    kumukuha ang metadata. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_retrieval_rank(doc, rank_map, metadata_keys) [line 369]
+    kumukuha ang retrieval flow. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_retrieval_agreement_score(doc, semantic_rank_map, bm25_rank_map) [line 380]
+    kumukuha ang retrieval flow, score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_intro_chunk_score(doc) [line 411]
+    kumukuha ang chunk, score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_direct_window_score(question_terms, doc, window_size, step_size) [line 430]
+    kumukuha ang score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_retrieval_signal(docs, semantic_docs, bm25_docs) [line 455]
+    nagche-check kung may ang retrieval flow. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/neighbor_expansion.py
+Lines: 402
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - get_chunk_number(doc) [line 46]
+    kumukuha ang chunk. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - find_chunk_position(target_doc, all_chunks) [line 64]
+    naghahanap ang chunk. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - clone_neighbor_doc(doc, base_doc, offset) [line 89]
+    humahawak sa ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_page_number(doc) [line 114]
+    kumukuha ang page number. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - clone_neighbor_doc_once(doc, base_doc, offset, reason) [line 132]
+    humahawak sa ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - expand_neighbor_chunks(selected_docs, all_chunks, window) [line 143]
+    humahawak sa ang chunks. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_context_score(doc) [line 270]
+    kumukuha ang context, score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_original_rank(doc) [line 288]
+    kumukuha ang original rank. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_question_terms(question) [line 300]
+    kumukuha ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_question_anchor_terms(question) [line 318]
+    kumukuha ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - sort_docs_by_rerank_score(docs) [line 340]
+    nagsosort ang documents, rerank result, score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/normalization.py
+Lines: 299
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - normalize_text(text) [line 74]
+    nagno-normalize ang text. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_config_list(values) [line 85]
+    nagno-normalize ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - read_context_json(config_path) [line 105]
+    nagbabasa ang context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_context_filter_terms(config_path) [line 119]
+    naglo-load ang context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_low_value_filter_config(config_path) [line 164]
+    naglo-load ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_metadata(doc) [line 190]
+    kumukuha ang metadata. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_source_name(doc) [line 195]
+    kumukuha ang source/citation. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_source_key(doc) [line 207]
+    kumukuha ang source/citation. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_document_key(doc) [line 229]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - remove_duplicate_docs(docs) [line 244]
+    nagtatanggal ang documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/scoring.py
+Lines: 241
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/context/scoring_parts/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/context/scoring_parts/answer_patterns.py
+Lines: 534
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - get_doc_body_text(doc) [line 90]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_doc_full_text(doc) [line 94]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - count_question_term_coverage(question_terms, text) [line 108]
+    humahawak sa ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - config_term_matches(text, term) [line 119]
+    humahawak sa ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_any_evidence_term(text, terms) [line 129]
+    nagche-check kung may ang any evidence term. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_any_evidence_regex(text, patterns) [line 137]
+    nagche-check kung may ang any evidence regex. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_answer_pattern_score(question, question_terms, doc) [line 148]
+    kumukuha ang sagot, score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_top1_agreement_doc(semantic_docs, bm25_docs) [line 265]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - score_primary_evidence_doc(question, question_terms, doc, semantic_rank_map, bm25_rank_map) [line 280]
+    nagbibigay ng score ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - sort_primary_evidence_docs(docs) [line 326]
+    nagsosort ang documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - select_primary_evidence_docs(question, reranked_docs, semantic_docs, bm25_docs, top_n) [line 338]
+    pumipili ang documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/scoring_parts/config_rule_parts/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/context/scoring_parts/config_rule_parts/base_settings.py
+Lines: 434
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - load_answer_evidence_config(config_path) [line 72]
+    naglo-load ang sagot, configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_answer_intent_configs() [line 91]
+    kumukuha ang sagot. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_config_list(config, key) [line 110]
+    kumukuha ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - config_phrase_matches(normalized_question, phrase) [line 130]
+    humahawak sa ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - detect_answer_intent(question) [line 142]
+    nagde-detect ang sagot. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_answer_intent_config(question) [line 188]
+    kumukuha ang sagot, configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - safe_int(value, default_value) [line 199]
+    ligtas na nagpapatakbo/nagha-handle ng ang int. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - safe_float(value, default_value) [line 206]
+    ligtas na nagpapatakbo/nagha-handle ng ang float. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - safe_bool(value, default_value) [line 213]
+    ligtas na nagpapatakbo/nagha-handle ng ang bool. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - clamp_int(value, default_value, minimum, maximum) [line 223]
+    humahawak sa ang clamp int. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_dynamic_retrieval_settings(question) [line 236]
+    kumukuha ang retrieval flow. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_dynamic_context_policy(question, mode, top_n, max_chars, max_per_source) [line 315]
+    kumukuha ang context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/scoring_parts/config_rule_parts/low_value.py
+Lines: 522
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - config_phrase_in_text(normalized_text, phrases) [line 81]
+    humahawak sa ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_reference_like_context_doc(doc) [line 93]
+    nagche-check kung ang context, document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_low_value_context_doc(question, doc) [line 165]
+    nagche-check kung ang context, document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - filter_low_value_context_docs(question, docs, min_keep) [line 201]
+    nagfi-filter ang context, documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_list_answer_evidence(question, doc) [line 220]
+    nagche-check kung may ang sagot. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_any_regex(normalized_question, patterns) [line 238]
+    nagche-check kung may ang any regex. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_multi_answer_cue(question) [line 250]
+    nagche-check kung may ang sagot. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_dynamic_multi_answer_settings(question, base_intent, requested_top_n, dynamic_config) [line 307]
+    kumukuha ang sagot. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_dynamic_single_fact_settings(question, requested_top_n) [line 343]
+    kumukuha ang dynamic single fact settings. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/scoring_parts/config_rules.py
+Lines: 175
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/context/scoring_parts/final_evidence.py
+Lines: 569
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - get_primary_evidence_score(doc) [line 106]
+    kumukuha ang score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_direct_score(doc) [line 116]
+    kumukuha ang score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_answer_score(doc) [line 125]
+    kumukuha ang sagot, score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_retrieval_score(doc) [line 136]
+    kumukuha ang retrieval flow, score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - prepare_primary_candidates(question, candidates, semantic_docs, bm25_docs) [line 146]
+    naghahanda ang candidate answers/items. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - trim_weak_single_fact_support(docs, top_n, min_keep, strict) [line 168]
+    humahawak sa ang trim weak single fact. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_doc_body_without_retrieval_header(doc) [line 240]
+    kumukuha ang document, retrieval flow. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - split_evidence_sentences(text) [line 262]
+    naghahati ang evidence sentences. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_evidence_terms_for_question(question) [line 288]
+    kumukuha ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - score_evidence_sentence(question, sentence) [line 300]
+    nagbibigay ng score ang evidence sentence. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_best_evidence_snippet(question, doc, max_chars) [line 327]
+    kumukuha ang best evidence snippet. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - annotate_evidence_snippet(question, doc) [line 349]
+    humahawak sa ang annotate evidence snippet. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_configured_final_answer_evidence(question, doc) [line 360]
+    nagche-check kung may ang sagot. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_direct_final_answer_evidence(question, doc) [line 384]
+    nagche-check kung may ang sagot. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - clean_final_context_docs(question, docs, mode, min_keep) [line 404]
+    naglilinis ang context, documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/scoring_parts/related_docs.py
+Lines: 567
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - get_rerank_rank(doc) [line 116]
+    kumukuha ang rerank result. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_body_question_match_count(question_terms, doc) [line 133]
+    kumukuha ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_full_question_match_count(question_terms, doc) [line 140]
+    kumukuha ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - score_related_candidate(question, doc, semantic_rank_map, bm25_rank_map, mode) [line 147]
+    nagbibigay ng score ang candidate answer/item. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - sort_related_candidates(docs) [line 223]
+    nagsosort ang candidate answers/items. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_good_related_candidate(question, doc, mode, rank, best_related_score) [line 238]
+    nagche-check kung ang candidate answer/item. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - select_dynamic_related_docs(question, candidates, semantic_docs, bm25_docs, top_n, max_chars, mode, min_keep, preserve_order_docs) [line 313]
+    pumipili ang documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/selection.py
+Lines: 319
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/context/selection_parts/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/context/selection_parts/cross_doc_helpers.py
+Lines: 629
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - get_cross_doc_anchor_sources(question, docs) [line 122]
+    kumukuha ang document, sources/citations. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_useful_cross_doc_support(doc, selected_docs) [line 168]
+    nagche-check kung ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_mode_detection_terms(config_path) [line 189]
+    naglo-load ang mode detection terms. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - phrase_exists(normalized_question, phrase) [line 225]
+    humahawak sa ang phrase exists. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_any_phrase(normalized_question, phrases) [line 236]
+    nagche-check kung may ang any phrase. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_wildcard_phrase_match(normalized_question, pattern) [line 244]
+    nagche-check kung may ang wildcard phrase match. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_any_wildcard_or_regex(normalized_question, patterns) [line 271]
+    nagche-check kung may ang any wildcard or regex. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_explicit_cross_doc_cue(question) [line 291]
+    nagche-check kung may ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - should_force_single_fact_mode(question, detected_mode) [line 304]
+    nagdedesisyon kung dapat ang force single fact mode. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - select_best_source_only_context(scored_docs, top_n, strict) [line 313]
+    pumipili ang source/citation, context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_positive_rerank_signal(docs, min_score) [line 351]
+    nagche-check kung may ang rerank result. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_primary_evidence_protected_intent(intent) [line 365]
+    nagche-check kung ang primary evidence protected intent. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - should_prefer_top_rerank_source(dynamic_settings, docs) [line 383]
+    nagdedesisyon kung dapat ang rerank result, source/citation. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - sort_docs_by_retrieval_priority(docs) [line 405]
+    nagsosort ang documents, retrieval flow. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - select_top_rerank_source_context(reranked_docs, question, semantic_docs, bm25_docs, top_n, max_chars, multi_answer) [line 418]
+    pumipili ang rerank result, source/citation, context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/selection_parts/cross_doc_selection.py
+Lines: 577
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - get_rerank_score(doc) [line 159]
+    kumukuha ang rerank result, score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - keep_useful_cross_doc_candidates(docs, min_rerank_score) [line 177]
+    humahawak sa ang document, candidate answers/items. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - score_cross_doc_candidate(question_terms, doc, semantic_rank_map, bm25_rank_map) [line 223]
+    nagbibigay ng score ang document, candidate answer/item. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - sort_cross_doc_candidates(docs) [line 260]
+    nagsosort ang document, candidate answers/items. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - select_cross_doc_context(reranked_docs, question, semantic_docs, bm25_docs, top_n, max_chars, max_per_source) [line 276]
+    pumipili ang document, context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/selection_parts/final_selector.py
+Lines: 516
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - select_final_context_docs(reranked_docs, question, semantic_docs, bm25_docs, all_chunks, enable_neighbor_expansion, neighbor_window, top_n, max_chars, max_per_source, debug) [line 163]
+    pumipili ang context, documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - print_context_debug(question, mode, docs) [line 294]
+    nagpi-print ang context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/selection_parts/list_and_short_query.py
+Lines: 303
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/context/selection_parts/list_short_parts/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/context/selection_parts/list_short_parts/list_answer.py
+Lines: 495
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - get_dynamic_list_context_limit(question, docs, max_chars, top_n) [line 144]
+    kumukuha ang context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_list_answer_doc_score(question, doc, semantic_rank_map, bm25_rank_map) [line 187]
+    kumukuha ang sagot, document, score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - sort_list_answer_docs(docs) [line 219]
+    nagsosort ang sagot, documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - select_list_answer_context(reranked_docs, question, semantic_docs, bm25_docs, top_n, max_chars) [line 231]
+    pumipili ang sagot, context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/selection_parts/list_short_parts/short_source_query.py
+Lines: 543
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - get_short_source_query_config() [line 148]
+    kumukuha ang source/citation, query/tanong, configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_short_source_query_terms(question) [line 165]
+    kumukuha ang source/citation, query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - source_key_matches_query_terms(source_key, query_terms) [line 201]
+    humahawak sa ang source/citation, query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_matching_short_query_sources(question, candidate_docs) [line 220]
+    kumukuha ang query/tanong, sources/citations. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_short_query_doc_score(question, query_terms, doc) [line 256]
+    kumukuha ang query/tanong, document, score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - sort_short_query_source_docs(question, query_terms, docs) [line 284]
+    nagsosort ang query/tanong, source/citation, documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - select_short_source_query_context(reranked_docs, question, semantic_docs, bm25_docs, all_chunks, top_n, max_chars) [line 307]
+    pumipili ang source/citation, query/tanong, context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/selection_parts/rerank_and_safety.py
+Lines: 465
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - get_anchor_source_keys(question, docs) [line 138]
+    kumukuha ang source/citation. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - add_unique_doc(selected_docs, seen_keys, doc) [line 145]
+    nagdadagdag ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - annotate_context_docs(docs, mode, anchor_source_key, anchor_reason, filter_scope, keep_reason) [line 157]
+    humahawak sa ang context, documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - select_rerank_first_context(reranked_docs, question, semantic_docs, bm25_docs, top_n, max_chars) [line 179]
+    pumipili ang rerank result, context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - select_safety_context(reranked_docs, question, semantic_docs, bm25_docs, top_n, max_chars, mode) [line 257]
+    pumipili ang context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context/selection_parts/single_fact.py
+Lines: 507
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - select_single_fact_context(reranked_docs, question, semantic_docs, bm25_docs, all_chunks, enable_neighbor_expansion, neighbor_window, top_n, max_chars) [line 153]
+    pumipili ang context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context_config.py
+Lines: 233
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - normalize_config_key(value) [line 10]
+    nagno-normalize ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - read_query_config(config_path) [line 19]
+    nagbabasa ang query/tanong, configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_config_list(values, normalize) [line 30]
+    nagno-normalize ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_config_set(values) [line 47]
+    nagno-normalize ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_config_patterns(values) [line 51]
+    nagno-normalize ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_nested(data, *keys, default) [line 56]
+    kumukuha ang nested. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - as_int(value, default_value, minimum, maximum) [line 65]
+    humahawak sa ang as int. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - as_bool(value, default_value) [line 78]
+    humahawak sa ang as bool. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_stopwords(config_path) [line 86]
+    naglo-load ang stopwords. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_mode_detection_config(config_path) [line 91]
+    naglo-load ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_context_terms(config_path) [line 106]
+    naglo-load ang context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_retrieval_settings_by_mode(config_path) [line 137]
+    naglo-load ang retrieval flow. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_query_type_patterns(config_path) [line 209]
+    naglo-load ang query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_query_analyzer_config(config_path) [line 223]
+    naglo-load ang query/tanong, configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/context_filter.py
+Lines: 319
+Ginagawa ng file: Context filtering layer. Pinipili ang final chunks na ipapasa sa LLM at tinatanggal ang mahina/noisy/irrelevant chunks.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/context_utils.py
+Lines: 285
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - normalize_text(text) [line 18]
+    nagno-normalize ang text. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_metadata(doc) [line 27]
+    kumukuha ang metadata. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_source_name(doc) [line 31]
+    kumukuha ang source/citation. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_source_key(doc) [line 36]
+    kumukuha ang source/citation. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_document_key(doc) [line 43]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - add_unique_doc(result, seen, doc) [line 56]
+    nagdadagdag ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - remove_duplicate_docs(docs) [line 65]
+    nagtatanggal ang documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_chunk_number(doc) [line 73]
+    kumukuha ang chunk. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - find_chunk_position(target_doc, all_chunks) [line 82]
+    naghahanap ang chunk. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - clone_neighbor_doc(doc, base_doc, offset) [line 100]
+    humahawak sa ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - expand_neighbor_chunks(selected_docs, all_chunks, window) [line 117]
+    humahawak sa ang chunks. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_numeric_metadata(doc, keys, default_value) [line 158]
+    kumukuha ang metadata. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_context_score(doc) [line 171]
+    kumukuha ang context, score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_original_rank(doc) [line 180]
+    kumukuha ang original rank. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - sort_docs_by_relevance(docs) [line 191]
+    nagsosort ang documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_question_terms(question, weak_tokens, min_length) [line 198]
+    kumukuha ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - count_matches(text, terms) [line 211]
+    humahawak sa ang count matches. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_doc_text(doc, include_metadata) [line 216]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_low_value_doc(doc) [line 229]
+    nagche-check kung ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - filter_low_value_docs(docs, min_keep) [line 246]
+    nagfi-filter ang documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - limit_context_docs(docs, max_chars, max_per_source) [line 255]
+    humahawak sa ang context, documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - annotate_docs(docs, mode, reason) [line 277]
+    humahawak sa ang documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/hybrid_retriever.py
+Lines: 236
+Ginagawa ng file: Pinagsasama ang semantic retrieval at BM25 retrieval gamit ang hybrid/RRF ranking.
+
+Top-level functions:
+  - get_document_key(doc) [line 28]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_document_label(doc) [line 42]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - remove_duplicates(docs, debug) [line 51]
+    nagtatanggal ang duplicates. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - tag_retrieval_ranks(docs, rank_name, retrieval_rank_key) [line 76]
+    humahawak sa ang retrieval flow. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - reciprocal_rank_fusion(ranked_lists, weights, rrf_k, final_k, debug) [line 86]
+    humahawak sa ang reciprocal rank fusion. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - hybrid_search(query, vectorstore, bm25_retriever, semantic_k, bm25_k, final_k, use_rrf, use_metadata_boost, use_e5_prefix, semantic_weight, bm25_weight, debug, return_details) [line 145]
+    humahawak sa ang hybrid search. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/metadata_booster.py
+Lines: 164
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - normalize_text(text) [line 34]
+    nagno-normalize ang text. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_metadata(doc) [line 39]
+    kumukuha ang metadata. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_query_terms(query_info) [line 44]
+    kumukuha ang query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_term_match(metadata_value, query_terms) [line 62]
+    nagche-check kung may ang term match. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - compute_metadata_boost(doc, query_info) [line 79]
+    nagko-compute ang metadata. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - apply_metadata_boost(docs, query_info, base_score_key, debug) [line 128]
+    humahawak sa ang metadata. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/query_analyzer.py
+Lines: 394
+Ginagawa ng file: Query analysis/detection layer. Tinutukoy ang type ng tanong at mahahalagang terms para mas maayos ang retrieval.
+
+Top-level functions:
+  - read_query_config(config_path) [line 10]
+    nagbabasa ang query/tanong, configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_query_analyzer_config() [line 21]
+    kumukuha ang query/tanong, configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_text(text) [line 27]
+    nagno-normalize ang text. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_config_list(values) [line 35]
+    nagno-normalize ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_config_patterns(values) [line 49]
+    nagno-normalize ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_regex_patterns(values) [line 65]
+    nagno-normalize ang regex patterns. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_keyword_map(keyword_map) [line 80]
+    nagno-normalize ang keyword. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_keyword_map(config_key) [line 96]
+    naglo-load ang keyword. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_category_keywords() [line 102]
+    kumukuha ang keywords. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_doc_type_keywords() [line 107]
+    kumukuha ang document, keywords. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_query_stopwords() [line 112]
+    kumukuha ang query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - contains_keyword(text, keyword) [line 118]
+    humahawak sa ang keyword. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - detect_first_label(query, keyword_map) [line 132]
+    nagde-detect ang first label. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - detect_language_hint(query) [line 141]
+    nagde-detect ang language hint. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_mode_detection_config() [line 161]
+    naglo-load ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - phrase_exists(normalized_query, phrase) [line 180]
+    humahawak sa ang phrase exists. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_wildcard_pattern(pattern) [line 191]
+    nagno-normalize ang wildcard pattern. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - wildcard_pattern_exists(normalized_query, pattern, max_wildcard_tokens) [line 199]
+    humahawak sa ang wildcard pattern exists. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_any_phrase(normalized_query, phrases) [line 232]
+    nagche-check kung may ang any phrase. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_any_wildcard_pattern(normalized_query, patterns) [line 239]
+    nagche-check kung may ang any wildcard pattern. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - has_any_regex_pattern(normalized_query, patterns) [line 246]
+    nagche-check kung may ang any regex pattern. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - detect_mode(query) [line 258]
+    nagde-detect ang mode. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - extract_important_terms(query) [line 292]
+    nag-e-extract ang important terms. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - regex_first_group(pattern, text) [line 308]
+    humahawak sa ang regex first group. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - extract_source_hint(query) [line 323]
+    nag-e-extract ang source/citation. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - analyze_query(query, debug) [line 352]
+    naga-analyze ang query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - build_metadata_filter(query_info) [line 380]
+    gumagawa/nagbu-build ang metadata. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - build_query_info(query, debug) [line 392]
+    gumagawa/nagbu-build ang query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/query_type_detector.py
+Lines: 250
+Ginagawa ng file: Query analysis/detection layer. Tinutukoy ang type ng tanong at mahahalagang terms para mas maayos ang retrieval.
+
+Top-level functions:
+  - read_query_config(config_path) [line 13]
+    nagbabasa ang query/tanong, configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_config_patterns(values) [line 23]
+    nagno-normalize ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_config_phrases(values) [line 38]
+    nagno-normalize ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_detector_config() [line 54]
+    naglo-load ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_json_list_config() [line 60]
+    naglo-load ang configuration. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_patterns(name) [line 73]
+    kumukuha ang patterns. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_query_text(question) [line 89]
+    nagno-normalize ang query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - phrase_exists(normalized_query, phrase) [line 95]
+    humahawak sa ang phrase exists. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - matches_any_phrase(text, phrases) [line 103]
+    humahawak sa ang matches any phrase. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - count_words(text) [line 107]
+    humahawak sa ang count words. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - matches_any(text, patterns) [line 111]
+    humahawak sa ang matches any. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_list_question(question) [line 121]
+    nagche-check kung ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_explanation_question(question) [line 130]
+    nagche-check kung ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_comparison_question(question) [line 135]
+    nagche-check kung ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_relationship_question(question) [line 140]
+    nagche-check kung ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_multi_part_question(question) [line 145]
+    nagche-check kung ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_assumption_risk_question(question) [line 150]
+    nagche-check kung ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_broad_question(question) [line 155]
+    nagche-check kung ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - is_direct_fact_question(question) [line 166]
+    nagche-check kung ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - should_require_rerank_proximity(question, auto_enabled, default_value) [line 175]
+    nagdedesisyon kung dapat ang rerank result. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - should_expand_neighbors_for_question(question) [line 190]
+    nagdedesisyon kung dapat ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_context_top_n(question, base_top_n) [line 199]
+    kumukuha ang context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_query_type_label(question) [line 214]
+    kumukuha ang query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_query_profile(question, base_top_n, auto_proximity, default_proximity) [line 237]
+    kumukuha ang query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/reranker.py
+Lines: 83
+Ginagawa ng file: Reranker layer. Inaayos ang ranking ng retrieved chunks gamit ang reranker model at scoring helpers.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/reranker_parts/__init__.py
+Lines: 0
+Ginagawa ng file: Reranker layer. Inaayos ang ranking ng retrieved chunks gamit ang reranker model at scoring helpers.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+retrieval/reranker_parts/core.py
+Lines: 284
+Ginagawa ng file: Reranker layer. Inaayos ang ranking ng retrieved chunks gamit ang reranker model at scoring helpers.
+
+Top-level functions:
+  - rerank_documents(query, documents, reranker, top_n, min_score, show_scores, return_scores, max_chars, batch_size, max_length, debug, use_evidence_check, evidence_min_matches, require_proximity, filter_by_evidence, use_confident_top_score_filter, use_original_rank_tie_breaker, rerank_tie_margin, high_confidence_score, max_score_drop, fallback_if_empty, deduplicate) [line 43]
+    nagre-rerank ang documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/reranker_parts/features.py
+Lines: 316
+Ginagawa ng file: Reranker layer. Inaayos ang ranking ng retrieved chunks gamit ang reranker model at scoring helpers.
+
+Top-level functions:
+  - tokenize(text) [line 28]
+    humahawak sa ang tokenize. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - stem_simple(word) [line 35]
+    humahawak sa ang stem simple. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_query_terms(query) [line 68]
+    kumukuha ang query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_min_evidence_matches(query_terms) [line 88]
+    kumukuha ang min evidence matches. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_max_allowed_span(query_terms) [line 99]
+    kumukuha ang max allowed span. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - word_matches_term(word, term) [line 111]
+    humahawak sa ang word matches term. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_term_positions(text, query_terms) [line 133]
+    kumukuha ang term positions. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_best_span(positions_by_term, matched_terms) [line 152]
+    kumukuha ang best span. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_evidence_info(query, doc, check_proximity) [line 201]
+    kumukuha ang evidence info. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - add_evidence_metadata(query, doc, check_proximity) [line 245]
+    nagdadagdag ang metadata. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - passes_evidence_check(query, doc, min_matches, require_proximity) [line 261]
+    humahawak sa ang passes evidence check. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/reranker_parts/model.py
+Lines: 222
+Ginagawa ng file: Reranker layer. Inaayos ang ranking ng retrieved chunks gamit ang reranker model at scoring helpers.
+
+Top-level functions:
+  - get_question_stopwords() [line 42]
+    kumukuha ang tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - load_reranker(model_name, use_fp16, debug) [line 48]
+    naglo-load ang reranker. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - normalize_scores(scores) [line 63]
+    nagno-normalize ang scores. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - trim_document_text(text, max_chars) [line 74]
+    humahawak sa ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - strip_retrieval_context_prefix(text) [line 87]
+    nagtatanggal ang retrieval flow, context. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_document_label(doc) [line 102]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_document_dedup_key(doc) [line 116]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - deduplicate_documents(documents, debug) [line 161]
+    humahawak sa ang documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/reranker_parts/scoring.py
+Lines: 232
+Ginagawa ng file: Reranker layer. Inaayos ang ranking ng retrieved chunks gamit ang reranker model at scoring helpers.
+
+Top-level functions:
+  - compute_rerank_scores(reranker, pairs, batch_size, max_length) [line 39]
+    nagko-compute ang rerank result, scores. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - apply_confident_top_score_filter(items, high_confidence_score, max_score_drop, debug) [line 70]
+    humahawak sa ang score. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - compare_rerank_items(left_item, right_item, tie_margin) [line 115]
+    humahawak sa ang rerank result. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - sort_rerank_items_with_tie_breaker(documents, scores, tie_margin, use_tie_breaker) [line 156]
+    nagsosort ang rerank result. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+Classes: wala
+
+====================================================================================================
+retrieval/semantic_retriever.py
+Lines: 240
+Ginagawa ng file: Semantic retriever gamit ang vector store. Hinahanap ang chunks na malapit ang meaning sa tanong.
+
+Top-level functions:
+  - format_semantic_query(query, use_e5_prefix) [line 18]
+    nagfo-format ang semantic search, query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_raw_query(query) [line 31]
+    kumukuha ang query/tanong. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_doc_metadata(doc) [line 41]
+    kumukuha ang document, metadata. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_doc_label(doc) [line 46]
+    kumukuha ang document. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - distance_to_similarity(distance) [line 55]
+    humahawak sa ang distance to similarity. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - attach_semantic_metadata(doc, rank, distance, search_type) [line 69]
+    humahawak sa ang semantic search, metadata. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - get_semantic_retriever(vectorstore, k, search_type, score_threshold, use_e5_prefix) [line 127]
+    kumukuha ang semantic search. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - semantic_search_with_scores(vectorstore, query, k, use_e5_prefix, debug) [line 139]
+    humahawak sa ang semantic search, scores. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - semantic_search(vectorstore, query, k, use_e5_prefix, debug) [line 184]
+    humahawak sa ang semantic search. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+  - mmr_search(vectorstore, query, k, fetch_k, lambda_mult, use_e5_prefix, debug) [line 195]
+    humahawak sa ang mmr search. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks.
+
+Classes and methods:
+  - class SemanticRetriever [line 89]
+    Ginagawa: Nag-o-organize ng related data/behavior para sa `SemanticRetriever` object o namespace.
+    - __init__(self, vectorstore, k, search_type, score_threshold, use_e5_prefix) [line 93]
+      nag-i-initialize ang kailangang data. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks. Method ito sa class `SemanticRetriever`.
+    - invoke(self, query, config, **kwargs) [line 103]
+      humahawak sa ang invoke. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks. Method ito sa class `SemanticRetriever`.
+    - get_relevant_documents(self, query) [line 122]
+      kumukuha ang documents. Ginagamit ito sa paghahanap, pag-rank, o pagpili ng context chunks. Method ito sa class `SemanticRetriever`.
+
+====================================================================================================
+storage/__init__.py
+Lines: 0
+Ginagawa ng file: Persistent storage layer. Nagse-save/nagbabasa ng browser identity at chat history sa SQLite.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+storage/browser_identity.py
+Lines: 69
+Ginagawa ng file: Persistent storage layer. Nagse-save/nagbabasa ng browser identity at chat history sa SQLite.
+
+Top-level functions:
+  - is_valid_browser_id(value) [line 10]
+    nagche-check kung ang browser identity. Ginagamit ito para sa persistent chat/session data.
+  - get_query_browser_id(st) [line 15]
+    kumukuha ang query/tanong, browser identity. Ginagamit ito para sa persistent chat/session data.
+  - set_query_browser_id(st, browser_id) [line 31]
+    nagse-set ang query/tanong, browser identity. Ginagamit ito para sa persistent chat/session data.
+  - get_browser_id(st) [line 58]
+    kumukuha ang browser identity. Ginagamit ito para sa persistent chat/session data.
+Classes: wala
+
+====================================================================================================
+storage/chat_history_store.py
+Lines: 365
+Ginagawa ng file: Persistent storage layer. Nagse-save/nagbabasa ng browser identity at chat history sa SQLite.
+
+Top-level functions:
+  - get_now_text() [line 25]
+    kumukuha ang now text. Ginagamit ito para sa persistent chat/session data.
+  - get_connection() [line 33]
+    kumukuha ang connection. Ginagamit ito para sa persistent chat/session data.
+  - get_table_columns(connection, table_name) [line 44]
+    kumukuha ang table columns. Ginagamit ito para sa persistent chat/session data.
+  - migrate_database(connection) [line 50]
+    humahawak sa ang migrate database. Ginagamit ito para sa persistent chat/session data.
+  - init_history_db() [line 75]
+    nag-i-initialize ang chat history. Ginagamit ito para sa persistent chat/session data.
+  - clean_browser_id(browser_id) [line 129]
+    naglilinis ang browser identity. Ginagamit ito para sa persistent chat/session data.
+  - clean_title(text, fallback) [line 135]
+    naglilinis ang title. Ginagamit ito para sa persistent chat/session data.
+  - encode_json(value) [line 145]
+    humahawak sa ang encode json. Ginagamit ito para sa persistent chat/session data.
+  - decode_json(value, fallback) [line 150]
+    humahawak sa ang decode json. Ginagamit ito para sa persistent chat/session data.
+  - conversation_belongs_to_browser(connection, conversation_id, browser_id) [line 163]
+    humahawak sa ang browser identity. Ginagamit ito para sa persistent chat/session data.
+  - create_conversation(browser_id, title) [line 180]
+    gumagawa ang conversation. Ginagamit ito para sa persistent chat/session data.
+  - list_conversations(browser_id, limit) [line 197]
+    humahawak sa ang list conversations. Ginagamit ito para sa persistent chat/session data.
+  - load_messages(browser_id, conversation_id) [line 224]
+    naglo-load ang messages. Ginagamit ito para sa persistent chat/session data.
+  - replace_conversation_messages(browser_id, conversation_id, messages, title) [line 267]
+    humahawak sa ang messages. Ginagamit ito para sa persistent chat/session data.
+  - delete_conversation(browser_id, conversation_id) [line 343]
+    nagde-delete ang conversation. Ginagamit ito para sa persistent chat/session data.
+  - delete_all_conversations(browser_id) [line 357]
+    nagde-delete ang all conversations. Ginagamit ito para sa persistent chat/session data.
+Classes: wala
+
+====================================================================================================
+ui/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+ui/action_ui.py
+Lines: 187
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+ui/actions/__init__.py
+Lines: 0
+Ginagawa ng file: UI action layer. Nagha-handle ng copy/export/source buttons, downloads, source display, at message actions.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+ui/actions/buttons.py
+Lines: 220
+Ginagawa ng file: UI action layer. Nagha-handle ng copy/export/source buttons, downloads, source display, at message actions.
+
+Top-level functions:
+  - display_actions(answer, sources, message_index) [line 95]
+    humahawak sa ang display actions. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/actions/common.py
+Lines: 433
+Ginagawa ng file: UI action layer. Nagha-handle ng copy/export/source buttons, downloads, source display, at message actions.
+
+Top-level functions:
+  - append_action_debug(title, lines) [line 74]
+    nagdadagdag sa dulo ang action debug. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - safe_html(value) [line 114]
+    ligtas na nagpapatakbo/nagha-handle ng ang html. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - copy_button(text, key) [line 119]
+    humahawak sa ang button. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_export_timestamp() [line 165]
+    kumukuha ang export output. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - title_case_words(text) [line 170]
+    humahawak sa ang title case words. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - make_response_title(question) [line 191]
+    gumagawa ang response title. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - make_filename_slug(title) [line 248]
+    gumagawa ang filename slug. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - make_export_filename(export_type, title) [line 255]
+    gumagawa ang export output. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_question_for_message(message_index) [line 262]
+    kumukuha ang tanong, message. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - normalize_answer_text(answer) [line 295]
+    nagno-normalize ang sagot. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - is_bullet_line(line) [line 302]
+    nagche-check kung ang bullet line. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - is_numbered_line(line) [line 307]
+    nagche-check kung ang numbered line. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - strip_list_marker(line) [line 312]
+    nagtatanggal ang list marker. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - split_answer_lines(answer) [line 320]
+    naghahati ang sagot. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_source_entries(sources) [line 330]
+    kumukuha ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - format_source_line(source, index) [line 352]
+    nagfo-format ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - build_export_text(answer, sources, title) [line 359]
+    gumagawa/nagbu-build ang export output. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/actions/export_files.py
+Lines: 446
+Ginagawa ng file: UI action layer. Nagha-handle ng copy/export/source buttons, downloads, source display, at message actions.
+
+Top-level functions:
+  - export_txt(answer, sources, title) [line 66]
+    nag-e-export ang txt. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - export_md(answer, sources, title) [line 70]
+    nag-e-export ang md. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - export_csv(answer, sources, title) [line 80]
+    nag-e-export ang csv. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - export_xlsx(answer, sources, title) [line 89]
+    nag-e-export ang xlsx. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - export_xls(answer, sources, title) [line 117]
+    nag-e-export ang xls. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - add_docx_paragraph(doc, line) [line 146]
+    nagdadagdag ang docx paragraph. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - export_docx(answer, sources, title) [line 167]
+    nag-e-export ang docx. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_pdf_styles() [line 200]
+    kumukuha ang pdf styles. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - add_pdf_answer_lines(story, styles, answer) [line 222]
+    nagdadagdag ang sagot. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - export_pdf(answer, sources, title) [line 247]
+    nag-e-export ang pdf. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - split_text_for_slides(text, chunk_size) [line 274]
+    naghahati ang text for slides. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - export_pptx(answer, sources, title) [line 294]
+    nag-e-export ang pptx. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - export_ppt(answer, sources, title) [line 323]
+    nag-e-export ang ppt. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_export_file(answer, sources, export_type, title) [line 337]
+    kumukuha ang export output, file. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/actions/export_state.py
+Lines: 319
+Ginagawa ng file: UI action layer. Nagha-handle ng copy/export/source buttons, downloads, source display, at message actions.
+
+Top-level functions:
+  - toggle_export_panel(unique_key) [line 81]
+    humahawak sa ang export output. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - clear_export_runtime_state() [line 94]
+    naglilinis/nagre-reset ang export output, Streamlit/session state. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - queue_export_request(unique_key, export_type, title) [line 100]
+    humahawak sa ang export output. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_pending_export_request(unique_key) [line 110]
+    kumukuha ang export output. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_ready_export_file(unique_key) [line 123]
+    kumukuha ang export output, file. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_export_loading(export_type) [line 136]
+    humahawak sa ang export output. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - prepare_pending_export(answer, sources, unique_key, title) [line 152]
+    naghahanda ang export output. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_ready_export(unique_key) [line 182]
+    humahawak sa ang export output. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_export_buttons(answer, sources, unique_key, title) [line 201]
+    humahawak sa ang export output, buttons. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/actions/sources.py
+Lines: 270
+Ginagawa ng file: UI action layer. Nagha-handle ng copy/export/source buttons, downloads, source display, at message actions.
+
+Top-level functions:
+  - prepare_sources_for_drawer(sources) [line 89]
+    naghahanda ang sources/citations. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_optional_source_url(source) [line 94]
+    kumukuha ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - build_source_card_html(index, source) [line 110]
+    gumagawa/nagbu-build ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - render_source_cards_html(sources) [line 146]
+    nagpapakita/nagre-render ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - show_sources_in_sidebar(sources) [line 162]
+    humahawak sa ang sources/citations, sidebar. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_sources_button(sources, unique_key) [line 167]
+    humahawak sa ang sources/citations, button. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/chat_parts/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+ui/chat_parts/handlers.py
+Lines: 293
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - get_user_query() [line 74]
+    kumukuha ang query/tanong. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - append_user_message(query) [line 79]
+    nagdadagdag sa dulo ang message. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - append_assistant_message(answer, sources, question, created_at) [line 90]
+    nagdadagdag sa dulo ang message. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - queue_new_query(query) [line 101]
+    humahawak sa ang query/tanong. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - render_pending_generation_view(history_slot) [line 122]
+    nagpapakita/nagre-render ang pending generation view. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - handle_pending_new_query(components, history_slot, browser_id, thinking_slot, pre_rendered) [line 134]
+    humahawak sa ang query/tanong. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - handle_new_query(query, browser_id, components) [line 174]
+    humahawak sa ang query/tanong. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/chat_parts/main.py
+Lines: 230
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - run_chat_ui() [line 80]
+    Main Streamlit chat screen. Nagse-set up ng UI, nagre-render ng messages, input, buttons, suggestions, at source drawer.
+Classes: wala
+
+====================================================================================================
+ui/chat_parts/render.py
+Lines: 291
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - display_streaming_assistant_bubble(message) [line 66]
+    humahawak sa ang display streaming assistant bubble. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_thinking() [line 80]
+    humahawak sa ang display thinking. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_loading_state(message) [line 95]
+    humahawak sa ang Streamlit/session state. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - stream_assistant_answer(question, components, conversation_history, thinking_slot) [line 111]
+    nag-stream ang sagot. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_current_history() [line 177]
+    kumukuha ang chat history. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_chat_history_without_controls(messages) [line 183]
+    humahawak sa ang chat history. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_empty_state() [line 202]
+    humahawak sa ang Streamlit/session state. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_chat_footer_note() [line 213]
+    humahawak sa ang display chat footer note. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/chat_parts/state.py
+Lines: 309
+Ginagawa ng file: Support module ng application. May helper logic o wiring na ginagamit ng ibang bahagi ng InknowVa.
+
+Top-level functions:
+  - append_ui_flow_debug(title, lines) [line 48]
+    nagdadagdag sa dulo ang UI. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - is_no_answer(answer) [line 76]
+    nagche-check kung ang sagot. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_page_icon() [line 88]
+    kumukuha ang page icon. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - load_components() [line 101]
+    naglo-load ang components. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_loaded_components() [line 107]
+    kumukuha ang loaded components. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - initialize_session_state() [line 116]
+    humahawak sa ang session, Streamlit/session state. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - clear_answer_ui_state() [line 133]
+    naglilinis/nagre-reset ang sagot, UI, Streamlit/session state. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - begin_answer_generation() [line 146]
+    humahawak sa ang sagot. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - finish_answer_generation() [line 153]
+    humahawak sa ang sagot. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - should_hide_answer_controls() [line 159]
+    nagdedesisyon kung dapat ang sagot. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - inject_answer_control_hider() [line 167]
+    humahawak sa ang sagot. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - is_empty_chat_state() [line 179]
+    nagche-check kung ang Streamlit/session state. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - inject_empty_state_chat_input_position() [line 187]
+    humahawak sa ang Streamlit/session state. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - set_latest_sources(sources) [line 201]
+    nagse-set ang sources/citations. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_last_assistant_sources(messages) [line 209]
+    kumukuha ang sources/citations. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - sanitize_existing_source_state() [line 218]
+    humahawak sa ang source/citation, Streamlit/session state. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - reset_chat_state(clear_active_conversation) [line 230]
+    humahawak sa ang Streamlit/session state. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/chat_parts/storage_actions.py
+Lines: 312
+Ginagawa ng file: Persistent storage layer. Nagse-save/nagbabasa ng browser identity at chat history sa SQLite.
+
+Top-level functions:
+  - delete_active_conversation_from_store(browser_id) [line 57]
+    nagde-delete ang active conversation from store. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - clear_active_chat_session(browser_id) [line 103]
+    naglilinis/nagre-reset ang session. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - load_saved_conversation(browser_id, conversation_id) [line 109]
+    naglo-load ang saved conversation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_first_user_question(messages) [line 124]
+    kumukuha ang tanong. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - persist_current_conversation(browser_id, title) [line 141]
+    nagse-save nang persistent ang current conversation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_pending_sidebar_action() [line 162]
+    kumukuha ang sidebar. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - clear_pending_sidebar_action() [line 172]
+    naglilinis/nagre-reset ang sidebar. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - handle_pending_sidebar_action(browser_id) [line 177]
+    humahawak sa ang sidebar. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - handle_sidebar_action(sidebar_action, browser_id) [line 220]
+    humahawak sa ang sidebar. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - flush_frontend_render() [line 243]
+    humahawak sa ang flush frontend render. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/chat_ui.py
+Lines: 159
+Ginagawa ng file: Main chat UI. Nagre-render ng messages, input box, streaming answer, suggestions, history, at source actions.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+ui/history_ui.py
+Lines: 97
+Ginagawa ng file: UI history layer. Nagre-render at nagma-manage ng recent chats/history sa sidebar.
+
+Top-level functions:
+  - safe_html_text(text) [line 10]
+    ligtas na nagpapatakbo/nagha-handle ng ang html text. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - format_message_timestamp(value) [line 15]
+    nagfo-format ang message. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - render_timestamp(timestamp, css_class) [line 36]
+    nagpapakita/nagre-render ang timestamp. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_user_bubble(message, timestamp) [line 46]
+    humahawak sa ang display user bubble. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_assistant_bubble(message, timestamp, sources) [line 59]
+    humahawak sa ang display assistant bubble. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_chat_history(messages) [line 74]
+    humahawak sa ang chat history. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/sidebar.py
+Lines: 311
+Ginagawa ng file: Sidebar UI. Nagpapakita ng app title, new/clear chat, recent chats, sources area, at status.
+
+Top-level functions:
+  - queue_sidebar_action(action_type, conversation_id) [line 34]
+    humahawak sa ang sidebar. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - make_scroll_container(key, height) [line 44]
+    gumagawa ang scroll container. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_logo_data_uri() [line 55]
+    kumukuha ang logo data uri. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - truncate_title(title, limit) [line 77]
+    humahawak sa ang truncate title. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - safe_html(value) [line 87]
+    ligtas na nagpapatakbo/nagha-handle ng ang html. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_sidebar_banner() [line 92]
+    humahawak sa ang sidebar. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_sidebar_actions() [line 117]
+    humahawak sa ang sidebar. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_fixed_title(title) [line 139]
+    humahawak sa ang display fixed title. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_chat_history_items(browser_id, active_conversation_id) [line 144]
+    humahawak sa ang chat history. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - build_sidebar_source_card(index, source) [line 171]
+    gumagawa/nagbu-build ang sidebar, source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_source_items(sources) [line 209]
+    humahawak sa ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_sidebar_source_fallback_keys() [line 232]
+    kumukuha ang sidebar, source/citation, fallback handling. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_sidebar_sources(sources) [line 247]
+    kumukuha ang sidebar, sources/citations. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_sidebar_bottom_status(browser_id) [line 261]
+    humahawak sa ang sidebar. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_sidebar(browser_id, active_conversation_id, sources) [line 280]
+    humahawak sa ang sidebar. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/source_ui.py
+Lines: 493
+Ginagawa ng file: Source citation UI. Nagpapakita ng retrieved sources/chunks sa drawer o source panel.
+
+Top-level functions:
+  - unescape_html_text(text) [line 31]
+    humahawak sa ang unescape html text. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - normalize_whitespace(text) [line 46]
+    nagno-normalize ang whitespace. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - strip_html_to_text(text) [line 51]
+    nagtatanggal ang html to text. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_nested_value(source, key) [line 74]
+    kumukuha ang nested value. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - normalize_page(page) [line 92]
+    nagno-normalize ang page. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - clean_preview_text(text, limit) [line 102]
+    naglilinis ang preview text. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - clean_source_name(text, fallback) [line 115]
+    naglilinis ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - clean_path_text(value) [line 125]
+    naglilinis ang path text. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - is_existing_file_path(value) [line 135]
+    nagche-check kung ang file. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_source_path(source) [line 148]
+    kumukuha ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_source_preview(source) [line 159]
+    kumukuha ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_source_name(source) [line 170]
+    kumukuha ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - normalize_source_item(source) [line 189]
+    nagno-normalize ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - normalize_sources_for_state(sources) [line 218]
+    nagno-normalize ang sources/citations, Streamlit/session state. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_source_identity(source) [line 231]
+    kumukuha ang source/citation, identity. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - deduplicate_sources(sources, max_sources) [line 245]
+    humahawak sa ang sources/citations. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - safe_filename(filename) [line 265]
+    ligtas na nagpapatakbo/nagha-handle ng ang filename. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - resolve_existing_source_path(source_path) [line 271]
+    nagre-resolve ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_pdf_page_fragment(page) [line 285]
+    kumukuha ang pdf page fragment. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - create_text_viewer_file(source_file, destination) [line 296]
+    gumagawa ang file. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - ensure_static_css() [line 327]
+    sinisigurado ang static css. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - make_static_file_link(source_path, page) [line 343]
+    gumagawa ang file. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - render_source_card(index, source, preview_limit) [line 379]
+    nagpapakita/nagre-render ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - display_sources(sources, preview_limit, use_popover) [line 412]
+    humahawak sa ang sources/citations. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_inline_source_tooltip(source) [line 430]
+    kumukuha ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - get_inline_source_label(source, limit) [line 446]
+    kumukuha ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - build_inline_source_chips(sources, max_sources) [line 463]
+    gumagawa/nagbu-build ang source/citation. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+ui/styles.py
+Lines: 65
+Ginagawa ng file: Naglo-load ng CSS/styling para sa Streamlit UI.
+
+Top-level functions:
+  - find_css_path() [line 31]
+    naghahanap ang css path. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - read_css_text(path_text, modified_ns) [line 41]
+    nagbabasa ang css text. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+  - load_css() [line 47]
+    naglo-load ang css. Ginagamit ito para maayos ang display at user actions sa Streamlit UI.
+Classes: wala
+
+====================================================================================================
+utils/__init__.py
+Lines: 0
+Ginagawa ng file: Package initializer. Ginagawa nitong importable Python package ang folder.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+utils/bm25_cache.py
+Lines: 87
+Ginagawa ng file: Cache helper para sa BM25 index para hindi ito laging nire-rebuild.
+
+Top-level functions:
+  - get_chunks_signature(chunks) [line 10]
+    kumukuha ang chunks. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - get_cache_metadata(chunks, k) [line 26]
+    kumukuha ang cache, metadata. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - read_json(path) [line 34]
+    nagbabasa ang json. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - write_json(path, data) [line 42]
+    nagsusulat ang json. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - cache_is_valid(chunks, k, cache_path, meta_path) [line 49]
+    nagka-cache ang is valid. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - save_bm25_cache(retriever, chunks, k, cache_path, meta_path) [line 58]
+    nagse-save ang BM25 index/search, cache. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - load_bm25_cache(cache_path) [line 69]
+    naglo-load ang BM25 index/search, cache. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - load_or_create_bm25(chunks, k, force_rebuild) [line 75]
+    naglo-load ang BM25 index/search. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+Classes: wala
+
+====================================================================================================
+utils/chunk_cache.py
+Lines: 107
+Ginagawa ng file: Cache helper para sa chunks at metadata para hindi laging inuulit ang load/clean/chunk process.
+
+Top-level functions:
+  - get_file_signature(data_path) [line 18]
+    kumukuha ang file. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - get_cache_metadata(data_path) [line 38]
+    kumukuha ang cache, metadata. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - read_json(path) [line 47]
+    nagbabasa ang json. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - write_json(path, data) [line 55]
+    nagsusulat ang json. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - cache_is_valid(data_path, cache_path, meta_path) [line 62]
+    nagka-cache ang is valid. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - save_chunks_cache(chunks, data_path, cache_path, meta_path) [line 71]
+    nagse-save ang chunks, cache. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - load_chunks_cache(cache_path) [line 82]
+    naglo-load ang chunks, cache. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - build_chunks(data_path) [line 88]
+    gumagawa/nagbu-build ang chunks. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+  - load_or_create_chunks(data_path, force_rebuild) [line 95]
+    naglo-load ang chunks. Utility helper ito para maiwasan ang paulit-ulit na heavy computation.
+Classes: wala
+
+====================================================================================================
+vectorstore/__init__.py
+Lines: 0
+Ginagawa ng file: Bahagi ito ng vector store layer. Nagse-save at naglo-load ng Chroma database para sa semantic retrieval.
+
+Top-level functions: wala
+Classes: wala
+
+====================================================================================================
+vectorstore/chroma_store.py
+Lines: 110
+Ginagawa ng file: Bahagi ito ng vector store layer. Nagse-save at naglo-load ng Chroma database para sa semantic retrieval.
+
+Top-level functions:
+  - has_chroma_files(persist_directory) [line 9]
+    nagche-check kung may ang files.
+  - reset_chroma_folder(persist_directory) [line 22]
+    humahawak sa ang reset chroma folder.
+  - create_chroma_vectorstore(chunks, embedding_model, persist_directory, collection_name) [line 33]
+    gumagawa ang vector store.
+  - load_chroma_vectorstore(embedding_model, persist_directory, collection_name) [line 61]
+    naglo-load ang vector store.
+  - get_chroma_document_count(vectorstore) [line 90]
+    kumukuha ang document.
+  - print_chroma_status(persist_directory) [line 98]
+    nagpi-print ang chroma status.
+Classes: wala

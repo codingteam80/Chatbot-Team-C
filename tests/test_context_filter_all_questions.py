@@ -1,4 +1,5 @@
 import inspect
+import json
 import os
 import sys
 import time
@@ -23,21 +24,30 @@ except ImportError:
 # This produces a manual review report; it does not hardcode expected answer chunks.
 # ============================================================
 
-TEST_QUESTIONS = [
-    "Who are the ladies that had relationship with Jose Rizal?",
-    "Who killed Ferdinand Magellan?",
-    "Did Lapu-Lapu kill Magellan?",
-    "Who is the first Philippine president?",
-    "What did the Treaty of Paris of 1898 say about the Philippines?",
-    "What hardships did Filipinos experience during the Japanese occupation?",
-    "Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?",
-    "Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?",
-    "Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?",
-    "How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?",
-    "Why did Jose Rizal become the Supremo of the Katipunan?",
-    "What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?",
-    "When is rizal's birthday?",
-]
+DEFAULT_TEST_QUESTIONS_CONFIG_PATH = PROJECT_ROOT / "config" / "query_expansion_config.json"
+
+
+def load_test_questions(config_path=DEFAULT_TEST_QUESTIONS_CONFIG_PATH):
+    # Test questions live in JSON so the test file is not history-hardcoded.
+    try:
+        config_path = Path(config_path)
+        raw_config = json.loads(config_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError):
+        raw_config = {}
+
+    test_config = raw_config.get("context_filter_test_questions", {}) if isinstance(raw_config, dict) else {}
+    questions = test_config.get("questions", []) if isinstance(test_config, dict) else []
+
+    cleaned_questions = []
+    for question in questions:
+        question = str(question or "").strip()
+        if question and question not in cleaned_questions:
+            cleaned_questions.append(question)
+
+    return cleaned_questions
+
+
+TEST_QUESTIONS = load_test_questions()
 
 
 def get_setting(name, default_value="N/A"):

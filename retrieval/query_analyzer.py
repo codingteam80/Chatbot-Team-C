@@ -4,129 +4,115 @@ from pathlib import Path
 
 
 JAPANESE_TEXT_PATTERN = re.compile(r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]")
-
-CATEGORY_KEYWORDS = {
-    "coding": [
-        "coding",
-        "code",
-        "program",
-        "programming",
-        "developer",
-        "code review",
-        "design review",
-        "secure coding",
-        "misra",
-        "release",
-        "コード",
-        "レビュー",
-        "設計",
-        "リリース",
-    ],
-    "security": [
-        "security",
-        "secure",
-        "password",
-        "access",
-        "authentication",
-        "authorization",
-        "vulnerability",
-        "セキュリティ",
-        "パスワード",
-        "認証",
-    ],
-    "incident": [
-        "incident",
-        "issue",
-        "bug",
-        "defect",
-        "escalation",
-        "root cause",
-        "corrective action",
-        "障害",
-        "インシデント",
-        "報告",
-    ],
-    "it": [
-        "it",
-        "acceptable use",
-        "device",
-        "network",
-        "email",
-        "internet",
-        "情報システム",
-        "ネットワーク",
-        "メール",
-    ],
-    "hr": [
-        "hr",
-        "leave",
-        "attendance",
-        "absence",
-        "holiday",
-        "overtime",
-        "employee",
-        "勤怠",
-        "休暇",
-        "社員",
-    ],
-}
-
-DOC_TYPE_KEYWORDS = {
-    "sop": ["sop", "standard operating procedure", "procedure", "process", "手順", "標準手順"],
-    "policy": ["policy", "policies", "規程", "ポリシー"],
-    "manual": ["manual", "handbook", "マニュアル"],
-    "guideline": ["guideline", "guide", "rule", "rules", "standard", "misra", "ガイドライン", "ルール"],
-    "checklist": ["checklist", "check list", "チェックリスト"],
-    "report": ["report", "summary", "報告", "レポート"],
-    "article": ["article", "wikipedia"],
-}
-
 DEFAULT_QUERY_CONFIG_PATH = Path("config") / "query_expansion_config.json"
 
 
-STOPWORDS = {
-    "a",
-    "an",
-    "ang",
-    "ano",
-    "are",
-    "at",
-    "ba",
-    "be",
-    "can",
-    "do",
-    "does",
-    "for",
-    "from",
-    "how",
-    "i",
-    "in",
-    "is",
-    "it",
-    "ng",
-    "on",
-    "or",
-    "paano",
-    "para",
-    "sa",
-    "the",
-    "to",
-    "what",
-    "when",
-    "where",
-    "who",
-    "why",
-    "with",
-    "yung",
-}
+def read_query_config(config_path=DEFAULT_QUERY_CONFIG_PATH):
+    # Read shared config. Editable terms/patterns live in JSON, not Python.
+    try:
+        config_path = Path(config_path)
+        if not config_path.exists():
+            return {}
+        return json.loads(config_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError):
+        return {}
+
+
+def get_query_analyzer_config():
+    raw_config = read_query_config()
+    analyzer_config = raw_config.get("query_analyzer", {}) if isinstance(raw_config, dict) else {}
+    return analyzer_config if isinstance(analyzer_config, dict) else {}
 
 
 def normalize_text(text):
-    # Lowercase + simple spaces para madali mag-match.
+    # Lowercase and simple spaces for easier matching.
     text = str(text or "").lower()
     text = text.replace("_", " ").replace("-", " ")
     text = re.sub(r"[^a-z0-9\u3040-\u30ff\u3400-\u9fff]+", " ", text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def normalize_config_list(values):
+    if isinstance(values, str):
+        values = [values]
+    if not isinstance(values, list):
+        return []
+
+    normalized_values = []
+    for value in values:
+        value = normalize_text(value)
+        if value and value not in normalized_values:
+            normalized_values.append(value)
+    return normalized_values
+
+
+def normalize_config_patterns(values):
+    # Convert JSON wildcard pattern strings to normalized unique list.
+    # Keep "*" so patterns like "why did * become" still work.
+    if isinstance(values, str):
+        values = [values]
+    if not isinstance(values, list):
+        return []
+
+    normalized_values = []
+    for value in values:
+        value = normalize_wildcard_pattern(value)
+        if value and value not in normalized_values:
+            normalized_values.append(value)
+    return normalized_values
+
+
+def normalize_regex_patterns(values):
+    # Keep regex patterns from JSON as-is, but remove empty/duplicate entries.
+    if isinstance(values, str):
+        values = [values]
+    if not isinstance(values, list):
+        return []
+
+    normalized_values = []
+    for value in values:
+        value = str(value or "").strip()
+        if value and value not in normalized_values:
+            normalized_values.append(value)
+    return normalized_values
+
+
+def normalize_keyword_map(keyword_map):
+    if not isinstance(keyword_map, dict):
+        return {}
+
+    cleaned_map = {}
+    for label, keywords in keyword_map.items():
+        label = str(label or "").strip()
+        if not label:
+            continue
+
+        cleaned_keywords = normalize_config_list(keywords)
+        if cleaned_keywords:
+            cleaned_map[label] = cleaned_keywords
+    return cleaned_map
+
+
+def load_keyword_map(config_key):
+    raw_config = read_query_config()
+    keyword_map = raw_config.get(config_key, {}) if isinstance(raw_config, dict) else {}
+    return normalize_keyword_map(keyword_map)
+
+
+def get_category_keywords():
+    # Editable category terms live in config/query_expansion_config.json.
+    return load_keyword_map("category_keywords")
+
+
+def get_doc_type_keywords():
+    # Editable document-type terms live in config/query_expansion_config.json.
+    return load_keyword_map("doc_type_keywords")
+
+
+def get_query_stopwords():
+    analyzer_config = get_query_analyzer_config()
+    stopwords = analyzer_config.get("stopwords", [])
+    return set(normalize_config_list(stopwords))
 
 
 def contains_keyword(text, keyword):
@@ -149,138 +135,33 @@ def detect_first_label(query, keyword_map):
         for keyword in keywords:
             if contains_keyword(query, keyword):
                 return label
-
     return ""
 
 
 def detect_language_hint(query):
-    # Detect user language preference/hint.
-    normalized_query = normalize_text(query)
-
+    # Japanese character detection stays in code; editable language hint words are in JSON.
     if JAPANESE_TEXT_PATTERN.search(str(query or "")):
         return "ja"
 
-    if any(word in normalized_query.split() for word in ["japanese", "nihongo"]):
-        return "ja"
+    normalized_query = normalize_text(query)
+    tokens = set(normalized_query.split())
+    language_hints = get_query_analyzer_config().get("language_hints", {})
 
-    if "日本語" in str(query or ""):
-        return "ja"
+    if not isinstance(language_hints, dict):
+        return ""
 
-    if any(word in normalized_query.split() for word in ["english", "ingles", "en"]):
-        return "en"
+    for language_code, words in language_hints.items():
+        for word in normalize_config_list(words):
+            if word and (word in tokens or word in normalized_query):
+                return str(language_code or "").strip()
 
     return ""
 
 
-def read_query_config(config_path=DEFAULT_QUERY_CONFIG_PATH):
-    # Basahin ang shared config.
-    # Kapag wala ang config, empty dict para safe fallback to single_fact.
-    try:
-        config_path = Path(config_path)
-
-        if not config_path.exists():
-            return {}
-
-        return json.loads(config_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError, TypeError):
-        return {}
-
-
-def normalize_config_list(values):
-    # Convert JSON string/list values to normalized unique list.
-    if isinstance(values, str):
-        values = [values]
-
-    if not isinstance(values, list):
-        return []
-
-    normalized_values = []
-
-    for value in values:
-        value = normalize_text(value)
-
-        if value and value not in normalized_values:
-            normalized_values.append(value)
-
-    return normalized_values
-
-
-def normalize_config_patterns(values):
-    # Convert JSON wildcard pattern strings to normalized unique list.
-    # Keep "*" so patterns like "why did * become" still work.
-    if isinstance(values, str):
-        values = [values]
-
-    if not isinstance(values, list):
-        return []
-
-    normalized_values = []
-
-    for value in values:
-        value = normalize_wildcard_pattern(value)
-
-        if value and value not in normalized_values:
-            normalized_values.append(value)
-
-    return normalized_values
-
-
-def normalize_regex_patterns(values):
-    # Keep regex patterns from JSON as-is, but remove empty/duplicate entries.
-    if isinstance(values, str):
-        values = [values]
-
-    if not isinstance(values, list):
-        return []
-
-    normalized_values = []
-
-    for value in values:
-        value = str(value or "").strip()
-
-        if value and value not in normalized_values:
-            normalized_values.append(value)
-
-    return normalized_values
-
-
-def load_keyword_map(config_key, fallback_map):
-    # Keyword maps are configurable in JSON. Python constants are only safe fallback.
-    raw_config = read_query_config()
-    keyword_map = raw_config.get(config_key, {}) if isinstance(raw_config, dict) else {}
-
-    if not isinstance(keyword_map, dict):
-        return fallback_map
-
-    cleaned_map = {}
-
-    for label, keywords in keyword_map.items():
-        label = str(label or "").strip()
-
-        if not label:
-            continue
-
-        cleaned_keywords = normalize_config_list(keywords)
-
-        if cleaned_keywords:
-            cleaned_map[label] = cleaned_keywords
-
-    return cleaned_map or fallback_map
-
-
-def get_category_keywords():
-    return load_keyword_map("category_keywords", CATEGORY_KEYWORDS)
-
-
-def get_doc_type_keywords():
-    return load_keyword_map("doc_type_keywords", DOC_TYPE_KEYWORDS)
-
-
 def load_mode_detection_config():
     # Mode detection is config-driven.
-    # Avoid hardcoded sample-specific terms in Python.
     raw_config = read_query_config()
-    mode_config = raw_config.get("mode_detection", {})
+    mode_config = raw_config.get("mode_detection", {}) if isinstance(raw_config, dict) else {}
 
     if not isinstance(mode_config, dict):
         mode_config = {}
@@ -298,7 +179,6 @@ def load_mode_detection_config():
 
 def phrase_exists(normalized_query, phrase):
     # Exact phrase boundary match.
-    # This prevents a standalone broad word from forcing cross_doc.
     normalized_query = f" {normalize_text(normalized_query)} "
     phrase = normalize_text(phrase)
 
@@ -317,11 +197,7 @@ def normalize_wildcard_pattern(pattern):
 
 
 def wildcard_pattern_exists(normalized_query, pattern, max_wildcard_tokens=8):
-    # Supports config patterns like:
-    # - "why did * become"
-    # - "bakit * naging"
-    #
-    # "*" means up to max_wildcard_tokens words between fixed parts.
+    # Supports config patterns like "why did * become" or "bakit * naging".
     normalized_query = normalize_text(normalized_query)
     pattern = normalize_wildcard_pattern(pattern)
 
@@ -357,7 +233,6 @@ def has_any_phrase(normalized_query, phrases):
     for phrase in phrases:
         if phrase_exists(normalized_query, phrase):
             return True
-
     return False
 
 
@@ -365,7 +240,6 @@ def has_any_wildcard_pattern(normalized_query, patterns):
     for pattern in patterns:
         if wildcard_pattern_exists(normalized_query, pattern):
             return True
-
     return False
 
 
@@ -378,7 +252,6 @@ def has_any_regex_pattern(normalized_query, patterns):
                 return True
         except re.error:
             continue
-
     return False
 
 
@@ -387,7 +260,6 @@ def detect_mode(query):
     # list_enumeration = question expects multiple items from one or more chunks/pages.
     # cross_doc = compare/connect/relationship BETWEEN two or more subjects.
     # false_premise = premise-bearing question that needs stricter context safety.
-    # This uses phrase/pattern rules from config/query_expansion_config.json.
     normalized_query = normalize_text(query)
     mode_config = load_mode_detection_config()
 
@@ -405,8 +277,6 @@ def detect_mode(query):
         or has_any_regex_pattern(normalized_query, mode_config["list_patterns"])
     )
 
-    # List/enumeration question shape has priority over broad relation words.
-    # Example: "Which systems are connected to X?" asks for items, not a cross-doc essay.
     if has_list_shape:
         return "list_enumeration"
 
@@ -420,45 +290,67 @@ def detect_mode(query):
 
 
 def extract_important_terms(query):
-    # Important terms para sa debug/source hint.
+    # Important terms for debug/source hints. Stopwords are JSON-driven.
     tokens = normalize_text(query).split()
+    stopwords = get_query_stopwords()
     terms = []
 
     for token in tokens:
-        if token in STOPWORDS:
+        if token in stopwords:
             continue
-
         if len(token) <= 1:
             continue
-
         if token not in terms:
             terms.append(token)
-
     return terms
 
 
+def regex_first_group(pattern, text):
+    try:
+        match = re.search(pattern, text, flags=re.IGNORECASE)
+    except re.error:
+        return ""
+
+    if not match:
+        return ""
+
+    try:
+        return match.group(1)
+    except IndexError:
+        return ""
+
+
 def extract_source_hint(query):
-    # Simple source/file hint detection.
-    # Example: "from Code Review SOP" -> "code review sop".
+    # Source/file hint patterns are editable in JSON.
     query_text = str(query or "")
-    patterns = [
-        r"(?:from|inside|in|within|source|file|document|doc)\s+([A-Za-z0-9_ .()\-/]+)",
-        r"(?:sa|mula sa|galing sa)\s+([A-Za-z0-9_ .()\-/]+)",
-    ]
+    analyzer_config = get_query_analyzer_config()
+    patterns = analyzer_config.get("source_hint_patterns", [])
+    cleanup_patterns = analyzer_config.get("source_hint_cleanup_patterns", [])
 
-    for pattern in patterns:
-        match = re.search(pattern, query_text, flags=re.IGNORECASE)
-        if match:
-            value = normalize_text(match.group(1))
-            value = re.sub(r"\b(about|regarding|na|ng|ang|the)\b.*$", "", value).strip()
-            if value:
-                return value
+    if isinstance(patterns, str):
+        patterns = [patterns]
+    if isinstance(cleanup_patterns, str):
+        cleanup_patterns = [cleanup_patterns]
 
+    for pattern in patterns or []:
+        value = regex_first_group(pattern, query_text)
+        value = normalize_text(value)
+        if not value:
+            continue
+
+        for cleanup_pattern in cleanup_patterns or []:
+            try:
+                value = re.sub(cleanup_pattern, "", value, flags=re.IGNORECASE).strip()
+            except re.error:
+                continue
+
+        if value:
+            return value
     return ""
 
 
 def analyze_query(query, debug=False):
-    # Main function na tatawagin bago retrieval.
+    # Main function called before retrieval.
     query = str(query or "").strip()
     important_terms = extract_important_terms(query)
 
@@ -473,10 +365,7 @@ def analyze_query(query, debug=False):
         "important_terms": important_terms,
     }
 
-    # Source keywords are used by metadata_booster.
-    # Hindi ito hard filter, hint lang.
     result["source_keywords"] = []
-
     if result["source_hint"]:
         result["source_keywords"] = result["source_hint"].split()
     else:
@@ -489,8 +378,7 @@ def analyze_query(query, debug=False):
 
 
 def build_metadata_filter(query_info):
-    # Optional helper kung gusto mong gumamit ng Chroma where filter later.
-    # Sa current recommended flow, metadata_boost muna instead of hard filter.
+    # Optional helper for using a Chroma where filter later.
     query_info = dict(query_info or {})
     filters = {}
 
@@ -498,10 +386,9 @@ def build_metadata_filter(query_info):
         value = str(query_info.get(key, "") or "").strip()
         if value:
             filters[key] = value
-
     return filters
 
 
 def build_query_info(query, debug=False):
-    # Alias para readable sa test files.
+    # Alias for readability in test files.
     return analyze_query(query, debug=debug)

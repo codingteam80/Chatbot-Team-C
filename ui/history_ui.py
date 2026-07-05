@@ -1,5 +1,3 @@
-"""Render saved chat messages."""
-
 import html
 from datetime import datetime
 
@@ -71,6 +69,7 @@ def display_assistant_bubble(message, timestamp=None, sources=None):
         ]),
         unsafe_allow_html=True,
     )
+
 
 def display_chat_history(messages):
     # Render all visible messages and assistant action rows.

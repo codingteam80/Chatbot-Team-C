@@ -14,7 +14,7 @@ DEFAULT_PROMPT_CONFIG_PATH = Path("config") / "query_expansion_config.json"
 
 
 def read_prompt_json(config_path=DEFAULT_PROMPT_CONFIG_PATH):
-    # Read shared query/prompt config. If missing/invalid, use safe fallback cues.
+    # Read shared query/prompt config. If missing/invalid, use an empty config.
     try:
         config_path = Path(config_path)
 
@@ -67,13 +67,18 @@ def load_prompt_mode_detection_config():
     # List/enumeration cues come from JSON so Python stays generic.
     raw_config = read_prompt_json()
     mode_config = raw_config.get("mode_detection", {}) if isinstance(raw_config, dict) else {}
+    prompt_config = raw_config.get("prompt_builder", {}) if isinstance(raw_config, dict) else {}
 
     if not isinstance(mode_config, dict):
         mode_config = {}
 
+    if not isinstance(prompt_config, dict):
+        prompt_config = {}
+
     return {
         "list_phrases": normalize_config_list(mode_config.get("list_phrases", [])),
         "list_patterns": normalize_config_patterns(mode_config.get("list_patterns", [])),
+        "list_question_fallback_cues": normalize_config_list(prompt_config.get("list_question_fallback_cues", [])),
     }
 
 
@@ -215,40 +220,16 @@ def is_list_question(question):
         except re.error:
             continue
 
-    fallback_cues = [
-        "who are",
-        "what are",
-        "which are",
-        "list",
-        "enumerate",
-        "name all",
-        "sino ang mga",
-        "ano ang mga",
-        "alin ang mga",
-    ]
+    for cue in PROMPT_MODE_CONFIG.get("list_question_fallback_cues", []):
+        if cue and cue in question:
+            return True
 
-    return any(cue in question for cue in fallback_cues)
+    return False
 
 
 def build_question_specific_rules(question):
-    # Lightweight list formatting only. No candidate checklist and no strict coverage audit.
-    if not is_list_question(question):
-        return []
-
-    rules = [
-        "LIST QUESTION CHECK:",
-        "- Scan all Document Excerpts before answering; do not stop after the first matching excerpt.",
-        "- Start with one short direct sentence that names the requested category, actor, relationship, or topic from the QUESTION.",
-        "- After the short lead-in sentence, use bullets for multiple distinct supported items.",
-        "- Include distinct supported items that directly answer the question.",
-        "- If support is partial or unclear, state the limitation briefly instead of overstating it.",
-    ]
-
-    for rule in PROMPT_OUTPUT_CONFIG.get("list_answer_format_rules", []):
-        rules.append("- " + rule)
-
-    rules.append("")
-    return rules
+    # Keep the main prompt simple. Generic list/false-premise/short-query rules are already in build_prompt_rules().
+    return []
 
 
 def add_rule_section(lines, title, rules):
@@ -262,172 +243,55 @@ def add_rule_section(lines, title, rules):
 
 
 def build_prompt_rules():
-    # Balanced document-grounded rules for factual, policy, SOP, and manual answers.
-    sections = [
-        (
-            "CORE RULES",
-            [
-                "You are InknowVa, a professional document-grounded RAG assistant.",
-                "Use only the text under Excerpt as evidence; do not use outside knowledge.",
-                "Use CHAT HISTORY only to understand follow-up questions, not as evidence.",
-                "Use the same language as the QUESTION.",
-                "Treat file names, pages, titles, chunk IDs, source labels, and section labels as metadata, not answer facts unless the QUESTION asks for source or location.",
-            ],
-        ),
-        (
-            "ANSWER RULES",
-            [
-                "Answer the actual QUESTION directly and concisely, but do not make the answer incomplete just to be short.",
-                "Match the answer type to the question: who/what needs the direct entity, yes/no needs a clear judgment, and why/how needs a supported reason or process.",
-                "For list questions, start with one short lead-in sentence that names the requested category, actor, relationship, or topic from the QUESTION, then use bullets for the distinct supported items.",
-                "If multiple Excerpts provide complementary supported details for the same direct question, combine those details concisely instead of using only the first Excerpt.",
-                "Use one complete sentence for a single supported answer, bullets after a short lead-in sentence for multiple distinct items, and numbered steps only for ordered procedures or sequences.",
-                "Do not add a second version of the answer, a summary paragraph, or a support/evidence section unless the QUESTION asks for it.",
-            ],
-        ),
-        (
-            "CLAIM AND EVIDENCE RULES",
-            [
-                "A claim is supported only when the Excerpt directly supports the same actor, action, object, scope, condition, date/time, status, and relationship asked in the QUESTION.",
-                "Do not upgrade partial, related, nearby, passive, circumstantial, or background evidence into an exact claim.",
-                "Do not infer motives, causes, responsibilities, permissions, approvals, ownership, membership, dates, or statuses unless they are directly supported.",
-                "If the exact claim is not directly supported, state only the supported part and clearly say that the exact claim is not directly supported.",
-            ],
-        ),
-        (
-            "FALSE PREMISE AND QUESTION CHECK RULES",
-            [
-                "Before answering, check whether the QUESTION assumes an unsupported actor, action, role, title, status, requirement, permission, approval, ownership, date, cause, or relationship.",
-                "For yes/no questions, answer yes only when the exact claim is directly supported, and no only when the exact claim is directly contradicted.",
-                "For why/how questions, verify the premise first. If the premise is not directly supported, correct the premise briefly and stop.",
-                "For date/time questions, use the date, schedule, deadline, effective date, expiry date, review date, celebration date, or observed date that directly matches what the QUESTION asks.",
-            ],
-        ),
-        (
-            "FALLBACK AND FORMAT RULES",
-            [
-                "Do not guess, invent, speculate, or fill missing details.",
-                "Use the fallback only when the Excerpt has no relevant information to answer, partially answer, or correct the QUESTION.",
-                "If there is no relevant information, reply exactly: " + NO_ANSWER_TEXT,
-                "Do not mention sources, file names, pages, titles, metadata, excerpts, documents, context, or retrieval details unless the QUESTION asks for source or location.",
-                "Do not write phrases like 'the context says', 'the documents indicate', 'the excerpt states', 'according to the excerpt', 'based on the provided context', or 'provided documents'.",
-                "Do not add labels such as Support, Evidence, Claim, Final Answer, Answer, Note, or Explanation unless the QUESTION asks for that format.",
-                "Return only one final answer body and finish the final sentence completely.",
-            ],
-        ),
+    # Simple generic prompt rules. Keep the assistant grounded without over-filtering valid answers.
+    fallback_text = str(NO_ANSWER_TEXT or "I cannot find the answer in the provided documents.").strip()
+
+    return [
+        "You are InknowVa, a document-grounded assistant.",
+        "",
+        "Use only the provided excerpts as evidence.",
+        "Answer in the same language as the question.",
+        "Answer directly and concisely.",
+        "Do not use outside knowledge.",
+        "",
+        "If the excerpts contain relevant information, answer using that information.",
+        f'Use "{fallback_text}" only when all excerpts have no relevant information for answering, partially answering, or correcting the question.',
+        "",
+        "For list questions:",
+        "- Read all excerpts.",
+        "- Include all distinct items that are clearly listed or clearly connected to the requested subject.",
+        "- Use bullets.",
+        "- Do not drop listed items just because the exact relationship wording is not repeated beside every item.",
+        "- Do not add items that are only background, references, source titles, or unrelated mentions.",
+        "",
+        "For false-premise questions:",
+        "- First check whether the exact role, title, action, status, date, or relationship in the question is supported.",
+        '- If the exact premise is not supported, start with: "The premise is not supported."',
+        '- Do not answer "why" or "how" as if the unsupported premise is true.',
+        "- Do not replace the asked role/title/action with a different related role/title/action.",
+        "- After rejecting the premise, give the corrected supported fact if available.",
+        "",
+        "For yes/no or actor questions:",
+        "- If the exact personal actor is not stated, do not claim a person personally did the action.",
+        "- If the excerpt only supports a group, army, team, organization, process, or event, answer using that careful wording.",
+        "- If the excerpt supports only part of the claim, state the supported part and clearly say what is not stated.",
+        "",
+        "For short keyword, name, acronym, code, title, or date queries:",
+        "- Identify what the query refers to in the excerpts.",
+        "- Do not return an empty answer.",
+        "- If a date appears with a person, event, policy, deadline, effective date, or record, say what the date is associated with.",
+        "",
+        "For Tagalog/Filipino questions:",
+        "- Answer in simple Filipino.",
+        "- Keep names, dates, titles, and facts exact.",
+        "- Do not mistranslate events, dates, or relationships.",
+        "",
+        "Formatting:",
+        "- One complete sentence for single-fact answers.",
+        "- Bullets for list answers.",
+        '- No labels like "Answer:", "Evidence:", or "Final Answer:".',
+        "- Do not mention excerpts, context, retrieval, chunks, or metadata unless the user asks for sources.",
     ]
-
-    lines = []
-
-    for title, rules in sections:
-        add_rule_section(lines, title, rules)
-
-    if lines and lines[-1] == "":
-        lines.pop()
-
-    return lines
-
-
-
-def normalize_prompt_metadata_value(value):
-    # Normalize metadata values used only for prompt-control decisions.
-    return " ".join(str(value or "").strip().lower().split())
-
-
-def get_prompt_doc_metadata_values(docs, keys):
-    # Collect metadata values from final context docs without treating them as answer facts.
-    values = []
-
-    for doc in docs or []:
-        metadata = dict(getattr(doc, "metadata", {}) or {})
-
-        for key in keys:
-            value = normalize_prompt_metadata_value(metadata.get(key))
-
-            if value and value not in values:
-                values.append(value)
-
-    return values
-
-
-def is_filipino_or_tagalog_question(question):
-    # Lightweight language cue for Filipino/Tagalog questions.
-    question_key = normalize_question_for_prompt(question)
-    filipino_cues = [
-        "kailan",
-        "sino",
-        "ano",
-        "alin",
-        "bakit",
-        "paano",
-        "ipinagdiriwang",
-        "ginugunita",
-        "ng pilipinas",
-        "ang ",
-        "mga ",
-    ]
-
-    return any(cue in question_key for cue in filipino_cues)
-
-
-def looks_like_date_or_time_question(question):
-    question_key = normalize_question_for_prompt(question)
-    date_cues = [
-        "when",
-        "date",
-        "birthday",
-        "kailan",
-        "ipinagdiriwang",
-        "ginugunita",
-        "schedule",
-        "deadline",
-        "effective date",
-        "expiry",
-        "expiration",
-    ]
-
-    return any(cue in question_key for cue in date_cues)
-
-
-def build_context_control_rules(question, docs):
-    # Extra instructions derived only from system-detected final-context metadata.
-    # These are not test hints; they are produced by the retrieval/context-filter layer.
-    modes = set(get_prompt_doc_metadata_values(docs, ["context_mode"]))
-    intents = set(get_prompt_doc_metadata_values(docs, ["dynamic_answer_intent", "answer_intent"]))
-    rules = []
-
-    if "false_premise" in modes:
-        rules.extend([
-            "SYSTEM-DETECTED PREMISE RISK:",
-            "- The selected evidence was marked as false_premise by the context filter.",
-            "- Do not answer the why/how question as if its premise is true.",
-            "- Start by saying the premise is not directly supported, then give only the supported correction.",
-            "- Do not invent a motive, reason, honorary title, role, membership, or status.",
-            "",
-        ])
-
-    if "date_fact" in intents or looks_like_date_or_time_question(question):
-        rules.extend([
-            "DATE/TIME ANSWER CONTROL:",
-            "- Put the exact date/time from the Excerpt first.",
-            "- Do not replace a full date with only a year unless the QUESTION asks only for a year.",
-            "- If the Excerpt contains both a date and the event/significance, answer both parts directly.",
-            "",
-        ])
-
-    if is_filipino_or_tagalog_question(question):
-        rules.extend([
-            "FILIPINO/TAGALOG ANSWER CONTROL:",
-            "- Answer in simple, natural Filipino/Tagalog.",
-            "- Preserve exact dates, names, and proper nouns from the Excerpt.",
-            "- Do not invent or use awkward translated words; use simple phrasing instead.",
-            "",
-        ])
-
-    if not rules:
-        return []
-
-    return rules
 
 
 def build_rag_prompt(
@@ -437,7 +301,7 @@ def build_rag_prompt(
     max_doc_chars=MAX_DOC_CHARS,
     max_context_chars=MAX_PROMPT_CONTEXT_CHARS,
 ):
-    # Final prompt passed to the LLM. One prompt only; no candidate checklist/validator.
+    # Final prompt passed to the LLM.
     context = build_context(
         docs=docs,
         max_doc_chars=max_doc_chars,
@@ -453,14 +317,10 @@ def build_rag_prompt(
         "DOCUMENT EXCERPTS:",
         context,
         "",
-        *build_context_control_rules(question, docs),
         "QUESTION:",
         str(question or "").strip(),
         "",
         *build_question_specific_rules(question),
-        "FINAL ANSWER CHECK:",
-        "Give one final answer only. Verify actor, action, object, scope, condition, date/time, status, and relationship against the QUESTION. If the premise or exact claim is not directly supported, correct it briefly. For list questions, start with one short direct sentence using the QUESTION's key topic/category, then use bullets for distinct supported items. For single direct questions, answer in one complete sentence, not just a label. Do not speculate, do not add labels, and do not repeat the answer.",
-        "",
         "FINAL ANSWER:",
     ]
 

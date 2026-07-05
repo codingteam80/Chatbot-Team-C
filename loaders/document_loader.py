@@ -11,7 +11,7 @@ EMPTY_REPORT = {
 
 
 def add_standard_metadata(docs, file_path):
-    # Maglagay ng common metadata para consistent sa retrieval at source UI.
+    # Add common metadata for consistent retrieval and source UI display.
     file_path = Path(file_path)
 
     for doc_index, doc in enumerate(docs):
@@ -26,13 +26,13 @@ def add_standard_metadata(docs, file_path):
 
 
 def is_valid_document(doc):
-    # I-keep lang ang document na may readable text.
+    # Keep only documents with readable text.
     text = getattr(doc, "page_content", "")
     return bool(str(text or "").strip())
 
 
 def create_report(data_path, recursive):
-    # Report para makita kung alin ang loaded, skipped, at failed.
+    # Report which files were loaded, skipped, and failed.
     report = dict(EMPTY_REPORT)
     report["data_path"] = str(data_path)
     report["recursive"] = recursive
@@ -44,7 +44,7 @@ def create_report(data_path, recursive):
 
 
 def iter_source_files(data_path, recursive=True):
-    # Kunin ang files sa data folder in stable order.
+    # Get files from the data folder in stable order.
     data_path = Path(data_path)
     files = data_path.rglob("*") if recursive else data_path.iterdir()
 
@@ -54,7 +54,7 @@ def iter_source_files(data_path, recursive=True):
 
 
 def validate_data_path(data_path):
-    # Siguraduhin na existing folder ang data path.
+    # Make sure the data path is an existing folder.
     data_path = Path(data_path)
 
     if not data_path.exists():
@@ -79,7 +79,7 @@ def load_single_file(file_path):
 
 
 def load_documents(data_path, recursive=True, return_report=False):
-    # Main document loader para sa ingest, test, at app.
+    # Main document loader for ingest, tests, and app usage.
     data_path = validate_data_path(data_path)
     documents = []
     report = create_report(data_path, recursive)
@@ -117,7 +117,7 @@ def load_documents(data_path, recursive=True, return_report=False):
             })
 
         except Exception as error:
-            # Skip broken file, pero ituloy ang ibang files.
+            # Skip broken files, but continue loading the other files.
             report["failed_files"].append({
                 "file_path": str(file_path),
                 "error_type": type(error).__name__,

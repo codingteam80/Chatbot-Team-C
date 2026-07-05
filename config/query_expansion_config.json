@@ -5,72 +5,193 @@
     "enable_simple_word_variants": false,
     "append_original_query": true
   },
-  "language_markers": {
-    "tagalog_markers": [
-      "ano",
+  "question_rewriter": {
+    "min_standalone_meaningful_terms": 2,
+    "min_topic_meaningful_terms": 1,
+    "use_source_fallback_topic": false,
+    "token_pattern": "[a-zA-ZÀ-ÿ0-9'’-]+",
+    "source_suffix_pattern": "\\s+[-–—]\\s+(?:wikipedia|source|pdf|docx|pptx|xlsx|csv|markdown|md)\\b.*$",
+    "topic_prefix_pattern": "^(?:the topic|the subject|topic|subject|source|sources)\\s+(?:is|was|are|were)?\\s*",
+    "reference_words": [
+      "it",
+      "this",
+      "that",
+      "these",
+      "those",
+      "there",
+      "he",
+      "she",
+      "they",
+      "them",
+      "him",
+      "her",
+      "its",
+      "his",
+      "their",
+      "ito",
+      "iyon",
+      "yan",
+      "doon",
+      "dito",
+      "siya",
+      "sila",
+      "niya",
+      "nila",
+      "nito",
+      "niyon",
+      "kanila",
+      "kanya",
+      "ganito",
+      "ganyan",
+      "noon"
+    ],
+    "object_reference_words": [
+      "it",
+      "this",
+      "that",
+      "these",
+      "those",
+      "him",
+      "her",
+      "them",
+      "ito",
+      "iyon",
+      "yan",
+      "siya",
+      "sila",
+      "niya",
+      "nila",
+      "nito",
+      "niyon"
+    ],
+    "question_starts": [
+      "who",
+      "what",
+      "when",
+      "where",
+      "why",
+      "how",
+      "which",
       "sino",
-      "bakit",
-      "paano",
-      "papaano",
+      "ano",
       "kailan",
       "saan",
+      "bakit",
+      "paano",
+      "alin"
+    ],
+    "question_words": [
+      "who",
+      "what",
+      "when",
+      "where",
+      "why",
+      "how",
+      "which",
+      "sino",
+      "ano",
+      "kailan",
+      "saan",
+      "bakit",
+      "paano",
       "alin",
-      "kanino",
-      "ilan",
+      "is",
+      "are",
+      "was",
+      "were",
+      "did",
+      "does",
+      "do",
+      "can",
+      "could",
+      "should",
+      "would",
+      "will",
+      "must",
+      "may",
+      "please",
+      "explain",
+      "describe",
+      "discuss",
+      "tell",
+      "give",
+      "details",
+      "more",
+      "ang",
+      "si",
+      "sina",
+      "ng",
+      "sa",
+      "kay",
+      "kina",
       "ba",
       "po",
-      "opo",
-      "yung",
-      "ung",
-      "iyong",
-      "nito",
-      "dito",
-      "diyan",
-      "dyan",
-      "doon",
-      "dun",
-      "siya",
-      "nila",
-      "natin",
-      "kami",
-      "tayo",
-      "kung",
-      "kapag",
-      "para",
-      "kasi",
-      "naman",
-      "lang"
-    ]
-  },
-  "value_only_question": {
-    "enabled": true,
-    "max_value_words": 6,
-    "value_patterns": [
-      "^\\d{4}$",
-      "^\\d{1,2}[/-]\\d{1,2}[/-]\\d{2,4}$",
-      "^\\d{4}-\\d{2}-\\d{2}$",
-      "^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\\s+\\d{1,2}(,\\s*\\d{4})?$",
-      "^\\d{1,2}\\s+(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\\s+\\d{4}$",
-      "^(yes|no|true|false)$",
-      "^(within|after|before|by|at least|up to|no more than|not more than)\\s+\\d+\\s+[a-z]+$",
-      "^\\d+\\s+[a-z]+$",
-      "^(one|two|three|four|five|six|seven|eight|nine|ten)\\s+[a-z]+$"
+      "paki",
+      "pakiexplain",
+      "ipaliwanag",
+      "ilarawan"
     ],
-    "short_value_answer": {
-      "enabled": true,
-      "max_words": 6,
-      "patterns": [
-        "^\\d{4}$",
-        "^\\d{1,2}[/-]\\d{1,2}[/-]\\d{2,4}$",
-        "^\\d{4}-\\d{2}-\\d{2}$",
-        "^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\\s+\\d{1,2}(,\\s*\\d{4})?$",
-        "^\\d{1,2}\\s+(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\\s+\\d{4}$",
-        "^(yes|no|true|false)$",
-        "^(within|after|before|by|at least|up to|no more than|not more than)\\s+\\d+\\s+[a-z]+$",
-        "^\\d+\\s+[a-z]+$",
-        "^(one|two|three|four|five|six|seven|eight|nine|ten)\\s+[a-z]+$"
-      ]
-    }
+    "trailing_fillers": [
+      "\\s+in detail$",
+      "\\s+in details$",
+      "\\s+with details$",
+      "\\s+for me$",
+      "\\s+please$",
+      "\\s+po$",
+      "\\s+nga$"
+    ],
+    "standalone_topic_patterns": [
+      "^(?:can you|could you|please)?\\s*(?:explain|describe|discuss|tell me about|give details about|give me details about)\\s+(.+)$",
+      "^(?:what do you know about|information about|details about)\\s+(.+)$",
+      "^(?:who|what|where|when|which)\\s+(?:is|are|was|were)\\s+(.+)$",
+      "^(?:why|how|when|what|which)\\s+(?:did|does|do|is|are|was|were|can|could|should|would|will|must|may)\\s+(.+)$",
+      "^(?:did|does|do|is|are|was|were|can|could|should|would|will|must|may)\\s+(.+)$",
+      "^(?:who|what|which)\\s+\\w+\\s+(.+)$",
+      "^(?:sino|ano|kailan|saan|bakit|paano|alin)\\s+(?:ang|si|sina|ng|sa|kay|kina)?\\s*(.+)$"
+    ],
+    "topic_extraction_patterns": [
+      "^(?:who|what|which)\\s+\\w+\\s+(.+)$",
+      "^(?:who|what|where|when|which)\\s+(?:is|are|was|were)\\s+(.+)$",
+      "^(?:why|how|when|what|which)\\s+(?:did|does|do|is|are|was|were|can|could|should|would|will|must|may)\\s+(.+)$",
+      "^(?:did|does|do|is|are|was|were|can|could|should|would|will|must|may)\\s+(.+)$",
+      "^(?:can you|could you|please)?\\s*(?:explain|describe|discuss|tell me about|give details about|give me details about)\\s+(.+)$",
+      "^(?:what do you know about|information about|details about)\\s+(.+)$",
+      "^(?:sino|ano|kailan|saan|bakit|paano|alin)\\s+(?:ang|si|sina|ng|sa|kay|kina)?\\s*(.+)$"
+    ],
+    "contextual_reference_patterns": [
+      "\\b(?:about|after|before|during|from|in|on|of|to|with|without|because of|cause|caused|use|used|apply|applied|kill|killed|approve|approved|review|reviewed|submit|submitted|do|did|does)\\s+(?:it|this|that|these|those|him|her|them|ito|iyon|yan|siya|sila|niya|nila|nito|niyon)\\b",
+      "\\b(?:its|his|their|niya|nila|nito|niyon|kanila|kanya)\\s+\\w+\\b",
+      "\\b(?:after that|before that|about that|from that|during that|because of that|same topic|previous answer|previous topic|last answer|last topic)\\b",
+      "\\b(?:pagkatapos nito|pagkatapos noon|bago iyon|tungkol dito|tungkol doon|same topic|naunang sagot|huling sagot)\\b"
+    ],
+    "contextual_followup_patterns": [
+      "^(?:and|also|then|so)\\b",
+      "\\b(?:same topic|previous answer|previous topic|last answer|last topic|continue|more about it)\\b",
+      "\\b(?:ituloy|dagdag pa|karugtong|naunang sagot|huling sagot)\\b"
+    ],
+    "vague_followup_rewrites": {
+      "why": "Why is {topic} important",
+      "how": "How does {topic} work",
+      "when": "When did {topic} happen",
+      "where": "Where did {topic} happen",
+      "who": "Who is involved in {topic}",
+      "what": "What is {topic}",
+      "what happened": "What happened to {topic}",
+      "details": "What are the details about {topic}",
+      "more details": "What are more details about {topic}",
+      "tell me more": "Tell me more about {topic}",
+      "explain more": "Explain more about {topic}",
+      "bakit": "Bakit mahalaga ang {topic}",
+      "paano": "Paano nangyari ang {topic}",
+      "kailan": "Kailan nangyari ang {topic}",
+      "saan": "Saan nangyari ang {topic}",
+      "sino": "Sino ang sangkot sa {topic}",
+      "ano": "Ano ang {topic}",
+      "dagdag": "Magbigay ng dagdag na detalye tungkol sa {topic}",
+      "more": "Tell me more about {topic}"
+    },
+    "demonstrative_noun_pattern": "\\b(this|that|these|those|ito|iyon|yan|itong|iyong|yung)\\s+([a-zA-ZÀ-ÿ0-9'’-]+)\\b",
+    "demonstrative_noun_rewrite_template": "the {noun} related to {topic}"
   },
   "stopwords": [
     "a",
@@ -322,6 +443,15 @@
       "allow_bm25_only_when_evidence_matches": true,
       "drop_reference_like_chunks_without_answer_evidence": true,
       "evidence_snippet_metadata_key": "evidence_snippet"
+    },
+    "short_source_query": {
+      "enabled": true,
+      "max_terms": 3,
+      "top_n": 2,
+      "intro_weight": 8.0,
+      "direct_match_weight": 2.0,
+      "retrieval_weight": 1.0,
+      "low_value_penalty": 8.0
     }
   },
   "mode_detection": {
@@ -595,7 +725,7 @@
         ],
         "top_n": 5,
         "neighbor_expansion": false,
-        "selection_strategy": "rerank_first",
+        "selection_strategy": "primary_evidence",
         "min_question_term_matches": 1,
         "evidence_match_score": 5.0,
         "weak_evidence_match_score": 0.5,
@@ -686,7 +816,13 @@
             ]
           }
         ],
-        "required_evidence_missing_penalty": 8.0
+        "required_evidence_missing_penalty": 8.0,
+        "question_regex": [
+          "^\\d{4}\\s+\\d{1,2}\\s+\\d{1,2}$",
+          "^\\d{1,2}\\s+\\d{1,2}\\s+\\d{2,4}$",
+          "^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\\s+\\d{1,2}(\\s+\\d{4})?$",
+          "^\\d{1,2}\\s+(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\\s+\\d{4}$"
+        ]
       },
       "actor_fact": {
         "question_terms": [
@@ -1191,6 +1327,46 @@
         "Keep each bullet short; use name-only bullets when many items are supported.",
         "Do not add a summary paragraph after the bullets unless the question asks for it."
       ]
+    },
+    "short_query": {
+      "rules": [
+        "If the QUESTION is only a date, number, name, acronym, code, title, or short keyword phrase, identify what it refers to using the Excerpt.",
+        "When a relevant Excerpt exists for a short query, do not return an empty answer and do not use the no-answer fallback.",
+        "For a short query, answer with one complete sentence that names the matched entity, event, date, status, definition, or relationship supported by the Excerpt.",
+        "If the short query appears in more than one Excerpt, prefer the Excerpt that gives the clearest direct identity, definition, date, status, or relationship."
+      ]
+    },
+    "unsupported_premise": {
+      "rules": [
+        "If the QUESTION asks why or how an unsupported premise happened, do not answer as if the premise is true.",
+        "Start by correcting the unsupported premise in plain language, then give only the supported fact from the Excerpt.",
+        "Do not invent a reason, motive, cause, role, title, permission, approval, ownership, status, or relationship that is not directly supported.",
+        "When a QUESTION mixes a wrong role/title with a related supported role/title, clearly separate the unsupported role/title from the supported one."
+      ]
+    },
+    "careful_actor_claims": {
+      "rules": [
+        "For who/yes-no questions about who did an action, distinguish personal action from group, army, team, department, organization, or system action.",
+        "If the Excerpt supports that an event happened during a conflict, process, incident, or interaction involving a group or leader, do not claim the named person personally performed the action unless the Excerpt explicitly says so.",
+        "If the exact actor is not directly supported but a related group, force, team, department, or organization is supported, answer with that careful limitation.",
+        "Use careful wording such as “the Excerpt supports X, but does not directly say Y personally did it” when the individual actor claim is not exact."
+      ]
+    },
+    "language_quality": {
+      "rules": [
+        "Answer in the same language as the QUESTION unless the QUESTION asks for another language.",
+        "For Filipino or Tagalog questions, use simple natural Filipino and keep dates, names, titles, and technical terms exact.",
+        "When translating from an English Excerpt, translate the final answer only and do not change the meaning of the supported fact.",
+        "Do not mistranslate a declaration, approval, requirement, prohibition, deadline, status, cause, or event into its opposite or a different event."
+      ]
+    },
+    "final_answer_check": {
+      "rules": [
+        "For short queries, check that the final answer is not blank when at least one relevant Excerpt exists.",
+        "For unsupported-premise questions, check that the answer does not preserve the unsupported premise as true.",
+        "For actor/responsibility questions, check whether the Excerpt supports the individual actor or only a related group/organization/action.",
+        "For non-English questions, check that the final answer language and translated meaning match the QUESTION and Excerpt."
+      ]
     }
   },
   "candidate_checklist": {
@@ -1580,5 +1756,181 @@
   },
   "_notes": {
     "top_n_policy": "single_fact and list_answer use final_top_n 5; false_premise remains strict at final_top_n 2 in context_filter.py."
+  },
+  "query_analyzer": {
+    "stopwords": [
+      "a",
+      "an",
+      "ang",
+      "ano",
+      "are",
+      "at",
+      "ba",
+      "be",
+      "can",
+      "do",
+      "does",
+      "for",
+      "from",
+      "how",
+      "i",
+      "in",
+      "is",
+      "it",
+      "ng",
+      "on",
+      "or",
+      "paano",
+      "para",
+      "sa",
+      "the",
+      "to",
+      "what",
+      "when",
+      "where",
+      "who",
+      "why",
+      "with",
+      "yung"
+    ],
+    "language_hints": {
+      "ja": [
+        "japanese",
+        "nihongo",
+        "日本語"
+      ],
+      "en": [
+        "english",
+        "ingles",
+        "en"
+      ]
+    },
+    "source_hint_patterns": [
+      "(?:from|inside|in|within|source|file|document|doc)\\s+([A-Za-z0-9_ .()\\-/]+)",
+      "(?:sa|mula sa|galing sa)\\s+([A-Za-z0-9_ .()\\-/]+)"
+    ],
+    "source_hint_cleanup_patterns": [
+      "\\b(about|regarding|na|ng|ang|the)\\b.*$"
+    ]
+  },
+  "query_type_detector": {
+    "direct_fact_patterns": [
+      "^who\\s+(is|was|were)\\b",
+      "^who\\s+\\w+\\b",
+      "^when\\b",
+      "^where\\b",
+      "^which\\b",
+      "^what\\s+(is|was|were)\\b",
+      "^(is|are|was|were|did|does|do|can|could|should|must)\\b",
+      "^sino\\b",
+      "^kailan\\b",
+      "^saan\\b",
+      "^alin\\b",
+      "^ano\\s+ang\\b",
+      "^(ay|ba)\\b"
+    ],
+    "explanation_patterns": [
+      "^why\\b",
+      "^how\\b",
+      "\\b(explain|describe|summarize|overview|purpose|reason|cause|effect|impact|role)\\b",
+      "\\b(bakit|paano|ipaliwanag|ilarawan|ibuod|layunin|dahilan|sanhi|epekto|papel)\\b"
+    ],
+    "comparison_patterns": [
+      "\\b(compare|difference|different|distinguish|versus)\\b",
+      "\\bvs\\.?\\b",
+      "\\b(ihambing|pagkakaiba|kaibahan)\\b"
+    ],
+    "relationship_patterns": [
+      "\\b(relationship|connection|connect|related|relate|link|association)\\b",
+      "\\bbetween\\b.+\\band\\b",
+      "\\b(kaugnayan|nauugnay|ugnay|koneksyon)\\b"
+    ],
+    "multi_part_patterns": [
+      "\\b(and|or)\\s+(what|how|why|when|where|who|which|is|are|was|were|does|do|did|should|must|can)\\b",
+      "\\b(at|o)\\s+(ano|paano|bakit|kailan|saan|sino|alin)\\b",
+      ";"
+    ],
+    "assumption_risk_patterns": [
+      "^(why|how)\\s+(did|does|do|was|were|is|are)\\b",
+      "\\b(become|became|serve as|served as|appointed as|assigned as|classified as|treated as|considered as)\\b",
+      "\\b(naging|itinuring|itinalaga|nakilala bilang)\\b"
+    ]
+  },
+  "context_filter_test_questions": {
+    "questions": [
+      "Who are the ladies that had relationship with Jose Rizal?",
+      "Who killed Ferdinand Magellan?",
+      "Did Lapu-Lapu kill Magellan?",
+      "Who is the first Philippine president?",
+      "What did the Treaty of Paris of 1898 say about the Philippines?",
+      "What hardships did Filipinos experience during the Japanese occupation?",
+      "Who founded the Katipunan or KKK on July 7, 1892, and what was its purpose against Spain?",
+      "Which secret group tried to free Filipinos from Spanish rule through armed revolution before it was discovered in 1896?",
+      "Kailan ipinagdiriwang ang Araw ng Kalayaan ng Pilipinas at anong pangyayari ang ginugunita nito?",
+      "How did the Treaty of Paris connect the Spanish-American War to the Philippine-American War?",
+      "Why did Jose Rizal become the Supremo of the Katipunan?",
+      "What is the difference between the Philippine Revolution and the Katipunan? Is one an organization and the other a war/revolution?",
+      "When is rizal's birthday?",
+      "June 19, 1861",
+      "bonifacio"
+    ]
+  },
+  "prompt_builder": {
+    "list_question_fallback_cues": [
+      "who are",
+      "what are",
+      "which are",
+      "list",
+      "enumerate",
+      "name all",
+      "sino ang mga",
+      "ano ang mga",
+      "alin ang mga"
+    ]
+  },
+  "post_answer_retry": {
+    "no_answer_fallback_phrases": [
+      "i cannot find the answer in the provided documents",
+      "cannot find the answer in the provided documents",
+      "i cannot find the answer",
+      "cannot find the answer",
+      "no relevant information",
+      "not enough information",
+      "walang sapat na impormasyon",
+      "hindi makita ang sagot"
+    ],
+    "false_premise_rejection_phrases": [
+      "the premise is not supported",
+      "premise is not supported",
+      "not supported",
+      "not directly supported",
+      "unsupported premise",
+      "not stated",
+      "not established",
+      "cannot find",
+      "hindi suportado",
+      "hindi nakasaad",
+      "walang suporta"
+    ]
+  },
+  "chatbot": {
+    "fallback_retry_skip_categories": [
+      "NEGATIVE_UNANSWERABLE",
+      "FOLLOW_UP_AMBIGUOUS"
+    ]
+  },
+  "ui": {
+    "sidebar": {
+      "source_fallback_keys": [
+        "sidebar_sources",
+        "latest_sources_clean",
+        "latest_sources",
+        "current_sources",
+        "last_sources",
+        "answer_sources",
+        "last_answer_sources",
+        "current_answer_sources"
+      ]
+    }
   }
 }

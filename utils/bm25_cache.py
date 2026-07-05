@@ -8,7 +8,7 @@ from retrieval.bm25_retriever import create_bm25_retriever
 
 
 def get_chunks_signature(chunks):
-    # Signature ng chunks para mag-rebuild BM25 kapag nagbago ang chunks.
+    # Chunk signature used to rebuild BM25 when chunks change.
     items = []
 
     for doc in chunks or []:
@@ -24,7 +24,7 @@ def get_chunks_signature(chunks):
 
 
 def get_cache_metadata(chunks, k):
-    # Metadata para malaman kung stale na ang BM25 cache.
+    # Metadata used to determine whether the BM25 cache is stale.
     return {
         "chunks_signature": get_chunks_signature(chunks),
         "k": k,
@@ -47,7 +47,7 @@ def write_json(path, data):
 
 
 def cache_is_valid(chunks, k, cache_path=BM25_CACHE_PATH, meta_path=BM25_CACHE_META_PATH):
-    # Valid lang kapag existing at tugma ang chunks signature.
+    # Valid only when the cache exists and the chunk signature matches.
     if not Path(cache_path).exists():
         return False
 
@@ -56,7 +56,7 @@ def cache_is_valid(chunks, k, cache_path=BM25_CACHE_PATH, meta_path=BM25_CACHE_M
 
 
 def save_bm25_cache(retriever, chunks, k, cache_path=BM25_CACHE_PATH, meta_path=BM25_CACHE_META_PATH):
-    # I-save ang BM25 retriever at metadata.
+    # Save the BM25 retriever and metadata.
     cache_path = Path(cache_path)
     cache_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -67,13 +67,13 @@ def save_bm25_cache(retriever, chunks, k, cache_path=BM25_CACHE_PATH, meta_path=
 
 
 def load_bm25_cache(cache_path=BM25_CACHE_PATH):
-    # I-load ang BM25 cache.
+    # Load the BM25 cache.
     with Path(cache_path).open("rb") as file:
         return pickle.load(file)
 
 
 def load_or_create_bm25(chunks, k=BM25_K, force_rebuild=False):
-    # Gumamit ng BM25 cache kung valid; rebuild kapag nagbago ang chunks.
+    # Use the BM25 cache when valid; rebuild when chunks change.
     force_rebuild = force_rebuild or FORCE_CACHE_REBUILD
 
     if cache_is_valid(chunks, k) and not force_rebuild:

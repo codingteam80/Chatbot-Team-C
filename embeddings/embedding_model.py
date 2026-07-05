@@ -6,6 +6,7 @@ from config.settings import (
     EMBEDDING_MODEL_NAME,
     EMBEDDING_MODEL_REVISION,
     EMBEDDING_NORMALIZE,
+    
 )
 
 
@@ -16,7 +17,7 @@ def get_embedding_model(
     normalize_embeddings=None,
     batch_size=None,
 ):
-    # Gumawa ng LangChain-compatible embedding model.
+    # Create a LangChain-compatible embedding model.
     selected_model_name = model_name or EMBEDDING_MODEL_NAME
     selected_model_revision = model_revision or EMBEDDING_MODEL_REVISION
     selected_device = device or EMBEDDING_DEVICE

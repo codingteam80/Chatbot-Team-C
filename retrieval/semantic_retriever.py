@@ -29,7 +29,7 @@ def format_semantic_query(query, use_e5_prefix=USE_E5_PREFIX):
 
 
 def get_raw_query(query):
-    # Raw query para sa debug, BM25, reranker, and context-related stages.
+    # Raw query for debugging, BM25, reranker, and context-related stages.
     query = str(query or "").strip()
 
     if query.lower().startswith("query:"):
@@ -87,8 +87,8 @@ def attach_semantic_metadata(doc, rank, distance=None, search_type="similarity")
 
 
 class SemanticRetriever:
-    # Small wrapper para pati .invoke() path may E5 query prefix.
-    # Ito ang gamitin kung may ibang chain na kailangan ng retriever object.
+    # Small wrapper so the .invoke() path also gets the E5 query prefix.
+    # Use this when another chain needs a retriever object.
 
     def __init__(self, vectorstore, k=SEMANTIC_K, search_type="similarity", score_threshold=None, use_e5_prefix=USE_E5_PREFIX):
         if vectorstore is None:
@@ -101,7 +101,7 @@ class SemanticRetriever:
         self.use_e5_prefix = use_e5_prefix
 
     def invoke(self, query, config=None, **kwargs):
-        # Raw input dito, pero semantic formatted query ang ipapasa sa vectorstore.
+        # Raw input here, but the semantic formatted query is passed to the vectorstore.
         if self.search_type == "mmr":
             return mmr_search(
                 vectorstore=self.vectorstore,
@@ -120,7 +120,7 @@ class SemanticRetriever:
         )
 
     def get_relevant_documents(self, query):
-        # Compatibility sa older LangChain code.
+        # Compatibility in older LangChain code.
         return self.invoke(query)
 
 

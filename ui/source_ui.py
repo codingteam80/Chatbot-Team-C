@@ -1,5 +1,3 @@
-"""Source normalization, deduplication, and static file links for the UI."""
-
 import hashlib
 import html
 import re
@@ -135,7 +133,7 @@ def clean_path_text(value):
 
 
 def is_existing_file_path(value):
-    # True kung local existing file path.
+    # True when this is an existing local file path.
     path = clean_path_text(value)
 
     if not path:

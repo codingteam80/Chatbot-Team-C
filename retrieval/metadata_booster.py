@@ -11,7 +11,7 @@ try:
         METADATA_BOOST_TITLE_TERM,
     )
 except ImportError:
-    # Safe fallback kapag wala pa sa settings.py.
+    # Safe fallback when the setting is not yet in settings.py.
     METADATA_BOOST_CATEGORY = 0.0
     METADATA_BOOST_DOC_TYPE = 0.0
     METADATA_BOOST_LANGUAGE = 0.0
@@ -32,7 +32,7 @@ METADATA_BOOST_WEIGHTS = {
 
 
 def normalize_text(text):
-    # Simple lowercase text normalization para sa metadata matching.
+    # Simple lowercase text normalization for metadata matching.
     return " ".join(re.findall(r"[a-z0-9]+", str(text or "").lower()))
 
 
@@ -42,7 +42,7 @@ def get_metadata(doc):
 
 
 def get_query_terms(query_info):
-    # Gumamit ng important_terms/source_keywords mula query_analyzer kung meron.
+    # Use important_terms/source_keywords from query_analyzer when available.
     terms = []
 
     for key in ["important_terms", "source_keywords"]:
@@ -60,7 +60,7 @@ def get_query_terms(query_info):
 
 
 def has_term_match(metadata_value, query_terms):
-    # True kapag may query term na tumama sa title/section/source text.
+    # True when a query term matches the title/section/source text.
     metadata_text = normalize_text(metadata_value)
 
     if not metadata_text:
@@ -78,7 +78,7 @@ def has_term_match(metadata_value, query_terms):
 
 def compute_metadata_boost(doc, query_info):
     # Metadata boost should be a small tie-breaker only.
-    # Huwag gawing mas malakas kaysa RRF score.
+    # Do not make it stronger than the RRF score.
     metadata = get_metadata(doc)
     boost = 0.0
     reasons = []

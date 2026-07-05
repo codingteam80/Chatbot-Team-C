@@ -1,6 +1,6 @@
 {
   "data_path": "data",
-  "data_signature": "24c81fa7448cff52184498a80147910490dfcebf648722b3baf1f0a15255fcc2",
+  "data_signature": "3480d538f4f91ced2cbdff0974315832cc39573b9412b0d7324f2ad8aec391c9",
   "chroma_collection_name": "rag_documents",
   "embedding_model_name": "intfloat/multilingual-e5-small",
   "embedding_model_revision": "main",

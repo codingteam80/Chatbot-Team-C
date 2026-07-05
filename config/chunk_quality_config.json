@@ -1,0 +1,300 @@
+{
+  "chunk_quality": {
+    "reference_section_names": [
+      "references",
+      "reference",
+      "bibliography",
+      "external links",
+      "further reading",
+      "notes",
+      "citations",
+      "sources",
+      "see also"
+    ],
+    "weak_text_markers": [
+      "retrieved",
+      "archived",
+      "archive",
+      "isbn",
+      "doi",
+      "external links",
+      "further reading",
+      "bibliography"
+    ],
+    "reference_line_patterns": [
+      "https?\\s*:\\s*/\\s*/",
+      "\\bwww\\.",
+      "\\bdoi\\b",
+      "\\bisbn\\b",
+      "\\bretrieved\\b",
+      "\\barchived\\b",
+      "\\barchive\\b",
+      "\\b(accessed|publisher|press)\\b"
+    ],
+    "token_pattern": "[A-Za-zÀ-ÖØ-öø-ÿ0-9_]+|[\\u3040-\\u30ff\\u3400-\\u4dbf\\u4e00-\\u9fff]+",
+    "key_value_pattern": "^.{1,80}[:：]\\s*.{1,}$",
+    "date_or_number_pattern": "\\b\\d{4}\\b|\\b\\d{1,2}/\\d{1,2}/\\d{2,4}\\b|\\b\\d+(\\.\\d+)?%?\\b",
+    "table_delimiters": [
+      "|",
+      "\\t"
+    ],
+    "table_column_split_pattern": "\\s{2,}",
+    "min_reference_line_hits": 3,
+    "min_reference_line_ratio": 0.4,
+    "weak_marker_skip_count": 4,
+    "weak_marker_short_word_limit": 120,
+    "too_many_weak_markers": 5,
+    "metadata_only_max_words": 3,
+    "metadata_only_max_chars": 40
+  },
+  "cleaner": {
+    "web_noise_keywords": [
+      "retrieved",
+      "archived",
+      "web.archive.org",
+      "books.google.com",
+      "internet archive",
+      "librivox",
+      "jstor"
+    ],
+    "noise_section_titles": [
+      "references",
+      "reference",
+      "further reading",
+      "external links",
+      "bibliography",
+      "notes",
+      "citations",
+      "sources",
+      "see also"
+    ],
+    "url_like_patterns": [
+      "https?\\s*:\\s*/\\s*/\\s*\\S+",
+      "h\\s*t\\s*t\\s*p\\s*s?\\s*:\\s*/\\s*/\\s*\\S+",
+      "www\\.\\S+",
+      "\\b[a-zA-Z0-9.-]+\\.(com|org|net|gov|edu|jp|ph|io|co)\\b/\\S*",
+      "web\\.archive\\.org",
+      "books\\.google\\.com",
+      "google\\.com/books"
+    ],
+    "strip_link_patterns": [
+      "https?\\s*:\\s*/\\s*/\\s*\\S+",
+      "h\\s*t\\s*t\\s*p\\s*s?\\s*:\\s*/\\s*/\\s*\\S+",
+      "www\\.\\S+",
+      "\\b[a-zA-Z0-9.-]+\\.(com|org|net|gov|edu|jp|ph|io|co)\\b/\\S*",
+      "\\b(?:oogle|google|books\\.google|oks\\.google|s\\.google|le|e|chive|rchive|hive|archive)\\.(?:com|org)\\S*",
+      "\\b[a-zA-Z0-9.-]+\\.(com|org|net|gov|edu|jp|ph|io|co)\\b",
+      "%[0-9A-Fa-f]{2}",
+      "\\b(id|qid|pg|dq|q|page|epage|artifactID)=\\S+",
+      "\\[\\d+\\]",
+      "\\[[a-zA-Z]\\]",
+      "[-_=*#~—]{4,}",
+      "[`~]+"
+    ],
+    "markdown_link_pattern": "\\[([^\\]]+)\\]\\([^)]+\\)",
+    "markdown_link_replacement": "\\1",
+    "markdown_heading_pattern": "^\\s{0,3}#{1,6}\\s+(.+?)\\s*$",
+    "markdown_heading_replacement": "SECTION: \\1",
+    "section_prefix_pattern": "^section\\s*:\\s*",
+    "heading_number_prefix_pattern": "^\\d+(\\.\\d+)*\\s+",
+    "noise_line_patterns": [
+      "^\\d+\\s*/\\s*\\d+$",
+      "^page\\s+\\d+(\\s+of\\s+\\d+)?$",
+      "^\\d{1,2}:\\d{2}$",
+      "^(\\[\\d+\\]\\s*)+$"
+    ],
+    "browser_footer_patterns": [
+      "^\\d{1,2}/\\d{1,2}/\\d{2,4},\\s*\\d{1,2}:\\d{2}\\s*(am|pm)?$",
+      "^\\d{1,2}/\\d{1,2}/\\d{2,4},\\s*\\d{1,2}:\\d{2}\\s*(am|pm)?.{0,140}wikipedia$",
+      "- wikipedia$"
+    ],
+    "unicode_noise_chars": [
+      "�",
+      "￾",
+      "«",
+      "»",
+      "¤",
+      "©",
+      "®",
+      "™",
+      "†",
+      "‡"
+    ],
+    "bullet_replacements": {
+      "•": "- "
+    },
+    "short_url_line_max_chars": 220,
+    "keyword_noise_line_max_chars": 180
+  },
+  "chunker": {
+    "separators": [
+      "\nSECTION: ",
+      "\n# ",
+      "\n## ",
+      "\n### ",
+      "\n\n",
+      "\n",
+      ". ",
+      "? ",
+      "! ",
+      "。",
+      "？",
+      "！",
+      "、",
+      ", ",
+      " ",
+      ""
+    ],
+    "japanese_text_pattern": "[\\u3040-\\u30ff\\u3400-\\u4dbf\\u4e00-\\u9fff]",
+    "markdown_heading_pattern": "^\\s{0,3}#{1,6}\\s+(.+?)\\s*$",
+    "section_label_pattern": "^\\s*SECTION\\s*:\\s*(.+?)\\s*$",
+    "category_keywords": {
+      "coding": [
+        "coding",
+        "code review",
+        "source code",
+        "secure coding",
+        "misra",
+        "software release",
+        "design review",
+        "programming",
+        "developer",
+        "コード",
+        "レビュー",
+        "設計",
+        "リリース"
+      ],
+      "security": [
+        "security",
+        "secure",
+        "password",
+        "access control",
+        "authentication",
+        "authorization",
+        "vulnerability",
+        "セキュリティ",
+        "パスワード",
+        "認証"
+      ],
+      "incident": [
+        "incident",
+        "issue report",
+        "escalation",
+        "root cause",
+        "corrective action",
+        "障害",
+        "インシデント",
+        "報告"
+      ],
+      "it": [
+        "it acceptable use",
+        "acceptable use",
+        "device",
+        "network",
+        "email use",
+        "internet use",
+        "情報システム",
+        "ネットワーク",
+        "メール"
+      ],
+      "hr": [
+        "leave",
+        "attendance",
+        "absence",
+        "holiday",
+        "overtime",
+        "employee",
+        "hr",
+        "勤怠",
+        "休暇",
+        "社員"
+      ]
+    },
+    "doc_type_keywords": {
+      "sop": [
+        "sop",
+        "standard operating procedure",
+        "procedure",
+        "process",
+        "手順",
+        "標準手順"
+      ],
+      "policy": [
+        "policy",
+        "policies",
+        "規程",
+        "ポリシー"
+      ],
+      "manual": [
+        "manual",
+        "handbook",
+        "マニュアル"
+      ],
+      "guideline": [
+        "guideline",
+        "guide",
+        "rules",
+        "standard",
+        "misra",
+        "ガイドライン",
+        "ルール",
+        "規則"
+      ],
+      "checklist": [
+        "checklist",
+        "check list",
+        "チェックリスト"
+      ],
+      "report": [
+        "report",
+        "summary",
+        "報告",
+        "レポート"
+      ],
+      "article": [
+        "article",
+        "wikipedia"
+      ]
+    },
+    "history_test_keywords": [
+      "wikipedia",
+      "bonifacio",
+      "mabini",
+      "aguinaldo",
+      "gomburza",
+      "rizal",
+      "katipunan",
+      "philippine revolution",
+      "philippine american war",
+      "spanish american war",
+      "japanese occupation",
+      "lapu",
+      "magellan"
+    ],
+    "searchable_metadata_keys": [
+      "title",
+      "section",
+      "category",
+      "doc_type",
+      "source",
+      "file_name",
+      "language"
+    ],
+    "required_metadata_keys": [
+      "source",
+      "file_name",
+      "file_type",
+      "title",
+      "category",
+      "doc_type",
+      "section",
+      "language",
+      "doc_id",
+      "chunk_index",
+      "chunk_id",
+      "chunk_key",
+      "duplicate_key",
+      "content_hash"
+    ]
+  }
+}

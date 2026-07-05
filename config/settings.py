@@ -2,7 +2,7 @@ import os
 
 
 def get_env_string(name, default_value):
-    # Kunin string value mula sa environment variable.
+    # Get a string value from an environment variable.
     value = os.getenv(name)
     if value and value.strip():
         return value.strip()
@@ -10,7 +10,7 @@ def get_env_string(name, default_value):
 
 
 def get_env_int(name, default_value):
-    # Kunin integer value mula sa environment variable.
+    # Get an integer value from an environment variable.
     try:
         return int(os.getenv(name, default_value))
     except (TypeError, ValueError):
@@ -18,7 +18,7 @@ def get_env_int(name, default_value):
 
 
 def get_env_float(name, default_value):
-    # Kunin float value mula sa environment variable.
+    # Get a float value from an environment variable.
     try:
         return float(os.getenv(name, default_value))
     except (TypeError, ValueError):
@@ -26,7 +26,7 @@ def get_env_float(name, default_value):
 
 
 def get_env_bool(name, default_value):
-    # Kunin boolean value mula sa environment variable.
+    # Get a boolean value from an environment variable.
     value = os.getenv(name)
     if value is None:
         return default_value
@@ -151,17 +151,20 @@ NEIGHBOR_WINDOW = get_env_int("NEIGHBOR_WINDOW", 2)
 # Conversation helpers
 ENABLE_QUESTION_REWRITE = get_env_bool("ENABLE_QUESTION_REWRITE", True)
 ENABLE_FALSE_PREMISE_RETRY = get_env_bool("ENABLE_FALSE_PREMISE_RETRY", True)
+CLARIFY_PREFIX = get_env_string("CLARIFY_PREFIX", "CLARIFY:")
+MEMORY_KEY = get_env_string("MEMORY_KEY", "chat_memory")
+MAX_HISTORY_CHARS = get_env_int("MAX_HISTORY_CHARS", 12000)
 
 # Ollama settings
 LLM_MODEL_NAME = get_env_string("OLLAMA_MODEL", "qwen3:1.7b")
 LLM_TEMPERATURE = get_env_float("OLLAMA_TEMPERATURE", 0.1)
 LLM_NUM_CTX = get_env_int("OLLAMA_NUM_CTX", 8192)
-LLM_NUM_PREDICT = get_env_int("OLLAMA_NUM_PREDICT", 1024)    
-LLM_TOP_P = get_env_float("OLLAMA_TOP_P", 0.85)
+LLM_NUM_PREDICT = get_env_int("OLLAMA_NUM_PREDICT", 1536)    
+LLM_TOP_P = get_env_float("OLLAMA_TOP_P", 0.5)
 LLM_REPEAT_PENALTY = get_env_float("OLLAMA_REPEAT_PENALTY", 1.15)
 
 
 # Generation retry settings
-# Kapag may context pero fallback pa rin, puwedeng mag-retry gamit softer prompt.
+# When context exists but the answer still falls back, retry with a softer prompt.
 ENABLE_FALLBACK_RETRY = get_env_bool("ENABLE_FALLBACK_RETRY", True)
 ENABLE_TRUNCATION_RETRY = get_env_bool("ENABLE_TRUNCATION_RETRY", True)

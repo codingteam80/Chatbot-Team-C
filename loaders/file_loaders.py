@@ -6,7 +6,7 @@ from langchain_community.document_loaders import CSVLoader
 from langchain_community.document_loaders import UnstructuredExcelLoader
 from langchain_community.document_loaders import UnstructuredPowerPointLoader
 
-## Dito nakalagay lahat ng loader per file type para hindi na maraming loader files.
+# All file-type loaders are kept here to avoid too many loader files.
 def load_txt(file_path):
     loader = TextLoader(
         file_path=str(file_path),
@@ -16,18 +16,18 @@ def load_txt(file_path):
     return loader.load()
 
 
-## Ginagamit din ito ng .md at .markdown dahil text-based files lang sila.
+# This is also used for .md and .markdown because they are text-based files.
 def load_markdown(file_path):
     return load_txt(file_path)
 
-## Loader para sa PDF files.
+# Loader for PDF files.
 def load_pdf(file_path):
     loader = PyPDFLoader(
         file_path=str(file_path),
     )
     return loader.load()
 
-## Loader para sa Word document files.
+# Loader for Word document files.
 def load_docx(file_path):
 
     loader = UnstructuredWordDocumentLoader(
@@ -37,7 +37,7 @@ def load_docx(file_path):
     return loader.load()
 
 
-## Loader para sa CSV files.
+# Loader for CSV files.
 def load_csv(file_path):
 
     loader = CSVLoader(
@@ -48,7 +48,7 @@ def load_csv(file_path):
     return loader.load()
 
 
-## Loader para sa Excel files.
+# Loader for Excel files.
 def load_xlsx(file_path):
     loader = UnstructuredExcelLoader(
         file_path=str(file_path),
@@ -56,7 +56,7 @@ def load_xlsx(file_path):
     )
     return loader.load()
 
-## Loader para sa PowerPoint files.
+# Loader for PowerPoint files.
 def load_pptx(file_path):
     loader = UnstructuredPowerPointLoader(
         file_path=str(file_path),
@@ -64,7 +64,7 @@ def load_pptx(file_path):
     )
     return loader.load()
 
-## Mapping ng file extension papunta sa tamang loader function.
+# Map each file extension to the correct loader function.
 LOADER_MAP = {
     ".txt": load_txt,
     ".md": load_markdown,
@@ -77,12 +77,12 @@ LOADER_MAP = {
     ".pptx": load_pptx,
 }
 
-## Kinukuha ang loader base sa extension ng file.
+# Get the loader based on the file extension.
 def get_loader(file_path):
     file_path = Path(file_path)
     return LOADER_MAP.get(file_path.suffix.lower())
 
 
-## Ginagamit ng test file para makita agad ang supported file types.
+# Used by tests to quickly show the supported file types.
 def get_supported_extensions():
     return sorted(LOADER_MAP.keys())

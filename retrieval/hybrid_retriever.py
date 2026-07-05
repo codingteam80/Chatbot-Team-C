@@ -26,7 +26,7 @@ from retrieval.semantic_retriever import semantic_search_with_scores
 
 
 def get_document_key(doc):
-    # Unique key para hindi maulit ang same chunk.
+    # Unique key to avoid repeating the same chunk.
     metadata = dict(getattr(doc, "metadata", {}) or {})
     source = metadata.get("source") or metadata.get("file_name") or ""
     page = metadata.get("page", "")
@@ -40,7 +40,7 @@ def get_document_key(doc):
 
 
 def get_document_label(doc):
-    # Human-readable label para sa debug.
+    # Human-readable label for debugging.
     metadata = dict(getattr(doc, "metadata", {}) or {})
     source = metadata.get("file_name") or metadata.get("source") or "Unknown source"
     page = metadata.get("page", "N/A")
@@ -49,7 +49,7 @@ def get_document_label(doc):
 
 
 def remove_duplicates(docs, debug=False):
-    # Keep first copy ng bawat chunk.
+    # Keep the first copy of each chunk.
     unique_docs = []
     seen_keys = set()
 

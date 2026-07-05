@@ -35,7 +35,7 @@ INGEST_META_FILE = Path(CHROMA_PATH) / "ingest_meta.json"
 
 
 def format_seconds(seconds):
-    # Gawing readable ang seconds.
+    # Format seconds into a readable value.
     if seconds < 60:
         return f"{seconds:.2f} sec"
 
@@ -45,13 +45,13 @@ def format_seconds(seconds):
 
 
 def save_report(lines):
-    # I-save ang ingest result sa reports folder.
+    # Save the ingest result in the reports folder.
     REPORT_FILE.parent.mkdir(parents=True, exist_ok=True)
     REPORT_FILE.write_text("\n".join(lines), encoding="utf-8")
 
 
 def add_section(lines, title):
-    # Maglagay ng title/header sa report.
+    # Add a title/header to the report.
     lines.append("")
     lines.append("=" * 70)
     lines.append(title)
@@ -59,7 +59,7 @@ def add_section(lines, title):
 
 
 def run_step(step_name, lines, timings, function):
-    # Patakbuhin ang isang step, sukatin ang oras, at ilagay sa report.
+    # Run one step, measure the time, and add it to the report.
     print(f"[START] {step_name}", flush=True)
     lines.append(f"[START] {step_name}")
 
@@ -87,7 +87,7 @@ def run_step(step_name, lines, timings, function):
 
 
 def read_json(path):
-    # Basahin ang JSON file. Return None kapag wala or invalid.
+    # Read the JSON file. Return None when it is missing or invalid.
     try:
         return json.loads(Path(path).read_text(encoding="utf-8"))
     except Exception:
@@ -95,15 +95,15 @@ def read_json(path):
 
 
 def write_json(path, data):
-    # Isulat ang JSON file.
+    # Write the JSON file.
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
 
 def get_current_metadata():
-    # Metadata na ginagamit para malaman kung kailangan mag re-ingest.
-    # Importante: kasama dito ang USE_E5_PREFIX para hindi mag-skip kapag nagpalit ka ng E5 mode.
+    # Metadata used to determine whether re-ingest is needed.
+    # Important: include USE_E5_PREFIX so ingest will not be skipped after changing E5 mode.
     return {
         "data_path": str(DATA_PATH),
         "data_signature": get_file_signature(DATA_PATH),
@@ -121,7 +121,7 @@ def get_current_metadata():
 
 
 def is_vector_db_current():
-    # Check kung existing at updated pa ang Chroma vector database.
+    # Check whether the Chroma vector database exists and is still updated.
     if not has_chroma_files(CHROMA_PATH):
         return False
 
@@ -132,7 +132,7 @@ def is_vector_db_current():
 
 
 def add_config_summary(lines):
-    # Ilagay sa report ang ingest config para madaling makita kung naka-E5 prefix.
+    # Add the ingest config to the report so the E5 prefix setting is easy to check.
     add_section(lines, "INGEST CONFIG")
     lines.append(f"Data path             : {DATA_PATH}")
     lines.append(f"Chroma path           : {CHROMA_PATH}")
@@ -150,7 +150,7 @@ def add_config_summary(lines):
 
 
 def add_loader_summary(lines, loader_report):
-    # Ilagay sa report ang document loading result.
+    # Add the document loading result to the report.
     add_section(lines, "DOCUMENT LOADER SUMMARY")
     lines.append(f"Loaded files      : {loader_report.get('loaded_files', 0)}")
     lines.append(f"Loaded documents  : {loader_report.get('loaded_docs', 0)}")
@@ -174,7 +174,7 @@ def add_loader_summary(lines, loader_report):
 
 
 def add_final_summary(lines, timings, docs, cleaned_docs, chunks, vector_count):
-    # Final summary ng buong ingest process.
+    # Final summary of the full ingest process.
     total_time = sum(timings.values())
 
     add_section(lines, "INGESTION SUMMARY")
@@ -202,7 +202,7 @@ def add_final_summary(lines, timings, docs, cleaned_docs, chunks, vector_count):
 
 
 def add_skip_message(lines):
-    # Message kapag current pa ang Chroma DB.
+    # Message when the Chroma DB is still current.
     add_section(lines, "INGESTION SKIPPED")
     lines.append("Existing Chroma vector database is still updated.")
     lines.append("No embedding was performed.")
@@ -221,7 +221,7 @@ def add_skip_message(lines):
 def main():
     # Main ingest flow:
     # 1. Check data folder
-    # 2. Skip kung updated pa ang Chroma
+    # 2. Skip when Chroma is still updated.
     # 3. Load documents
     # 4. Clean documents
     # 5. Chunk documents
@@ -295,7 +295,7 @@ def main():
         )
 
         def embed_and_save():
-            # Reset muna para hindi magkaroon ng duplicate vectors.
+            # Reset first to avoid duplicate vectors.
             if has_chroma_files(CHROMA_PATH):
                 reset_chroma_folder(CHROMA_PATH)
 

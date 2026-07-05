@@ -11,7 +11,7 @@ from config.settings import (
 
 
 def use_value(value, default_value):
-    # Argument value muna, default/settings value kasunod.
+    # Use the argument value first, then the default/settings value.
     if value is not None:
         return value
 
@@ -26,7 +26,7 @@ def load_llm(
     top_p=None,
     repeat_penalty=None,
 ):
-    # Gumawa ng LangChain Ollama chat model.
+    # Create a LangChain Ollama chat model.
     return ChatOllama(
         model=use_value(model_name, LLM_MODEL_NAME),
         temperature=use_value(temperature, LLM_TEMPERATURE),

@@ -1,647 +1,373 @@
-"""Rewrite follow-up questions into standalone retrieval queries."""
-
+import json
+import os
 import re
+from pathlib import Path
 
-CLARIFY_PREFIX = "CLARIFY:"
-
-REFERENCE_WORDS = {
-    "it", "this", "that", "these", "those", "there",
-    "he", "she", "they", "them", "him", "her",
-    "its", "his", "their",
-}
-
-PERSON_REFERENCE_WORDS = {"he", "him", "his", "she", "her"}
-GROUP_REFERENCE_WORDS = {"they", "them", "their"}
-TOPIC_REFERENCE_WORDS = {"it", "its", "this", "that", "these", "those", "there"}
-
-NON_PERSON_TOPIC_WORDS = {
-    "policy", "procedure", "process", "rule", "rules", "manual",
-    "document", "documents", "system", "event", "events", "war",
-    "occupation", "revolution", "cruelty", "cruelties", "issue",
-    "problem", "requirement", "requirements", "review", "coding",
-    "software", "release", "attendance", "leave", "treaty", "agreement",
-    "constitution", "law", "battle", "revolt", "independence", "article",
-    "protocol", "ratification", "sovereignty", "territory", "country",
-    "nation", "government", "organization", "source", "wikipedia",
-}
-
-GROUP_TOPIC_WORDS = {
-    "people", "employees", "users", "developers", "reviewers", "team",
-    "teams", "group", "groups", "members", "army", "workers",
-    "customers", "clients", "students", "citizens", "ladies", "women",
-    "men", "girls", "boys", "families", "nations", "countries",
-}
-
-PERSON_RELATED_GROUP_WORDS = {
-    "ladies", "women", "men", "girls", "boys", "people", "army", "team",
-    "group", "family", "families", "members", "relationship", "relationships",
-}
-
-QUESTION_WORDS = {
-    "who", "what", "where", "when", "why", "how", "which", "did", "does",
-    "do", "is", "are", "was", "were", "can", "could", "should", "would",
-}
-
-QUESTION_PREFIX_PATTERNS = [
-    r"^(?:can you|could you|please)?\s*(?:explain|describe|discuss|tell me about|give details about|give me details about)\s+(.+)$",
-    r"^(?:what do you know about|information about|details about)\s+(.+)$",
-    r"^(?:who|what|where|when)\s+(?:is|are|was|were)\s+(.+)$",
-    r"^(?:why|how|when|what)\s+(?:did|does|do|is|are|was|were)\s+(.+)$",
-]
-
-TRAILING_FILLER_PATTERNS = [
-    r"\s+in detail$",
-    r"\s+in details$",
-    r"\s+with details$",
-    r"\s+for me$",
-    r"\s+please$",
-]
+from config.settings import CLARIFY_PREFIX
 
 
-def extract_text(response):
-    # LangChain/Ollama response -> plain text.
-    if hasattr(response, "content"):
-        return response.content
-
-    return str(response)
+CONFIG_FILE_NAME = "query_expansion_config.json"
+CONFIG_SECTION = "question_rewriter"
 
 
 def normalize_space(text):
-    # Collapse whitespace for easier matching.
+    # Collapse whitespace for predictable matching.
     return re.sub(r"\s+", " ", str(text or "")).strip()
 
 
-def normalize_memory_key(text):
-    text = normalize_space(text).lower()
-    text = re.sub(r"[^a-z0-9]+", " ", text)
-    return re.sub(r"\s+", " ", text).strip()
+def get_config_paths():
+    # Search common project locations without depending on the current folder.
+    paths = []
+    env_path = normalize_space(os.getenv("QUERY_EXPANSION_CONFIG_PATH", ""))
+
+    if env_path:
+        paths.append(Path(env_path))
+
+    file_path = Path(__file__).resolve()
+    paths.extend([
+        Path.cwd() / CONFIG_FILE_NAME,
+        Path.cwd() / "config" / CONFIG_FILE_NAME,
+        file_path.with_name(CONFIG_FILE_NAME),
+        file_path.parent.parent / CONFIG_FILE_NAME,
+        file_path.parent.parent / "config" / CONFIG_FILE_NAME,
+    ])
+
+    unique_paths = []
+    seen = set()
+
+    for path in paths:
+        key = str(path)
+        if key in seen:
+            continue
+
+        seen.add(key)
+        unique_paths.append(path)
+
+    return unique_paths
 
 
-def looks_like_date_or_short_value(text):
-    # Dates/numbers are answer values, not safe pronoun targets.
-    text = normalize_space(text).strip(" ?.!,:;\"'")
+def load_rewriter_config():
+    # Load rewrite rules from JSON so patterns stay outside Python code.
+    for path in get_config_paths():
+        if not path.is_file():
+            continue
 
-    if not text:
-        return True
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
 
-    patterns = [
-        r"^\d{4}$",
-        r"^\d{4}-\d{2}-\d{2}$",
-        r"^\d{1,2}[/-]\d{1,2}[/-]\d{2,4}$",
-        r"^(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2},?\s*\d{0,4}$",
-        r"^\d{1,2}\s+(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{4}$",
-    ]
+        config = data.get(CONFIG_SECTION, {})
+        if isinstance(config, dict):
+            return config
 
-    lowered = text.lower()
-    return any(re.search(pattern, lowered, flags=re.I) for pattern in patterns)
+    return {}
+
+
+REWRITER_CONFIG = load_rewriter_config()
+
+
+def get_config_list(key):
+    # Return a clean list from the JSON section.
+    value = REWRITER_CONFIG.get(key, [])
+
+    if not isinstance(value, list):
+        return []
+
+    return [normalize_space(item) for item in value if normalize_space(item)]
+
+
+def get_config_dict(key):
+    # Return a dictionary from the JSON section.
+    value = REWRITER_CONFIG.get(key, {})
+    return value if isinstance(value, dict) else {}
+
+
+def get_config_int(key, default):
+    # Read numeric thresholds from JSON with a safe fallback.
+    try:
+        return int(REWRITER_CONFIG.get(key, default))
+    except (TypeError, ValueError):
+        return default
+
+
+def get_config_bool(key, default=False):
+    # Read boolean switches from JSON with a safe fallback.
+    value = REWRITER_CONFIG.get(key, default)
+    return value if isinstance(value, bool) else default
+
+
+def get_config_text(key, default=""):
+    # Read a text pattern from JSON.
+    value = REWRITER_CONFIG.get(key, default)
+    return value if isinstance(value, str) else default
+
+
+REFERENCE_WORDS = set(get_config_list("reference_words"))
+OBJECT_REFERENCE_WORDS = set(get_config_list("object_reference_words"))
+QUESTION_STARTS = set(get_config_list("question_starts"))
+QUESTION_WORDS = set(get_config_list("question_words"))
+QUESTION_PREFIX_PATTERNS = get_config_list("standalone_topic_patterns")
+TOPIC_EXTRACTION_PATTERNS = get_config_list("topic_extraction_patterns")
+TRAILING_FILLERS = get_config_list("trailing_fillers")
+CONTEXTUAL_REFERENCE_PATTERNS = get_config_list("contextual_reference_patterns")
+CONTEXTUAL_FOLLOWUP_PATTERNS = get_config_list("contextual_followup_patterns")
+VAGUE_FOLLOWUP_REWRITES = get_config_dict("vague_followup_rewrites")
+SOURCE_SUFFIX_PATTERN = get_config_text("source_suffix_pattern")
+TOPIC_PREFIX_PATTERN = get_config_text("topic_prefix_pattern")
+DEMONSTRATIVE_NOUN_PATTERN = get_config_text("demonstrative_noun_pattern")
+DEMONSTRATIVE_NOUN_TEMPLATE = get_config_text("demonstrative_noun_rewrite_template", "{topic}")
+TOKEN_PATTERN = get_config_text("token_pattern", r"[\w'’-]+")
+MIN_STANDALONE_MEANINGFUL_TERMS = get_config_int("min_standalone_meaningful_terms", 2)
+MIN_TOPIC_MEANINGFUL_TERMS = get_config_int("min_topic_meaningful_terms", 1)
+USE_SOURCE_FALLBACK_TOPIC = get_config_bool("use_source_fallback_topic", False)
+
+
+# Backward-compatible name for older imports.
+SHORT_FOLLOWUP_STARTS = QUESTION_STARTS
+
+
+def compile_word_group(words):
+    # Build a safe regex group from JSON words.
+    clean_words = [re.escape(word) for word in words if normalize_space(word)]
+
+    if not clean_words:
+        return ""
+
+    return "(?:" + "|".join(sorted(clean_words, key=len, reverse=True)) + ")"
+
+
+REFERENCE_PATTERN = compile_word_group(REFERENCE_WORDS)
+OBJECT_REFERENCE_PATTERN = compile_word_group(OBJECT_REFERENCE_WORDS or REFERENCE_WORDS)
+QUESTION_START_PATTERN = compile_word_group(QUESTION_STARTS)
 
 
 def ensure_question_mark(text):
-    # Keep returned rewrite as a question.
+    # Keep retrieval queries question-like without changing meaning.
     text = normalize_space(text).rstrip(". ")
 
-    if not text.endswith("?"):
+    if text and not text.endswith("?"):
         text += "?"
 
     return text
 
 
 def is_clarification(text):
-    # Check if the rewriter says the follow-up is ambiguous.
-    return str(text or "").strip().upper().startswith(CLARIFY_PREFIX)
+    # Detect internal clarification marker.
+    return str(text or "").strip().upper().startswith(str(CLARIFY_PREFIX).upper())
 
 
-def clean_rewritten_question(text, fallback_question):
-    # Kunin lang ang unang useful line para iwas explanation ng small models.
-    text = str(text or "").strip()
-
-    if not text:
-        return fallback_question
-
-    for label in ["Standalone Question:", "Rewritten Question:", "Question:", "Answer:"]:
-        if text.lower().startswith(label.lower()):
-            text = text[len(label):].strip()
-
-    for line in text.splitlines():
-        line = line.strip().strip('"').strip("'")
-
-        if not line:
-            continue
-
-        if is_clarification(line):
-            message = line[len(CLARIFY_PREFIX):].strip()
-            if message:
-                return f"{CLARIFY_PREFIX} {message}"
-
-            return f"{CLARIFY_PREFIX} Which person, item, or topic do you mean?"
-
-        return ensure_question_mark(line)
-
-    return fallback_question
+def safe_regex_search(pattern, text):
+    # Ignore invalid JSON regex entries instead of breaking the app.
+    try:
+        return re.search(pattern, text, flags=re.I)
+    except re.error:
+        return None
 
 
-def extract_user_lines(chat_history, current_question=None):
-    # Return reference-bearing history lines in chronological order.
-    # Raw assistant answers are intentionally ignored to avoid using dates/numbers as topics.
-    current_key = normalize_space(current_question).lower()
-    history_lines = []
+def safe_regex_match(pattern, text):
+    # Ignore invalid JSON regex entries instead of breaking the app.
+    try:
+        return re.match(pattern, text, flags=re.I)
+    except re.error:
+        return None
 
-    allowed_prefixes = (
-        "user:",
-        "source:",
-        "sources:",
-        "assistant source:",
-        "assistant sources:",
-        "topic:",
-        "resolved question:",
-    )
 
-    for raw_line in str(chat_history or "").splitlines():
-        line = raw_line.strip()
-        lowered = line.lower()
+def get_tokens(text):
+    # Tokenize text using the JSON token pattern.
+    try:
+        return [token.lower() for token in re.findall(TOKEN_PATTERN, normalize_space(text))]
+    except re.error:
+        return [token.lower() for token in normalize_space(text).split()]
 
-        if not lowered.startswith(allowed_prefixes):
-            continue
 
-        value = normalize_space(line.split(":", 1)[1])
+def count_meaningful_terms(text):
+    # Count topic-bearing terms, not total words.
+    tokens = get_tokens(text)
+    return len([token for token in tokens if token not in QUESTION_WORDS and token not in REFERENCE_WORDS])
 
-        if not value:
-            continue
 
-        if current_key and value.lower() == current_key:
-            continue
-
-        if looks_like_date_or_short_value(value):
-            continue
-
-        history_lines.append(value)
-
-    return history_lines
-
-def clean_topic_candidate(text):
-    # Remove common question wrappers, source suffixes, and filler words from a topic candidate.
+def clean_topic(text):
+    # Remove common wrappers before using text as a topic.
     topic = normalize_space(text).strip(" ?.!,:;\"'")
 
-    if looks_like_date_or_short_value(topic):
-        return ""
+    if SOURCE_SUFFIX_PATTERN:
+        topic = re.sub(SOURCE_SUFFIX_PATTERN, "", topic, flags=re.I)
 
-    # Source titles often come in as "José Rizal - Wikipedia".
-    topic = re.sub(r"\s+[-–—]\s+(?:wikipedia|source|pdf|docx|pptx|xlsx|csv|markdown|md)\b.*$", "", topic, flags=re.I).strip()
-
-    for pattern in TRAILING_FILLER_PATTERNS:
+    for pattern in TRAILING_FILLERS:
         topic = re.sub(pattern, "", topic, flags=re.I).strip()
 
-    topic = re.sub(r"^(?:the topic|the subject|topic|subject|source|sources|assistant source|assistant sources)\s+(?:is|was|are|were)?\s*", "", topic, flags=re.I).strip()
+    if TOPIC_PREFIX_PATTERN:
+        topic = re.sub(TOPIC_PREFIX_PATTERN, "", topic, flags=re.I).strip()
 
     return topic.strip(" ?.!,:;\"'")
 
 
-def extract_topic_from_user_question(question):
-    # Extract a likely subject/topic from the user's previous clear question.
-    question = clean_topic_candidate(question)
-
-    if not question:
-        return ""
-
-    lowered = question.lower()
-
-    for pattern in QUESTION_PREFIX_PATTERNS:
-        match = re.match(pattern, lowered, flags=re.I)
-
-        if not match:
-            continue
-
-        start, end = match.span(1)
-        topic = question[start:end]
-        topic = clean_topic_candidate(topic)
-
-        if topic:
-            return topic
-
-    # Fallback: short direct topic-like user messages can be used as the topic.
-    words = question.split()
-
-    if 1 <= len(words) <= 10:
-        return question
-
-    return ""
-
-
-def get_reference_words(question):
-    # Return only contextual reference words.
-    # "that" is ignored when it is a relative connector, e.g.
-    # "the ladies that had relationship with Jose Rizal".
-    text = normalize_space(question).lower()
-    tokens = re.findall(r"[a-zA-Z']+", text)
-    reference_words = set()
-
-    for index, token in enumerate(tokens):
-        if token not in REFERENCE_WORDS:
-            continue
-
-        if token == "that" and not is_contextual_that_reference(text, tokens, index):
-            continue
-
-        if token == "there" and not is_contextual_there_reference(text, tokens, index):
-            continue
-
-        reference_words.add(token)
-
-    return reference_words
-
-
-def is_contextual_followup_line(question):
-    # Previous follow-up questions should not become future reference targets.
-    text = normalize_space(question).lower().rstrip("?")
-
-    if not text:
-        return False
-
-    reference = r"(?:it|this|that|these|those|he|she|they|them|him|her|its|his|their)"
-
-    patterns = [
-        rf"^(?:who|what|where|when|why|how|which)\s+{reference}\b",
-        rf"^(?:who|what|where|when|why|how|which)\s+(?:is|are|was|were|did|does|do|can|could|should|would)\s+{reference}\b",
-        rf"^(?:did|does|do|is|are|was|were|can|could|should|would)\s+{reference}\b",
-        rf"^{reference}\b",
-    ]
-
-    return any(re.search(pattern, text, flags=re.I) for pattern in patterns)
-
-
-def get_latest_topic(chat_history, current_question=None):
-    # Use the most recent clear subject/source as the follow-up reference target.
-    for history_line in reversed(extract_user_lines(chat_history, current_question=current_question)):
-        if is_contextual_followup_line(history_line):
-            continue
-
-        topic = extract_topic_from_user_question(history_line)
-
-        if topic:
-            return topic
-
-    return ""
-
-
-def extract_person_name_candidate(text):
-    # Extract a likely person name embedded in a larger topic.
-    text = clean_topic_candidate(text)
-
-    candidates = re.findall(
-        r"\b[A-ZÀ-Þ][A-Za-zÀ-ÿ'’.-]*(?:\s+[A-ZÀ-Þ][A-Za-zÀ-ÿ'’.-]*){1,3}\b",
-        text,
-    )
-
-    for candidate in reversed(candidates):
-        candidate = clean_topic_candidate(candidate)
-        tokens = {token.lower() for token in re.findall(r"[A-Za-zÀ-ÿ'’-]+", candidate)}
-
-        if not candidate or tokens.intersection(NON_PERSON_TOPIC_WORDS):
-            continue
-
-        if looks_like_group_topic(candidate):
-            continue
-
-        return candidate
-
-    # Support single hyphenated proper names like "Lapu-Lapu".
-    match = re.search(r"\b[A-ZÀ-Þ][A-Za-zÀ-ÿ'’]+-[A-ZÀ-Þ][A-Za-zÀ-ÿ'’]+\b", text)
-    if match:
-        return match.group(0)
-
-    return ""
-
-
-def looks_like_person_topic(topic):
-    # Generic heuristic: person names are usually proper-name phrases, not question fragments.
-    topic = clean_topic_candidate(topic)
-    words = re.findall(r"[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’-]*", topic)
-    tokens = {word.lower() for word in words}
-
-    if not words:
-        return False
-
-    if tokens.intersection(REFERENCE_WORDS) or tokens.intersection(QUESTION_WORDS):
-        return False
-
-    if tokens.intersection(NON_PERSON_TOPIC_WORDS) or tokens.intersection(PERSON_RELATED_GROUP_WORDS):
-        return False
-
-    if looks_like_group_topic(topic):
-        return False
-
-    if extract_person_name_candidate(topic):
-        return True
-
-    return False
-
-
-def looks_like_group_topic(topic):
-    # Generic heuristic for plural/group references.
-    topic = clean_topic_candidate(topic).lower()
-    tokens = set(re.findall(r"[a-zA-ZÀ-ÿ']+", topic))
-
-    if tokens.intersection(GROUP_TOPIC_WORDS):
-        return True
-
-    return any(token.endswith("s") for token in tokens if len(token) > 3 and token not in {"paris"})
-
-
-def looks_like_singular_non_person_topic(topic):
-    # Compatible target for "it/its": one non-person thing, event, document, policy, treaty, etc.
-    topic = clean_topic_candidate(topic)
-    lowered = topic.lower()
-    tokens = set(re.findall(r"[a-zA-ZÀ-ÿ']+", lowered))
-
-    if not topic or is_contextual_followup_line(topic):
-        return False
-
-    if tokens.intersection(REFERENCE_WORDS) or tokens.intersection(QUESTION_WORDS):
-        return False
-
-    if tokens.intersection(PERSON_RELATED_GROUP_WORDS) or looks_like_group_topic(topic):
-        return False
-
-    if extract_person_name_candidate(topic) and not tokens.intersection(NON_PERSON_TOPIC_WORDS):
-        return False
-
-    words = re.findall(r"[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’-]*", topic)
-    return 1 <= len(words) <= 12
-
-
-def get_latest_compatible_topic(chat_history, current_question=None):
-    # Pick the newest previous topic compatible with the current pronoun/reference.
-    reference_words = get_reference_words(current_question)
-
-    if not reference_words:
-        return get_latest_topic(chat_history, current_question=current_question)
-
-    wants_person = bool(reference_words.intersection(PERSON_REFERENCE_WORDS))
-    wants_group = bool(reference_words.intersection(GROUP_REFERENCE_WORDS))
-    wants_singular_topic = bool(reference_words.intersection({"it", "its"}))
-    wants_general_topic = bool(reference_words.intersection({"this", "that", "there"}))
-    wants_plural_topic = bool(reference_words.intersection({"these", "those"}))
-
-    for history_line in reversed(extract_user_lines(chat_history, current_question=current_question)):
-        if is_contextual_followup_line(history_line):
-            continue
-
-        topic = extract_topic_from_user_question(history_line)
-
-        if not topic:
-            continue
-
-        if wants_person:
-            person = extract_person_name_candidate(topic) or extract_person_name_candidate(history_line)
-            if person:
-                return person
-
-            if looks_like_person_topic(topic):
-                return topic
-
-            continue
-
-        if wants_group:
-            if looks_like_group_topic(topic):
-                return topic
-            continue
-
-        if wants_plural_topic:
-            if looks_like_group_topic(topic):
-                return topic
-            continue
-
-        if wants_singular_topic:
-            if looks_like_singular_non_person_topic(topic):
-                return topic
-            continue
-
-        if wants_general_topic:
-            if looks_like_singular_non_person_topic(topic) or looks_like_group_topic(topic):
-                return topic
-
-    return ""
-
-
-def is_contextual_that_reference(text, tokens, index):
-    # "that" can be a real reference or only a relative connector.
-    # Contextual examples: "what does that mean", "about that", "after that".
-    # Non-contextual example: "the ladies that had relationship with Jose Rizal".
-    if index == 0:
-        return True
-
-    previous_word = tokens[index - 1] if index > 0 else ""
-    next_word = tokens[index + 1] if index + 1 < len(tokens) else ""
-
-    if previous_word in {
-        "about", "after", "before", "during", "from", "in", "on", "of",
-        "to", "with", "without", "because", "beside", "near", "like",
-    }:
-        return True
-
-    if next_word in {"mean", "means", "refer", "refers", "happen", "happened"}:
-        return True
-
-    if re.search(r"\b(?:what|why|how|when|where)\s+(?:is|was|are|were|did|does|do)\s+that\b", text):
-        return True
-
-    if re.search(r"\bthat\s*\?$", text):
-        return True
-
-    return False
-
-
-def is_contextual_there_reference(text, tokens, index):
-    # Avoid treating existential "were there / are there" as a previous-topic reference.
-    if index == 0:
-        return True
-
-    previous_word = tokens[index - 1] if index > 0 else ""
-
-    if previous_word in {"over", "from", "in", "there"}:
-        return True
-
-    return False
-
-
 def contains_reference_word(question):
-    # Detect unresolved references by their role in the question.
-    # This is intentionally not a simple keyword check.
-    # Connector examples that should stay standalone:
-    # - "the policy that employees must follow"
-    # - "the ladies that had relationship with Jose Rizal"
+    # Detect contextual references without treating every short question as a follow-up.
     text = normalize_space(question).lower().rstrip("?")
 
     if not text:
         return False
 
-    reference = r"(?:it|this|that|these|those|he|she|they|them|him|her|its|his|their)"
-    object_reference = r"(?:it|this|that|these|those|him|her|them)"
-    preposition_reference = r"(?:it|this|that|these|those|there|he|she|they|them|him|her|its|his|their)"
+    for pattern in CONTEXTUAL_REFERENCE_PATTERNS:
+        if safe_regex_search(pattern, text):
+            return True
 
-    contextual_patterns = [
-        # Direct pronoun subject: "it means", "he died", "they arrived".
-        rf"^(?:there|{reference})\b",
+    if REFERENCE_PATTERN and re.search(rf"^{REFERENCE_PATTERN}\b", text, flags=re.I):
+        return True
 
-        # WH + pronoun/reference subject:
-        # "what it did", "what it caused", "who he was", "why she left",
-        # "how they escaped", "when this happened".
-        rf"^(?:who|what|where|when|why|how|which)\s+{reference}\b",
+    if QUESTION_START_PATTERN and REFERENCE_PATTERN:
+        if re.search(rf"^{QUESTION_START_PATTERN}\s+{REFERENCE_PATTERN}\b", text, flags=re.I):
+            return True
 
-        # WH + auxiliary + pronoun/reference subject:
-        # "when did he die", "what does it mean", "why was that important".
-        rf"^(?:who|what|where|when|why|how|which)\s+(?:is|are|was|were|did|does|do|can|could|should|would)\s+{reference}\b",
+        if re.search(rf"^{QUESTION_START_PATTERN}\s+\w+\s+{REFERENCE_PATTERN}\b", text, flags=re.I):
+            return True
 
-        # Auxiliary + pronoun/reference subject:
-        # "did he die", "does it apply", "can they use it".
-        rf"^(?:did|does|do|is|are|was|were|can|could|should|would)\s+{reference}\b",
+    if OBJECT_REFERENCE_PATTERN:
+        if re.search(rf"\b{OBJECT_REFERENCE_PATTERN}\s*$", text, flags=re.I):
+            return True
 
-        # Imperative/question wrappers with only a reference as topic.
-        rf"^(?:tell me about|explain|describe|discuss|give details about|give me details about)\s+{reference}\b",
-
-        # Unresolved object reference at the end:
-        # "who killed him", "did Lapu-Lapu kill him", "what caused it".
-        rf"\b(?:about|after|before|during|from|in|on|of|to|with|without|because of|cause|caused|kill|killed|meet|met|see|saw|use|used|apply|applied)\s+{preposition_reference}\s*$",
-        rf"\b{object_reference}\s*$",
-    ]
-
-    return any(re.search(pattern, text, flags=re.I) for pattern in contextual_patterns)
+    return False
 
 
-def has_clear_topic_text(topic):
-    # A standalone question must contain an explicit subject, not only a pronoun/reference.
-    topic = clean_topic_candidate(topic).lower()
-
-    if not topic:
-        return False
-
-    tokens = re.findall(r"[a-zA-Z']+", topic)
-
-    if not tokens:
-        return False
-
-    if set(tokens).issubset(REFERENCE_WORDS):
-        return False
-
-    leading_fillers = {
-        "the", "a", "an", "to", "for", "of", "about", "with", "by", "from",
-        "in", "on", "at", "into", "during", "after", "before", "over", "under",
-    }
-    meaningful_tokens = [token for token in tokens if token not in leading_fillers]
-
-    if not meaningful_tokens:
-        return False
-
-    # If the extracted subject starts with a reference word, the question depends on history.
-    # Examples: "he", "his works", "that event", "their policy", "to him".
-    if meaningful_tokens[0] in REFERENCE_WORDS:
-        return False
-
-    # Object references still need history even when another explicit word exists.
-    # Example: "Did Lapu-Lapu kill him?" has a subject but an unresolved object.
-    unresolved_object_refs = {"it", "this", "that", "these", "those", "him", "her", "them"}
-    if get_reference_words(topic).intersection(unresolved_object_refs):
-        return False
-
-    return True
-
-
-def classify_question_dependency(question):
-    # Generic classifier used by the chatbot to decide whether memory is needed.
-    # Returns a small dict so debug logs/tests can show why a question was treated that way.
-    question = normalize_space(question)
-
-    if not question:
-        return {
-            "is_follow_up": False,
-            "is_standalone": False,
-            "reason": "empty question",
-        }
-
-    if contains_reference_word(question):
-        return {
-            "is_follow_up": True,
-            "is_standalone": False,
-            "reason": "question has an unresolved subject/object reference",
-        }
-
-    lowered = question.lower().rstrip("?")
-
-    standalone_patterns = [
-        r"^(?:who|what|where|when|which)\s+(?:is|are|was|were)\s+(.+)$",
-        r"^(?:why|how|when|what|which)\s+(?:did|does|do|is|are|was|were)\s+(.+)$",
-        r"^(?:who|what|where|when|why|how|which)\s+(?!is\b|are\b|was\b|were\b|did\b|does\b|do\b)(?:[a-zA-Z'’-]+)\s+(.+)$",
-        r"^(?:is|are|was|were)\s+there\s+(.+)$",
-        r"^(?:where|when|why|how)\s+(?:is|are|was|were)\s+there\s+(.+)$",
-        r"^(?:did|does|do|is|are|was|were|can|could|should|would)\s+(.+)$",
-        r"^(?:can you|could you|please)?\s*(?:explain|describe|discuss|tell me about|give details about|give me details about)\s+(.+)$",
-        r"^(?:what do you know about|information about|details about)\s+(.+)$",
-    ]
-
-    for pattern in standalone_patterns:
-        match = re.match(pattern, lowered, flags=re.I)
-
-        if not match:
-            continue
-
-        topic = clean_topic_candidate(question[match.span(1)[0]:match.span(1)[1]])
-
-        if has_clear_topic_text(topic):
-            return {
-                "is_follow_up": False,
-                "is_standalone": True,
-                "reason": "question has an explicit subject/topic",
-            }
-
-    words = question.split()
-    if len(words) >= 5:
-        return {
-            "is_follow_up": False,
-            "is_standalone": True,
-            "reason": "long question without unresolved references",
-        }
-
-    if looks_like_short_followup(question):
-        return {
-            "is_follow_up": True,
-            "is_standalone": False,
-            "reason": "short contextual follow-up",
-        }
-
-    return {
-        "is_follow_up": False,
-        "is_standalone": False,
-        "reason": "ambiguous short question without clear reference",
-    }
-
-
-def is_standalone_question(question):
-    # Do not rewrite complete questions such as "Who is Jose Rizal?" using old chat topics.
-    return classify_question_dependency(question).get("is_standalone", False)
-
-
-def is_follow_up_question(question):
-    # Public helper for tests and chatbot logic.
-    return classify_question_dependency(question).get("is_follow_up", False)
-
-
-def looks_like_short_followup(question):
-    # Short questions are often contextual follow-ups.
+def looks_like_contextual_followup(question):
+    # Detect vague or explicitly contextual follow-ups of any length.
     text = normalize_space(question).lower().rstrip("?")
-    words = text.split()
 
-    if not words:
+    if not text:
         return False
 
     if contains_reference_word(text):
         return True
 
-    if len(words) <= 4 and words[0] in {"why", "how", "when", "where", "what", "who"}:
+    if text in {normalize_space(key).lower().rstrip("?") for key in VAGUE_FOLLOWUP_REWRITES}:
         return True
+
+    for pattern in CONTEXTUAL_FOLLOWUP_PATTERNS:
+        if safe_regex_search(pattern, text):
+            return True
 
     return False
 
-def cleanup_reference_rewrite(text):
+
+def looks_like_short_followup(question):
+    # Compatibility wrapper. Detection is no longer based on word count.
+    return looks_like_contextual_followup(question)
+
+
+def extract_topic_with_patterns(question, patterns):
+    # Use JSON patterns to pull a topic from common question forms.
+    question = normalize_space(question)
+    lowered = question.lower().rstrip("?")
+
+    for pattern in patterns:
+        match = safe_regex_match(pattern, lowered)
+
+        if not match or not match.groups():
+            continue
+
+        start, end = match.span(1)
+        topic = clean_topic(question[start:end])
+
+        if topic and count_meaningful_terms(topic) >= MIN_TOPIC_MEANINGFUL_TERMS:
+            return topic
+
+    return ""
+
+
+def has_clear_standalone_topic(question):
+    # A standalone question has its own topic and no contextual reference.
+    question = normalize_space(question)
+
+    if not question or contains_reference_word(question):
+        return False
+
+    topic = extract_topic_with_patterns(question, QUESTION_PREFIX_PATTERNS)
+    if topic:
+        return True
+
+    return count_meaningful_terms(question) >= MIN_STANDALONE_MEANINGFUL_TERMS
+
+
+def is_standalone_question(question):
+    # Public helper for compatibility.
+    return has_clear_standalone_topic(question)
+
+
+def is_follow_up_question(question):
+    # Public helper used by chains.chatbot.
+    if not normalize_space(question):
+        return False
+
+    if has_clear_standalone_topic(question):
+        return False
+
+    return looks_like_contextual_followup(question)
+
+
+def extract_topic_from_question(question):
+    # Pull a likely topic from a previous clear user question.
+    question = clean_topic(question)
+
+    if not question or contains_reference_word(question):
+        return ""
+
+    topic = extract_topic_with_patterns(question, TOPIC_EXTRACTION_PATTERNS)
+    if topic:
+        return topic
+
+    topic = extract_topic_with_patterns(question, QUESTION_PREFIX_PATTERNS)
+    if topic:
+        return topic
+
+    if count_meaningful_terms(question) >= MIN_TOPIC_MEANINGFUL_TERMS:
+        return question
+
+    return ""
+
+
+def get_history_value(line):
+    # Extract value from a memory line.
+    line = normalize_space(line)
+
+    if ":" not in line:
+        return "", ""
+
+    label, value = line.split(":", 1)
+    return label.strip().lower(), clean_topic(value)
+
+
+def get_latest_topic(chat_history, current_question=None):
+    # Prefer the latest clear user topic. Source fallback is disabled by default.
+    current_key = normalize_space(current_question).lower()
+    fallback_source = ""
+
+    for raw_line in reversed(str(chat_history or "").splitlines()):
+        label, value = get_history_value(raw_line)
+
+        if not value or value.lower() == current_key:
+            continue
+
+        if label == "source":
+            if USE_SOURCE_FALLBACK_TOPIC and not fallback_source:
+                fallback_source = value
+            continue
+
+        if label != "user":
+            continue
+
+        if is_follow_up_question(value):
+            continue
+
+        topic = extract_topic_from_question(value)
+        if topic:
+            return topic
+
+    return fallback_source
+
+
+def cleanup_rewrite(text):
     # Small grammar cleanup for common follow-up rewrites.
     text = normalize_space(text)
     text = re.sub(r"\bdid\s+(.+?)\s+died\b", r"did \1 die", text, flags=re.I)
@@ -649,8 +375,31 @@ def cleanup_reference_rewrite(text):
     return text
 
 
-def replace_reference_once(question, topic):
-    # Replace the first clear reference with the compatible topic.
+def replace_demonstrative_noun(question, topic):
+    # Rewrite phrases like "that policy" without attaching the noun to the topic name.
+    if not DEMONSTRATIVE_NOUN_PATTERN:
+        return question
+
+    def replacement(match):
+        noun = match.group(2) if len(match.groups()) >= 2 else "topic"
+        return render_template(DEMONSTRATIVE_NOUN_TEMPLATE, topic).replace("{noun}", noun)
+
+    try:
+        return re.sub(DEMONSTRATIVE_NOUN_PATTERN, replacement, question, count=1, flags=re.I)
+    except re.error:
+        return question
+
+
+def replace_reference(question, topic):
+    # Replace the first clear reference with the latest topic.
+    rewritten = replace_demonstrative_noun(question, topic)
+
+    if rewritten != question:
+        return cleanup_rewrite(rewritten)
+
+    if not REFERENCE_PATTERN:
+        return question
+
     def replacement(match):
         word = match.group(0).lower()
 
@@ -660,89 +409,45 @@ def replace_reference_once(question, topic):
         return topic
 
     rewritten = re.sub(
-        r"\b(it|this|that|these|those|there|he|she|they|them|him|her|its|his|their)\b",
+        rf"\b{REFERENCE_PATTERN}\b",
         replacement,
         question,
         count=1,
         flags=re.I,
     )
 
-    return cleanup_reference_rewrite(rewritten)
+    return cleanup_rewrite(rewritten)
+
+
+def render_template(template, topic):
+    # Render JSON rewrite templates.
+    return normalize_space(str(template or "").replace("{topic}", topic))
 
 
 def deterministic_followup_rewrite(question, topic):
-    # Resolve common follow-up shapes without asking the LLM.
+    # Resolve contextual follow-ups without an extra LLM call.
     question = normalize_space(question)
-    topic = clean_topic_candidate(topic)
+    topic = clean_topic(topic)
 
     if not question or not topic:
         return ""
 
     q = question.lower().rstrip("?")
+    template = VAGUE_FOLLOWUP_REWRITES.get(q)
 
-    match = re.match(r"^what\s+(?:it|this|that|he|she|they)\s+did$", q)
-    if match:
-        return ensure_question_mark(f"What did {topic} do")
-
-    match = re.match(r"^what\s+did\s+(?:it|this|that|he|she|they)\s+do$", q)
-    if match:
-        return ensure_question_mark(f"What did {topic} do")
-
-    match = re.match(r"^what\s+(?:is|are|was|were)\s+(?:its|his|her|their)\s+(.+)$", q)
-    if match:
-        return ensure_question_mark(f"What {match.group(0).split()[1]} {topic}'s {match.group(1)}")
+    if template:
+        return ensure_question_mark(render_template(template, topic))
 
     if contains_reference_word(question):
-        return ensure_question_mark(replace_reference_once(question, topic))
+        return ensure_question_mark(replace_reference(question, topic))
 
-    if q in {"why", "why?"}:
-        return ensure_question_mark(f"Why is {topic} important")
-
-    if q in {"how", "how?"}:
-        return ensure_question_mark(f"How does {topic} work")
-
-    if q in {"when", "when?"}:
-        return ensure_question_mark(f"When did {topic} happen")
-
-    if q in {"where", "where?"}:
-        return ensure_question_mark(f"Where did {topic} happen")
-
-    if q in {"what happened", "what happened?"}:
-        return ensure_question_mark(f"What happened to {topic}")
+    if looks_like_contextual_followup(question):
+        return ensure_question_mark(f"{question.rstrip('?')} about {topic}")
 
     return ""
 
 
-def build_rewrite_prompt(question, chat_history):
-    # Generic prompt used only when deterministic rewrite cannot resolve the follow-up.
-    return f"""
-Rewrite the follow-up question as one standalone question for document retrieval.
-
-Conversation History:
-{chat_history}
-
-Follow-up Question:
-{question}
-
-Rules:
-- Resolve he, him, or his only to the nearest previous person.
-- Resolve she or her only to the nearest previous person.
-- Resolve they, them, or their only to the nearest previous group or plural entity.
-- Resolve it, this, that, these, or those to the nearest topic, item, event, document, policy, process, system, or requirement.
-- Do not resolve a person pronoun to a country, group, event, document, policy, process, system, or topic.
-- If the latest topic is not compatible with the pronoun, look further back in the conversation.
-- If the follow-up already has a clear standalone subject, return it unchanged.
-- If no compatible reference exists, return CLARIFY: Which person, item, or topic do you mean?
-- Preserve the original meaning.
-- Keep the same language as the follow-up question.
-- Do not answer the question.
-- Return only one standalone question or the CLARIFY line.
-
-Standalone Question:
-"""
-
-
-def rewrite_question(question, chat_history, llm):
+def rewrite_question(question, chat_history, llm=None):
     # Rewrite only contextual follow-up questions.
     question = normalize_space(question)
     chat_history = str(chat_history or "").strip()
@@ -753,23 +458,13 @@ def rewrite_question(question, chat_history, llm):
     if is_standalone_question(question):
         return ensure_question_mark(question)
 
-    latest_topic = get_latest_compatible_topic(chat_history, current_question=question)
-    deterministic_rewrite = deterministic_followup_rewrite(question, latest_topic)
+    if not is_follow_up_question(question):
+        return question
 
-    if deterministic_rewrite:
-        return deterministic_rewrite
+    latest_topic = get_latest_topic(chat_history, current_question=question)
+    rewritten = deterministic_followup_rewrite(question, latest_topic)
 
-    prompt = build_rewrite_prompt(question=question, chat_history=chat_history)
-    response = llm.invoke(prompt)
+    if rewritten:
+        return rewritten
 
-    rewritten = clean_rewritten_question(
-        text=extract_text(response),
-        fallback_question=question,
-    )
-
-    if is_clarification(rewritten) and latest_topic and looks_like_short_followup(question):
-        fallback_rewrite = deterministic_followup_rewrite(question, latest_topic)
-        if fallback_rewrite:
-            return fallback_rewrite
-
-    return rewritten
+    return f"{CLARIFY_PREFIX} Which person, item, or topic do you mean?"

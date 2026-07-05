@@ -1,5 +1,3 @@
-"""SQLite persistent chat history scoped by browser id."""
-
 import json
 import sqlite3
 from datetime import datetime
@@ -25,7 +23,7 @@ _DB_INITIALIZED = False
 
 
 def get_now_text():
-    # Timestamp para sa DB at message bubbles.
+    # Timestamp for the DB and message bubbles.
     if ZoneInfo is not None:
         return datetime.now(ZoneInfo(APP_TIMEZONE)).strftime("%Y-%m-%d %H:%M:%S")
 
@@ -44,13 +42,13 @@ def get_connection():
 
 
 def get_table_columns(connection, table_name):
-    # Kunin ang existing columns ng table.
+    # Get the existing table columns.
     rows = connection.execute(f"PRAGMA table_info({table_name})").fetchall()
     return {row["name"] for row in rows}
 
 
 def migrate_database(connection):
-    # Safe migrations para sa older DB files.
+    # Safe migrations for older DB files.
     conversation_columns = get_table_columns(connection, "conversations")
     message_columns = get_table_columns(connection, "messages")
 
@@ -75,7 +73,7 @@ def migrate_database(connection):
 
 
 def init_history_db():
-    # Gumawa o i-migrate ang chat history DB once per Python process.
+    # Create or migrate the chat history DB once per Python process.
     global _DB_INITIALIZED
 
     if _DB_INITIALIZED and DB_PATH.exists():
@@ -129,13 +127,13 @@ def init_history_db():
 
 
 def clean_browser_id(browser_id):
-    # Fallback kapag walang browser id.
+    # Fallback when browser ID is missing.
     browser_id = str(browser_id or "").strip()
     return browser_id or GLOBAL_BROWSER_ID
 
 
 def clean_title(text, fallback="New chat"):
-    # Gawing compact ang conversation title.
+    # Make the conversation title compact.
     title = " ".join(str(text or "").split()) or fallback
 
     if len(title) > TITLE_CHAR_LIMIT:
@@ -163,7 +161,7 @@ def decode_json(value, fallback=None):
 
 
 def conversation_belongs_to_browser(connection, conversation_id, browser_id):
-    # I-check kung owned ng current browser ang conversation.
+    # Check whether the conversation is owned by the current browser.
     if not conversation_id:
         return False
 
@@ -180,7 +178,7 @@ def conversation_belongs_to_browser(connection, conversation_id, browser_id):
 
 
 def create_conversation(browser_id, title=None):
-    # Gumawa ng bagong conversation at ibalik ang id.
+    # Create a new conversation and return the ID.
     init_history_db()
     now = get_now_text()
     browser_id = clean_browser_id(browser_id)
@@ -267,7 +265,7 @@ def load_messages(browser_id, conversation_id):
 
 
 def replace_conversation_messages(browser_id, conversation_id, messages, title=None):
-    # Replace all messages para simple ang save after regenerate/edit.
+    # Replace all messages to keep saving simple after regenerate/edit.
     init_history_db()
     browser_id = clean_browser_id(browser_id)
     now = get_now_text()
@@ -343,30 +341,17 @@ def replace_conversation_messages(browser_id, conversation_id, messages, title=N
 
 
 def delete_conversation(browser_id, conversation_id):
-    # Delete only one saved conversation for the current browser.
-    # This is used by Clear Chat so it does not wipe the full sidebar history.
+    # Delete one conversation for current browser.
     if not conversation_id:
-        return False
+        return
 
     init_history_db()
-    browser_id = clean_browser_id(browser_id)
 
     with get_connection() as connection:
-        if not conversation_belongs_to_browser(connection, conversation_id, browser_id):
-            return False
-
-        # Explicitly delete messages first for older DB files, then delete the conversation row.
-        # The FK cascade still protects the normal path, but this keeps the cleanup predictable.
         connection.execute(
-            "DELETE FROM messages WHERE conversation_id = ?",
-            (conversation_id,),
-        )
-        cursor = connection.execute(
             "DELETE FROM conversations WHERE id = ? AND browser_id = ?",
-            (conversation_id, browser_id),
+            (conversation_id, clean_browser_id(browser_id)),
         )
-
-    return cursor.rowcount > 0
 
 
 def delete_all_conversations(browser_id):

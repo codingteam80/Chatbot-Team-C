@@ -20,7 +20,7 @@ Chunk overlap         : 200
 Load recursive        : True
 Force re-ingest       : False
 [START] Load documents
-[DONE]  Load documents - 1 min 41.17 sec
+[DONE]  Load documents - 37.72 sec
 
 ======================================================================
 DOCUMENT LOADER SUMMARY
@@ -30,15 +30,15 @@ Loaded documents  : 442
 Skipped files     : 0
 Failed files      : 0
 [START] Clean documents
-[DONE]  Clean documents - 3.85 sec
+[DONE]  Clean documents - 1.33 sec
 [START] Chunk documents
-[DONE]  Chunk documents - 0.49 sec
+[DONE]  Chunk documents - 0.19 sec
 [START] Save chunk cache
-[DONE]  Save chunk cache - 0.02 sec
+[DONE]  Save chunk cache - 0.01 sec
 [START] Load embedding model
-[DONE]  Load embedding model - 6.73 sec
+[DONE]  Load embedding model - 7.71 sec
 [START] Embed and save vectors
-[DONE]  Embed and save vectors - 9 min 15.62 sec
+[DONE]  Embed and save vectors - 1 min 39.83 sec
 
 ======================================================================
 INGESTION SUMMARY
@@ -52,14 +52,14 @@ Metadata file     : chroma_db\ingest_meta.json
 Report file       : reports\ingest_report.txt
 
 Timing:
-- Load documents           1 min 41.17 sec ( 15.1%)
-- Clean documents                3.85 sec (  0.6%)
-- Chunk documents                0.49 sec (  0.1%)
-- Save chunk cache               0.02 sec (  0.0%)
-- Load embedding model           6.73 sec (  1.0%)
-- Embed and save vectors   9 min 15.62 sec ( 83.2%)
+- Load documents                37.72 sec ( 25.7%)
+- Clean documents                1.33 sec (  0.9%)
+- Chunk documents                0.19 sec (  0.1%)
+- Save chunk cache               0.01 sec (  0.0%)
+- Load embedding model           7.71 sec (  5.3%)
+- Embed and save vectors   1 min 39.83 sec ( 68.0%)
 
-Total time        : 11 min 7.88 sec
+Total time        : 2 min 26.80 sec
 Main bottleneck   : Embed and save vectors
 
 ======================================================================

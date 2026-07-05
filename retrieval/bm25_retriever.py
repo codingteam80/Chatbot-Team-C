@@ -12,7 +12,7 @@ TOKEN_PATTERN = re.compile(r"[A-Za-z0-9_]+|[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9
 
 def preprocess_text(text):
     # Simple tokenizer for English + Japanese text.
-    # BM25 is keyword-based, kaya important ang clean tokens.
+    # BM25 is keyword-based, so clean tokens are important.
     if not text:
         return []
 
@@ -28,7 +28,7 @@ def get_doc_label(doc):
 
 
 def create_bm25_retriever(chunks, k=BM25_K, use_preprocessing=True, debug=False):
-    # Gumawa ng BM25 index mula sa chunks.
+    # Create a BM25 index from chunks.
     # Input chunks should already have metadata prefix from chunker.py.
     if not chunks:
         raise ValueError("No chunks received. Run load -> clean -> chunk first.")
@@ -53,7 +53,7 @@ def create_bm25_retriever(chunks, k=BM25_K, use_preprocessing=True, debug=False)
 
 
 def bm25_search(bm25_retriever, query, k=None, debug=False):
-    # Maghanap gamit exact/keyword matching.
+    # Search using exact/keyword matching.
     query = str(query or "").strip()
 
     if not query:

@@ -1,0 +1,227 @@
+InknowVa folder structure
+Tests folder/files are excluded.
+Generated from latest header-clean/json-fixed refactored project.
+
+inknowva_refactor_json_fixed_work/
+├── .streamlit/
+│   └── config.toml
+├── .vscode/
+│   └── launch.json
+├── assets/
+│   └── iknowva_icon.png
+├── cache/
+│   ├── bm25.pkl
+│   ├── bm25_meta.json
+│   ├── chunks.pkl
+│   └── chunks_meta.json
+├── chains/
+│   ├── chatbot_parts/
+│   │   ├── common_parts/
+│   │   │   ├── __init__.py
+│   │   │   ├── debug_helpers.py
+│   │   │   ├── doc_helpers.py
+│   │   │   └── question_helpers.py
+│   │   ├── __init__.py
+│   │   ├── common.py
+│   │   ├── components.py
+│   │   ├── public_api.py
+│   │   └── retrieval_flow.py
+│   ├── rag/
+│   │   ├── candidate_parts/
+│   │   │   ├── __init__.py
+│   │   │   ├── answer_cleanup.py
+│   │   │   ├── extract_helpers.py
+│   │   │   ├── extractors.py
+│   │   │   └── prompt_block.py
+│   │   ├── repair_parts/
+│   │   │   ├── __init__.py
+│   │   │   ├── death_actor.py
+│   │   │   ├── false_premise.py
+│   │   │   ├── post_retry.py
+│   │   │   └── retry_basics.py
+│   │   ├── __init__.py
+│   │   ├── answer_repair.py
+│   │   ├── candidates.py
+│   │   ├── config.py
+│   │   ├── context_prepare.py
+│   │   ├── generation.py
+│   │   └── sources.py
+│   ├── __init__.py
+│   ├── chatbot.py
+│   └── rag_chain.py
+├── chroma_db/
+│   ├── 200ea469-e99f-4257-b0ca-ab4cac8cf727/
+│   │   ├── data_level0.bin
+│   │   ├── header.bin
+│   │   ├── index_metadata.pickle
+│   │   ├── length.bin
+│   │   └── link_lists.bin
+│   ├── 46c5a6ae-3e1e-4225-a7bc-8374358a01c0/
+│   │   ├── data_level0.bin
+│   │   ├── header.bin
+│   │   ├── index_metadata.pickle
+│   │   ├── length.bin
+│   │   └── link_lists.bin
+│   ├── chroma.sqlite3
+│   └── ingest_meta.json
+├── config/
+│   ├── __init__.py
+│   ├── chunk_quality_config.json
+│   ├── preprocessing_rules_config.json
+│   ├── query_expansion_config.json
+│   └── settings.py
+├── data/
+│   ├── Andrés Bonifacio - Wikipedia.pdf
+│   ├── Apolinario Mabini - Wikipedia.pdf
+│   ├── Emilio Aguinaldo - Wikipedia.pdf
+│   ├── Gomburza - Wikipedia.pdf
+│   ├── History of the Philippines (1565–1898) - Wikipedia.pdf
+│   ├── History of the Philippines - Wikipedia.pdf
+│   ├── Independence Day (Philippines) - Wikipedia.pdf
+│   ├── Japanese occupation of the Philippines - Wikipedia.pdf
+│   ├── José Rizal - Wikipedia.pdf
+│   ├── Katipunan - Wikipedia.pdf
+│   ├── Philippine Revolution - Wikipedia.pdf
+│   ├── Philippine–American War - Wikipedia.pdf
+│   ├── Spanish–American War - Wikipedia.pdf
+│   ├── Treaty of Paris (1898) - Wikipedia.pdf
+│   └── フィリピンの歴史 (1946年-1965年) - Wikipedia.pdf
+├── embeddings/
+│   ├── __init__.py
+│   └── embedding_model.py
+├── llm/
+│   ├── __init__.py
+│   ├── ollama_llm.py
+│   └── prompt_builder.py
+├── loaders/
+│   ├── __init__.py
+│   ├── document_loader.py
+│   └── file_loaders.py
+├── memory/
+│   ├── __init__.py
+│   ├── conversation_memory.py
+│   └── question_rewriter.py
+├── preprocessing/
+│   ├── __init__.py
+│   ├── chunk_quality.py
+│   ├── chunker.py
+│   └── cleaner.py
+├── reports/
+│   ├── context_filter_all_questions_report.txt
+│   ├── rag_all_questions_report.txt
+│   └── ui_rag_debug.txt
+├── retrieval/
+│   ├── context/
+│   │   ├── scoring_parts/
+│   │   │   ├── config_rule_parts/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── base_settings.py
+│   │   │   │   └── low_value.py
+│   │   │   ├── __init__.py
+│   │   │   ├── answer_patterns.py
+│   │   │   ├── config_rules.py
+│   │   │   ├── final_evidence.py
+│   │   │   └── related_docs.py
+│   │   ├── selection_parts/
+│   │   │   ├── list_short_parts/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── list_answer.py
+│   │   │   │   └── short_source_query.py
+│   │   │   ├── __init__.py
+│   │   │   ├── cross_doc_helpers.py
+│   │   │   ├── cross_doc_selection.py
+│   │   │   ├── final_selector.py
+│   │   │   ├── list_and_short_query.py
+│   │   │   ├── rerank_and_safety.py
+│   │   │   └── single_fact.py
+│   │   ├── __init__.py
+│   │   ├── mode_detection.py
+│   │   ├── neighbor_expansion.py
+│   │   ├── normalization.py
+│   │   ├── scoring.py
+│   │   └── selection.py
+│   ├── reranker_parts/
+│   │   ├── __init__.py
+│   │   ├── core.py
+│   │   ├── features.py
+│   │   ├── model.py
+│   │   └── scoring.py
+│   ├── bm25_retriever.py
+│   ├── context_config.py
+│   ├── context_filter.py
+│   ├── context_utils.py
+│   ├── hybrid_retriever.py
+│   ├── metadata_booster.py
+│   ├── query_analyzer.py
+│   ├── query_type_detector.py
+│   ├── reranker.py
+│   └── semantic_retriever.py
+├── static/
+│   └── docs/
+│       ├── 04aedd8455_Apolinario_Mabini_-_Wikipedia.pdf
+│       ├── 0d35ce054d_Philippine_American_War_-_Wikipedia.pdf
+│       ├── 13cde62dde_Emilio_Aguinaldo_-_Wikipedia.md
+│       ├── 13cde62dde_Emilio_Aguinaldo_-_Wikipedia.md.html
+│       ├── 16f9e26b52_Jos__Rizal_-_Wikipedia.pdf
+│       ├── 3ebefffe4d_Katipunan_-_Wikipedia.md
+│       ├── 3ebefffe4d_Katipunan_-_Wikipedia.md.html
+│       ├── 468b09c462_Andr_s_Bonifacio_-_Wikipedia.md.html
+│       ├── 50e35f6114_History_of_the_Philippines_-_Wikipedia.pdf
+│       ├── 56f11dea1e_Japanese_occupation_of_the_Philippines_-_Wikipedia.pdf
+│       ├── 6178a5d300_Independence_Day__Philippines__-_Wikipedia.pdf
+│       ├── 62819fef7f_Emilio_Aguinaldo_-_Wikipedia.pdf
+│       ├── 6d0869372d_History_of_the_Philippines__1565_1898__-_Wikipedia.md.html
+│       ├── 86c69b3d0f_Katipunan_-_Wikipedia.pdf
+│       ├── 8a2652ac92_Philippine_Revolution_-_Wikipedia.pdf
+│       ├── 9490a9f30d_Treaty_of_Paris__1898__-_Wikipedia.pdf
+│       ├── 9b5db855be___________1946_-1965___-_Wikipedia.pdf
+│       ├── 9b9123d80e_Gomburza_-_Wikipedia.pdf
+│       ├── b2eb016759_Andr_s_Bonifacio_-_Wikipedia.pdf
+│       ├── be7547c77b_Spanish_American_War_-_Wikipedia.pdf
+│       ├── c8b53f2e34_Apolinario_Mabini_-_Wikipedia.md
+│       ├── c8b53f2e34_Apolinario_Mabini_-_Wikipedia.md.html
+│       ├── d75889a8d0_Japanese_occupation_of_the_Philippines_-_Wikipedia.md.html
+│       ├── d8ce3e9096_History_of_the_Philippines__1565_1898__-_Wikipedia.pdf
+│       ├── e64fa03656_Jos__Rizal_-_Wikipedia.md
+│       ├── e64fa03656_Jos__Rizal_-_Wikipedia.md.html
+│       └── source_viewer.css
+├── storage/
+│   ├── __init__.py
+│   ├── browser_identity.py
+│   ├── chat_history.sqlite3
+│   └── chat_history_store.py
+├── ui/
+│   ├── actions/
+│   │   ├── __init__.py
+│   │   ├── buttons.py
+│   │   ├── common.py
+│   │   ├── export_files.py
+│   │   ├── export_state.py
+│   │   └── sources.py
+│   ├── chat_parts/
+│   │   ├── __init__.py
+│   │   ├── handlers.py
+│   │   ├── main.py
+│   │   ├── render.py
+│   │   ├── state.py
+│   │   └── storage_actions.py
+│   ├── styles/
+│   │   ├── main.css
+│   │   └── main_.css
+│   ├── __init__.py
+│   ├── action_ui.py
+│   ├── chat_ui.py
+│   ├── history_ui.py
+│   ├── sidebar.py
+│   ├── source_ui.py
+│   └── styles.py
+├── utils/
+│   ├── __init__.py
+│   ├── bm25_cache.py
+│   └── chunk_cache.py
+├── vectorstore/
+│   ├── __init__.py
+│   └── chroma_store.py
+├── app.py
+├── ingest.py
+└── requirements.txt

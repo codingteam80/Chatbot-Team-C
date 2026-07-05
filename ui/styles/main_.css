@@ -1,0 +1,2151 @@
+
+
+/* =========================
+   Anti-flash prepaint
+   Keep Streamlit shell dark before full rerender finishes.
+========================= */
+
+html,
+body,
+#root,
+.stApp,
+[data-testid="stAppViewContainer"],
+[data-testid="stAppViewContainer"] > .main,
+section.main,
+.main {
+    background: #0f1117 !important;
+    color: #ffffff !important;
+}
+
+[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stDecoration"] {
+    background: transparent !important;
+}
+
+/* Avoid visible rectangle from Streamlit bottom chat shell. */
+div[data-testid="stBottom"],
+div[data-testid="stBottom"] > div {
+    background: transparent !important;
+}
+
+/* =========================================================
+   InknowVa Streamlit UI
+   Clean CSS replacement.
+   No appended override blocks. No duplicate sidebar/input rules.
+========================================================= */
+
+:root {
+    --sidebar-width: 260px;
+    --source-drawer-width: 320px;
+    --content-width: 900px;
+    --assistant-width: 780px;
+    --user-width: 700px;
+
+    --bg-main: #0f1117;
+    --bg-panel: #171923;
+    --bg-input: #262833;
+    --bg-soft: rgba(255,255,255,.045);
+    --bg-hover: rgba(255,255,255,.085);
+
+    --border-soft: rgba(255,255,255,.10);
+    --border-strong: rgba(255,255,255,.18);
+
+    --text-main: #ffffff;
+    --text-muted: #9ca3af;
+    --text-soft: #cbd5e1;
+
+    color-scheme: dark;
+}
+
+/* =========================
+   Global
+========================= */
+
+html,
+body,
+[class*="css"] {
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.stApp {
+    background: var(--bg-main);
+    color: var(--text-main);
+}
+
+.block-container {
+    max-width: 1120px;
+    padding-top: 2rem;
+    padding-bottom: 16rem !important;
+}
+
+/* Extra scroll clearance so the last answer stays above the fixed chat input. */
+.block-container::after {
+    content: "";
+    display: block;
+    height: 40px;
+    min-height: 40px;
+}
+
+.main-title {
+    max-width: var(--content-width);
+    margin: 22vh auto 30px auto;
+    text-align: center;
+    color: var(--text-main);
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* =========================
+   Sidebar Shell
+   Clean replacement: no duplicate sidebar rules.
+========================= */
+
+section[data-testid="stSidebar"] {
+    width: var(--sidebar-width) !important;
+    min-width: var(--sidebar-width) !important;
+    max-width: var(--sidebar-width) !important;
+    height: 100vh !important;
+
+    overflow: hidden !important;
+    resize: none !important;
+
+    border-right: 1px solid rgba(255,255,255,.08) !important;
+    box-sizing: border-box !important;
+}
+
+/* Main Streamlit sidebar wrappers. */
+section[data-testid="stSidebar"] > div,
+section[data-testid="stSidebar"] [data-testid="stSidebarContent"],
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
+    width: var(--sidebar-width) !important;
+    min-width: var(--sidebar-width) !important;
+    max-width: var(--sidebar-width) !important;
+
+    height: 100vh !important;
+    max-height: 100vh !important;
+
+    padding: 10px 12px !important;
+    margin: 0 !important;
+
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarHeader"] {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Hide Streamlit sidebar collapse controls. */
+button[title="Collapse sidebar"],
+button[title="Expand sidebar"],
+button[aria-label="Collapse sidebar"],
+button[aria-label="Expand sidebar"],
+button[aria-label="Close sidebar"],
+div[data-testid="collapsedControl"],
+div[data-testid="stSidebarCollapseButton"],
+button[data-testid="stSidebarCollapseButton"] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+section[data-testid="stSidebar"] * {
+    box-sizing: border-box !important;
+}
+
+/* Sidebar root layout:
+   Header
+   Actions
+   Middle content
+   Bottom status
+*/
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"]:has(.st-key-sidebar_header_area):has(.st-key-sidebar_actions_area):has(.st-key-sidebar_scroll_area):has(.st-key-sidebar_bottom_area) {
+    width: 100% !important;
+    height: calc(100vh - 20px) !important;
+    min-height: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+
+    overflow: hidden !important;
+}
+
+/* Four root wrapper rows. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_header_area),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_header_area) {
+    flex: 0 0 62px !important;
+    height: 62px !important;
+    min-height: 62px !important;
+    max-height: 62px !important;
+    overflow: hidden !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_actions_area),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_actions_area) {
+    flex: 0 0 72px !important;
+    height: 72px !important;
+    min-height: 72px !important;
+    max-height: 72px !important;
+    overflow: visible !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_scroll_area),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_scroll_area) {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: hidden !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_bottom_area),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_bottom_area) {
+    flex: 0 0 62px !important;
+    height: 62px !important;
+    min-height: 62px !important;
+    max-height: 62px !important;
+    overflow: hidden !important;
+}
+
+/* Keyed root containers. */
+section[data-testid="stSidebar"] .st-key-sidebar_header_area {
+    width: 100% !important;
+    height: 62px !important;
+    min-height: 62px !important;
+    max-height: 62px !important;
+    overflow: hidden !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area {
+    width: 100% !important;
+    height: 72px !important;
+    min-height: 72px !important;
+    max-height: 72px !important;
+
+    padding: 4px 0 6px 0 !important;
+    margin: 0 !important;
+
+    overflow: visible !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_scroll_area {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+
+    padding: 2px 0 0 0 !important;
+    margin: 0 !important;
+
+    overflow: hidden !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_bottom_area {
+    width: 100% !important;
+    height: 62px !important;
+    min-height: 62px !important;
+    max-height: 62px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: hidden !important;
+}
+
+/* =========================
+   Sidebar Brand and Bottom
+========================= */
+
+.sidebar-banner,
+.sidebar-bottom-status {
+    width: 100%;
+    height: 62px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.sidebar-decorative-line,
+.sidebar-decorative-line-bottom {
+    width: 48px;
+    height: 2px;
+    margin: 0 0 8px 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(139,92,246,.95), rgba(34,211,238,.85));
+}
+
+.sidebar-brand-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.sidebar-brand-logo {
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.sidebar-brand-text {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.sidebar-banner-title {
+    color: var(--text-main);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.05;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar-banner-subtitle {
+    margin-top: 3px;
+    color: var(--text-muted);
+    font-size: 10.5px;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar-session-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,.62);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.sidebar-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #22c55e;
+    box-shadow: 0 0 10px rgba(34,197,94,.55);
+}
+
+.sidebar-bottom-note {
+    margin-top: 4px;
+    color: rgba(255,255,255,.50);
+    font-size: 11px;
+}
+
+/* =========================
+   Sidebar Action Buttons
+   Clean: New chat + Clear chat both visible.
+========================= */
+
+/* Inner wrappers in the action area. */
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area > div,
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area [data-testid="stVerticalBlock"] {
+    width: 100% !important;
+    height: 62px !important;
+    min-height: 62px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    row-gap: 4px !important;
+
+    overflow: visible !important;
+}
+
+/* Stable wrappers for both action rows. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_new_chat),
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_clear_chat),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_new_chat),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_clear_chat),
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat .stButton,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat .stButton {
+    width: 100% !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+    flex: 0 0 30px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: block !important;
+    overflow: visible !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button {
+    width: 100% !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+
+    margin: 0 !important;
+    padding: 5px 8px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    border: 0 !important;
+    border-radius: 8px !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+
+    background: transparent !important;
+    color: var(--text-main) !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button *,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button *,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button p,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button p,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button span,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button span,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button div,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button div {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: block !important;
+    text-align: left !important;
+
+    color: var(--text-main) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button:hover,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text-main) !important;
+}
+
+/* =========================
+   Sidebar Recent and Sources
+========================= */
+
+.sidebar-fixed-title {
+    width: 100% !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    max-height: 28px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    margin: 0 !important;
+    padding: 4px 8px !important;
+
+    color: var(--text-main) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+}
+
+.sidebar-section-gap {
+    height: 8px !important;
+    min-height: 8px !important;
+}
+
+/* Native Streamlit height containers for History/Sources lists. */
+section[data-testid="stSidebar"] .st-key-sidebar_history_list,
+section[data-testid="stSidebar"] .st-key-sidebar_sources_list {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    scrollbar-gutter: stable !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(255,255,255,.36) transparent !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_history_list {
+    max-height: 145px !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_sources_list {
+    max-height: 235px !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_history_list::-webkit-scrollbar,
+section[data-testid="stSidebar"] .st-key-sidebar_sources_list::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_history_list::-webkit-scrollbar-thumb,
+section[data-testid="stSidebar"] .st-key-sidebar_sources_list::-webkit-scrollbar-thumb {
+    border-radius: 999px !important;
+    background: rgba(255,255,255,.36) !important;
+}
+
+.sidebar-history-empty,
+.sidebar-source-empty {
+    margin: 0 0 6px 0 !important;
+    padding: 6px 8px !important;
+    color: rgba(255,255,255,.62) !important;
+    font-size: 11.5px !important;
+    font-weight: 400 !important;
+    line-height: 1.35 !important;
+    text-align: left !important;
+}
+
+/* Recent chat items. */
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat"],
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"],
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat"] .stButton,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] .stButton {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 31px !important;
+    min-height: 31px !important;
+    max-height: 31px !important;
+    margin: 0 0 5px 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    overflow: hidden !important;
+    text-align: left !important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat"] button,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] button {
+    width: 100% !important;
+    height: 31px !important;
+    min-height: 31px !important;
+    max-height: 31px !important;
+    margin: 0 !important;
+    padding: 6px 8px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    border: 0 !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    color: var(--text-soft) !important;
+
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat"] button *,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] button *,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat"] button p,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] button p,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat"] button span,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] button span,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat"] button div,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] button div {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: block !important;
+    text-align: left !important;
+
+    color: var(--text-soft) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat"] button:hover,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] button:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text-main) !important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] button,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] button *,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] button p,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] button span,
+section[data-testid="stSidebar"] [class*="st-key-sidebar_history_chat_active"] button div {
+    color: var(--text-main) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+/* Source list/cards. */
+.sidebar-source-list {
+    width: 100% !important;
+}
+
+.sidebar-source-card {
+    width: 100% !important;
+    margin: 0 0 6px 0 !important;
+    padding: 6px !important;
+    border: 1px solid rgba(255,255,255,.10) !important;
+    border-radius: 10px !important;
+    background: rgba(255,255,255,.04) !important;
+}
+
+.sidebar-source-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    min-width: 0 !important;
+}
+
+.sidebar-source-number {
+    width: 17px !important;
+    min-width: 17px !important;
+    height: 17px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 999px !important;
+    background: rgba(255,255,255,.10) !important;
+    color: var(--text-main) !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+}
+
+.sidebar-source-title {
+    min-width: 0 !important;
+    color: var(--text-main) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    text-decoration: none !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.sidebar-source-title:hover {
+    text-decoration: underline !important;
+}
+
+.sidebar-source-page {
+    margin: 4px 0 3px 23px !important;
+    color: var(--text-muted) !important;
+    font-size: 10.5px !important;
+    line-height: 1.2 !important;
+}
+
+.sidebar-source-preview {
+    display: block !important;
+    margin-left: 23px !important;
+    max-height: 56px !important;
+    overflow: hidden !important;
+    color: var(--text-soft) !important;
+    font-size: 10.5px !important;
+    line-height: 1.28 !important;
+    text-decoration: none !important;
+}
+
+.sidebar-source-preview:hover {
+    text-decoration: underline !important;
+}
+
+/* Hide shell scrollbars. Only History/Sources list containers scroll. */
+section[data-testid="stSidebar"],
+section[data-testid="stSidebar"] > div,
+section[data-testid="stSidebar"] [data-testid="stSidebarContent"],
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
+    scrollbar-width: none !important;
+}
+
+section[data-testid="stSidebar"]::-webkit-scrollbar,
+section[data-testid="stSidebar"] > div::-webkit-scrollbar,
+section[data-testid="stSidebar"] [data-testid="stSidebarContent"]::-webkit-scrollbar,
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"]::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+}
+
+
+/* =========================
+   Chat Messages
+========================= */
+
+[data-testid="stChatMessage"],
+[data-testid="stChatMessageContent"] {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+}
+
+[data-testid="stChatMessageAvatar"] {
+    display: none !important;
+}
+
+.user-message-wrapper,
+.assistant-message-wrapper {
+    max-width: var(--content-width);
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-message-wrapper {
+    align-items: flex-end;
+    margin-bottom: 14px;
+}
+
+.assistant-message-wrapper {
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.user-message-bubble,
+.assistant-message-bubble {
+    width: fit-content;
+    color: var(--text-main);
+    font-size: 15px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.user-message-bubble {
+    max-width: var(--user-width);
+    padding: 12px 18px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px;
+    background: rgba(255,255,255,.08);
+    line-height: 1.5;
+}
+
+.assistant-message-bubble {
+    max-width: var(--assistant-width);
+    padding: 14px 18px;
+    border-radius: 18px;
+    background: transparent;
+    line-height: 1.7;
+}
+
+
+/* Compact inline source chips. */
+.citation-chip-row {
+    display: inline-flex !important;
+    flex-wrap: wrap !important;
+    gap: 3px !important;
+    margin-left: 5px !important;
+    vertical-align: middle !important;
+    max-width: 100% !important;
+}
+
+.citation-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: auto !important;
+    max-width: 135px !important;
+    min-width: 0 !important;
+    height: 15px !important;
+    padding: 0 5px !important;
+
+    border-radius: 999px !important;
+    border: 1px solid rgba(148,163,184,.28) !important;
+    border-bottom: 1px solid rgba(148,163,184,.28) !important;
+    background: rgba(30,41,59,.82) !important;
+    color: #dbeafe !important;
+
+    font-size: 9px !important;
+    font-weight: 650 !important;
+    line-height: 1 !important;
+
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    vertical-align: middle !important;
+    box-shadow: none !important;
+}
+
+.citation-chip:hover {
+    background: rgba(51,65,85,.96) !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    border-bottom-color: rgba(148,163,184,.28) !important;
+    box-shadow: none !important;
+}
+
+.citation-chip:focus,
+.citation-chip:active,
+.citation-chip:visited {
+    color: #dbeafe !important;
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.citation-more {
+    max-width: none !important;
+    cursor: default !important;
+    color: #cbd5e1 !important;
+}
+
+.message-timestamp {
+    margin-top: 4px;
+    color: rgba(255,255,255,.42);
+    font-size: 11px;
+    line-height: 1;
+}
+
+.user-message-timestamp {
+    padding-right: 8px;
+}
+
+.assistant-message-timestamp {
+    padding-left: 8px;
+}
+
+/* =========================
+   Chat Input and Footer
+========================= */
+
+/* Native Streamlit chat input only.
+   No custom rounded shell.
+   No custom textarea border/background.
+   No custom absolute-positioned send button.
+*/
+div[data-testid="stChatInput"] {
+    width: min(900px, calc(100vw - var(--sidebar-width) - 96px)) !important;
+    max-width: 900px !important;
+    margin: 0 auto 24px auto !important;
+}
+
+/* Make sure old custom pseudo-icons do not appear. */
+div[data-testid="stChatInput"] button::before,
+div[data-testid="stChatInput"] button::after {
+    display: none !important;
+    content: none !important;
+}
+
+.chat-footer-note {
+    position: fixed;
+    left: calc(var(--sidebar-width) + 24px);
+    right: 24px;
+    bottom: 4px;
+    z-index: 30;
+    text-align: center;
+    color: rgba(255,255,255,.42);
+    font-size: 11px;
+    pointer-events: none;
+}
+
+
+/* =========================
+   Thinking / Streaming
+========================= */
+
+.thinking-box {
+    margin: 10px 0 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #cfcfcf;
+    font-size: 15px;
+}
+
+.thinking-dots {
+    display: flex;
+    gap: 5px;
+}
+
+.thinking-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #cfcfcf;
+    animation: thinking-blink 1.4s infinite;
+}
+
+.thinking-dots span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.thinking-dots span:nth-child(3) {
+    animation-delay: .4s;
+}
+
+.streaming-cursor {
+    animation: blink-cursor 1s infinite;
+}
+
+@keyframes thinking-blink {
+    0%, 80%, 100% { opacity: .2; }
+    40% { opacity: 1; }
+}
+
+@keyframes blink-cursor {
+    50% { opacity: 0; }
+}
+
+/* =========================
+   Actions / Suggestions
+========================= */
+
+[class*="st-key-action_area_"] {
+    max-width: var(--content-width) !important;
+    margin: 0 auto 3px auto !important;
+    padding-left: 12px !important;
+}
+
+[class*="st-key-action_area_"] [data-testid="stHorizontalBlock"] {
+    width: 114px !important;
+    gap: 4px !important;
+}
+
+[class*="st-key-action_area_"] button {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 10px !important;
+    background: transparent !important;
+    color: rgba(255,255,255,.82) !important;
+    box-shadow: none !important;
+}
+
+[class*="st-key-action_area_"] button:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text-main) !important;
+}
+
+.export-mini-title {
+    display: none !important;
+}
+
+/* Inline export panel beside the export icon. */
+[class*="st-key-action_area_"] [data-testid="stHorizontalBlock"] {
+    width: 560px !important;
+    min-width: 560px !important;
+    max-width: 560px !important;
+    gap: 4px !important;
+    align-items: center !important;
+}
+
+[class*="st-key-action_area_"] [data-testid="column"] {
+    min-width: 0 !important;
+    padding: 0 !important;
+}
+
+/* Keep the first three action columns compact.
+   The 4th column is wider because action_ui.py uses columns([1, 1, 1, 12]). */
+[class*="st-key-action_area_"] [data-testid="column"]:nth-child(1),
+[class*="st-key-action_area_"] [data-testid="column"]:nth-child(2),
+[class*="st-key-action_area_"] [data-testid="column"]:nth-child(3) {
+    width: 34px !important;
+    min-width: 34px !important;
+    max-width: 34px !important;
+    flex: 0 0 34px !important;
+}
+
+[class*="st-key-export_inline_panel_"] {
+    width: fit-content !important;
+    min-width: 0 !important;
+    max-width: 430px !important;
+    margin: 0 0 0 2px !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+}
+
+[class*="st-key-export_inline_panel_"] [data-testid="stVerticalBlock"],
+[class*="st-key-export_inline_panel_"] [data-testid="stElementContainer"] {
+    width: fit-content !important;
+    min-width: 0 !important;
+    max-width: 430px !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    overflow: visible !important;
+}
+
+/* One horizontal row only: PDF, DOCX, TXT, MD, XLSX, XLS, CSV, PPTX, PPT. */
+[class*="st-key-export_inline_panel_"] [data-testid="stHorizontalBlock"] {
+    width: 410px !important;
+    min-width: 410px !important;
+    max-width: 410px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+
+    margin: 0 !important;
+    padding: 3px 4px 5px 4px !important;
+
+    border: 1px solid rgba(255,255,255,.14) !important;
+    border-radius: 9px !important;
+    background: rgba(15,17,23,.98) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,.28) !important;
+    overflow: hidden !important;
+}
+
+[class*="st-key-export_inline_panel_"] [data-testid="column"] {
+    width: 42px !important;
+    min-width: 42px !important;
+    max-width: 42px !important;
+    flex: 0 0 42px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+[class*="st-key-export_inline_panel_"] [data-testid="stDownloadButton"],
+[class*="st-key-export_inline_panel_"] [data-testid="stDownloadButton"] button {
+    width: 42px !important;
+    min-width: 42px !important;
+    max-width: 42px !important;
+
+    height: 20px !important;
+    min-height: 20px !important;
+    max-height: 20px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+[class*="st-key-export_inline_panel_"] [data-testid="stDownloadButton"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: translateY(-1px) !important;
+}
+
+[class*="st-key-export_inline_panel_"] [data-testid="stDownloadButton"] button {
+    border: 1px solid rgba(255,255,255,.14) !important;
+    border-radius: 6px !important;
+    background: rgba(255,255,255,.035) !important;
+    color: var(--text-main) !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    font-size: 8.5px !important;
+    font-weight: 650 !important;
+    line-height: 1 !important;
+    text-align: center !important;
+
+    box-shadow: none !important;
+}
+
+[class*="st-key-export_inline_panel_"] [data-testid="stDownloadButton"] button [data-testid="stMarkdownContainer"],
+[class*="st-key-export_inline_panel_"] [data-testid="stDownloadButton"] button p,
+[class*="st-key-export_inline_panel_"] [data-testid="stDownloadButton"] button span,
+[class*="st-key-export_inline_panel_"] [data-testid="stDownloadButton"] button div {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 8.5px !important;
+    line-height: 1 !important;
+    text-align: center !important;
+}
+
+[class*="st-key-export_inline_panel_"] [data-testid="stDownloadButton"] button:hover {
+    background: var(--bg-hover) !important;
+}
+
+/* Extra specificity so export buttons stay wide even inside action_area columns. */
+[class*="st-key-action_area_"] [class*="st-key-export_inline_panel_"] [data-testid="column"] {
+    width: 42px !important;
+    min-width: 42px !important;
+    max-width: 42px !important;
+    flex: 0 0 42px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+[class*="st-key-action_area_"] [class*="st-key-export_inline_panel_"] [data-testid="stHorizontalBlock"] {
+    width: 410px !important;
+    min-width: 410px !important;
+    max-width: 410px !important;
+}
+
+[class*="st-key-action_area_"] [class*="st-key-export_inline_panel_"] [data-testid="stDownloadButton"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: translateY(-1px) !important;
+}
+
+[class*="st-key-action_area_"] [class*="st-key-export_inline_panel_"] [data-testid="stDownloadButton"] button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+
+[class*="st-key-suggestion_area_"] {
+    max-width: var(--content-width) !important;
+    margin: 0 auto 4px auto !important;
+    padding-left: 12px !important;
+    min-height: 0 !important;
+    height: auto !important;
+    gap: 2px !important;
+}
+
+/* suggestion_ui.py no longer renders this title. Keep this for old cached sessions. */
+.suggestion-title {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* The suggestion_area container itself is a Streamlit vertical block.
+   Override Streamlit's default 1rem gap that makes the group look too tall. */
+div[data-testid="stVerticalBlock"][class*="st-key-suggestion_area_"],
+[class*="st-key-suggestion_area_"] [data-testid="stVerticalBlock"] {
+    gap: 2px !important;
+    row-gap: 2px !important;
+}
+
+[class*="st-key-suggestion_area_"] [data-testid="stLayoutWrapper"],
+[class*="st-key-suggestion_area_"] [data-testid="stElementContainer"],
+[class*="st-key-suggestion_area_"] .stButton {
+    width: fit-content !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
+
+[class*="st-key-suggestion_area_"] button {
+    width: auto !important;
+    max-width: 320px !important;
+    min-height: 23px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 3px 8px !important;
+    border: 1px solid var(--border-soft) !important;
+    border-radius: 999px !important;
+    background: var(--bg-soft) !important;
+    color: var(--text-soft) !important;
+    font-size: 11.5px !important;
+    line-height: 1.15 !important;
+    text-align: left !important;
+    box-shadow: none !important;
+}
+
+[class*="st-key-suggestion_area_"] button [data-testid="stMarkdownContainer"],
+[class*="st-key-suggestion_area_"] button p,
+[class*="st-key-suggestion_area_"] button span,
+[class*="st-key-suggestion_area_"] button div {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 11.5px !important;
+    line-height: 1.15 !important;
+}
+
+[class*="st-key-suggestion_area_"] button:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text-main) !important;
+}
+
+/* =========================
+   Right Source Drawer
+========================= */
+
+.st-key-right_sources_panel {
+    position: fixed !important;
+    top: 12px !important;
+    right: 10px !important;
+    width: min(var(--source-drawer-width), calc(100vw - var(--sidebar-width) - 36px)) !important;
+    height: calc(100vh - 24px) !important;
+    padding: 14px 12px !important;
+    z-index: 9999 !important;
+    background: rgba(17,19,27,.96) !important;
+    border: 1px solid rgba(255,255,255,.10) !important;
+    border-radius: 16px !important;
+    box-shadow: -14px 0 34px rgba(0,0,0,.32) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+.st-key-right_sources_panel .stButton {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 2 !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+.st-key-right_sources_panel button {
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 10px !important;
+    background: rgba(255,255,255,.06) !important;
+    color: var(--text-main) !important;
+}
+
+.right-source-panel-shell {
+    width: 100%;
+}
+
+.right-source-panel-header {
+    margin-bottom: 12px;
+}
+
+.right-source-panel-kicker {
+    color: rgba(255,255,255,.46);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.right-source-panel-title {
+    margin-top: 4px;
+    color: var(--text-main);
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.right-source-panel-count {
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.right-source-card,
+.source-card {
+    margin: 0 0 10px 0;
+    padding: 10px;
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    background: rgba(255,255,255,.045);
+}
+
+.right-source-card-header,
+.source-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.right-source-number,
+.source-card-number {
+    width: 22px;
+    min-width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgba(255,255,255,.10);
+    color: var(--text-main);
+    font-size: 11px;
+}
+
+.right-source-name,
+.source-card-title {
+    min-width: 0;
+    color: var(--text-main);
+    font-size: 13px;
+    font-weight: 650;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.right-source-name:hover,
+.source-card-title:hover {
+    text-decoration: underline;
+}
+
+.right-source-page,
+.source-card-page {
+    margin: 7px 0 6px 30px;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.right-source-preview,
+.source-card-preview {
+    display: block;
+    margin-left: 30px;
+    max-height: 112px;
+    overflow: hidden;
+    color: var(--text-soft);
+    font-size: 11.5px;
+    line-height: 1.42;
+    text-decoration: none;
+}
+
+.right-source-preview:hover {
+    text-decoration: underline;
+}
+
+.right-source-empty {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* =========================
+   Standalone Source Viewer
+========================= */
+
+.source-viewer-body {
+    margin: 0;
+    background: var(--bg-main);
+    color: var(--text-main);
+}
+
+.source-viewer-page {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 32px 22px;
+}
+
+.source-viewer-title {
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+
+.source-viewer-content {
+    white-space: pre-wrap;
+    color: var(--text-soft);
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 18px;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 1100px) {
+    :root {
+        --source-drawer-width: 300px;
+    }
+
+    .st-key-right_sources_panel {
+        right: 8px !important;
+        width: min(300px, calc(100vw - var(--sidebar-width) - 24px)) !important;
+        padding: 12px 10px !important;
+    }
+}
+
+@media (max-width: 900px) {
+    div[data-testid="stChatInput"] {
+        width: calc(100vw - 40px) !important;
+        max-width: calc(100vw - 40px) !important;
+    }
+
+    .chat-footer-note {
+        left: 16px;
+        right: 16px;
+    }
+
+    .st-key-right_sources_panel {
+        width: min(92vw, 380px) !important;
+    }
+}
+
+
+/* Source drawer disabled because sources are now shown in the left sidebar. */
+.st-key-right_sources_panel {
+    display: none !important;
+}
+
+
+
+/* =========================
+   FINAL SIDEBAR ORDER FIX
+   Required order:
+   1. New chat
+   2. Clear chat
+   3. Recent chats
+   4. Sources
+
+   Notes:
+   - Do not let the scroll area overlap the action buttons.
+   - Keep a small gap between Clear chat and Recent chats.
+========================= */
+
+/* Full sidebar root layout. */
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"]:has(.st-key-sidebar_header_area):has(.st-key-sidebar_actions_area):has(.st-key-sidebar_scroll_area):has(.st-key-sidebar_bottom_area) {
+    width: 100% !important;
+    height: calc(100vh - 20px) !important;
+    min-height: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    row-gap: 0 !important;
+
+    overflow: hidden !important;
+}
+
+/* Header row. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_header_area),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_header_area),
+section[data-testid="stSidebar"] .st-key-sidebar_header_area {
+    flex: 0 0 62px !important;
+    height: 62px !important;
+    min-height: 62px !important;
+    max-height: 62px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Action row: reserve enough real space for both buttons. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_actions_area),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_actions_area),
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area {
+    flex: 0 0 82px !important;
+    height: 82px !important;
+    min-height: 82px !important;
+    max-height: 82px !important;
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 4px 0 8px 0 !important;
+
+    overflow: hidden !important;
+    z-index: 3 !important;
+}
+
+/* The actual vertical block that contains New chat and Clear chat.
+   This selector is intentionally based on the two row keys from sidebar.py. */
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"]:has(.st-key-sidebar_new_chat_row):has(.st-key-sidebar_clear_chat_row),
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"]:has(.st-key-sidebar_new_chat):has(.st-key-sidebar_clear_chat):not(:has(.st-key-sidebar_scroll_area)) {
+    width: 100% !important;
+    height: 70px !important;
+    min-height: 70px !important;
+    max-height: 70px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    row-gap: 5px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* New chat row first, Clear chat row second. */
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat_row,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat_row,
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_new_chat_row),
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_clear_chat_row),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_new_chat_row),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_clear_chat_row),
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_new_chat),
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_clear_chat),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_new_chat),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_clear_chat),
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat .stButton,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat .stButton {
+    width: 100% !important;
+    height: 31px !important;
+    min-height: 31px !important;
+    max-height: 31px !important;
+    flex: 0 0 31px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: block !important;
+    overflow: hidden !important;
+    order: initial !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button {
+    width: 100% !important;
+    height: 31px !important;
+    min-height: 31px !important;
+    max-height: 31px !important;
+
+    margin: 0 !important;
+    padding: 6px 8px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    border: 0 !important;
+    border-radius: 8px !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+
+    background: transparent !important;
+    color: var(--text-main) !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button *,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button *,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button [data-testid="stMarkdownContainer"],
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button [data-testid="stMarkdownContainer"],
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button p,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button p,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button span,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button span,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button div,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button div {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: block !important;
+    text-align: left !important;
+
+    color: var(--text-main) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button:hover,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text-main) !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button:hover *,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button:hover * {
+    color: var(--text-main) !important;
+}
+
+/* Middle area begins only after the full action row.
+   Top padding creates the requested gap below Clear chat. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_scroll_area),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_scroll_area),
+section[data-testid="stSidebar"] .st-key-sidebar_scroll_area {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    width: 100% !important;
+
+    margin: 0 !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_scroll_area {
+    padding: 12px 0 0 0 !important;
+}
+
+/* Bottom status remains fixed and visible. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_bottom_area),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_bottom_area),
+section[data-testid="stSidebar"] .st-key-sidebar_bottom_area {
+    flex: 0 0 62px !important;
+    height: 62px !important;
+    min-height: 62px !important;
+    max-height: 62px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Native list heights. */
+section[data-testid="stSidebar"] .st-key-sidebar_history_list {
+    max-height: 125px !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_sources_list {
+    max-height: 205px !important;
+}
+
+
+
+/* =========================
+   FINAL EMERGENCY SIDEBAR FIX
+   Fixes the previous broad :has() rule that accidentally matched
+   the whole sidebar root and hid the action/scroll/bottom sections.
+========================= */
+
+/* Restore the real sidebar root layout. */
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"]:has(.st-key-sidebar_header_area):has(.st-key-sidebar_actions_area):has(.st-key-sidebar_scroll_area):has(.st-key-sidebar_bottom_area) {
+    width: 100% !important;
+    height: calc(100vh - 20px) !important;
+    min-height: 0 !important;
+    max-height: calc(100vh - 20px) !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    row-gap: 0 !important;
+
+    overflow: hidden !important;
+}
+
+/* Header stays fixed at the top. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_header_area),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_header_area),
+section[data-testid="stSidebar"] .st-key-sidebar_header_area {
+    flex: 0 0 62px !important;
+    height: 62px !important;
+    min-height: 62px !important;
+    max-height: 62px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Reserve real space for New chat and Clear chat. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_actions_area),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_actions_area),
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area {
+    flex: 0 0 76px !important;
+    height: 76px !important;
+    min-height: 76px !important;
+    max-height: 76px !important;
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 4px 0 8px 0 !important;
+
+    overflow: visible !important;
+    z-index: 5 !important;
+}
+
+/* Only the vertical block INSIDE the action area should be compact.
+   Do not target every vertical block with new/clear descendants. */
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area [data-testid="stVerticalBlock"]:has(.st-key-sidebar_new_chat_row):has(.st-key-sidebar_clear_chat_row),
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area [data-testid="stVerticalBlock"]:has(.st-key-sidebar_new_chat):has(.st-key-sidebar_clear_chat) {
+    width: 100% !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    max-height: 64px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    row-gap: 4px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
+
+/* Keep the order stable: New chat first, Clear chat second. */
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat_row {
+    order: 1 !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat_row {
+    order: 2 !important;
+}
+
+/* Stable button rows. */
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_new_chat_row),
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_clear_chat_row),
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area [data-testid="stElementContainer"]:has(.st-key-sidebar_new_chat_row),
+section[data-testid="stSidebar"] .st-key-sidebar_actions_area [data-testid="stElementContainer"]:has(.st-key-sidebar_clear_chat_row),
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat_row,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat_row,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat .stButton,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat .stButton {
+    width: 100% !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+    flex: 0 0 30px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: block !important;
+    overflow: visible !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button {
+    width: 100% !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+
+    margin: 0 !important;
+    padding: 5px 8px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    border: 0 !important;
+    border-radius: 8px !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+
+    background: transparent !important;
+    color: var(--text-main) !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button *,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button *,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button [data-testid="stMarkdownContainer"],
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button [data-testid="stMarkdownContainer"],
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button p,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button p,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button span,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button span,
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button div,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button div {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: block !important;
+    text-align: left !important;
+
+    color: var(--text-main) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_new_chat button:hover,
+section[data-testid="stSidebar"] .st-key-sidebar_clear_chat button:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text-main) !important;
+}
+
+/* Recent chats area: keep the title small, let only the history list grow. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_scroll_area),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_scroll_area),
+section[data-testid="stSidebar"] .st-key-sidebar_scroll_area {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 10px 0 0 0 !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_scroll_area > div,
+section[data-testid="stSidebar"] .st-key-sidebar_scroll_area [data-testid="stVerticalBlock"] {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    row-gap: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Fixed small Recent chats title row. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.sidebar-fixed-title),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.sidebar-fixed-title),
+section[data-testid="stSidebar"] .sidebar-fixed-title {
+    flex: 0 0 28px !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    max-height: 28px !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+}
+
+/* The history list gets the remaining space above the browser-session block. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_history_list),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_history_list) {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+}
+
+section[data-testid="stSidebar"] .st-key-sidebar_history_list {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Sources are inline in answers now, so hide any old sidebar source container. */
+section[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_sources_list),
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.st-key-sidebar_sources_list),
+section[data-testid="stSidebar"] .st-key-sidebar_sources_list {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* =========================
+   FINAL CHAT INPUT WHITE OUTLINE
+   Makes the chat box border white like ChatGPT.
+========================= */
+
+div[data-testid="stChatInput"] > div {
+    border: 1px solid rgba(255,255,255,.58) !important;
+    border-radius: 12px !important;
+    background: var(--bg-input) !important;
+    box-shadow: none !important;
+}
+
+div[data-testid="stChatInput"]:hover > div {
+    border-color: rgba(255,255,255,.78) !important;
+}
+
+div[data-testid="stChatInput"]:focus-within > div {
+    border-color: #ffffff !important;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.28) !important;
+}
+
+div[data-testid="stChatInput"] textarea,
+div[data-testid="stChatInput"] textarea:focus,
+div[data-testid="stChatInput"] textarea:focus-visible {
+    background: transparent !important;
+    color: var(--text-main) !important;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+div[data-testid="stChatInput"] [data-baseweb="textarea"],
+div[data-testid="stChatInput"] [data-baseweb="textarea"] > div {
+    background: transparent !important;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+/* =========================
+   State-based UI Markers
+   The Python UI only renders tiny marker divs.
+   All visual styling belongs here.
+========================= */
+
+/* Hide stale action buttons, export panel, and suggestion chips while answering/regenerating. */
+.stApp:has(.hide-answer-controls-active) [class*="st-key-action_area_"],
+.stApp:has(.hide-answer-controls-active) [class*="st-key-suggestion_area_"],
+.stApp:has(.hide-answer-controls-active) [class*="st-key-export_inline_panel_"] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Landing-page input position: directly below the title. */
+/* Do not add bottom chat clearance on the empty landing screen. */
+.stApp:has(.landing-chat-input-active) .block-container {
+    padding-bottom: 2rem !important;
+}
+
+.stApp:has(.landing-chat-input-active) .block-container::after {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+}
+
+.stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] {
+    position: fixed !important;
+    left: var(--sidebar-width) !important;
+    right: 0 !important;
+    top: 42vh !important;
+    bottom: auto !important;
+    z-index: 60 !important;
+    padding: 0 24px !important;
+    background: transparent !important;
+    pointer-events: none !important;
+}
+
+.stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] > div {
+    background: transparent !important;
+}
+
+.stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] div[data-testid="stChatInput"] {
+    width: min(900px, calc(100vw - var(--sidebar-width) - 96px)) !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    pointer-events: auto !important;
+    transform: none !important;
+}
+
+@media (max-width: 900px) {
+    .stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] {
+        left: 0 !important;
+        right: 0 !important;
+        padding: 0 20px !important;
+    }
+
+    .stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] div[data-testid="stChatInput"] {
+        width: calc(100vw - 40px) !important;
+        max-width: calc(100vw - 40px) !important;
+        transform: none !important;
+    }
+}
+
+/* =========================
+   Export loading row
+========================= */
+
+.export-loading-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    color: rgba(255,255,255,.82);
+    font-size: 13px;
+}
+
+/* =========================================================
+   FINAL FIX: keep chat input fixed outside the scroll area
+   Problem solved:
+   - stBottom no longer scrolls with chat messages.
+   - Chat messages get enough bottom space so the last answer/suggestions
+     are not hidden behind the fixed input.
+   - Python only renders marker divs; all layout styling remains here.
+========================================================= */
+
+/* The main chat area is the only scrollable area. */
+section[data-testid="stMain"] {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-bottom: 0 !important;
+}
+
+/* Reserve real scroll space below the last message for the fixed input. */
+section[data-testid="stMain"] .block-container,
+section[data-testid="stMain"] [data-testid="stMainBlockContainer"] {
+    padding-bottom: 190px !important;
+}
+
+/* Bigger final spacer for old browsers/Streamlit builds. */
+section[data-testid="stMain"] .block-container::after {
+    content: "" !important;
+    display: block !important;
+    height: 96px !important;
+    min-height: 96px !important;
+}
+
+/* Keep the native Streamlit bottom chat shell fixed to the viewport. */
+div[data-testid="stBottom"] {
+    position: fixed !important;
+    left: var(--sidebar-width) !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    z-index: 1000 !important;
+
+    width: auto !important;
+    min-height: 118px !important;
+    height: auto !important;
+
+    padding: 14px 24px 30px 24px !important;
+    margin: 0 !important;
+
+    background: linear-gradient(
+        180deg,
+        rgba(15,17,23,0) 0%,
+        var(--bg-main) 34%,
+        var(--bg-main) 100%
+    ) !important;
+
+    pointer-events: none !important;
+    transform: none !important;
+}
+
+/* Remove Streamlit bottom shell visual box while keeping layout. */
+div[data-testid="stBottom"] > div {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    pointer-events: none !important;
+}
+
+/* Only the real input is clickable. */
+div[data-testid="stBottom"] div[data-testid="stChatInput"] {
+    width: min(900px, calc(100vw - var(--sidebar-width) - 96px)) !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    pointer-events: auto !important;
+}
+
+/* Keep footer note aligned below the fixed input. */
+.chat-footer-note {
+    position: fixed !important;
+    left: calc(var(--sidebar-width) + 24px) !important;
+    right: 24px !important;
+    bottom: 6px !important;
+    z-index: 1001 !important;
+    pointer-events: none !important;
+}
+
+/* Landing page keeps the input near the title instead of bottom fixed. */
+.stApp:has(.landing-chat-input-active) section[data-testid="stMain"] .block-container,
+.stApp:has(.landing-chat-input-active) section[data-testid="stMain"] [data-testid="stMainBlockContainer"] {
+    padding-bottom: 2rem !important;
+}
+
+.stApp:has(.landing-chat-input-active) section[data-testid="stMain"] .block-container::after {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+}
+
+.stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] {
+    position: fixed !important;
+    left: var(--sidebar-width) !important;
+    right: 0 !important;
+    top: 42vh !important;
+    bottom: auto !important;
+    z-index: 1000 !important;
+
+    min-height: 0 !important;
+    padding: 0 24px !important;
+    background: transparent !important;
+    pointer-events: none !important;
+}
+
+.stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] div[data-testid="stChatInput"] {
+    width: min(900px, calc(100vw - var(--sidebar-width) - 96px)) !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    pointer-events: auto !important;
+    transform: none !important;
+}
+
+@media (max-width: 900px) {
+    section[data-testid="stMain"] .block-container,
+    section[data-testid="stMain"] [data-testid="stMainBlockContainer"] {
+        padding-bottom: 178px !important;
+    }
+
+    div[data-testid="stBottom"] {
+        left: 0 !important;
+        right: 0 !important;
+        padding: 14px 20px 30px 20px !important;
+    }
+
+    div[data-testid="stBottom"] div[data-testid="stChatInput"] {
+        width: calc(100vw - 40px) !important;
+        max-width: calc(100vw - 40px) !important;
+        transform: none !important;
+    }
+
+    .chat-footer-note {
+        left: 16px !important;
+        right: 16px !important;
+    }
+
+    .stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] {
+        left: 0 !important;
+        right: 0 !important;
+        padding: 0 20px !important;
+    }
+
+    .stApp:has(.landing-chat-input-active) div[data-testid="stBottom"] div[data-testid="stChatInput"] {
+        width: calc(100vw - 40px) !important;
+        max-width: calc(100vw - 40px) !important;
+        transform: none !important;
+    }
+}
+
