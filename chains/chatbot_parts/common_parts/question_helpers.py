@@ -78,6 +78,94 @@ from chains.chatbot_parts.common_parts.doc_helpers import (
 
 
 
+FOLLOWUP_REFERENCE_WORDS = {
+    "it", "its", "this", "that", "these", "those", "he", "his", "him",
+    "she", "her", "they", "their", "them", "there", "then",
+    "ito", "iyan", "yan", "iyon", "yun", "nito", "niyan", "noon",
+    "dito", "doon", "diyan", "siya", "sya", "kanya", "kaniya",
+    "nila", "sila", "kanila", "ganito", "ganyan", "ganoon",
+}
+
+QUESTION_DECISION_STOPWORDS = {
+    "a", "an", "the", "and", "or", "of", "to", "in", "on", "for", "from",
+    "with", "by", "about", "as", "at", "is", "are", "was", "were", "be",
+    "been", "being", "do", "does", "did", "can", "could", "should", "would",
+    "will", "what", "when", "where", "why", "how", "who", "which",
+    "ano", "anong", "sino", "kanino", "kailan", "kelan", "saan", "san",
+    "bakit", "paano", "paaano", "gaano", "alin", "ang", "ng", "sa", "si",
+    "ni", "kay", "kina", "mga", "ba", "bang", "naman", "pa", "po",
+    "ito", "iyan", "yan", "iyon", "yun", "nito", "niyan", "noon", "dito",
+    "doon", "diyan", "siya", "sya", "kanya", "kaniya", "nila", "sila",
+    "kanila",
+}
+
+MIN_STANDALONE_TERMS = 2
+MIN_STANDALONE_TERMS_WITH_REFERENCE = 3
+TOKEN_PATTERN = r"[a-z0-9À-ÿ\u3040-\u30ff\u3400-\u9fff]+"
+
+
+def get_decision_tokens(question):
+    # Extract generic searchable terms for deciding if the current question already has its own topic.
+    text = str(question or "").lower()
+
+    try:
+        tokens = re.findall(TOKEN_PATTERN, text, flags=re.IGNORECASE)
+    except Exception:
+        tokens = text.split()
+
+    return [token for token in tokens if token]
+
+
+def has_followup_reference_word(question):
+    # Detect pronouns and demonstratives that can make a question contextual.
+    tokens = set(get_decision_tokens(question))
+    return bool(tokens.intersection(FOLLOWUP_REFERENCE_WORDS))
+
+
+def get_current_topic_terms(question):
+    # Keep only content-like terms so Tagalog/English standalone questions do not inherit old topics.
+    terms = []
+
+    for token in get_decision_tokens(question):
+        if token in QUESTION_DECISION_STOPWORDS:
+            continue
+
+        if len(token) < MIN_SEARCHABLE_TOKEN_LENGTH:
+            continue
+
+        if token not in terms:
+            terms.append(token)
+
+    return terms
+
+
+def has_clear_current_question_topic(question):
+    # A question with enough current content should not be rewritten from chat history.
+    terms = get_current_topic_terms(question)
+
+    if not terms:
+        return False
+
+    if has_followup_reference_word(question):
+        return len(terms) >= MIN_STANDALONE_TERMS_WITH_REFERENCE
+
+    return len(terms) >= MIN_STANDALONE_TERMS
+
+
+def should_use_chat_history_for_question(question, chat_history):
+    # Use memory only for real contextual follow-ups, not standalone questions with pronouns.
+    if not str(chat_history or "").strip():
+        return False
+
+    if has_clear_current_question_topic(question):
+        return False
+
+    try:
+        return bool(is_follow_up_question(question))
+    except Exception:
+        return False
+
+
 def is_clarification_response(text):
     # True when the rewriter says the follow-up question is ambiguous.
     return str(text or "").strip().upper().startswith(str(CLARIFY_PREFIX).upper())
@@ -105,21 +193,17 @@ def get_answer_question(question, rewritten_question):
 
 def safe_rewrite_question(question, chat_history, llm):
     # Rewrite only when the user question is confirmed as a contextual follow-up.
-    # Standalone questions and ambiguous short keyword queries must keep the exact user input.
+    # Standalone questions and questions with their own subject keep the exact user input.
     question = str(question or "").strip()
     chat_history = str(chat_history or "").strip()
 
     if not question:
         return question
 
-    if not ENABLE_QUESTION_REWRITE or not chat_history:
+    if not ENABLE_QUESTION_REWRITE:
         return question
 
-    try:
-        if not is_follow_up_question(question):
-            return question
-    except Exception:
-        # If follow-up detection fails, keep the original question instead of risking a bad rewrite.
+    if not should_use_chat_history_for_question(question, chat_history):
         return question
 
     try:
@@ -141,20 +225,12 @@ def safe_rewrite_question(question, chat_history, llm):
 
 
 def get_effective_chat_history(question, chat_history):
-    # Use memory only for confirmed contextual follow-up questions.
-    # Standalone and ambiguous short keyword queries should not inherit old topics.
-    chat_history = str(chat_history or "").strip()
+    # Return chat history only for confirmed contextual follow-up questions.
+    # Standalone questions must not inherit old topics, dates, or sources.
+    if should_use_chat_history_for_question(question, chat_history):
+        return str(chat_history or "").strip()
 
-    if not chat_history:
-        return ""
-
-    try:
-        if not is_follow_up_question(question):
-            return ""
-    except Exception:
-        return ""
-
-    return chat_history
+    return ""
 
 
 # Public names exported by this compatibility/refactor module.
@@ -233,6 +309,16 @@ __all__ = [
     'get_keyword_query',
     'build_retrieval_queries',
     'combine_retrieval_queries',
+    'should_use_chat_history_for_question',
+    'has_clear_current_question_topic',
+    'get_current_topic_terms',
+    'has_followup_reference_word',
+    'get_decision_tokens',
+    'TOKEN_PATTERN',
+    'MIN_STANDALONE_TERMS_WITH_REFERENCE',
+    'MIN_STANDALONE_TERMS',
+    'QUESTION_DECISION_STOPWORDS',
+    'FOLLOWUP_REFERENCE_WORDS',
     'is_clarification_response',
     'get_clarification_answer',
     'get_answer_question',

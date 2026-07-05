@@ -294,17 +294,21 @@ def build_retrieval_queries(
     max_queries=MAX_RETRIEVAL_QUERIES,
 ):
     # Shared generic retrieval query builder for UI and tests.
+    # When a follow-up is rewritten, search the resolved question first to avoid old-topic noise.
     question = " ".join(str(question or "").split())
     rewritten_question = " ".join(str(rewritten_question or question).split())
+    rewritten_is_different = rewritten_question and rewritten_question.lower() != question.lower()
 
-    queries = [question]
-
-    if rewritten_question and rewritten_question.lower() != question.lower():
-        queries.append(rewritten_question)
+    if rewritten_is_different:
+        queries = [rewritten_question, question]
+        expansion_base = rewritten_question
+    else:
+        queries = [question]
+        expansion_base = question
 
     if enabled:
-        analyzer_query = get_query_analyzer_terms(rewritten_question or question)
-        keyword_query = get_keyword_query(rewritten_question or question)
+        analyzer_query = get_query_analyzer_terms(expansion_base)
+        keyword_query = get_keyword_query(expansion_base)
 
         if analyzer_query:
             queries.append(analyzer_query)
@@ -315,7 +319,7 @@ def build_retrieval_queries(
     # If a follow-up was rewritten, keep both original and rewritten query even when max_queries is low.
     effective_max_queries = max_queries
 
-    if rewritten_question and rewritten_question.lower() != question.lower() and max_queries:
+    if rewritten_is_different and max_queries:
         effective_max_queries = max(max_queries, 2)
 
     return normalize_query_list(queries, max_queries=effective_max_queries)
